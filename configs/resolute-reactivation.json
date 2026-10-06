@@ -1,11 +1,18 @@
 {
   "date": "2026-10-06",
-  "state": "prepared; awaiting reboot validation",
+  "state": "custom boot, primary CUDA, secondary P40, native RPC and short Nemotron inference validated",
   "primary_nvidia": "595.91.07 open",
   "kernel": "7.0.0-mk2-shiba-mk1",
   "kerf_tests": "330 passed, 1 skipped",
   "sha256": {
     "/boot/initrd.img-7.0.0-mk2-shiba-mk1": "8768d4c2b421cbcf5fd5a86979d7d26294c7a42f602d2bc7f97c00ded37171bd",
     "/home/shiba/multikernel-experiment/nvidia-open-595.91.07/nvidia.ko": "d3b0185b987eea58bc519b7a79bcc96c2e12a278dea5c81398dcdde39b7f1c3e"
-  }
+  },
+  "nemotron_single_run": {
+    "prompt_tok_s": 70.3,
+    "generation_tok_s": 76.0,
+    "generated_tokens": 16,
+    "visible_output_matches_reference": true
+  },
+  "primary_warning": "softirq.c:429 __local_bh_enable_ip via vsock socket lookup in mk_vsock hard-IRQ receive"
 }

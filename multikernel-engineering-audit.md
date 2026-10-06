@@ -913,3 +913,12 @@ Operator error in initial load: --entrypoint=/init caused Kerf's injected init t
 The rootfs fallback RPC library does not implement fast pacing flags; merely setting them on5002 was insufficient. Restored committed primary libggml-rpc.so.0 into secondary /tmp/rpc-fast through1KiB paced console chunks. Both sides SHA2565c0fb8e5279b4c1270f209e08f4d0a154cf95fcc77bd8300c4e41a4986bb75b5. Restarted only5002 with that library and NO_READ_SLEEP=1/NO_WRITE_SLEEP=1; kept5000 untouched. Primary uses committed library, NO_READ_SLEEP=1, write pacing enabled. Exact ADD passes all sizes;1MiB read5546.2us,16MiB read82367.7us.
 
 Unchanged50/50 Nemotron CLI validation started with context256,batch128,ubatch64,16generated tokens,seed42,temp0,-st,-bs and historical prompt. Log: logs/nemotron-post-resolute-50-50.log. Model load/inference result pending; API remains disabled until completion.
+
+
+### Post-upgrade Nemotron inference completed
+
+Unchanged 50/50 CLI run completed successfully:70.3 prompt /76.0 generation tok/s. This is one16-token short-context run, not a new controlled performance mean. Extracted visible output matches the historical50/50 repeat exactly (SHA25686b7f9b5aa808fd91e760a8ff9fe6a3e39c249970fa28670d99e67d784cfbe65). RTX returned to2MiB, P40 to333MiB. Corrected secondary dmesg showed no ring-full,Xid orOOM entries.
+
+Primary did emit one WARN at382.928s, before the model benchmark: kernel/softirq.c:429 __local_bh_enable_ip, from _raw_spin_unlock_bh -> vsock_find_connected_socket_net -> mk_vsock_rx_pkt -> mk_vsock_ipi_handler in hard-IRQ context. Thus the recovery is functional but not warning-free; this existing socket-lookup/IRQ integration needs a separate audit, and is not attributed to NVIDIA or virtualized PCI. No kernel patch was made in this recovery.
+
+Restored shiba-model-api.service enabled/running. Authenticated /health returns statusok,active_modelnull; /v1/models lists15 entries. No model automatically resident. Stable kernel and llama.cpp source remain unchanged; write pacing and fallback5000 retained. Post-upgrade extended-context API throughput and long-run reliability remain untested.

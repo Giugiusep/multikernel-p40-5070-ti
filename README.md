@@ -25,9 +25,11 @@ The two drivers run in separate kernels. The experiment does not require changes
 
 ## Current status
 
-The VM has now upgraded to **Ubuntu 26.04.1 LTS**. At the README update it was running the stock **6.8.0-142-generic** kernel. Multikernel was deliberately deactivated for upgrade preparation, and the model API was stopped with automatic startup disabled.
+The VM has upgraded to **Ubuntu 26.04.1 LTS** and successfully rebooted into **7.0.0-mk2-shiba-mk1**. Primary NVIDIA-open modules now match userspace **595.91.07**; the P40 secondary remains on **580.173.02**. Kerf was repaired for Python3.14 (330 tests passed). Both RPC listeners passed exact CUDA tensor tests through16MiB.
 
-**The dual-kernel inference configuration has not yet been revalidated after the release upgrade.** The results below were obtained before it. Matching NVIDIA-open 595.91.07 modules have now been rebuilt and installed for the unchanged custom kernel, Kerf has been repaired for Python 3.14 (330 tests passed), and the custom GRUB default has been restored. Reboot and GPU/transport validation are pending. The P40 stack and stable llama.cpp code remain unchanged. See `configs/resolute-reactivation.json` and the audit for preparation evidence.
+A post-upgrade50/50 Nemotron CLI test reached **70.3 prompt /76.0 generation tokens/s**, with exact visible-output agreement against the pre-upgrade reference. This is one16-token short-context run, not a replacement for the repeated72.0tokens/s reference or evidence of long-context/API throughput. The model-switching API is enabled and healthy with15 entries and no resident model.
+
+Recovery is functional but not warning-free: the primary emitted one softirq WARN in the Multikernel VSOCK hard-IRQ receive/socket-lookup path before benchmarking. No kernel changes were made; the call stack is documented in the audit for separate investigation.
 
 ## Measured results
 

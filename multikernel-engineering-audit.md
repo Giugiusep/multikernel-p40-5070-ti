@@ -902,3 +902,14 @@ Repaired Kerf for Python3.14 using venv-resolute with system Python bindings, ed
 P40 rootfs still contains proprietary580.173.02 libcuda and matching custom-kernel modules; no secondary modifications. Stable llama-server dependencies resolve. Kernel and llama.cpp branches remain clean. The release upgrade added kdump-tools.cfg with a 1GiB crashkernel reservation for this VM; preserved the fragment in the local recovery directory and renamed it .cfg.disabled to retain the pre-upgrade memory layout used by Lazy CMA. Regenerated and syntax-checked GRUB, selecting custom 7.0.0-mk2-shiba-mk1 with 15-second menu; stock7.0.0-38 and6.8.0-142 remain selectable. API remains stopped/disabled.
 
 Stopped before reboot. No post-upgrade custom-kernel boot, primary CUDA, secondary lifecycle, RPC or inference success is claimed. Next gate: user reboot, then verify both GPUs, primary CUDA, secondary lifecycle and native transport before API/model activation.
+
+
+## 2026-10-06 — Post-upgrade custom boot and dual-GPU RPC validation
+
+Rebooted successfully into unchanged 7.0.0-mk2-shiba-mk1. Primary NVIDIA-open595.91.07 initialized RTX5070Ti; pinned-memory H2D/kernel/D2H smoke passed 25 exact repetitions of4,194,304 integers. Both GPU PCI functions enumerate; P40 was unbound on primary. Loaded existing Lazy CMA and DAXFS modules, restored original3GiB pool, CPUs8-11,1792MiB secondary and P40-only assignment.
+
+Operator error in initial load: --entrypoint=/init caused Kerf's injected init to recursively launch itself, producing secondary OOM. Stopped/unloaded secondary immediately, then corrected entrypoint to existing /sbin/entrypoint and reloaded. This is not a PCI/NVIDIA or release-upgrade kernel failure. Secondary now initialized unchanged proprietary580.173.02 and P40. Conservative5000 passed exact CUDA ADD at1KiB,8KiB,64KiB,1MiB,16MiB.
+
+The rootfs fallback RPC library does not implement fast pacing flags; merely setting them on5002 was insufficient. Restored committed primary libggml-rpc.so.0 into secondary /tmp/rpc-fast through1KiB paced console chunks. Both sides SHA2565c0fb8e5279b4c1270f209e08f4d0a154cf95fcc77bd8300c4e41a4986bb75b5. Restarted only5002 with that library and NO_READ_SLEEP=1/NO_WRITE_SLEEP=1; kept5000 untouched. Primary uses committed library, NO_READ_SLEEP=1, write pacing enabled. Exact ADD passes all sizes;1MiB read5546.2us,16MiB read82367.7us.
+
+Unchanged50/50 Nemotron CLI validation started with context256,batch128,ubatch64,16generated tokens,seed42,temp0,-st,-bs and historical prompt. Log: logs/nemotron-post-resolute-50-50.log. Model load/inference result pending; API remains disabled until completion.

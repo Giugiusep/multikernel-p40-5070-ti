@@ -922,3 +922,21 @@ Unchanged 50/50 CLI run completed successfully:70.3 prompt /76.0 generation tok/
 Primary did emit one WARN at382.928s, before the model benchmark: kernel/softirq.c:429 __local_bh_enable_ip, from _raw_spin_unlock_bh -> vsock_find_connected_socket_net -> mk_vsock_rx_pkt -> mk_vsock_ipi_handler in hard-IRQ context. Thus the recovery is functional but not warning-free; this existing socket-lookup/IRQ integration needs a separate audit, and is not attributed to NVIDIA or virtualized PCI. No kernel patch was made in this recovery.
 
 Restored shiba-model-api.service enabled/running. Authenticated /health returns statusok,active_modelnull; /v1/models lists15 entries. No model automatically resident. Stable kernel and llama.cpp source remain unchanged; write pacing and fallback5000 retained. Post-upgrade extended-context API throughput and long-run reliability remain untested.
+
+
+## 2026-10-06 — Other-model post-upgrade split comparisons
+
+Sequential isolated llama-server tests on port19082, unchanged stable coordinator3e88755aa, native mkvsock:1:5002, primary read sleeps disabled/write pacing retained, conservative5000 untouched. API paused during probes and resumed afterward with unchanged catalog and contexts. Each placement uses context4096,batch128,ubatch64,fitoff,one slot,128greedy completion tokens,seed42,temp0,cache_promptfalse; local16RTX layers +CPU, split99GPU layers,layer partition. Prompt asks integers11..100. One warmup plus two measured responses per placement; prompt-cache reuse still reported internally, so prompt figures are short-prompt service observations, not exhaustive uncached prefill benchmarks.
+
+| Model | Placement | Load s | Prompt tok/s mean | Generation tok/s mean | Two measured generation rates |
+|---|---|---:|---:|---:|---|
+| glm-4.7-flash-q6-xl | local (45,55 if split) | 14.08 | 12.66 | 6.80 | 6.09 / 7.51 |
+| glm-4.7-flash-q6-xl | split (45,55 if split) | 96.03 | 273.63 | 48.06 | 48.14 / 47.98 |
+| ling-3-flash-iq2-s | local (40,60 if split) | 20.24 | 6.54 | 4.87 | 5.86 / 3.88 |
+| ling-3-flash-iq2-s | split (40,60 if split) | 154.09 | 72.99 | 30.22 | 30.22 / 30.23 |
+
+All three outputs per placement match byte-for-byte for each model; GLM digest0f5957159ab60659347c773c1293f9d81c759deac9c9e29a924f3162798709f6, Ling digestb09c4da2d4a09dd8b1e8c8d618340b36e4c5605a637a82635a165d41d5d06876. GLM's returned integer sequence was additionally checked deterministically against a contiguous ascending range; Ling's128token cap ends within the next integer, identically in both placements. Single-prompt deterministic agreement is not general model correctness proof.
+
+GLM split/local measured means48.06/6.80tok/s (~7.07x); Ling30.22/4.87 (~6.21x). Local rates vary noticeably; split repeats are tight. Cold-load durations96.03sGLM/154.09sLing differ from historical tests; no unmeasured explanation or general cold-load guarantee is claimed. Ling split fit with observed14,738MiBRTX and21,879MiBP40 during loading. Secondary dmesg after both probes: noXid,ring-full orOOM. RTX returned2MiB; P40347MiB. Primary's previously documented single softirqWARN remains a separate issue.
+
+Mistral staysRTX-only per user request after prior freeze; Qwen27B distributed remains blocked by historical output mismatch; MuseQ8 unchanged split would repeat secondaryOOM; K2 publisher fork lacks native transport. Models fitting entirely onRTX remain local. No high-context split alias was added for GLM/Ling: these are4K feasibility/performance checks and do not validate their262K/202K API allocations. Existing15entry API resumed with no model resident. No kernel,NVIDIA,transport source or pacing changes. Raw response/timing reports and reproducible harness are archived in model-api/.

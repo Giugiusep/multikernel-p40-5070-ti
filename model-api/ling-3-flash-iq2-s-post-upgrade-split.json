@@ -1,0 +1,177 @@
+{
+  "model": "ling-3-flash-iq2-s",
+  "context": 4096,
+  "split": "40,60",
+  "max_tokens": 128,
+  "prompt": "Write the integers from 11 through 100 in order, separated by spaces. Do not add an introduction or explanation.",
+  "runs": [
+    {
+      "mode": "local",
+      "command": [
+        "/home/shiba/llama.cpp/build-main-cuda-rpc-128/bin/llama-server",
+        "-m",
+        "/home/shiba/models/ling-3.0-flash-IQ2_S/Ling-3.0-flash-IQ2_S.gguf",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "19082",
+        "-c",
+        "4096",
+        "-b",
+        "128",
+        "-ub",
+        "64",
+        "-ngl",
+        "16",
+        "--fit",
+        "off",
+        "--no-ui",
+        "-np",
+        "1"
+      ],
+      "responses": [
+        {
+          "index": 0,
+          "text": "\n11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 5",
+          "sha256": "b09c4da2d4a09dd8b1e8c8d618340b36e4c5605a637a82635a165d41d5d06876",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 27,
+            "prompt_ms": 8809.317,
+            "prompt_per_token_ms": 326.27099999999996,
+            "prompt_per_second": 3.0649368163275317,
+            "predicted_n": 128,
+            "predicted_ms": 24505.408,
+            "predicted_per_token_ms": 192.95596850393702,
+            "predicted_per_second": 5.182529505323886
+          },
+          "tokens_predicted": 128
+        },
+        {
+          "index": 1,
+          "text": "\n11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 5",
+          "sha256": "b09c4da2d4a09dd8b1e8c8d618340b36e4c5605a637a82635a165d41d5d06876",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 27,
+            "prompt_ms": 4238.379,
+            "prompt_per_token_ms": 156.977,
+            "prompt_per_second": 6.370359989042981,
+            "predicted_n": 128,
+            "predicted_ms": 21685.568,
+            "predicted_per_token_ms": 170.75250393700787,
+            "predicted_per_second": 5.856429492646907
+          },
+          "tokens_predicted": 128
+        },
+        {
+          "index": 2,
+          "text": "\n11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 5",
+          "sha256": "b09c4da2d4a09dd8b1e8c8d618340b36e4c5605a637a82635a165d41d5d06876",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 27,
+            "prompt_ms": 4022.135,
+            "prompt_per_token_ms": 148.96796296296296,
+            "prompt_per_second": 6.712852751088663,
+            "predicted_n": 128,
+            "predicted_ms": 32702.053,
+            "predicted_per_token_ms": 257.49648031496065,
+            "predicted_per_second": 3.8835482286081553
+          },
+          "tokens_predicted": 128
+        }
+      ],
+      "load_seconds": 20.242573253000046
+    },
+    {
+      "mode": "split",
+      "command": [
+        "/home/shiba/llama.cpp/build-main-cuda-rpc-128/bin/llama-server",
+        "-m",
+        "/home/shiba/models/ling-3.0-flash-IQ2_S/Ling-3.0-flash-IQ2_S.gguf",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "19082",
+        "-c",
+        "4096",
+        "-b",
+        "128",
+        "-ub",
+        "64",
+        "-ngl",
+        "99",
+        "--fit",
+        "off",
+        "--no-ui",
+        "-np",
+        "1",
+        "--rpc",
+        "mkvsock:1:5002",
+        "--device",
+        "CUDA0,RPC0",
+        "--split-mode",
+        "layer",
+        "--tensor-split",
+        "40,60"
+      ],
+      "responses": [
+        {
+          "index": 0,
+          "text": "\n11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 5",
+          "sha256": "b09c4da2d4a09dd8b1e8c8d618340b36e4c5605a637a82635a165d41d5d06876",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 27,
+            "prompt_ms": 446.288,
+            "prompt_per_token_ms": 16.529185185185185,
+            "prompt_per_second": 60.499049940845374,
+            "predicted_n": 128,
+            "predicted_ms": 4213.64,
+            "predicted_per_token_ms": 33.17826771653544,
+            "predicted_per_second": 30.140211313733495
+          },
+          "tokens_predicted": 128
+        },
+        {
+          "index": 1,
+          "text": "\n11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 5",
+          "sha256": "b09c4da2d4a09dd8b1e8c8d618340b36e4c5605a637a82635a165d41d5d06876",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 27,
+            "prompt_ms": 370.147,
+            "prompt_per_token_ms": 13.709148148148147,
+            "prompt_per_second": 72.94399252188995,
+            "predicted_n": 128,
+            "predicted_ms": 4202.284,
+            "predicted_per_token_ms": 33.08885039370078,
+            "predicted_per_second": 30.221660411338217
+          },
+          "tokens_predicted": 128
+        },
+        {
+          "index": 2,
+          "text": "\n11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 5",
+          "sha256": "b09c4da2d4a09dd8b1e8c8d618340b36e4c5605a637a82635a165d41d5d06876",
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 27,
+            "prompt_ms": 369.709,
+            "prompt_per_token_ms": 13.692925925925927,
+            "prompt_per_second": 73.03041040385817,
+            "predicted_n": 128,
+            "predicted_ms": 4201.579,
+            "predicted_per_token_ms": 33.083299212598426,
+            "predicted_per_second": 30.22673142644706
+          },
+          "tokens_predicted": 128
+        }
+      ],
+      "load_seconds": 154.0873454550001
+    }
+  ],
+  "exact_measured_agreement": true,
+  "stable_measured_outputs": true
+}

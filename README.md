@@ -45,6 +45,17 @@ The final 50/50 CLI reference had generation runs of 71.9 and 72.1 tokens/s. The
 
 Native transport initially measured a 52.920 µs ping/pong RTT, 135.47 MiB/s for 1 MiB and 129.02 MiB/s for 16 MiB. Removing unnecessary read and secondary-send progress sleeps brought a verified 512 KiB return to 2.452 ms. These measurements come from different isolated tests, not one simultaneous benchmark.
 
+### Other split-model checks after the upgrade
+
+Isolated4K-context tests, one warmup and two measured128token greedy completions per placement, with exact local/split output agreement on the tested prompt:
+
+| Model | RTX/P40 split | Local RTX+CPU decode | Split decode | Split load |
+|---|---|---:|---:|---:|
+| GLM4.7Flash Q6_XL |45/55|6.80tok/s|48.06tok/s|96.03s|
+| Ling3.0Flash IQ2_S |40/60|4.87tok/s|30.22tok/s|154.09s|
+
+These are short-context mean rates, not validated large-context API profiles. The live catalog is unchanged. Mistral remainsRTX-only; distributed Qwen27B output correctness, Muse secondaryRAM capacity, and K2 native transport remain unresolved. Reports and the isolated harness are in `model-api/`.
+
 ## Transport and safeguards
 
 The socket explicitly selects Multikernel transport:

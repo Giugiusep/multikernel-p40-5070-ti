@@ -882,3 +882,12 @@ The configuration is **not yet validated for a release upgrade**. The primary NV
 
 Before the release upgrade, preserve the working kernel/initramfs/modules, matching NVIDIA packages and secondary rootfs; decide how to maintain matching NVIDIA kernel/userspace versions; validate Kerf and the existing secondary boot/transport/CUDA path under the new userspace on a restored copy of the VM. Confirm GRUB still chooses the custom kernel after package changes. This assessment did not start the release upgrade, change package holds, modify drivers, or reboot the VM.
 
+
+
+## 2026-10-06 — Stock-kernel boot prepared for release upgrade
+
+GitHub recovery snapshot was pushed to Giugiusep/multikernel-p40-5070-ti, commit 1b2f2b7. Saved /boot, custom-kernel modules, GRUB and apt source/preferences configurations in /home/shiba/multikernel-upgrade-recovery-20261006/boot-and-custom-modules.tar.gz (359 MiB), with SHA-256 file. This local archive is excluded from Git.
+
+Changed the GRUB default to stock 6.8.0-142-generic with a 15-second menu; custom 7.0.0-mk2-shiba-mk1 remains selectable. update-grub and grub-script-check succeeded. Stock NVIDIA module version is 595.84 and DKMS reports it installed. No driver changes or package upgrades performed. Kerf reports no secondary instances or loaded secondary kernels. The shiba-model-api user service was enabled before preparation and is now stopped/disabled to prevent model startup during upgrade work. Restore it with systemctl --user enable --now shiba-model-api.service only after the desired GPU/runtime configuration is verified.
+
+Next step is a user-controlled reboot into stock Ubuntu, followed by kernel, NVIDIA, networking and package checks before updating packages or invoking do-release-upgrade. Restore the custom boot default using the saved 99-multikernel-experiment.cfg and update-grub, after matching NVIDIA module/userspace compatibility is established.

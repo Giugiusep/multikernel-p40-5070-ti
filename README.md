@@ -27,7 +27,7 @@ The two drivers run in separate kernels. The experiment does not require changes
 
 The VM has now upgraded to **Ubuntu 26.04.1 LTS**. At the README update it was running the stock **6.8.0-142-generic** kernel. Multikernel was deliberately deactivated for upgrade preparation, and the model API was stopped with automatic startup disabled.
 
-**The dual-kernel inference configuration has not yet been revalidated after the release upgrade.** The results below were obtained before it. Restoring the custom kernel requires checking NVIDIA userspace/module compatibility and rebuilding modules if necessary.
+**The dual-kernel inference configuration has not yet been revalidated after the release upgrade.** The results below were obtained before it. Matching NVIDIA-open 595.91.07 modules have now been rebuilt and installed for the unchanged custom kernel, Kerf has been repaired for Python 3.14 (330 tests passed), and the custom GRUB default has been restored. Reboot and GPU/transport validation are pending. The P40 stack and stable llama.cpp code remain unchanged. See `configs/resolute-reactivation.json` and the audit for preparation evidence.
 
 ## Measured results
 

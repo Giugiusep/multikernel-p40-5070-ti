@@ -1,0 +1,225 @@
+From 6b68d121217fab8454f313ed21459c1c545747f1 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Sun, 20 Sep 2026 15:28:57 +0000
+Subject: [PATCH 12/15] tools: add opt-in Multikernel CUDA timeline probes
+
+---
+ tools/mk_cupti_clock.c       |  22 ++++++++
+ tools/mk_p40_cupti_probe.cpp | 103 +++++++++++++++++++++++++++++++++++
+ tools/mk_vsock_clock_cal.c   |  68 +++++++++++++++++++++++
+ 3 files changed, 193 insertions(+)
+ create mode 100644 tools/mk_cupti_clock.c
+ create mode 100644 tools/mk_p40_cupti_probe.cpp
+ create mode 100644 tools/mk_vsock_clock_cal.c
+
+diff --git a/tools/mk_cupti_clock.c b/tools/mk_cupti_clock.c
+new file mode 100644
+index 000000000..757501301
+--- /dev/null
++++ b/tools/mk_cupti_clock.c
+@@ -0,0 +1,22 @@
++#include <cupti.h>
++#include <stdint.h>
++#include <stdio.h>
++#include <time.h>
++
++static uint64_t realtime_ns(void) {
++    struct timespec t;
++    clock_gettime(CLOCK_REALTIME, &t);
++    return (uint64_t)t.tv_sec * 1000000000ULL + t.tv_nsec;
++}
++int main(void) {
++    for (int i=0; i<10; i++) {
++        uint64_t a=realtime_ns(), b=0;
++        CUptiResult result=cuptiGetTimestamp(&b);
++        uint64_t c=realtime_ns();
++        if (result != CUPTI_SUCCESS) return 1;
++        printf("realtime_before=%llu cupti=%llu realtime_after=%llu offset_ns=%lld\n",
++            (unsigned long long)a,(unsigned long long)b,(unsigned long long)c,
++            (long long)((int64_t)b-(int64_t)((a+c)/2)));
++    }
++    return 0;
++}
+diff --git a/tools/mk_p40_cupti_probe.cpp b/tools/mk_p40_cupti_probe.cpp
+new file mode 100644
+index 000000000..878c6c5ff
+--- /dev/null
++++ b/tools/mk_p40_cupti_probe.cpp
+@@ -0,0 +1,103 @@
++// Opt-in diagnostic preload for profiling the P40 RPC worker. It does not
++// change ggml's computation or CUDA configuration.
++#include <cupti.h>
++#include <cupti_activity.h>
++
++#include <atomic>
++#include <chrono>
++#include <csignal>
++#include <cstdio>
++#include <cstdlib>
++#include <cstring>
++#include <dlfcn.h>
++#include <mutex>
++#include <thread>
++
++namespace {
++std::atomic<bool> dump_requested{false};
++std::atomic<bool> active{false};
++std::mutex file_mutex;
++FILE * output = nullptr;
++
++void check(CUptiResult result, const char * call) {
++    if (result == CUPTI_SUCCESS) return;
++    const char * reason = nullptr;
++    cuptiGetResultString(result, &reason);
++    std::fprintf(stderr, "mk-cupti: %s: %s\n", call, reason ? reason : "unknown");
++}
++
++void CUPTIAPI request_buffer(uint8_t ** buffer, size_t * size, size_t * max_records) {
++    constexpr size_t capacity = 1024 * 1024;
++    void * memory = nullptr;
++    if (posix_memalign(&memory, 8, capacity) != 0) memory = nullptr;
++    *buffer = static_cast<uint8_t *>(memory);
++    *size = memory ? capacity : 0;
++    *max_records = 0;
++}
++
++void CUPTIAPI complete_buffer(CUcontext context, uint32_t stream, uint8_t * buffer,
++                              size_t, size_t valid) {
++    std::lock_guard<std::mutex> lock(file_mutex);
++    if (output && valid) {
++        CUpti_Activity * activity = nullptr;
++        while (cuptiActivityGetNextRecord(buffer, valid, &activity) == CUPTI_SUCCESS) {
++            if (activity->kind == CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL) {
++                const auto * k = reinterpret_cast<const CUpti_ActivityKernel9 *>(activity);
++                std::fprintf(output, "kernel,%llu,%llu,%u,%u,%s\n",
++                             (unsigned long long) k->start, (unsigned long long) k->end,
++                             k->streamId, k->correlationId, k->name ? k->name : "?");
++            } else if (activity->kind == CUPTI_ACTIVITY_KIND_MEMCPY) {
++                const auto * m = reinterpret_cast<const CUpti_ActivityMemcpy6 *>(activity);
++                std::fprintf(output, "memcpy,%llu,%llu,%u,%u,%llu,%u\n",
++                             (unsigned long long) m->start, (unsigned long long) m->end,
++                             m->streamId, m->correlationId,
++                             (unsigned long long) m->bytes, unsigned(m->copyKind));
++            } else if (activity->kind == CUPTI_ACTIVITY_KIND_RUNTIME) {
++                const auto * a = reinterpret_cast<const CUpti_ActivityAPI *>(activity);
++                std::fprintf(output, "runtime,%llu,%llu,%u,%u\n",
++                             (unsigned long long) a->start, (unsigned long long) a->end,
++                             a->cbid, a->correlationId);
++            }
++        }
++        std::fflush(output);
++    }
++    free(buffer);
++    (void) context;
++    (void) stream;
++}
++
++void on_signal(int) { dump_requested.store(true, std::memory_order_relaxed); }
++
++void start_probe() {
++    const char * path = std::getenv("MK_P40_CUPTI_LOG");
++    if (!path) return;
++    output = std::fopen(path, "w");
++    if (!output) return;
++    check(cuptiActivityRegisterCallbacks(request_buffer, complete_buffer), "register");
++    check(cuptiActivityEnable(CUPTI_ACTIVITY_KIND_CONCURRENT_KERNEL), "kernel");
++    check(cuptiActivityEnable(CUPTI_ACTIVITY_KIND_MEMCPY), "memcpy");
++    check(cuptiActivityEnable(CUPTI_ACTIVITY_KIND_RUNTIME), "runtime");
++    active.store(true);
++    std::signal(SIGUSR2, on_signal);
++    std::thread([] {
++        while (active.load()) {
++            if (dump_requested.exchange(false)) {
++                check(cuptiActivityFlushAll(0), "flush");
++                std::lock_guard<std::mutex> lock(file_mutex);
++                if (output) std::fflush(output);
++            }
++            std::this_thread::sleep_for(std::chrono::milliseconds(20));
++        }
++    }).detach();
++    std::fprintf(stderr, "mk-cupti: recording %s; SIGUSR2 flushes\n", path);
++}
++} // namespace
++
++extern "C" int ggml_backend_graph_compute(void * backend, void * graph) {
++    using graph_compute_fn = int (*)(void *, void *);
++    static graph_compute_fn original = reinterpret_cast<graph_compute_fn>(
++        dlsym(RTLD_NEXT, "ggml_backend_graph_compute"));
++    static std::once_flag first;
++    std::call_once(first, start_probe);
++    return original(backend, graph);
++}
+diff --git a/tools/mk_vsock_clock_cal.c b/tools/mk_vsock_clock_cal.c
+new file mode 100644
+index 000000000..2d8d6d3ec
+--- /dev/null
++++ b/tools/mk_vsock_clock_cal.c
+@@ -0,0 +1,68 @@
++// Measure the primary/secondary CLOCK_REALTIME offset over Multikernel VSOCK.
++#include <errno.h>
++#include <linux/vm_sockets.h>
++#include <stdint.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <sys/socket.h>
++#include <time.h>
++#include <unistd.h>
++
++enum { PORT = 6004, COUNT = 100 };
++
++static uint64_t ns(void) {
++    struct timespec ts;
++    clock_gettime(CLOCK_REALTIME, &ts);
++    return (uint64_t) ts.tv_sec * 1000000000ULL + (uint64_t) ts.tv_nsec;
++}
++static int full(int fd, void *ptr, size_t len, int sending) {
++    char * p = ptr;
++    while (len) {
++        ssize_t n = sending ? send(fd, p, len, 0) : recv(fd, p, len, 0);
++        if (n < 0 && errno == EINTR) continue;
++        if (n <= 0) return -1;
++        p += n; len -= (size_t) n;
++    }
++    return 0;
++}
++static int sock(void) {
++    int fd = socket(AF_VSOCK, SOCK_STREAM, 0), transport = 1;
++    if (fd < 0 || setsockopt(fd, AF_VSOCK, 9, &transport, sizeof(transport))) {
++        perror("vsock"); exit(1);
++    }
++    return fd;
++}
++int main(int argc, char ** argv) {
++    if (argc != 2) { fprintf(stderr, "usage: %s server|client\n", argv[0]); return 2; }
++    int fd = sock();
++    if (!strcmp(argv[1], "server")) {
++        struct sockaddr_vm addr = {.svm_family=AF_VSOCK,.svm_cid=VMADDR_CID_ANY,.svm_port=PORT};
++        if (bind(fd,(void *)&addr,sizeof(addr)) || listen(fd,1)) { perror("bind/listen"); return 1; }
++        puts("CLOCK_SERVER_READY"); fflush(stdout);
++        int c = accept(fd,NULL,NULL);
++        for (int i=0;i<COUNT;i++) {
++            uint64_t t0, times[2];
++            if (full(c,&t0,sizeof(t0),0)) return 1;
++            times[0] = ns(); times[1] = ns();
++            if (full(c,times,sizeof(times),1)) return 1;
++        }
++        close(c); close(fd); return 0;
++    }
++    if (strcmp(argv[1], "client")) return 2;
++    struct sockaddr_vm addr = {.svm_family=AF_VSOCK,.svm_cid=1,.svm_port=PORT};
++    if (connect(fd,(void *)&addr,sizeof(addr))) { perror("connect"); return 1; }
++    int64_t best_rtt = INT64_MAX, best_offset = 0;
++    for (int i=0;i<COUNT;i++) {
++        uint64_t t0=ns(), times[2], t3;
++        if (full(fd,&t0,sizeof(t0),1) || full(fd,times,sizeof(times),0)) return 1;
++        t3=ns();
++        int64_t rtt=((int64_t)t3-(int64_t)t0)-((int64_t)times[1]-(int64_t)times[0]);
++        int64_t offset=(((int64_t)times[0]-(int64_t)t0)+
++                        ((int64_t)times[1]-(int64_t)t3))/2;
++        if (rtt<best_rtt) { best_rtt=rtt; best_offset=offset; }
++    }
++    printf("secondary_minus_primary_ns=%lld best_rtt_ns=%lld\n",
++           (long long)best_offset,(long long)best_rtt);
++    close(fd); return 0;
++}

@@ -1,0 +1,28 @@
+#!/bin/sh
+export PATH=/bin:/sbin:/opt/rpc
+export LD_LIBRARY_PATH=/opt/rpc/lib:/lib:/lib/x86_64-linux-gnu
+export HOME=/tmp
+export GGML_RPC_NO_RDMA=1
+mkdir -p /tmp /dev/shm
+mount -t tmpfs -o size=256m tmpfs /tmp
+mount -t tmpfs -o size=64m tmpfs /dev/shm
+
+echo 'RPC_P40_SECONDARY_START'
+uname -a
+insmod "/lib/modules/$(uname -r)/nvidia.ko" || exec sh
+nvidia-modprobe -c 0 || true
+insmod "/lib/modules/$(uname -r)/nvidia-uvm.ko" || exec sh
+nvidia-modprobe -u -c 0 || true
+nvidia-smi || exec sh
+
+ggml-rpc-server --host mkvsock --port 5000 --device CUDA0 > /tmp/ggml-rpc.log 2>&1 &
+rpc_pid=$!
+sleep 2
+kill -0 "$rpc_pid" || { cat /tmp/ggml-rpc.log; exec sh; }
+echo "RPC_P40_READY rpc_pid=$rpc_pid transport=multikernel-vsock vsock_cid=1 port=5000"
+cat /tmp/ggml-rpc.log
+export PS1='mk-rpc-p40# '
+while true; do
+    setsid cttyhack /bin/sh
+    echo 'Shell exited; returning to the RPC P40 console.'
+done

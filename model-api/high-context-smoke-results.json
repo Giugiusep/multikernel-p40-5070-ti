@@ -1,0 +1,104 @@
+{
+  "qwen3.8-flash-next-strata": {
+    "model": "qwen3.8-flash-next-strata",
+    "max_tokens": 128,
+    "load_seconds": 28.15,
+    "switch": {
+      "active_model": "qwen3.8-flash-next-strata"
+    },
+    "answer_seconds": 2.27,
+    "content": "4",
+    "reasoning_excerpt": "We need answer user's request: \"Reply with the numeral 4.\" Need final only 4. Ensure no extra.\n",
+    "usage": {
+      "prompt_tokens": 59,
+      "completion_tokens": 30,
+      "total_tokens": 89
+    },
+    "finish_reason": "stop",
+    "passed": true
+  },
+  "k2-horizon-mova-q4-k-m": {
+    "model": "k2-horizon-mova-q4-k-m",
+    "max_tokens": 128,
+    "load_seconds": 16.05,
+    "switch": {
+      "active_model": "k2-horizon-mova-q4-k-m"
+    },
+    "answer_seconds": 3.32,
+    "content": "4",
+    "reasoning_excerpt": "The user says: \"Reply with the numeral 4.\" So they want the assistant to reply with the numeral 4. The instruction is straightforward: respond with \"4\". There's no conflict with po",
+    "usage": {
+      "completion_tokens": 52,
+      "prompt_tokens": 17,
+      "total_tokens": 69,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "passed": true
+  },
+  "nemotron3-nano-4b-q4-k-m": {
+    "model": "nemotron3-nano-4b-q4-k-m",
+    "max_tokens": 128,
+    "load_seconds": 2.93,
+    "switch": {
+      "active_model": "nemotron3-nano-4b-q4-k-m"
+    },
+    "answer_seconds": 0.25,
+    "content": "4",
+    "reasoning_excerpt": "The user says: \"Reply with the numeral 4.\" So we should output \"4\". No extra text. Just numeral 4.\n",
+    "usage": {
+      "completion_tokens": 32,
+      "prompt_tokens": 24,
+      "total_tokens": 56,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "passed": true
+  },
+  "mistral-small-4-iq2-xxs": {
+    "model": "mistral-small-4-iq2-xxs",
+    "max_tokens": 128,
+    "load_seconds": 22.59,
+    "switch": {
+      "active_model": "mistral-small-4-iq2-xxs"
+    },
+    "answer_seconds": 4.7,
+    "content": "4",
+    "reasoning_excerpt": "",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 564,
+      "total_tokens": 566,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "passed": true
+  },
+  "nemotron-3.5-lightning-q8": {
+    "model": "nemotron-3.5-lightning-q8",
+    "max_tokens": 128,
+    "load_seconds": 22.74,
+    "switch": {
+      "active_model": "nemotron-3.5-lightning-q8"
+    },
+    "answer_seconds": 12.1,
+    "content": "4",
+    "reasoning_excerpt": "Here's a thinking process:\n\n1.  **Analyze User Input:** The user says \"Reply with the numeral 4.\"\n2.  **Identify Task:** The user wants me to output the number 4 as a numeral.\n3.  ",
+    "usage": {
+      "completion_tokens": 108,
+      "prompt_tokens": 23,
+      "total_tokens": 131,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "passed": true
+  }
+}

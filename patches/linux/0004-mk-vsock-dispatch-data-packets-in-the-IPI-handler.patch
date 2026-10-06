@@ -1,0 +1,36 @@
+From 5cbd065eb760680610ea87d05a1b263a91415349 Mon Sep 17 00:00:00 2001
+From: Shiba Multikernel Experiment <shiba@localhost>
+Date: Wed, 16 Sep 2026 16:00:32 +0000
+Subject: [PATCH 04/10] mk vsock: dispatch data packets in the IPI handler
+
+Avoid accumulating bulk RPC skbs behind the single deferred receive worker. Keep connection-management packets deferred because they may sleep.
+
+Assisted-by: Codex
+---
+ net/vmw_vsock/mk_transport.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/net/vmw_vsock/mk_transport.c b/net/vmw_vsock/mk_transport.c
+index 8440ec4..6f7d0a1 100644
+--- a/net/vmw_vsock/mk_transport.c
++++ b/net/vmw_vsock/mk_transport.c
+@@ -301,7 +301,18 @@ static void mk_vsock_ipi_handler(u32 msg_type, u32 subtype,
+ 	skb_put_data(skb, payload, payload_len);
+ 
+ 	hdr = (struct virtio_vsock_hdr *)skb->data;
+-	mk_queue_rx_pkt(skb);
++	/*
++	 * RW packets are already fully formed and their receive path only
++	 * takes socket-table/queue spinlocks and wakes readers.  Dispatch them
++	 * here, while the IPI interrupt is active, so the single deferred worker
++	 * cannot accumulate an unbounded skb backlog during bulk RPC transfers.
++	 * Connection-management packets remain deferred because they may create
++	 * sockets and allocate with GFP_KERNEL.
++	 */
++	if (le16_to_cpu(hdr->op) == VIRTIO_VSOCK_OP_RW)
++		mk_vsock_rx_pkt(skb);
++	else
++		mk_queue_rx_pkt(skb);
+ }
+ 
+ /*

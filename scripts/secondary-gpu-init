@@ -1,0 +1,32 @@
+#!/bin/sh
+export PATH=/bin:/sbin
+export LD_LIBRARY_PATH=/lib:/lib/x86_64-linux-gnu
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+mount -t devtmpfs devtmpfs /dev
+mkdir -p /dev/pts /run /tmp
+mount -t devpts devpts /dev/pts
+mount -t tmpfs tmpfs /run
+mount -t tmpfs tmpfs /tmp
+hostname mk-p40-test
+echo 'MULTIKERNEL SECONDARY: isolated Tesla P40 proprietary-driver test'
+uname -a
+cat /proc/cmdline
+cat /sys/devices/system/cpu/online
+head /proc/meminfo
+echo 'PCI inventory before driver load:'
+busybox lspci -nn
+for device in /sys/bus/pci/devices/*; do
+    echo "DEVICE $device"
+    cat "$device/vendor" "$device/device" "$device/class"
+    cat "$device/resource"
+    test -e "$device/irq" && { printf 'IRQ '; cat "$device/irq"; }
+done
+echo 'Driver modules and matching 580.173.02 userspace are present but not loaded.'
+echo 'Use /sbin/load-p40-driver, then nvidia-smi, then cuda-secondary-smoke.'
+echo 'Use poweroff -f only after the test commands complete.'
+export PS1='mk-p40# '
+while true; do
+    setsid cttyhack /bin/sh
+    echo 'Shell exited; returning to the secondary console.'
+done

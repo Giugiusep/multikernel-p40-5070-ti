@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-06",
+  "kernel": "7.0.0-mk2-shiba-mk1",
+  "primary_nvidia": "595.84 open",
+  "secondary_nvidia": "580.173.02 proprietary",
+  "repositories": {
+    "linux": {
+      "upstream": "https://github.com/multikernel/linux",
+      "head": "df0139d5edbd5169ad63cb6f51df57071a13e45b",
+      "branch": "experiment/shiba-multikernel",
+      "patch_base": "3bdd35b64413da0b4e089ce931bfc2e8b031cbf7",
+      "patch_count": 10
+    },
+    "llama.cpp": {
+      "upstream": "https://github.com/ggml-org/llama.cpp.git",
+      "head": "3e88755aaf1e05c1e9858bb35f3507bef7ff0e97",
+      "branch": "experiment/multikernel-rpc-transport",
+      "patch_base": "c841aeeb8bb2fe417038dadfa9b007cf1a9ef950",
+      "patch_count": 15
+    },
+    "kerf": {
+      "upstream": "https://github.com/multikernel/kerf",
+      "head": "49fd9444c2571805dd23160673c3ca4a2a3e3229",
+      "branch": "experiment/shiba-multikernel"
+    },
+    "daxfs": {
+      "upstream": "https://github.com/multikernel/daxfs.git",
+      "head": "11ab401585b79b4a7c9164019852e0219e197d13",
+      "branch": "experiment/shiba-multikernel"
+    }
+  },
+  "build_artifact_sha256": {
+    "/boot/vmlinuz-7.0.0-mk2-shiba-mk1": "826ebf102ddab904c427e4769412babf32c36e9868f360961bcfacf01f820f6e",
+    "/boot/initrd.img-7.0.0-mk2-shiba-mk1": "b4291bc7f1c2bc2bcd7182ac05cbb9b2c945a80d3ce566597e7a6aa04ff3d0b3",
+    "/home/shiba/multikernel-experiment/build/vmlinux": "fa111a4637d2ca883130af165a12b5e839a0d765119ddd9b736d7f2cf1456b3e",
+    "/home/shiba/multikernel-experiment/lazy_cma/lazy_cma.ko": "5abbd89916918096b4ad01f2f28dd094f8fbc16cac743372f8ad2abda6cbc0c9",
+    "/home/shiba/multikernel-experiment/nvidia-open-595.84/nvidia.ko": "070183a07d0e3443d10176bd49b7efaf9cd98a8cbdb9afcf9de10164679f9e56",
+    "/home/shiba/multikernel-experiment/artifacts/secondary-daxfs-bootstrap-initramfs.cpio.gz": "902b144eab1dc7f19e6d296b055da5e96d6cf891b74262ad3ded4beef25f1c80"
+  }
+}

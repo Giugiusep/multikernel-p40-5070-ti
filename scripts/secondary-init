@@ -1,0 +1,22 @@
+#!/bin/sh
+export PATH=/bin:/sbin
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+mount -t devtmpfs devtmpfs /dev
+mkdir -p /dev/pts /run /tmp
+mount -t devpts devpts /dev/pts
+mount -t tmpfs tmpfs /run
+mount -t tmpfs tmpfs /tmp
+hostname mk-cpu-test
+echo 'MULTIKERNEL SECONDARY: minimal CPU/RAM test environment'
+uname -a
+cat /proc/cmdline
+cat /sys/devices/system/cpu/online
+head /proc/meminfo
+echo 'No disk root or NVIDIA modules are included in this initramfs.'
+echo 'Use poweroff -f for the secondary shutdown test.'
+export PS1='mk-secondary# '
+while true; do
+    setsid cttyhack /bin/sh
+    echo 'Shell exited; returning to the secondary console.'
+done

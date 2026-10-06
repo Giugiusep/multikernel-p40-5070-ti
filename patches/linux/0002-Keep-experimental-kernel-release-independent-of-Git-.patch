@@ -1,0 +1,21 @@
+From 741ee211eab026443245c9ec5b187983fc645cc1 Mon Sep 17 00:00:00 2001
+From: Codex <codex@localhost>
+Date: Sun, 13 Sep 2026 11:48:54 +0000
+Subject: [PATCH 02/10] Keep experimental kernel release independent of Git
+ worktree status
+
+---
+ experiments/shiba/configure-kernel.sh | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/experiments/shiba/configure-kernel.sh b/experiments/shiba/configure-kernel.sh
+index d983d8d..9b445aa 100644
+--- a/experiments/shiba/configure-kernel.sh
++++ b/experiments/shiba/configure-kernel.sh
+@@ -1,5 +1,6 @@
+ #!/usr/bin/env bash
+ set -euo pipefail
++export LOCALVERSION=
+ base=/home/shiba/multikernel-experiment
+ src="$base/source"
+ build="$base/build"

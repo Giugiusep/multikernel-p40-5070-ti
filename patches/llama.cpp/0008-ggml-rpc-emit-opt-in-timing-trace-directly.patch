@@ -1,0 +1,36 @@
+From 2818e3ad7aa8dc7aa2f80409dc7dffc82adffd2c Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Fri, 18 Sep 2026 16:49:24 +0000
+Subject: [PATCH 08/15] ggml rpc: emit opt-in timing trace directly
+
+---
+ ggml/src/ggml-rpc/ggml-rpc.cpp | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/ggml/src/ggml-rpc/ggml-rpc.cpp b/ggml/src/ggml-rpc/ggml-rpc.cpp
+index 60ea7a9cb..0dff1a34d 100644
+--- a/ggml/src/ggml-rpc/ggml-rpc.cpp
++++ b/ggml/src/ggml-rpc/ggml-rpc.cpp
+@@ -23,6 +23,7 @@
+ #include <atomic>
+ #include <thread>
+ #include <chrono>
++#include <cstdio>
+ 
+ static const char * RPC_DEBUG = std::getenv("GGML_RPC_DEBUG");
+ static const char * RPC_TRACE = std::getenv("GGML_RPC_TRACE");
+@@ -600,9 +601,11 @@ void rpc_dispatcher::work() {
+         if (RPC_TRACE) {
+             const auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(
+                 std::chrono::steady_clock::now() - started).count();
+-            GGML_LOG_INFO("rpc-trace cmd=%s input=%zu output=%zu elapsed_us=%lld status=%s\n",
+-                          rpc_cmd_name(msg_ptr->cmd), msg_ptr->input_size, msg_ptr->output_size,
+-                          (long long) elapsed, status ? "ok" : "error");
++            std::fprintf(stderr,
++                         "rpc-trace cmd=%s input=%zu output=%zu elapsed_us=%lld status=%s\n",
++                         rpc_cmd_name(msg_ptr->cmd), msg_ptr->input_size, msg_ptr->output_size,
++                         (long long) elapsed, status ? "ok" : "error");
++            std::fflush(stderr);
+         }
+         msg_ptr->completion.set_value();
+     }

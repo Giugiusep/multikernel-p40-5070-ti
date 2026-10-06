@@ -1,0 +1,19 @@
+[Unit]
+Description=Shiba switchable OpenAI-compatible model API
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/shiba/multikernel-experiment/model-api
+Environment=MODEL_API_HOST=0.0.0.0
+Environment=MODEL_API_PORT=19080
+Environment=MODEL_API_BACKEND_PORT=19081
+ExecStart=/usr/bin/python3 /home/shiba/multikernel-experiment/model-api/model_switch_api.py
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=45
+KillMode=control-group
+LimitNOFILE=65536
+
+[Install]
+WantedBy=default.target

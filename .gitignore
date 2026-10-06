@@ -1,0 +1,10 @@
+api-key
+.env
+logs/
+__pycache__/
+*.gguf
+*.ko
+*.o
+*.so
+*.so.*
+build/

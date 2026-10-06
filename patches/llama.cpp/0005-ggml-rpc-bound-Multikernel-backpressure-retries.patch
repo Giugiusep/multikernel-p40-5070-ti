@@ -1,0 +1,45 @@
+From 67231e789240054238c794b367e7d4ace370e218 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Mon, 14 Sep 2026 17:17:51 +0000
+Subject: [PATCH 05/15] ggml rpc: bound Multikernel backpressure retries
+
+Avoid treating allocation failures as indefinitely retryable and cap transient ring-pressure retries so a stalled IPI path cannot exhaust secondary memory.
+
+Assisted-by: Codex
+---
+ ggml/src/ggml-rpc/transport.cpp | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/ggml/src/ggml-rpc/transport.cpp b/ggml/src/ggml-rpc/transport.cpp
+index d8bf4ee08..0552b8a6a 100644
+--- a/ggml/src/ggml-rpc/transport.cpp
++++ b/ggml/src/ggml-rpc/transport.cpp
+@@ -501,6 +501,7 @@ bool socket_t::impl::send_data(const void * data, size_t size) {
+ #endif
+     size_t bytes_sent = 0;
+     unsigned int retry_delay_us = 100;
++    unsigned int retry_count = 0;
+     while (bytes_sent < size) {
+         size_t size_to_send = std::min(size - bytes_sent, MAX_CHUNK_SIZE);
+ #if defined(__linux__)
+@@ -515,7 +516,11 @@ bool socket_t::impl::send_data(const void * data, size_t size) {
+ #if defined(__linux__)
+         if (n < 0 && multikernel &&
+                 (errno == EAGAIN || errno == EWOULDBLOCK || errno == ENOBUFS ||
+-                 errno == ENOMEM || errno == ENOSPC)) {
++                 errno == ENOSPC)) {
++            if (++retry_count > 1000) {
++                GGML_LOG_ERROR("Multikernel VSOCK ring remained full after retries\n");
++                return false;
++            }
+             usleep(retry_delay_us);
+             retry_delay_us = std::min(retry_delay_us * 2, 5000u);
+             continue;
+@@ -531,6 +536,7 @@ bool socket_t::impl::send_data(const void * data, size_t size) {
+             return false;
+         }
+         bytes_sent += (size_t)n;
++        retry_count = 0;
+         retry_delay_us = 100;
+ #if defined(__linux__)
+         if (multikernel && bytes_sent < size) {

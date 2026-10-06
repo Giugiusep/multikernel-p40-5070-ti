@@ -1,0 +1,262 @@
+From 90894a76a0f16ddbfbf2c17ea44fbc5b73005ce9 Mon Sep 17 00:00:00 2001
+From: Shiba Multikernel Experiment <shiba@localhost>
+Date: Thu, 17 Sep 2026 15:44:07 +0000
+Subject: [PATCH 06/10] mk vsock: implement stream credit flow control
+
+Bound outstanding data to the peer receive window, propagate consumed-byte credits, wake blocked writers on updates, and make receive readiness constant-time. This prevents bulk RPC transfers from growing an unbounded skb queue in the secondary.
+
+Assisted-by: Codex
+---
+ net/vmw_vsock/mk_transport.c | 129 +++++++++++++++++++++++++++++++----
+ 1 file changed, 117 insertions(+), 12 deletions(-)
+
+diff --git a/net/vmw_vsock/mk_transport.c b/net/vmw_vsock/mk_transport.c
+index 49a1007..16d1974 100644
+--- a/net/vmw_vsock/mk_transport.c
++++ b/net/vmw_vsock/mk_transport.c
+@@ -53,14 +53,41 @@ struct mk_vsock_sock {
+ 	u32 peer_fwd_cnt;       /* Peer's consumed bytes */
+ 	u32 rx_bytes;           /* Total RX bytes */
+ 	u32 tx_bytes;           /* Total TX bytes */
++	u32 last_credit_update; /* fwd_cnt in last explicit credit update */
+ };
+ 
++static int mk_send_credit_pkt(struct vsock_sock *vsk, u16 op);
++
+ static struct mk_vsock_sock *mk_vsock_sk(struct vsock_sock *vsk)
+ {
+ 	/* We store our private data in vsk->trans */
+ 	return (struct mk_vsock_sock *)vsk->trans;
+ }
+ 
++static s64 mk_peer_space_locked(struct mk_vsock_sock *mk_vsk)
++{
++	s64 bytes;
++	u32 in_flight = mk_vsk->tx_bytes - mk_vsk->peer_fwd_cnt;
++
++	bytes = (s64)mk_vsk->peer_buf_alloc - in_flight;
++	return max_t(s64, bytes, 0);
++}
++
++static bool mk_update_peer_credit(struct mk_vsock_sock *mk_vsk,
++				  const struct virtio_vsock_hdr *hdr)
++{
++	unsigned long flags;
++	bool space_available;
++
++	spin_lock_irqsave(&mk_vsk->tx_lock, flags);
++	mk_vsk->peer_buf_alloc = le32_to_cpu(hdr->buf_alloc);
++	mk_vsk->peer_fwd_cnt = le32_to_cpu(hdr->fwd_cnt);
++	space_available = mk_peer_space_locked(mk_vsk) > 0;
++	spin_unlock_irqrestore(&mk_vsk->tx_lock, flags);
++
++	return space_available;
++}
++
+ static int mk_send_pkt(struct sk_buff *skb)
+ {
+ 	struct virtio_vsock_hdr *hdr;
+@@ -123,6 +150,9 @@ static void mk_vsock_rx_pkt(struct sk_buff *skb)
+ 		struct mk_vsock_sock *mk_vsk = mk_vsock_sk(vsk);
+ 		unsigned long flags;
+ 
++		if (mk_update_peer_credit(mk_vsk, hdr))
++			sk->sk_write_space(sk);
++
+ 		VIRTIO_VSOCK_SKB_CB(skb)->offset = 0;
+ 		spin_lock_irqsave(&mk_vsk->rx_lock, flags);
+ 		skb_queue_tail(&mk_vsk->rx_queue, skb);
+@@ -188,6 +218,8 @@ static void mk_vsock_rx_pkt(struct sk_buff *skb)
+ 			}
+ 		}
+ 
++		mk_update_peer_credit(mk_vsock_sk(vchild), hdr);
++
+ 		vsock_insert_connected(vchild);
+ 		vsock_enqueue_accept(sk, child);
+ 
+@@ -239,10 +271,21 @@ static void mk_vsock_rx_pkt(struct sk_buff *skb)
+ 	}
+ 
+ 	case VIRTIO_VSOCK_OP_RESPONSE:
++		mk_update_peer_credit(mk_vsock_sk(vsk), hdr);
+ 		sk->sk_state = TCP_ESTABLISHED;
+ 		sk->sk_state_change(sk);
+ 		break;
+ 
++	case VIRTIO_VSOCK_OP_CREDIT_REQUEST:
++		mk_update_peer_credit(mk_vsock_sk(vsk), hdr);
++		mk_send_credit_pkt(vsk, VIRTIO_VSOCK_OP_CREDIT_UPDATE);
++		break;
++
++	case VIRTIO_VSOCK_OP_CREDIT_UPDATE:
++		if (mk_update_peer_credit(mk_vsock_sk(vsk), hdr))
++			sk->sk_write_space(sk);
++		break;
++
+ 	case VIRTIO_VSOCK_OP_SHUTDOWN:
+ 		vsk->peer_shutdown = SHUTDOWN_MASK;
+ 		sk->sk_state_change(sk);
+@@ -331,6 +374,46 @@ static u32 mk_transport_get_local_cid(void)
+ 	return (u32)root_instance->id;
+ }
+ 
++static int mk_send_credit_pkt(struct vsock_sock *vsk, u16 op)
++{
++	struct mk_vsock_sock *mk_vsk = mk_vsock_sk(vsk);
++	struct virtio_vsock_hdr *hdr;
++	struct sk_buff *skb;
++	unsigned long flags;
++	u32 fwd_cnt;
++	int ret;
++
++	skb = alloc_skb(sizeof(*hdr), GFP_ATOMIC);
++	if (!skb)
++		return -ENOMEM;
++
++	hdr = (struct virtio_vsock_hdr *)skb_put(skb, sizeof(*hdr));
++	hdr->op = cpu_to_le16(op);
++	hdr->src_cid = cpu_to_le64(mk_transport_get_local_cid());
++	hdr->dst_cid = cpu_to_le64(vsk->remote_addr.svm_cid);
++	hdr->src_port = cpu_to_le32(vsk->local_addr.svm_port);
++	hdr->dst_port = cpu_to_le32(vsk->remote_addr.svm_port);
++	hdr->type = cpu_to_le16(VIRTIO_VSOCK_TYPE_STREAM);
++	hdr->flags = 0;
++	hdr->len = 0;
++
++	spin_lock_irqsave(&mk_vsk->rx_lock, flags);
++	hdr->buf_alloc = cpu_to_le32(mk_vsk->buf_alloc);
++	fwd_cnt = mk_vsk->fwd_cnt;
++	hdr->fwd_cnt = cpu_to_le32(fwd_cnt);
++	spin_unlock_irqrestore(&mk_vsk->rx_lock, flags);
++
++	ret = mk_send_pkt(skb);
++	kfree_skb(skb);
++	if (ret >= 0 && op == VIRTIO_VSOCK_OP_CREDIT_UPDATE) {
++		spin_lock_irqsave(&mk_vsk->rx_lock, flags);
++		mk_vsk->last_credit_update = fwd_cnt;
++		spin_unlock_irqrestore(&mk_vsk->rx_lock, flags);
++	}
++
++	return ret < 0 ? ret : 0;
++}
++
+ static int mk_transport_init(struct vsock_sock *vsk, struct vsock_sock *psk)
+ {
+ 	struct mk_vsock_sock *mk_vsk;
+@@ -350,6 +433,7 @@ static int mk_transport_init(struct vsock_sock *vsk, struct vsock_sock *psk)
+ 	mk_vsk->peer_fwd_cnt = 0;
+ 	mk_vsk->rx_bytes = 0;
+ 	mk_vsk->tx_bytes = 0;
++	mk_vsk->last_credit_update = 0;
+ 
+ 	vsk->trans = mk_vsk;
+ 
+@@ -482,10 +566,19 @@ static ssize_t mk_transport_stream_enqueue(struct vsock_sock *vsk,
+ 	struct sk_buff *skb;
+ 	struct virtio_vsock_hdr *hdr;
+ 	u32 local_cid = mk_transport_get_local_cid();
++	unsigned long flags;
++	s64 space;
+ 	size_t to_send;
+ 	int ret;
+ 
+-	to_send = min(len, (size_t)(MK_VSOCK_MAX_PKT_SIZE - sizeof(*hdr)));
++	spin_lock_irqsave(&mk_vsk->tx_lock, flags);
++	space = mk_peer_space_locked(mk_vsk);
++	spin_unlock_irqrestore(&mk_vsk->tx_lock, flags);
++	if (!space)
++		return -EAGAIN;
++
++	to_send = min3(len, (size_t)space,
++		       (size_t)(MK_VSOCK_MAX_PKT_SIZE - sizeof(*hdr)));
+ 
+ 	skb = alloc_skb(sizeof(*hdr) + to_send, GFP_KERNEL);
+ 	if (!skb)
+@@ -514,9 +607,9 @@ static ssize_t mk_transport_stream_enqueue(struct vsock_sock *vsk,
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	spin_lock_bh(&mk_vsk->tx_lock);
++	spin_lock_irqsave(&mk_vsk->tx_lock, flags);
+ 	mk_vsk->tx_bytes += to_send;
+-	spin_unlock_bh(&mk_vsk->tx_lock);
++	spin_unlock_irqrestore(&mk_vsk->tx_lock, flags);
+ 
+ 	return to_send;
+ }
+@@ -530,6 +623,7 @@ static ssize_t mk_transport_stream_dequeue(struct vsock_sock *vsk,
+ 	struct virtio_vsock_hdr *hdr;
+ 	size_t to_copy, off;
+ 	unsigned long irq_flags;
++	bool credit_update;
+ 	int err;
+ 
+ 	spin_lock_irqsave(&mk_vsk->rx_lock, irq_flags);
+@@ -565,22 +659,24 @@ static ssize_t mk_transport_stream_dequeue(struct vsock_sock *vsk,
+ 		kfree_skb(skb);
+ 	}
+ 
++	spin_lock_irqsave(&mk_vsk->rx_lock, irq_flags);
++	credit_update = mk_vsk->fwd_cnt - mk_vsk->last_credit_update >=
++			mk_vsk->buf_alloc / 2;
++	spin_unlock_irqrestore(&mk_vsk->rx_lock, irq_flags);
++	if (credit_update)
++		mk_send_credit_pkt(vsk, VIRTIO_VSOCK_OP_CREDIT_UPDATE);
++
+ 	return to_copy;
+ }
+ 
+ static s64 mk_transport_stream_has_data(struct vsock_sock *vsk)
+ {
+ 	struct mk_vsock_sock *mk_vsk = mk_vsock_sk(vsk);
+-	struct sk_buff *skb;
+-	struct virtio_vsock_hdr *hdr;
+ 	unsigned long flags;
+ 	s64 data = 0;
+ 
+ 	spin_lock_irqsave(&mk_vsk->rx_lock, flags);
+-	skb_queue_walk(&mk_vsk->rx_queue, skb) {
+-		hdr = (struct virtio_vsock_hdr *)skb->data;
+-		data += le32_to_cpu(hdr->len) - VIRTIO_VSOCK_SKB_CB(skb)->offset;
+-	}
++	data = (u32)(mk_vsk->rx_bytes - mk_vsk->fwd_cnt);
+ 	spin_unlock_irqrestore(&mk_vsk->rx_lock, flags);
+ 
+ 	return data;
+@@ -588,8 +684,15 @@ static s64 mk_transport_stream_has_data(struct vsock_sock *vsk)
+ 
+ static s64 mk_transport_stream_has_space(struct vsock_sock *vsk)
+ {
+-	/* Simplified: return available space */
+-	return 64 * 1024;  /* 64KB */
++	struct mk_vsock_sock *mk_vsk = mk_vsock_sk(vsk);
++	unsigned long flags;
++	s64 space;
++
++	spin_lock_irqsave(&mk_vsk->tx_lock, flags);
++	space = mk_peer_space_locked(mk_vsk);
++	spin_unlock_irqrestore(&mk_vsk->tx_lock, flags);
++
++	return space;
+ }
+ 
+ static u64 mk_transport_stream_rcvhiwat(struct vsock_sock *vsk)
+@@ -622,7 +725,7 @@ static int mk_transport_notify_poll_in(struct vsock_sock *vsk, size_t target,
+ static int mk_transport_notify_poll_out(struct vsock_sock *vsk, size_t target,
+ 					bool *space_avail_now)
+ {
+-	*space_avail_now = true;
++	*space_avail_now = mk_transport_stream_has_space(vsk) > 0;
+ 	return 0;
+ }
+ 
+@@ -660,6 +763,8 @@ static int mk_transport_notify_send_init(struct vsock_sock *vsk,
+ static int mk_transport_notify_send_pre_block(struct vsock_sock *vsk,
+ 					     struct vsock_transport_send_notify_data *data)
+ {
++	/* A failed request is harmless: dequeues also send credit updates. */
++	mk_send_credit_pkt(vsk, VIRTIO_VSOCK_OP_CREDIT_REQUEST);
+ 	return 0;
+ }
+ 

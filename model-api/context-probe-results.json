@@ -1,0 +1,2024 @@
+[
+  {
+    "model": "nemotron-3.5-lightning-q8",
+    "context": 160000,
+    "ngl": 16,
+    "before_mib": {
+      "MemAvailable": 45833,
+      "SwapFree": 4751
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-nemotron-3.5-lightning-q8-160000.log",
+    "ready": true,
+    "startup_s": 28.03,
+    "loaded_mib": {
+      "MemAvailable": 44487,
+      "SwapFree": 4624
+    },
+    "VmHWM_mib": 25489,
+    "VmRSS_mib": 16814
+  },
+  {
+    "model": "nemotron3-nano-4b-q4-k-m",
+    "context": 1048576,
+    "ngl": 99,
+    "before_mib": {
+      "MemAvailable": 45675,
+      "SwapFree": 4744
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-nemotron3-nano-4b-q4-k-m-1048576.log",
+    "error": "server exited 1",
+    "startup_s": 4.01,
+    "loaded_mib": {
+      "MemAvailable": 46125,
+      "SwapFree": 4730
+    }
+  },
+  {
+    "model": "nemotron3-nano-4b-q4-k-m",
+    "context": 1048576,
+    "ngl": 99,
+    "cache_type": "q8_0",
+    "before_mib": {
+      "MemAvailable": 45958,
+      "SwapFree": 4733
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-nemotron3-nano-4b-q4-k-m-1048576-q8_0.log",
+    "error": "server exited 1",
+    "startup_s": 2.01,
+    "loaded_mib": {
+      "MemAvailable": 45952,
+      "SwapFree": 4733
+    }
+  },
+  {
+    "model": "nemotron3-nano-4b-q4-k-m",
+    "context": 262144,
+    "ngl": 99,
+    "cache_type": "f16",
+    "before_mib": {
+      "MemAvailable": 45958,
+      "SwapFree": 4738
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-nemotron3-nano-4b-q4-k-m-262144.log",
+    "ready": true,
+    "startup_s": 2.01,
+    "loaded_mib": {
+      "MemAvailable": 45357,
+      "SwapFree": 4739
+    },
+    "VmHWM_mib": 3044,
+    "VmRSS_mib": 950
+  },
+  {
+    "model": "nemotron3-nano-4b-q4-k-m",
+    "context": 524288,
+    "ngl": 99,
+    "cache_type": "f16",
+    "before_mib": {
+      "MemAvailable": 45810,
+      "SwapFree": 4740
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-nemotron3-nano-4b-q4-k-m-524288.log",
+    "ready": true,
+    "startup_s": 2.01,
+    "loaded_mib": {
+      "MemAvailable": 45031,
+      "SwapFree": 4740
+    },
+    "VmHWM_mib": 3045,
+    "VmRSS_mib": 1218
+  },
+  {
+    "model": "nemotron3-nano-4b-q4-k-m",
+    "context": 1048576,
+    "ngl": 99,
+    "cache_type": "q8_0",
+    "batch_size": 512,
+    "before_mib": {
+      "MemAvailable": 45908,
+      "SwapFree": 4742
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-nemotron3-nano-4b-q4-k-m-1048576-q8_0-b512.log",
+    "error": "server exited -6",
+    "startup_s": 2.01,
+    "loaded_mib": {
+      "MemAvailable": 45533,
+      "SwapFree": 4742
+    }
+  },
+  {
+    "model": "ling-3-flash-iq2-s",
+    "context": 160000,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45919,
+      "SwapFree": 4744
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-ling-3-flash-iq2-s-160000.log",
+    "ready": true,
+    "startup_s": 26.03,
+    "loaded_mib": {
+      "MemAvailable": 44852,
+      "SwapFree": 4725
+    },
+    "VmHWM_mib": 25631,
+    "VmRSS_mib": 13276
+  },
+  {
+    "model": "mimo-v2.6-q6-k",
+    "context": 262144,
+    "ngl": 99,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45339,
+      "SwapFree": 4725
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-mimo-v2.6-q6-k-262144.log",
+    "ready": true,
+    "startup_s": 6.01,
+    "loaded_mib": {
+      "MemAvailable": 45668,
+      "SwapFree": 4496
+    },
+    "VmHWM_mib": 7583,
+    "VmRSS_mib": 1358
+  },
+  {
+    "model": "k2-horizon-mova-q4-k-m",
+    "context": 262144,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45617,
+      "SwapFree": 4706
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-k2-horizon-mova-q4-k-m-262144.log",
+    "error": "server exited 1",
+    "startup_s": 18.01,
+    "loaded_mib": {
+      "MemAvailable": 45522,
+      "SwapFree": 4673
+    }
+  },
+  {
+    "model": "nemotron-3.5-lightning-q8",
+    "context": 262144,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45522,
+      "SwapFree": 4673
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-nemotron-3.5-lightning-q8-262144.log",
+    "ready": true,
+    "startup_s": 22.1,
+    "loaded_mib": {
+      "MemAvailable": 44171,
+      "SwapFree": 4681
+    },
+    "VmHWM_mib": 26986,
+    "VmRSS_mib": 18767
+  },
+  {
+    "model": "mistral-small-4-iq2-xxs",
+    "context": 160000,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45507,
+      "SwapFree": 4681
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-mistral-small-4-iq2-xxs-160000.log",
+    "error": "server exited 1",
+    "startup_s": 18.01,
+    "loaded_mib": {
+      "MemAvailable": 45467,
+      "SwapFree": 4687
+    }
+  },
+  {
+    "model": "qwen3.8-27b-q8",
+    "context": 262144,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45467,
+      "SwapFree": 4687
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-qwen3.8-27b-q8-262144.log",
+    "ready": true,
+    "startup_s": 18.03,
+    "loaded_mib": {
+      "MemAvailable": 33038,
+      "SwapFree": 4686
+    },
+    "VmHWM_mib": 33733,
+    "VmRSS_mib": 33733
+  },
+  {
+    "model": "qwen3.8-27b-q4-xl",
+    "context": 262144,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 46053,
+      "SwapFree": 4686
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-qwen3.8-27b-q4-xl-262144.log",
+    "ready": true,
+    "startup_s": 14.01,
+    "loaded_mib": {
+      "MemAvailable": 32911,
+      "SwapFree": 4687
+    },
+    "VmHWM_mib": 24938,
+    "VmRSS_mib": 24938
+  },
+  {
+    "model": "gemma-4-e4b-q2-xl",
+    "context": 131072,
+    "ngl": 99,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45901,
+      "SwapFree": 4687
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-gemma-4-e4b-q2-xl-131072.log",
+    "ready": true,
+    "startup_s": 4.03,
+    "loaded_mib": {
+      "MemAvailable": 45523,
+      "SwapFree": 4691
+    },
+    "VmHWM_mib": 3465,
+    "VmRSS_mib": 1498
+  },
+  {
+    "model": "gemma-4-26b-iq3-xxs",
+    "context": 262144,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45837,
+      "SwapFree": 4691
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-gemma-4-26b-iq3-xxs-262144.log",
+    "ready": true,
+    "startup_s": 8.0,
+    "loaded_mib": {
+      "MemAvailable": 43120,
+      "SwapFree": 4691
+    },
+    "VmHWM_mib": 11282,
+    "VmRSS_mib": 8575
+  },
+  {
+    "model": "glm-4.7-flash-q6-xl",
+    "context": 202752,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45389,
+      "SwapFree": 4691
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-glm-4.7-flash-q6-xl-202752.log",
+    "ready": true,
+    "startup_s": 14.01,
+    "loaded_mib": {
+      "MemAvailable": 38370,
+      "SwapFree": 4685
+    },
+    "VmHWM_mib": 25308,
+    "VmRSS_mib": 24301
+  },
+  {
+    "model": "muse-glimmer-30b-q8",
+    "context": 131072,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45628,
+      "SwapFree": 4685
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-muse-glimmer-30b-q8-131072.log",
+    "ready": true,
+    "startup_s": 16.01,
+    "loaded_mib": {
+      "MemAvailable": 44363,
+      "SwapFree": 4667
+    },
+    "VmHWM_mib": 28495,
+    "VmRSS_mib": 21209
+  },
+  {
+    "model": "ling-3-flash-iq2-s",
+    "context": 262144,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 46000,
+      "SwapFree": 4721
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-ling-3-flash-iq2-s-262144.log",
+    "ready": true,
+    "startup_s": 24.02,
+    "loaded_mib": {
+      "MemAvailable": 44076,
+      "SwapFree": 4723
+    },
+    "VmHWM_mib": 28483,
+    "VmRSS_mib": 16595
+  },
+  {
+    "model": "nemotron-3.5-lightning-q8",
+    "context": 1048576,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 44985,
+      "SwapFree": 4724
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-nemotron-3.5-lightning-q8-1048576.log",
+    "ready": true,
+    "startup_s": 22.01,
+    "loaded_mib": {
+      "MemAvailable": 39236,
+      "SwapFree": 4554
+    },
+    "VmHWM_mib": 29932,
+    "VmRSS_mib": 25767
+  },
+  {
+    "model": "k2-horizon-mova-q4-k-m",
+    "context": 262144,
+    "ngl": 16,
+    "cache_type": "q8_0",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45358,
+      "SwapFree": 4709
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-k2-horizon-mova-q4-k-m-262144-q8_0.log",
+    "error": "server exited 1",
+    "startup_s": 14.01,
+    "loaded_mib": {
+      "MemAvailable": 45765,
+      "SwapFree": 4686
+    }
+  },
+  {
+    "model": "mistral-small-4-iq2-xxs",
+    "context": 160000,
+    "ngl": 8,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45765,
+      "SwapFree": 4686
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-mistral-small-4-iq2-xxs-160000-ngl8.log",
+    "ready": true,
+    "startup_s": 20.04,
+    "loaded_mib": {
+      "MemAvailable": 42691,
+      "SwapFree": 4653
+    },
+    "VmHWM_mib": 30392,
+    "VmRSS_mib": 27082
+  },
+  {
+    "model": "qwen3.8-flash-next-strata",
+    "context": 131072,
+    "ngl": null,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45935,
+      "SwapFree": 4674
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-qwen3.8-flash-next-strata-131072.log",
+    "ready": true,
+    "startup_s": 24.02,
+    "loaded_mib": {
+      "MemAvailable": 10937,
+      "SwapFree": 4668
+    },
+    "VmHWM_mib": 174,
+    "VmRSS_mib": 174
+  },
+  {
+    "model": "qwen3.8-flash-next-strata",
+    "context": 262144,
+    "ngl": null,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45723,
+      "SwapFree": 4778
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-qwen3.8-flash-next-strata-262144.log",
+    "ready": true,
+    "startup_s": 22.02,
+    "loaded_mib": {
+      "MemAvailable": 10576,
+      "SwapFree": 4785
+    },
+    "VmHWM_mib": 174,
+    "VmRSS_mib": 174
+  },
+  {
+    "model": "k2-horizon-mova-q4-k-m",
+    "context": 262144,
+    "ngl": 8,
+    "cache_type": "q8_0",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45701,
+      "SwapFree": 4793
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-k2-horizon-mova-q4-k-m-262144-q8_0-ngl8.log",
+    "ready": true,
+    "startup_s": 24.21,
+    "loaded_mib": {
+      "MemAvailable": 22903,
+      "SwapFree": 4106
+    },
+    "VmHWM_mib": 40303,
+    "VmRSS_mib": 40303
+  },
+  {
+    "model": "k2-horizon-mova-q4-k-m",
+    "context": 524288,
+    "ngl": 4,
+    "cache_type": "q8_0",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45320,
+      "SwapFree": 4959
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-k2-horizon-mova-q4-k-m-524288-q8_0-ngl4.log",
+    "error": "memory safety threshold reached",
+    "startup_s": 10.05,
+    "loaded_mib": {
+      "MemAvailable": 634,
+      "SwapFree": 3943
+    },
+    "VmHWM_mib": 45548,
+    "VmRSS_mib": 45460
+  },
+  {
+    "model": "mistral-small-4-iq2-xxs",
+    "context": 262144,
+    "ngl": 8,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45945,
+      "SwapFree": 4869
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-mistral-small-4-iq2-xxs-262144-ngl8.log",
+    "ready": true,
+    "startup_s": 20.05,
+    "loaded_mib": {
+      "MemAvailable": 40791,
+      "SwapFree": 4867
+    },
+    "VmHWM_mib": 29484,
+    "VmRSS_mib": 28210
+  },
+  {
+    "model": "mistral-small-4-iq2-xxs",
+    "context": 524288,
+    "ngl": 4,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45888,
+      "SwapFree": 4880
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-mistral-small-4-iq2-xxs-524288-ngl4.log",
+    "ready": true,
+    "startup_s": 20.02,
+    "loaded_mib": {
+      "MemAvailable": 34422,
+      "SwapFree": 4868
+    },
+    "VmHWM_mib": 40582,
+    "VmRSS_mib": 40342
+  },
+  {
+    "model": "mistral-small-4-iq2-xxs",
+    "context": 1048576,
+    "ngl": 0,
+    "cache_type": "q8_0",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45904,
+      "SwapFree": 4873
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-mistral-small-4-iq2-xxs-1048576-q8_0-ngl0.log",
+    "ready": true,
+    "startup_s": 6.01,
+    "loaded_mib": {
+      "MemAvailable": 32488,
+      "SwapFree": 4827
+    },
+    "VmHWM_mib": 45917,
+    "VmRSS_mib": 45123
+  },
+  {
+    "model": "nemotron3-nano-4b-q4-k-m",
+    "context": 786432,
+    "ngl": 99,
+    "cache_type": "q8_0",
+    "batch_size": 512,
+    "before_mib": {
+      "MemAvailable": 45995,
+      "SwapFree": 4861
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-nemotron3-nano-4b-q4-k-m-786432-q8_0-b512.log",
+    "ready": true,
+    "startup_s": 2.01,
+    "loaded_mib": {
+      "MemAvailable": 45547,
+      "SwapFree": 4861
+    },
+    "VmHWM_mib": 3045,
+    "VmRSS_mib": 903
+  },
+  {
+    "model": "nemotron3-nano-4b-q4-k-m",
+    "context": 917504,
+    "ngl": 99,
+    "cache_type": "q8_0",
+    "batch_size": 512,
+    "before_mib": {
+      "MemAvailable": 46011,
+      "SwapFree": 4861
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-nemotron3-nano-4b-q4-k-m-917504-q8_0-b512.log",
+    "ready": true,
+    "startup_s": 2.01,
+    "loaded_mib": {
+      "MemAvailable": 45412,
+      "SwapFree": 4861
+    },
+    "VmHWM_mib": 3045,
+    "VmRSS_mib": 941
+  },
+  {
+    "model": "nemotron3-nano-4b-q4-k-m",
+    "context": 1048576,
+    "ngl": 99,
+    "cache_type": "q8_0",
+    "batch_size": 256,
+    "before_mib": {
+      "MemAvailable": 45891,
+      "SwapFree": 4863
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-nemotron3-nano-4b-q4-k-m-1048576-q8_0-b256.log",
+    "error": "server exited -6",
+    "startup_s": 2.01,
+    "loaded_mib": {
+      "MemAvailable": 45532,
+      "SwapFree": 4863
+    }
+  },
+  {
+    "model": "nemotron3-nano-4b-q4-k-m",
+    "context": 8192,
+    "ngl": 99,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45883,
+      "SwapFree": 4866
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-nemotron3-nano-4b-q4-k-m-8192.log",
+    "ready": true,
+    "startup_s": 2.01,
+    "loaded_mib": {
+      "MemAvailable": 45621,
+      "SwapFree": 4866
+    },
+    "warmup": {
+      "wall_s": 0.617,
+      "prompt_tokens": 59,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 207.455,
+      "finish_reason": "length",
+      "output_sha256": "917ac89b7d2152fa8a212e64783373e216c70afc5fdbcfde68d22f3d6c39e0ce",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 59,
+        "prompt_ms": 76.121,
+        "prompt_per_token_ms": 1.290186440677966,
+        "prompt_per_second": 775.0817776960366,
+        "predicted_n": 128,
+        "predicted_ms": 539.607,
+        "predicted_per_token_ms": 4.248874015748031,
+        "predicted_per_second": 235.3564723956509
+      }
+    },
+    "benchmark": {
+      "wall_s": 0.612,
+      "prompt_tokens": 59,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 209.15,
+      "finish_reason": "length",
+      "output_sha256": "917ac89b7d2152fa8a212e64783373e216c70afc5fdbcfde68d22f3d6c39e0ce",
+      "timings": {
+        "cache_n": 55,
+        "prompt_n": 4,
+        "prompt_ms": 28.537,
+        "prompt_per_token_ms": 7.13425,
+        "prompt_per_second": 140.16890352875214,
+        "predicted_n": 128,
+        "predicted_ms": 536.654,
+        "predicted_per_token_ms": 4.225622047244094,
+        "predicted_per_second": 236.65154829741323
+      }
+    },
+    "VmHWM_mib": 3043,
+    "VmRSS_mib": 1156
+  },
+  {
+    "model": "nemotron3-nano-4b-q4-k-m",
+    "context": 917504,
+    "ngl": 99,
+    "cache_type": "q8_0",
+    "batch_size": 512,
+    "before_mib": {
+      "MemAvailable": 45881,
+      "SwapFree": 4866
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-nemotron3-nano-4b-q4-k-m-917504-q8_0-b512.log",
+    "ready": true,
+    "startup_s": 2.01,
+    "loaded_mib": {
+      "MemAvailable": 45315,
+      "SwapFree": 4866
+    },
+    "warmup": {
+      "wall_s": 0.606,
+      "prompt_tokens": 59,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 211.221,
+      "finish_reason": "length",
+      "output_sha256": "5a8797a9403f1f1f2927b69f154a0c8cd2711b3ff4a3cc0b3b8eb257d7347140",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 59,
+        "prompt_ms": 63.678,
+        "prompt_per_token_ms": 1.0792881355932202,
+        "prompt_per_second": 926.5366374572067,
+        "predicted_n": 128,
+        "predicted_ms": 540.833,
+        "predicted_per_token_ms": 4.258527559055118,
+        "predicted_per_second": 234.82294904342007
+      }
+    },
+    "benchmark": {
+      "wall_s": 0.616,
+      "prompt_tokens": 59,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 207.792,
+      "finish_reason": "length",
+      "output_sha256": "5a8797a9403f1f1f2927b69f154a0c8cd2711b3ff4a3cc0b3b8eb257d7347140",
+      "timings": {
+        "cache_n": 55,
+        "prompt_n": 4,
+        "prompt_ms": 28.671,
+        "prompt_per_token_ms": 7.16775,
+        "prompt_per_second": 139.5137944264239,
+        "predicted_n": 128,
+        "predicted_ms": 540.271,
+        "predicted_per_token_ms": 4.2541023622047245,
+        "predicted_per_second": 235.06721626739173
+      }
+    },
+    "VmHWM_mib": 3045,
+    "VmRSS_mib": 1413
+  },
+  {
+    "model": "k2-horizon-mova-q4-k-m",
+    "context": 4096,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45881,
+      "SwapFree": 4868
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-k2-horizon-mova-q4-k-m-4096-ngl16.log",
+    "ready": true,
+    "startup_s": 12.02,
+    "loaded_mib": {
+      "MemAvailable": 44985,
+      "SwapFree": 4868
+    },
+    "warmup": {
+      "wall_s": 6.197,
+      "prompt_tokens": 50,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 20.655,
+      "finish_reason": "length",
+      "output_sha256": "57cc5fd36c4c481482fde109be9e5b6023dd45ff10ebeb3d81db790eef38926d",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 50,
+        "prompt_ms": 632.779,
+        "prompt_per_token_ms": 12.65558,
+        "prompt_per_second": 79.01652867746876,
+        "predicted_n": 128,
+        "predicted_ms": 5493.593,
+        "predicted_per_token_ms": 43.25663779527559,
+        "predicted_per_second": 23.117839272039266
+      }
+    },
+    "benchmark": {
+      "wall_s": 5.79,
+      "prompt_tokens": 50,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 22.107,
+      "finish_reason": "length",
+      "output_sha256": "57cc5fd36c4c481482fde109be9e5b6023dd45ff10ebeb3d81db790eef38926d",
+      "timings": {
+        "cache_n": 49,
+        "prompt_n": 1,
+        "prompt_ms": 55.815,
+        "prompt_per_token_ms": 55.815,
+        "prompt_per_second": 17.916330735465376,
+        "predicted_n": 128,
+        "predicted_ms": 5654.366,
+        "predicted_per_token_ms": 44.52256692913386,
+        "predicted_per_second": 22.46051988852508
+      }
+    },
+    "VmHWM_mib": 21697,
+    "VmRSS_mib": 15176
+  },
+  {
+    "model": "k2-horizon-mova-q4-k-m",
+    "context": 262144,
+    "ngl": 8,
+    "cache_type": "q8_0",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45789,
+      "SwapFree": 4869
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-k2-horizon-mova-q4-k-m-262144-q8_0-ngl8.log",
+    "ready": true,
+    "startup_s": 8.02,
+    "loaded_mib": {
+      "MemAvailable": 22976,
+      "SwapFree": 4860
+    },
+    "warmup": {
+      "wall_s": 8.008,
+      "prompt_tokens": 50,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 15.984,
+      "finish_reason": "length",
+      "output_sha256": "735b20412345e17237ee226fc4baed4999e92653646862d0bfebd87d4a774251",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 50,
+        "prompt_ms": 743.202,
+        "prompt_per_token_ms": 14.86404,
+        "prompt_per_second": 67.2764605046811,
+        "predicted_n": 128,
+        "predicted_ms": 7184.129,
+        "predicted_per_token_ms": 56.567944881889765,
+        "predicted_per_second": 17.67785628570979
+      }
+    },
+    "benchmark": {
+      "wall_s": 7.991,
+      "prompt_tokens": 50,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 16.018,
+      "finish_reason": "length",
+      "output_sha256": "735b20412345e17237ee226fc4baed4999e92653646862d0bfebd87d4a774251",
+      "timings": {
+        "cache_n": 49,
+        "prompt_n": 1,
+        "prompt_ms": 49.666,
+        "prompt_per_token_ms": 49.666,
+        "prompt_per_second": 20.13449844964362,
+        "predicted_n": 128,
+        "predicted_ms": 7866.562,
+        "predicted_per_token_ms": 61.94143307086614,
+        "predicted_per_second": 16.144282597658293
+      }
+    },
+    "VmHWM_mib": 40719,
+    "VmRSS_mib": 40719
+  },
+  {
+    "model": "mistral-small-4-iq2-xxs",
+    "context": 4096,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45875,
+      "SwapFree": 4861
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-mistral-small-4-iq2-xxs-4096-ngl16.log",
+    "ready": true,
+    "startup_s": 22.02,
+    "loaded_mib": {
+      "MemAvailable": 45724,
+      "SwapFree": 4754
+    },
+    "warmup": {
+      "wall_s": 6.47,
+      "prompt_tokens": 599,
+      "completion_tokens": 54,
+      "completion_tok_s_wall": 8.346,
+      "finish_reason": "stop",
+      "output_sha256": "79f47a2af4c5345a7d02677d9b4fbc5964658426f7ead3d12a105e2541ffb3c6",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 599,
+        "prompt_ms": 4061.117,
+        "prompt_per_token_ms": 6.779828046744575,
+        "prompt_per_second": 147.4963661475402,
+        "predicted_n": 54,
+        "predicted_ms": 2378.393,
+        "predicted_per_token_ms": 44.87533962264151,
+        "predicted_per_second": 22.28395391341969
+      }
+    },
+    "benchmark": {
+      "wall_s": 1.955,
+      "prompt_tokens": 599,
+      "completion_tokens": 54,
+      "completion_tok_s_wall": 27.621,
+      "finish_reason": "stop",
+      "output_sha256": "79f47a2af4c5345a7d02677d9b4fbc5964658426f7ead3d12a105e2541ffb3c6",
+      "timings": {
+        "cache_n": 598,
+        "prompt_n": 1,
+        "prompt_ms": 48.369,
+        "prompt_per_token_ms": 48.369,
+        "prompt_per_second": 20.67439889185222,
+        "predicted_n": 54,
+        "predicted_ms": 1902.902,
+        "predicted_per_token_ms": 35.90381132075472,
+        "predicted_per_second": 27.852196277054727
+      }
+    },
+    "VmHWM_mib": 28474,
+    "VmRSS_mib": 19288
+  },
+  {
+    "model": "mistral-small-4-iq2-xxs",
+    "context": 524288,
+    "ngl": 4,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 46150,
+      "SwapFree": 4751
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-mistral-small-4-iq2-xxs-524288-ngl4.log",
+    "ready": true,
+    "startup_s": 4.02,
+    "loaded_mib": {
+      "MemAvailable": 34743,
+      "SwapFree": 4754
+    },
+    "warmup": {
+      "wall_s": 6.172,
+      "prompt_tokens": 599,
+      "completion_tokens": 54,
+      "completion_tok_s_wall": 8.749,
+      "finish_reason": "stop",
+      "output_sha256": "79f47a2af4c5345a7d02677d9b4fbc5964658426f7ead3d12a105e2541ffb3c6",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 599,
+        "prompt_ms": 3145.496,
+        "prompt_per_token_ms": 5.251245409015025,
+        "prompt_per_second": 190.43101628487207,
+        "predicted_n": 54,
+        "predicted_ms": 3024.541,
+        "predicted_per_token_ms": 57.066811320754724,
+        "predicted_per_second": 17.523320067408573
+      }
+    },
+    "benchmark": {
+      "wall_s": 2.927,
+      "prompt_tokens": 599,
+      "completion_tokens": 54,
+      "completion_tok_s_wall": 18.449,
+      "finish_reason": "stop",
+      "output_sha256": "79f47a2af4c5345a7d02677d9b4fbc5964658426f7ead3d12a105e2541ffb3c6",
+      "timings": {
+        "cache_n": 598,
+        "prompt_n": 1,
+        "prompt_ms": 78.654,
+        "prompt_per_token_ms": 78.654,
+        "prompt_per_second": 12.713911562031175,
+        "predicted_n": 54,
+        "predicted_ms": 2843.225,
+        "predicted_per_token_ms": 53.64575471698113,
+        "predicted_per_second": 18.640804016565696
+      }
+    },
+    "VmHWM_mib": 41928,
+    "VmRSS_mib": 41928
+  },
+  {
+    "model": "qwen3.8-flash-next-strata",
+    "context": 32768,
+    "ngl": null,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 46127,
+      "SwapFree": 4759
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-qwen3.8-flash-next-strata-32768.log",
+    "ready": true,
+    "startup_s": 24.02,
+    "loaded_mib": {
+      "MemAvailable": 11041,
+      "SwapFree": 4764
+    },
+    "warmup": {
+      "wall_s": 4.123,
+      "prompt_tokens": 93,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 31.045,
+      "finish_reason": "length",
+      "output_sha256": "af39df7f4311a2cb663dcbe22be385ca60ca2fd0e8e0b3191c0fdc446d1f90a6",
+      "timings": null
+    },
+    "benchmark": {
+      "wall_s": 2.627,
+      "prompt_tokens": 93,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 48.725,
+      "finish_reason": "length",
+      "output_sha256": "af39df7f4311a2cb663dcbe22be385ca60ca2fd0e8e0b3191c0fdc446d1f90a6",
+      "timings": null
+    },
+    "VmHWM_mib": 174,
+    "VmRSS_mib": 174
+  },
+  {
+    "model": "qwen3.8-flash-next-strata",
+    "context": 262144,
+    "ngl": null,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 46099,
+      "SwapFree": 4771
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-qwen3.8-flash-next-strata-262144.log",
+    "ready": true,
+    "startup_s": 22.02,
+    "loaded_mib": {
+      "MemAvailable": 10965,
+      "SwapFree": 4774
+    },
+    "warmup": {
+      "wall_s": 3.767,
+      "prompt_tokens": 93,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 33.979,
+      "finish_reason": "length",
+      "output_sha256": "af39df7f4311a2cb663dcbe22be385ca60ca2fd0e8e0b3191c0fdc446d1f90a6",
+      "timings": null
+    },
+    "benchmark": {
+      "wall_s": 3.046,
+      "prompt_tokens": 93,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 42.022,
+      "finish_reason": "length",
+      "output_sha256": "c758393ef3e5c96243c633a678e16a2bddbac8b3ef3fd7dbcdd7ae70cf31a962",
+      "timings": null
+    },
+    "VmHWM_mib": 174,
+    "VmRSS_mib": 174
+  },
+  {
+    "model": "nemotron-3.5-lightning-q8",
+    "context": 4096,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 46075,
+      "SwapFree": 4775
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-nemotron-3.5-lightning-q8-4096-ngl16.log",
+    "ready": true,
+    "startup_s": 20.02,
+    "loaded_mib": {
+      "MemAvailable": 45641,
+      "SwapFree": 4776
+    },
+    "warmup": {
+      "wall_s": 8.355,
+      "prompt_tokens": 58,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 15.32,
+      "finish_reason": "length",
+      "output_sha256": "65e865f54459c6becbe78d8e11dec3d4df3b1139e11ed1a42f9c59cf386bb76d",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 58,
+        "prompt_ms": 2292.116,
+        "prompt_per_token_ms": 39.519241379310344,
+        "prompt_per_second": 25.30412945941654,
+        "predicted_n": 128,
+        "predicted_ms": 6060.524,
+        "predicted_per_token_ms": 47.72066141732284,
+        "predicted_per_second": 20.955283734541766
+      }
+    },
+    "benchmark": {
+      "wall_s": 6.361,
+      "prompt_tokens": 58,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 20.123,
+      "finish_reason": "length",
+      "output_sha256": "65e865f54459c6becbe78d8e11dec3d4df3b1139e11ed1a42f9c59cf386bb76d",
+      "timings": {
+        "cache_n": 54,
+        "prompt_n": 4,
+        "prompt_ms": 105.964,
+        "prompt_per_token_ms": 26.491,
+        "prompt_per_second": 37.748669359405085,
+        "predicted_n": 128,
+        "predicted_ms": 6225.272,
+        "predicted_per_token_ms": 49.01788976377953,
+        "predicted_per_second": 20.400715020966153
+      }
+    },
+    "VmHWM_mib": 29193,
+    "VmRSS_mib": 22623
+  },
+  {
+    "model": "nemotron-3.5-lightning-q8",
+    "context": 1048576,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45976,
+      "SwapFree": 4777
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-nemotron-3.5-lightning-q8-1048576-ngl16.log",
+    "ready": true,
+    "startup_s": 4.01,
+    "loaded_mib": {
+      "MemAvailable": 39492,
+      "SwapFree": 4777
+    },
+    "warmup": {
+      "wall_s": 7.278,
+      "prompt_tokens": 58,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 17.587,
+      "finish_reason": "length",
+      "output_sha256": "65e865f54459c6becbe78d8e11dec3d4df3b1139e11ed1a42f9c59cf386bb76d",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 58,
+        "prompt_ms": 875.946,
+        "prompt_per_token_ms": 15.10251724137931,
+        "prompt_per_second": 66.2141273548826,
+        "predicted_n": 128,
+        "predicted_ms": 6397.981,
+        "predicted_per_token_ms": 50.3778031496063,
+        "predicted_per_second": 19.850012058491576
+      }
+    },
+    "benchmark": {
+      "wall_s": 6.339,
+      "prompt_tokens": 58,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 20.192,
+      "finish_reason": "length",
+      "output_sha256": "65e865f54459c6becbe78d8e11dec3d4df3b1139e11ed1a42f9c59cf386bb76d",
+      "timings": {
+        "cache_n": 54,
+        "prompt_n": 4,
+        "prompt_ms": 108.779,
+        "prompt_per_token_ms": 27.19475,
+        "prompt_per_second": 36.771803381167324,
+        "predicted_n": 128,
+        "predicted_ms": 6200.881,
+        "predicted_per_token_ms": 48.825834645669296,
+        "predicted_per_second": 20.4809606892956
+      }
+    },
+    "VmHWM_mib": 33723,
+    "VmRSS_mib": 29346
+  },
+  {
+    "model": "qwen3.8-27b-q4-xl",
+    "context": 4096,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "before_mib": {
+      "MemAvailable": 45961,
+      "SwapFree": 4779
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-qwen3.8-27b-q4-xl-4096-ngl16.log",
+    "ready": true,
+    "startup_s": 18.02,
+    "loaded_mib": {
+      "MemAvailable": 45332,
+      "SwapFree": 4779
+    },
+    "warmup": {
+      "wall_s": 39.986,
+      "prompt_tokens": 93,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 3.201,
+      "finish_reason": "length",
+      "output_sha256": "e7e861d2f7cdbcb43aed9d19f0361abe6225bf08310710053c2d5ac0d6dbe2b8",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 93,
+        "prompt_ms": 2846.428,
+        "prompt_per_token_ms": 30.60675268817204,
+        "prompt_per_second": 32.67252851644236,
+        "predicted_n": 128,
+        "predicted_ms": 37137.605,
+        "predicted_per_token_ms": 292.4220866141733,
+        "predicted_per_second": 3.4197143299897768
+      }
+    },
+    "benchmark": {
+      "wall_s": 114.076,
+      "prompt_tokens": 93,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 1.122,
+      "finish_reason": "length",
+      "output_sha256": "e7e861d2f7cdbcb43aed9d19f0361abe6225bf08310710053c2d5ac0d6dbe2b8",
+      "timings": {
+        "cache_n": 89,
+        "prompt_n": 4,
+        "prompt_ms": 360.881,
+        "prompt_per_token_ms": 90.22025,
+        "prompt_per_second": 11.083986133933347,
+        "predicted_n": 128,
+        "predicted_ms": 113628.932,
+        "predicted_per_token_ms": 894.716,
+        "predicted_per_second": 1.1176730940320727
+      }
+    },
+    "VmHWM_mib": 17106,
+    "VmRSS_mib": 13424
+  },
+  {
+    "model": "glm-4.7-flash-q6-xl",
+    "context": 4096,
+    "ngl": 99,
+    "cache_type": "f16",
+    "batch_size": null,
+    "rpc": true,
+    "tensor_split": "45,55",
+    "before_mib": {
+      "MemAvailable": 45211,
+      "SwapFree": 5111
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-glm-4.7-flash-q6-xl-4096-rpc45_55.log",
+    "ready": true,
+    "startup_s": 670.26,
+    "loaded_mib": {
+      "MemAvailable": 44860,
+      "SwapFree": 5112
+    },
+    "warmup": {
+      "wall_s": 3.183,
+      "prompt_tokens": 45,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 40.214,
+      "finish_reason": "length",
+      "output_sha256": "068521a2f9c4390baae035c6725950b2e4ed7532962c1f6f741c27efd7afd33d",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 45,
+        "prompt_ms": 350.291,
+        "prompt_per_token_ms": 7.784244444444444,
+        "prompt_per_second": 128.46461941642806,
+        "predicted_n": 128,
+        "predicted_ms": 2818.586,
+        "predicted_per_token_ms": 22.1935905511811,
+        "predicted_per_second": 45.05805393200705
+      }
+    },
+    "benchmark": {
+      "wall_s": 2.831,
+      "prompt_tokens": 45,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 45.214,
+      "finish_reason": "length",
+      "output_sha256": "c4cafd385afe87a95a33c20abb15c87fb42e3bba2015ba72576f8fed80954b43",
+      "timings": {
+        "cache_n": 44,
+        "prompt_n": 1,
+        "prompt_ms": 21.819,
+        "prompt_per_token_ms": 21.819,
+        "prompt_per_second": 45.83161464778404,
+        "predicted_n": 128,
+        "predicted_ms": 2767.979,
+        "predicted_per_token_ms": 21.79511023622047,
+        "predicted_per_second": 45.88185098225095
+      }
+    },
+    "VmHWM_mib": 25610,
+    "VmRSS_mib": 997
+  },
+  {
+    "model": "glm-4.7-flash-q6-xl",
+    "context": 4096,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "rpc": false,
+    "coordinator": true,
+    "tensor_split": null,
+    "before_mib": {
+      "MemAvailable": 45222,
+      "SwapFree": 5112
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-glm-4.7-flash-q6-xl-4096-ngl16-coordinator.log",
+    "ready": true,
+    "startup_s": 2.01,
+    "loaded_mib": {
+      "MemAvailable": 44713,
+      "SwapFree": 5112
+    },
+    "warmup": {
+      "wall_s": 14.953,
+      "prompt_tokens": 45,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 8.56,
+      "finish_reason": "length",
+      "output_sha256": "68d66373a881d056941f611a0971482ff8b0b307e6c4321fc3884d6c7e065f0b",
+      "output_excerpt": "1.  **Analyze the Request:** The user wants me to continue a list of integers starting from 1, 2, 3, ... up to 10, and then provide the next numbers separated by commas.\n\n2.  **Ide",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 45,
+        "prompt_ms": 602.986,
+        "prompt_per_token_ms": 13.399688888888889,
+        "prompt_per_second": 74.62859834225007,
+        "predicted_n": 128,
+        "predicted_ms": 14343.053,
+        "predicted_per_token_ms": 112.9374251968504,
+        "predicted_per_second": 8.854460762293774
+      }
+    },
+    "benchmark": {
+      "wall_s": 13.706,
+      "prompt_tokens": 45,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 9.339,
+      "finish_reason": "length",
+      "output_sha256": "c4cafd385afe87a95a33c20abb15c87fb42e3bba2015ba72576f8fed80954b43",
+      "output_excerpt": "1.  **Analyze the Request:** The user wants me to continue a list of integers starting from 1, 2, 3, ... up to 10, and then provide the next numbers separated by commas.\n\n2.  **Ide",
+      "timings": {
+        "cache_n": 44,
+        "prompt_n": 1,
+        "prompt_ms": 91.879,
+        "prompt_per_token_ms": 91.879,
+        "prompt_per_second": 10.883879885501583,
+        "predicted_n": 128,
+        "predicted_ms": 13605.671,
+        "predicted_per_token_ms": 107.13126771653543,
+        "predicted_per_second": 9.33434301035208
+      }
+    },
+    "VmHWM_mib": 25313,
+    "VmRSS_mib": 17365
+  },
+  {
+    "model": "muse-glimmer-30b-q8",
+    "context": 4096,
+    "ngl": 99,
+    "cache_type": "f16",
+    "batch_size": null,
+    "rpc": true,
+    "coordinator": false,
+    "tensor_split": "45,55",
+    "before_mib": {
+      "MemAvailable": 45231,
+      "SwapFree": 5113
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-muse-glimmer-30b-q8-4096-rpc45_55.log",
+    "error": "server exited -6",
+    "startup_s": 18.15,
+    "loaded_mib": {
+      "MemAvailable": 44973,
+      "SwapFree": 5097
+    }
+  },
+  {
+    "model": "mistral-small-4-iq2-xxs",
+    "context": 4096,
+    "ngl": 99,
+    "cache_type": "f16",
+    "batch_size": null,
+    "rpc": true,
+    "coordinator": false,
+    "tensor_split": "38,62",
+    "before_mib": {
+      "MemAvailable": 45567,
+      "SwapFree": 5098
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-mistral-small-4-iq2-xxs-4096-rpc38_62.log",
+    "ready": true,
+    "startup_s": 966.73,
+    "loaded_mib": {
+      "MemAvailable": 45541,
+      "SwapFree": 4748
+    },
+    "warmup": {
+      "wall_s": 3.24,
+      "prompt_tokens": 599,
+      "completion_tokens": 39,
+      "completion_tok_s_wall": 12.037,
+      "finish_reason": "stop",
+      "output_sha256": "91a845bb09dd950180bffbd89e425065a6a98d1c0f51930067910a5b976a44d7",
+      "output_excerpt": "11, 12, 13, 14, 15, 16, 17, 18, 19, 20",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 599,
+        "prompt_ms": 2240.082,
+        "prompt_per_token_ms": 3.739702838063439,
+        "prompt_per_second": 267.4009255018343,
+        "predicted_n": 39,
+        "predicted_ms": 828.441,
+        "predicted_per_token_ms": 21.80107894736842,
+        "predicted_per_second": 45.86928942435248
+      }
+    },
+    "benchmark": {
+      "wall_s": 0.399,
+      "prompt_tokens": 599,
+      "completion_tokens": 19,
+      "completion_tok_s_wall": 47.619,
+      "finish_reason": "stop",
+      "output_sha256": "2362c13f8e99616ee6b87be907754e2d8907ee1139b841d71ef9789c579b8056",
+      "output_excerpt": "11, 12, 13, 14, 15",
+      "timings": {
+        "cache_n": 598,
+        "prompt_n": 1,
+        "prompt_ms": 20.784,
+        "prompt_per_token_ms": 20.784,
+        "prompt_per_second": 48.1139337952271,
+        "predicted_n": 19,
+        "predicted_ms": 369.575,
+        "predicted_per_token_ms": 20.531944444444445,
+        "predicted_per_second": 48.704593113711695
+      }
+    },
+    "VmHWM_mib": 33386,
+    "VmRSS_mib": 487
+  },
+  {
+    "model": "mistral-small-4-iq2-xxs",
+    "context": 4096,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "rpc": false,
+    "coordinator": true,
+    "bench_prompt": "Write the integers from 11 through 300 inclusive, separated by commas. Do not stop early or add commentary.",
+    "bench_tokens": 256,
+    "tensor_split": null,
+    "before_mib": {
+      "MemAvailable": 45776,
+      "SwapFree": 4928
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-mistral-small-4-iq2-xxs-4096-ngl16-coordinator.log",
+    "ready": true,
+    "startup_s": 4.02,
+    "loaded_mib": {
+      "MemAvailable": 45353,
+      "SwapFree": 4928
+    },
+    "warmup": {
+      "wall_s": 76.309,
+      "prompt_tokens": 584,
+      "completion_tokens": 256,
+      "completion_tok_s_wall": 3.355,
+      "finish_reason": "length",
+      "output_sha256": "599e684208c8b7c00f9b4e6727db5d230e1a31d3b078eded53b216aac81f30f2",
+      "output_excerpt": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 584,
+        "prompt_ms": 1950.188,
+        "prompt_per_token_ms": 3.3393630136986303,
+        "prompt_per_second": 299.4583086348598,
+        "predicted_n": 256,
+        "predicted_ms": 74356.991,
+        "predicted_per_token_ms": 291.59604313725487,
+        "predicted_per_second": 3.4294018164344497
+      }
+    },
+    "benchmark": {
+      "wall_s": 58.506,
+      "prompt_tokens": 584,
+      "completion_tokens": 256,
+      "completion_tok_s_wall": 4.376,
+      "finish_reason": "length",
+      "output_sha256": "599e684208c8b7c00f9b4e6727db5d230e1a31d3b078eded53b216aac81f30f2",
+      "output_excerpt": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,",
+      "timings": {
+        "cache_n": 583,
+        "prompt_n": 1,
+        "prompt_ms": 230.332,
+        "prompt_per_token_ms": 230.332,
+        "prompt_per_second": 4.341559140718615,
+        "predicted_n": 256,
+        "predicted_ms": 58272.058,
+        "predicted_per_token_ms": 228.5178745098039,
+        "predicted_per_second": 4.376025298437203
+      }
+    },
+    "repeat": {
+      "wall_s": 59.232,
+      "prompt_tokens": 584,
+      "completion_tokens": 256,
+      "completion_tok_s_wall": 4.322,
+      "finish_reason": "length",
+      "output_sha256": "599e684208c8b7c00f9b4e6727db5d230e1a31d3b078eded53b216aac81f30f2",
+      "output_excerpt": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,",
+      "timings": {
+        "cache_n": 583,
+        "prompt_n": 1,
+        "prompt_ms": 219.933,
+        "prompt_per_token_ms": 219.933,
+        "prompt_per_second": 4.546839264685154,
+        "predicted_n": 256,
+        "predicted_ms": 59007.974,
+        "predicted_per_token_ms": 231.40381960784313,
+        "predicted_per_second": 4.321449843372016
+      }
+    },
+    "VmHWM_mib": 33645,
+    "VmRSS_mib": 19933
+  },
+  {
+    "model": "mistral-small-4-iq2-xxs",
+    "context": 4096,
+    "ngl": 99,
+    "cache_type": "f16",
+    "batch_size": null,
+    "rpc": true,
+    "coordinator": false,
+    "bench_prompt": "Write the integers from 11 through 300 inclusive, separated by commas. Do not stop early or add commentary.",
+    "bench_tokens": 256,
+    "tensor_split": "38,62",
+    "before_mib": {
+      "MemAvailable": 45412,
+      "SwapFree": 4936
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-mistral-small-4-iq2-xxs-4096-rpc38_62.log",
+    "ready": true,
+    "startup_s": 944.33,
+    "loaded_mib": {
+      "MemAvailable": 45026,
+      "SwapFree": 4948
+    },
+    "warmup": {
+      "wall_s": 7.161,
+      "prompt_tokens": 584,
+      "completion_tokens": 256,
+      "completion_tok_s_wall": 35.749,
+      "finish_reason": "length",
+      "output_sha256": "599e684208c8b7c00f9b4e6727db5d230e1a31d3b078eded53b216aac81f30f2",
+      "output_excerpt": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 584,
+        "prompt_ms": 1813.861,
+        "prompt_per_token_ms": 3.1059263698630137,
+        "prompt_per_second": 321.96513404279597,
+        "predicted_n": 256,
+        "predicted_ms": 5345.022,
+        "predicted_per_token_ms": 20.960870588235295,
+        "predicted_per_second": 47.707942081435775
+      }
+    },
+    "benchmark": {
+      "wall_s": 5.359,
+      "prompt_tokens": 584,
+      "completion_tokens": 256,
+      "completion_tok_s_wall": 47.77,
+      "finish_reason": "length",
+      "output_sha256": "599e684208c8b7c00f9b4e6727db5d230e1a31d3b078eded53b216aac81f30f2",
+      "output_excerpt": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,",
+      "timings": {
+        "cache_n": 583,
+        "prompt_n": 1,
+        "prompt_ms": 47.021,
+        "prompt_per_token_ms": 47.021,
+        "prompt_per_second": 21.26709342634142,
+        "predicted_n": 256,
+        "predicted_ms": 5309.987,
+        "predicted_per_token_ms": 20.82347843137255,
+        "predicted_per_second": 48.022716439795424
+      }
+    },
+    "repeat": {
+      "wall_s": 5.357,
+      "prompt_tokens": 584,
+      "completion_tokens": 256,
+      "completion_tok_s_wall": 47.788,
+      "finish_reason": "length",
+      "output_sha256": "599e684208c8b7c00f9b4e6727db5d230e1a31d3b078eded53b216aac81f30f2",
+      "output_excerpt": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,",
+      "timings": {
+        "cache_n": 583,
+        "prompt_n": 1,
+        "prompt_ms": 47.164,
+        "prompt_per_token_ms": 47.164,
+        "prompt_per_second": 21.202612161818337,
+        "predicted_n": 256,
+        "predicted_ms": 5308.322,
+        "predicted_per_token_ms": 20.816949019607843,
+        "predicted_per_second": 48.03777917014077
+      }
+    },
+    "VmHWM_mib": 34184,
+    "VmRSS_mib": 958
+  },
+  {
+    "model": "mistral-small-4-iq2-xxs",
+    "context": 4096,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "rpc": false,
+    "coordinator": false,
+    "bench_prompt": "Write the integers from 11 through 300 inclusive, separated by commas. Do not stop early or add commentary.",
+    "bench_tokens": 256,
+    "tensor_split": null,
+    "before_mib": {
+      "MemAvailable": 45384,
+      "SwapFree": 4948
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-mistral-small-4-iq2-xxs-4096-ngl16.log",
+    "ready": true,
+    "startup_s": 2.01,
+    "loaded_mib": {
+      "MemAvailable": 44992,
+      "SwapFree": 4948
+    },
+    "warmup": {
+      "wall_s": 12.081,
+      "prompt_tokens": 584,
+      "completion_tokens": 256,
+      "completion_tok_s_wall": 21.19,
+      "finish_reason": "length",
+      "output_sha256": "599e684208c8b7c00f9b4e6727db5d230e1a31d3b078eded53b216aac81f30f2",
+      "output_excerpt": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,",
+      "output_text": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,9",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 584,
+        "prompt_ms": 2015.509,
+        "prompt_per_token_ms": 3.4512140410958905,
+        "prompt_per_second": 289.753109512287,
+        "predicted_n": 256,
+        "predicted_ms": 10063.012,
+        "predicted_per_token_ms": 39.46279215686275,
+        "predicted_per_second": 25.34032554070292
+      }
+    },
+    "benchmark": {
+      "wall_s": 10.228,
+      "prompt_tokens": 584,
+      "completion_tokens": 256,
+      "completion_tok_s_wall": 25.029,
+      "finish_reason": "length",
+      "output_sha256": "599e684208c8b7c00f9b4e6727db5d230e1a31d3b078eded53b216aac81f30f2",
+      "output_excerpt": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,",
+      "output_text": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,9",
+      "timings": {
+        "cache_n": 583,
+        "prompt_n": 1,
+        "prompt_ms": 89.737,
+        "prompt_per_token_ms": 89.737,
+        "prompt_per_second": 11.143675407022744,
+        "predicted_n": 256,
+        "predicted_ms": 10135.781,
+        "predicted_per_token_ms": 39.748160784313725,
+        "predicted_per_second": 25.15839677277952
+      }
+    },
+    "repeat": {
+      "wall_s": 16.743,
+      "prompt_tokens": 584,
+      "completion_tokens": 256,
+      "completion_tok_s_wall": 15.29,
+      "finish_reason": "length",
+      "output_sha256": "599e684208c8b7c00f9b4e6727db5d230e1a31d3b078eded53b216aac81f30f2",
+      "output_excerpt": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,",
+      "output_text": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,9",
+      "timings": {
+        "cache_n": 583,
+        "prompt_n": 1,
+        "prompt_ms": 40.152,
+        "prompt_per_token_ms": 40.152,
+        "prompt_per_second": 24.905359633393104,
+        "predicted_n": 256,
+        "predicted_ms": 16699.747,
+        "predicted_per_token_ms": 65.48920392156863,
+        "predicted_per_second": 15.269692409112546
+      }
+    },
+    "VmHWM_mib": 33646,
+    "VmRSS_mib": 19938
+  },
+  {
+    "model": "mistral-small-4-iq2-xxs",
+    "context": 4096,
+    "ngl": 16,
+    "cache_type": "f16",
+    "batch_size": null,
+    "rpc": false,
+    "coordinator": false,
+    "bench_prompt": "Write the integers from 11 through 300 inclusive, separated by commas. Do not stop early or add commentary.",
+    "bench_tokens": 256,
+    "tensor_split": null,
+    "before_mib": {
+      "MemAvailable": 45378,
+      "SwapFree": 4949
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-mistral-small-4-iq2-xxs-4096-ngl16.log",
+    "ready": true,
+    "startup_s": 2.01,
+    "loaded_mib": {
+      "MemAvailable": 44989,
+      "SwapFree": 4949
+    },
+    "warmup": {
+      "wall_s": 21.934,
+      "prompt_tokens": 584,
+      "completion_tokens": 256,
+      "completion_tok_s_wall": 11.671,
+      "finish_reason": "length",
+      "output_sha256": "599e684208c8b7c00f9b4e6727db5d230e1a31d3b078eded53b216aac81f30f2",
+      "output_excerpt": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,",
+      "output_text": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,9",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 584,
+        "prompt_ms": 1934.172,
+        "prompt_per_token_ms": 3.311938356164384,
+        "prompt_per_second": 301.93798690085475,
+        "predicted_n": 256,
+        "predicted_ms": 19996.459,
+        "predicted_per_token_ms": 78.4174862745098,
+        "predicted_per_second": 12.75225778724123
+      }
+    },
+    "benchmark": {
+      "wall_s": 10.786,
+      "prompt_tokens": 584,
+      "completion_tokens": 256,
+      "completion_tok_s_wall": 23.734,
+      "finish_reason": "length",
+      "output_sha256": "599e684208c8b7c00f9b4e6727db5d230e1a31d3b078eded53b216aac81f30f2",
+      "output_excerpt": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,",
+      "output_text": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,9",
+      "timings": {
+        "cache_n": 583,
+        "prompt_n": 1,
+        "prompt_ms": 39.789,
+        "prompt_per_token_ms": 39.789,
+        "prompt_per_second": 25.13257432958858,
+        "predicted_n": 256,
+        "predicted_ms": 10743.493,
+        "predicted_per_token_ms": 42.13134509803922,
+        "predicted_per_second": 23.735297263189914
+      }
+    },
+    "repeat": {
+      "wall_s": 10.538,
+      "prompt_tokens": 584,
+      "completion_tokens": 256,
+      "completion_tok_s_wall": 24.293,
+      "finish_reason": "length",
+      "output_sha256": "599e684208c8b7c00f9b4e6727db5d230e1a31d3b078eded53b216aac81f30f2",
+      "output_excerpt": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,",
+      "output_text": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,9",
+      "timings": {
+        "cache_n": 583,
+        "prompt_n": 1,
+        "prompt_ms": 36.94,
+        "prompt_per_token_ms": 36.94,
+        "prompt_per_second": 27.070925825663238,
+        "predicted_n": 256,
+        "predicted_ms": 10497.882,
+        "predicted_per_token_ms": 41.168164705882354,
+        "predicted_per_second": 24.290614049576856
+      }
+    },
+    "extra_repeats": [
+      {
+        "wall_s": 10.193,
+        "prompt_tokens": 584,
+        "completion_tokens": 256,
+        "completion_tok_s_wall": 25.115,
+        "finish_reason": "length",
+        "output_sha256": "599e684208c8b7c00f9b4e6727db5d230e1a31d3b078eded53b216aac81f30f2",
+        "output_excerpt": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,",
+        "output_text": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,9",
+        "timings": {
+          "cache_n": 583,
+          "prompt_n": 1,
+          "prompt_ms": 54.048,
+          "prompt_per_token_ms": 54.048,
+          "prompt_per_second": 18.502072232089994,
+          "predicted_n": 256,
+          "predicted_ms": 10136.098,
+          "predicted_per_token_ms": 39.74940392156863,
+          "predicted_per_second": 25.15760995996684
+        }
+      },
+      {
+        "wall_s": 10.436,
+        "prompt_tokens": 584,
+        "completion_tokens": 256,
+        "completion_tok_s_wall": 24.53,
+        "finish_reason": "length",
+        "output_sha256": "599e684208c8b7c00f9b4e6727db5d230e1a31d3b078eded53b216aac81f30f2",
+        "output_excerpt": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,",
+        "output_text": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,9",
+        "timings": {
+          "cache_n": 583,
+          "prompt_n": 1,
+          "prompt_ms": 46.16,
+          "prompt_per_token_ms": 46.16,
+          "prompt_per_second": 21.663778162911612,
+          "predicted_n": 256,
+          "predicted_ms": 10387.579,
+          "predicted_per_token_ms": 40.735603921568625,
+          "predicted_per_second": 24.548549763135377
+        }
+      },
+      {
+        "wall_s": 21.218,
+        "prompt_tokens": 584,
+        "completion_tokens": 256,
+        "completion_tok_s_wall": 12.065,
+        "finish_reason": "length",
+        "output_sha256": "599e684208c8b7c00f9b4e6727db5d230e1a31d3b078eded53b216aac81f30f2",
+        "output_excerpt": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,",
+        "output_text": "11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,9",
+        "timings": {
+          "cache_n": 583,
+          "prompt_n": 1,
+          "prompt_ms": 37.02,
+          "prompt_per_token_ms": 37.02,
+          "prompt_per_second": 27.01242571582928,
+          "predicted_n": 256,
+          "predicted_ms": 21174.661,
+          "predicted_per_token_ms": 83.0378862745098,
+          "predicted_per_second": 12.042695748470306
+        }
+      }
+    ],
+    "VmHWM_mib": 33646,
+    "VmRSS_mib": 19938
+  },
+  {
+    "model": "nemotron-3.5-lightning-q8",
+    "context": 4096,
+    "ngl": 99,
+    "cache_type": "q8_0",
+    "batch_size": 128,
+    "flash_attn": "on",
+    "backend_sampling": true,
+    "rpc": true,
+    "coordinator": false,
+    "bench_prompt": "Explain briefly why PCIe transfers are slower than on-device memory.",
+    "bench_tokens": 128,
+    "tensor_split": "50,50",
+    "before_mib": {
+      "MemAvailable": 44089,
+      "SwapFree": 8191
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-nemotron-3.5-lightning-q8-4096-q8_0-b128-rpc50_50.log",
+    "ready": true,
+    "startup_s": 820.31,
+    "loaded_mib": {
+      "MemAvailable": 43853,
+      "SwapFree": 8186
+    },
+    "warmup": {
+      "wall_s": 2.769,
+      "prompt_tokens": 31,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 46.226,
+      "finish_reason": "length",
+      "output_sha256": "b57e083d9bca673789b51cf64802c8d05d459b20c61b6917505584565370f177",
+      "output_excerpt": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User asks: \"Explain briefly why PCIe transfers are slower than on-device memory.\"\n   - Key concepts: PCIe transfers vs.",
+      "output_text": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User asks: \"Explain briefly why PCIe transfers are slower than on-device memory.\"\n   - Key concepts: PCIe transfers vs. on-device memory speed\n   - Request: \"briefly\"\n\n2.  **Identify Core Technical Reasons:**\n   - PCIe (Peripheral Component Interconnect Express) is a bus/interface connecting the CPU/host to a device (GPU, SSD, NIC, etc.)\n   - On-device memory (e.g., VRAM, HBM) is directly integrated with the device",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 31,
+        "prompt_ms": 658.402,
+        "prompt_per_token_ms": 21.238774193548387,
+        "prompt_per_second": 47.083696586583876,
+        "predicted_n": 128,
+        "predicted_ms": 2108.382,
+        "predicted_per_token_ms": 16.601433070866143,
+        "predicted_per_second": 60.235763727825415
+      }
+    },
+    "benchmark": {
+      "wall_s": 3.554,
+      "prompt_tokens": 31,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 36.016,
+      "finish_reason": "length",
+      "output_sha256": "b57e083d9bca673789b51cf64802c8d05d459b20c61b6917505584565370f177",
+      "output_excerpt": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User asks: \"Explain briefly why PCIe transfers are slower than on-device memory.\"\n   - Key concepts: PCIe transfers vs.",
+      "output_text": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User asks: \"Explain briefly why PCIe transfers are slower than on-device memory.\"\n   - Key concepts: PCIe transfers vs. on-device memory speed\n   - Request: \"briefly\"\n\n2.  **Identify Core Technical Reasons:**\n   - PCIe (Peripheral Component Interconnect Express) is a bus/interface connecting the CPU/host to a device (GPU, SSD, NIC, etc.)\n   - On-device memory (e.g., VRAM, HBM) is directly integrated with the device",
+      "timings": {
+        "cache_n": 27,
+        "prompt_n": 4,
+        "prompt_ms": 1268.47,
+        "prompt_per_token_ms": 317.1175,
+        "prompt_per_second": 3.1534052835305526,
+        "predicted_n": 128,
+        "predicted_ms": 2109.494,
+        "predicted_per_token_ms": 16.610188976377955,
+        "predicted_per_second": 60.204011009275206
+      }
+    },
+    "repeat": {
+      "wall_s": 3.381,
+      "prompt_tokens": 31,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 37.859,
+      "finish_reason": "length",
+      "output_sha256": "b57e083d9bca673789b51cf64802c8d05d459b20c61b6917505584565370f177",
+      "output_excerpt": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User asks: \"Explain briefly why PCIe transfers are slower than on-device memory.\"\n   - Key concepts: PCIe transfers vs.",
+      "output_text": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User asks: \"Explain briefly why PCIe transfers are slower than on-device memory.\"\n   - Key concepts: PCIe transfers vs. on-device memory speed\n   - Request: \"briefly\"\n\n2.  **Identify Core Technical Reasons:**\n   - PCIe (Peripheral Component Interconnect Express) is a bus/interface connecting the CPU/host to a device (GPU, SSD, NIC, etc.)\n   - On-device memory (e.g., VRAM, HBM) is directly integrated with the device",
+      "timings": {
+        "cache_n": 27,
+        "prompt_n": 4,
+        "prompt_ms": 1269.854,
+        "prompt_per_token_ms": 317.4635,
+        "prompt_per_second": 3.1499684215665735,
+        "predicted_n": 128,
+        "predicted_ms": 2109.723,
+        "predicted_per_token_ms": 16.61199212598425,
+        "predicted_per_second": 60.19747616156245
+      }
+    },
+    "extra_repeats": [],
+    "VmHWM_mib": 34393,
+    "VmRSS_mib": 1236
+  },
+  {
+    "model": "nemotron-3.5-lightning-q8",
+    "context": 160000,
+    "ngl": 99,
+    "cache_type": "q8_0",
+    "batch_size": 128,
+    "flash_attn": "on",
+    "backend_sampling": true,
+    "rpc": true,
+    "coordinator": false,
+    "bench_prompt": "Explain briefly why PCIe transfers are slower than on-device memory.",
+    "bench_tokens": 128,
+    "tensor_split": "50,50",
+    "before_mib": {
+      "MemAvailable": 43974,
+      "SwapFree": 8159
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-nemotron-3.5-lightning-q8-160000-q8_0-b128-rpc50_50.log",
+    "error": "server exited -6",
+    "startup_s": 796.28,
+    "loaded_mib": {
+      "MemAvailable": 44308,
+      "SwapFree": 8161
+    }
+  },
+  {
+    "model": "nemotron-3.5-lightning-q8",
+    "context": 160000,
+    "ngl": 99,
+    "cache_type": "q8_0",
+    "batch_size": 128,
+    "flash_attn": "on",
+    "backend_sampling": true,
+    "rpc": true,
+    "coordinator": false,
+    "bench_prompt": "Explain briefly why PCIe transfers are slower than on-device memory.",
+    "bench_tokens": 128,
+    "tensor_split": "44,56",
+    "before_mib": {
+      "MemAvailable": 43876,
+      "SwapFree": 8161
+    },
+    "log": "/home/shiba/multikernel-experiment/model-api/logs/context-nemotron-3.5-lightning-q8-160000-q8_0-b128-rpc44_56.log",
+    "ready": true,
+    "startup_s": 860.3,
+    "loaded_mib": {
+      "MemAvailable": 43612,
+      "SwapFree": 8161
+    },
+    "warmup": {
+      "wall_s": 2.851,
+      "prompt_tokens": 31,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 44.897,
+      "finish_reason": "length",
+      "output_sha256": "b57e083d9bca673789b51cf64802c8d05d459b20c61b6917505584565370f177",
+      "output_excerpt": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User asks: \"Explain briefly why PCIe transfers are slower than on-device memory.\"\n   - Key concepts: PCIe transfers vs.",
+      "output_text": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User asks: \"Explain briefly why PCIe transfers are slower than on-device memory.\"\n   - Key concepts: PCIe transfers vs. on-device memory speed\n   - Request: \"briefly\"\n\n2.  **Identify Core Technical Reasons:**\n   - PCIe (Peripheral Component Interconnect Express) is a bus/interface connecting the CPU/host to a device (GPU, SSD, NIC, etc.)\n   - On-device memory (e.g., VRAM, HBM) is directly integrated with the device",
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 31,
+        "prompt_ms": 663.059,
+        "prompt_per_token_ms": 21.389,
+        "prompt_per_second": 46.75300388049933,
+        "predicted_n": 128,
+        "predicted_ms": 2185.861,
+        "predicted_per_token_ms": 17.211503937007873,
+        "predicted_per_second": 58.100675203043565
+      }
+    },
+    "benchmark": {
+      "wall_s": 3.791,
+      "prompt_tokens": 31,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 33.764,
+      "finish_reason": "length",
+      "output_sha256": "b57e083d9bca673789b51cf64802c8d05d459b20c61b6917505584565370f177",
+      "output_excerpt": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User asks: \"Explain briefly why PCIe transfers are slower than on-device memory.\"\n   - Key concepts: PCIe transfers vs.",
+      "output_text": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User asks: \"Explain briefly why PCIe transfers are slower than on-device memory.\"\n   - Key concepts: PCIe transfers vs. on-device memory speed\n   - Request: \"briefly\"\n\n2.  **Identify Core Technical Reasons:**\n   - PCIe (Peripheral Component Interconnect Express) is a bus/interface connecting the CPU/host to a device (GPU, SSD, NIC, etc.)\n   - On-device memory (e.g., VRAM, HBM) is directly integrated with the device",
+      "timings": {
+        "cache_n": 27,
+        "prompt_n": 4,
+        "prompt_ms": 1414.622,
+        "prompt_per_token_ms": 353.6555,
+        "prompt_per_second": 2.8276104853452018,
+        "predicted_n": 128,
+        "predicted_ms": 2190.813,
+        "predicted_per_token_ms": 17.250496062992127,
+        "predicted_per_second": 57.96934745229282
+      }
+    },
+    "repeat": {
+      "wall_s": 3.598,
+      "prompt_tokens": 31,
+      "completion_tokens": 128,
+      "completion_tok_s_wall": 35.575,
+      "finish_reason": "length",
+      "output_sha256": "b57e083d9bca673789b51cf64802c8d05d459b20c61b6917505584565370f177",
+      "output_excerpt": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User asks: \"Explain briefly why PCIe transfers are slower than on-device memory.\"\n   - Key concepts: PCIe transfers vs.",
+      "output_text": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User asks: \"Explain briefly why PCIe transfers are slower than on-device memory.\"\n   - Key concepts: PCIe transfers vs. on-device memory speed\n   - Request: \"briefly\"\n\n2.  **Identify Core Technical Reasons:**\n   - PCIe (Peripheral Component Interconnect Express) is a bus/interface connecting the CPU/host to a device (GPU, SSD, NIC, etc.)\n   - On-device memory (e.g., VRAM, HBM) is directly integrated with the device",
+      "timings": {
+        "cache_n": 27,
+        "prompt_n": 4,
+        "prompt_ms": 1413.729,
+        "prompt_per_token_ms": 353.43225,
+        "prompt_per_second": 2.8293965816645197,
+        "predicted_n": 128,
+        "predicted_ms": 2182.724,
+        "predicted_per_token_ms": 17.186803149606302,
+        "predicted_per_second": 58.18417720243145
+      }
+    },
+    "extra_repeats": [],
+    "VmHWM_mib": 34407,
+    "VmRSS_mib": 1396
+  }
+]

@@ -1,0 +1,15 @@
+#!/bin/sh
+set -eu
+release=$(uname -r)
+insmod "/lib/modules/$release/nvidia.ko"
+/sbin/nvidia-modprobe -c 0
+insmod "/lib/modules/$release/nvidia-uvm.ko"
+/sbin/nvidia-modprobe -u -c 0
+echo 'Loaded modules:'
+cat /proc/modules | grep '^nvidia'
+for device in /sys/bus/pci/devices/*; do
+    test -d "$device/msi_irqs" || continue
+    echo "MSI vectors for $device:"
+    ls "$device/msi_irqs"
+done
+dmesg | tail -n 80

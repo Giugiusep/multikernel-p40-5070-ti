@@ -1,0 +1,210 @@
+From b325ebda78327ea4d66bf25482083eeddb4d48c9 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Mon, 14 Sep 2026 15:55:40 +0000
+Subject: [PATCH 01/15] ggml rpc: add Multikernel VSOCK transport
+
+Assisted-by: Codex
+---
+ ggml/src/ggml-rpc/ggml-rpc.cpp  |   2 +-
+ ggml/src/ggml-rpc/transport.cpp | 102 +++++++++++++++++++++++++++++++-
+ 2 files changed, 100 insertions(+), 4 deletions(-)
+
+diff --git a/ggml/src/ggml-rpc/ggml-rpc.cpp b/ggml/src/ggml-rpc/ggml-rpc.cpp
+index 9aa5883d8..e53d7ea32 100644
+--- a/ggml/src/ggml-rpc/ggml-rpc.cpp
++++ b/ggml/src/ggml-rpc/ggml-rpc.cpp
+@@ -291,7 +291,7 @@ static bool recv_msg(socket_ptr sock, std::vector<uint8_t> & input) {
+ }
+ 
+ static bool parse_endpoint(const std::string & endpoint, std::string & host, int & port) {
+-    size_t pos = endpoint.find(':');
++    size_t pos = endpoint.rfind(':');
+     if (pos == std::string::npos) {
+         return false;
+     }
+diff --git a/ggml/src/ggml-rpc/transport.cpp b/ggml/src/ggml-rpc/transport.cpp
+index 5ec15dc80..04e27ede2 100644
+--- a/ggml/src/ggml-rpc/transport.cpp
++++ b/ggml/src/ggml-rpc/transport.cpp
+@@ -10,6 +10,9 @@
+ #  include <winsock2.h>
+ #else
+ #  include <arpa/inet.h>
++#  if defined(__linux__)
++#    include <linux/vm_sockets.h>
++#  endif
+ #  include <sys/socket.h>
+ #  include <sys/types.h>
+ #  include <netinet/in.h>
+@@ -21,6 +24,7 @@
+ #include <cstring>
+ #include <mutex>
+ #include <optional>
++#include <cerrno>
+ 
+ #ifdef GGML_RPC_RDMA
+ #  include <infiniband/verbs.h>
+@@ -41,6 +45,13 @@ using ssize_t = __int64;
+ typedef int sockfd_t;
+ #endif
+ 
++#if defined(__linux__)
++static constexpr int MK_VSOCK_TRANSPORT_LEVEL = AF_VSOCK;
++static constexpr int MK_VSOCK_TRANSPORT_OPTION = 9;
++static constexpr int MK_VSOCK_TRANSPORT_VALUE = 1;
++static constexpr size_t MK_VSOCK_CHUNK_SIZE = 32 * 1024;
++#endif
++
+ static const char * RPC_DEBUG = std::getenv("GGML_RPC_DEBUG");
+ 
+ #define LOG_DBG(...) \
+@@ -122,7 +133,7 @@ static_assert(sizeof(rdma_caps) == RPC_CONN_CAPS_SIZE, "rdma_caps must match con
+ #endif // GGML_RPC_RDMA && !GGML_RPC_RDMA_APPLE
+ 
+ struct socket_t::impl {
+-    impl(sockfd_t fd) : use_rdma(false), fd(fd) {}
++    impl(sockfd_t fd, bool multikernel = false) : use_rdma(false), fd(fd), multikernel(multikernel) {}
+     ~impl();
+     bool send_data(const void * data, size_t size);
+     bool recv_data(void * data, size_t size);
+@@ -149,6 +160,7 @@ struct socket_t::impl {
+ #endif // GGML_RPC_RDMA
+     bool     use_rdma;
+     sockfd_t fd;
++    bool     multikernel;
+ };
+ 
+ socket_t::impl::~impl() {
+@@ -490,12 +502,24 @@ bool socket_t::impl::send_data(const void * data, size_t size) {
+     size_t bytes_sent = 0;
+     while (bytes_sent < size) {
+         size_t size_to_send = std::min(size - bytes_sent, MAX_CHUNK_SIZE);
++#if defined(__linux__)
++        if (multikernel) {
++            size_to_send = std::min(size_to_send, MK_VSOCK_CHUNK_SIZE);
++        }
++#endif
+         ssize_t n = send(fd, (const char *)data + bytes_sent, size_to_send, 0);
++        if (n < 0 && errno == EINTR) {
++            continue;
++        }
+         if (n < 0) {
+             GGML_LOG_ERROR("send failed (bytes_sent=%zu, size_to_send=%zu)\n",
+                            bytes_sent, size_to_send);
+             return false;
+         }
++        if (n == 0) {
++            GGML_LOG_ERROR("send returned 0 (peer closed?)\n");
++            return false;
++        }
+         bytes_sent += (size_t)n;
+     }
+     return true;
+@@ -515,6 +539,9 @@ bool socket_t::impl::recv_data(void * data, size_t size) {
+     while (bytes_recv < size) {
+         size_t size_to_recv = std::min(size - bytes_recv, MAX_CHUNK_SIZE);
+         ssize_t n = recv(fd, (char *)data + bytes_recv, size_to_recv, 0);
++        if (n < 0 && errno == EINTR) {
++            continue;
++        }
+         if (n < 0) {
+             GGML_LOG_ERROR("recv failed (bytes_recv=%zu, size_to_recv=%zu)\n",
+                            bytes_recv, size_to_recv);
+@@ -641,19 +668,69 @@ static bool set_reuse_addr(sockfd_t sockfd) {
+     return ret == 0;
+ }
+ 
++#if defined(__linux__)
++static bool parse_mk_vsock_host(const char * host, uint32_t & cid) {
++    constexpr const char * prefix = "mkvsock:";
++    if (strncmp(host, prefix, strlen(prefix)) != 0) {
++        return false;
++    }
++    char * end = nullptr;
++    errno = 0;
++    unsigned long value = strtoul(host + strlen(prefix), &end, 10);
++    if (errno != 0 || end == host + strlen(prefix) || *end != '\0' || value > UINT32_MAX) {
++        return false;
++    }
++    cid = (uint32_t) value;
++    return true;
++}
++
++static bool enable_mk_vsock(sockfd_t sockfd) {
++    int transport = MK_VSOCK_TRANSPORT_VALUE;
++    if (setsockopt(sockfd, MK_VSOCK_TRANSPORT_LEVEL, MK_VSOCK_TRANSPORT_OPTION,
++                   &transport, sizeof(transport)) != 0) {
++        GGML_LOG_ERROR("Failed to select Multikernel VSOCK transport: %s\n", strerror(errno));
++        return false;
++    }
++    return true;
++}
++#endif
++
+ socket_ptr socket_t::accept() {
+     auto client_socket_fd = ::accept(pimpl->fd, NULL, NULL);
+     if (!is_valid_fd(client_socket_fd)) {
+         return nullptr;
+     }
+-    if (!set_no_delay(client_socket_fd)) {
++    if (!pimpl->multikernel && !set_no_delay(client_socket_fd)) {
+         GGML_LOG_ERROR("Failed to set TCP_NODELAY\n");
+         return nullptr;
+     }
+-    return socket_ptr(new socket_t(std::make_unique<impl>(client_socket_fd)));
++    return socket_ptr(new socket_t(std::make_unique<impl>(client_socket_fd, pimpl->multikernel)));
+ }
+ 
+ socket_ptr socket_t::create_server(const char * host, int port) {
++#if defined(__linux__)
++    if (strcmp(host, "mkvsock") == 0 || strncmp(host, "mkvsock:", 8) == 0) {
++        uint32_t cid = VMADDR_CID_ANY;
++        if (strncmp(host, "mkvsock:", 8) == 0 && !parse_mk_vsock_host(host, cid)) {
++            GGML_LOG_ERROR("Invalid Multikernel VSOCK server address: %s\n", host);
++            return nullptr;
++        }
++        auto sockfd = socket(AF_VSOCK, SOCK_STREAM, 0);
++        if (!is_valid_fd(sockfd) || !enable_mk_vsock(sockfd)) {
++            return nullptr;
++        }
++        struct sockaddr_vm addr = {};
++        addr.svm_family = AF_VSOCK;
++        addr.svm_cid = cid;
++        addr.svm_port = (unsigned int) port;
++        if (bind(sockfd, (struct sockaddr *) &addr, sizeof(addr)) < 0 || listen(sockfd, 1) < 0) {
++            GGML_LOG_ERROR("Failed to bind Multikernel VSOCK port %d: %s\n", port, strerror(errno));
++            close(sockfd);
++            return nullptr;
++        }
++        return socket_ptr(new socket_t(std::make_unique<impl>(sockfd, true)));
++    }
++#endif
+     auto sockfd = socket(AF_INET, SOCK_STREAM, 0);
+     if (!is_valid_fd(sockfd)) {
+         return nullptr;
+@@ -681,6 +758,25 @@ socket_ptr socket_t::create_server(const char * host, int port) {
+ }
+ 
+ socket_ptr socket_t::connect(const char * host, int port) {
++#if defined(__linux__)
++    uint32_t cid = 0;
++    if (parse_mk_vsock_host(host, cid)) {
++        auto sockfd = socket(AF_VSOCK, SOCK_STREAM, 0);
++        if (!is_valid_fd(sockfd) || !enable_mk_vsock(sockfd)) {
++            return nullptr;
++        }
++        struct sockaddr_vm addr = {};
++        addr.svm_family = AF_VSOCK;
++        addr.svm_cid = cid;
++        addr.svm_port = (unsigned int) port;
++        if (::connect(sockfd, (struct sockaddr *) &addr, sizeof(addr)) < 0) {
++            GGML_LOG_ERROR("Failed to connect to Multikernel VSOCK CID %u port %d: %s\n", cid, port, strerror(errno));
++            close(sockfd);
++            return nullptr;
++        }
++        return socket_ptr(new socket_t(std::make_unique<impl>(sockfd, true)));
++    }
++#endif
+     auto sockfd = socket(AF_INET, SOCK_STREAM, 0);
+     if (!is_valid_fd(sockfd)) {
+         return nullptr;

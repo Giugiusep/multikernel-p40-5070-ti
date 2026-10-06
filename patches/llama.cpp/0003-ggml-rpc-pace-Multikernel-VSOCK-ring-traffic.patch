@@ -1,0 +1,41 @@
+From e89eba8775e2ee958a37eee0b0d653b2a847b2f4 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Mon, 14 Sep 2026 16:35:02 +0000
+Subject: [PATCH 03/15] ggml rpc: pace Multikernel VSOCK ring traffic
+
+Add a short drain interval between 32 KiB Multikernel VSOCK chunks in both directions to avoid overrunning the shared IPI ring during large RPC messages.
+
+Assisted-by: Codex
+---
+ ggml/src/ggml-rpc/transport.cpp | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/ggml/src/ggml-rpc/transport.cpp b/ggml/src/ggml-rpc/transport.cpp
+index 145077fb0..de0f1fa46 100644
+--- a/ggml/src/ggml-rpc/transport.cpp
++++ b/ggml/src/ggml-rpc/transport.cpp
+@@ -521,6 +521,12 @@ bool socket_t::impl::send_data(const void * data, size_t size) {
+             return false;
+         }
+         bytes_sent += (size_t)n;
++#if defined(__linux__)
++        if (multikernel && bytes_sent < size) {
++            // The Multikernel IPI ring is small; give the peer time to drain it.
++            usleep(100);
++        }
++#endif
+     }
+     return true;
+ }
+@@ -557,6 +563,11 @@ bool socket_t::impl::recv_data(void * data, size_t size) {
+             return false;
+         }
+         bytes_recv += (size_t)n;
++#if defined(__linux__)
++        if (multikernel && bytes_recv < size) {
++            usleep(100);
++        }
++#endif
+     }
+     return true;
+ }

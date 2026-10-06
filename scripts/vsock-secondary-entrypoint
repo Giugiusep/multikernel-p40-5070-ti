@@ -1,0 +1,9 @@
+#!/bin/sh
+export PATH=/bin:/sbin
+export LD_LIBRARY_PATH=/lib:/lib64
+mkdir -p /tmp
+echo VSOCK_SECONDARY_READY
+/sbin/vsock_ping_server 6000 >/tmp/vsock-server.log 2>&1 &
+echo VSOCK_LISTENER_PID=$!
+export PS1='mk-vsock# '
+while true; do setsid cttyhack /bin/sh; done

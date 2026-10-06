@@ -1,0 +1,105 @@
+From 2c15844824b10a66bc15fe7c335f978907852167 Mon Sep 17 00:00:00 2001
+From: Shiba Multikernel Experiment <shiba@localhost>
+Date: Thu, 17 Sep 2026 14:57:03 +0000
+Subject: [PATCH 05/10] mk vsock: make direct RX locking IRQ-safe
+
+Direct IPI receive can interrupt stream dequeue or readiness checks on the same CPU. Disable local IRQs around every per-socket RX queue lock to prevent recursive spinlock deadlocks while retaining bounded direct dispatch.
+
+Assisted-by: Codex
+---
+ net/vmw_vsock/mk_transport.c | 28 +++++++++++++++++-----------
+ 1 file changed, 17 insertions(+), 11 deletions(-)
+
+diff --git a/net/vmw_vsock/mk_transport.c b/net/vmw_vsock/mk_transport.c
+index 6f7d0a1..49a1007 100644
+--- a/net/vmw_vsock/mk_transport.c
++++ b/net/vmw_vsock/mk_transport.c
+@@ -121,12 +121,13 @@ static void mk_vsock_rx_pkt(struct sk_buff *skb)
+ 	switch (le16_to_cpu(hdr->op)) {
+ 	case VIRTIO_VSOCK_OP_RW: {
+ 		struct mk_vsock_sock *mk_vsk = mk_vsock_sk(vsk);
++		unsigned long flags;
+ 
+ 		VIRTIO_VSOCK_SKB_CB(skb)->offset = 0;
+-		spin_lock_bh(&mk_vsk->rx_lock);
++		spin_lock_irqsave(&mk_vsk->rx_lock, flags);
+ 		skb_queue_tail(&mk_vsk->rx_queue, skb);
+ 		mk_vsk->rx_bytes += le32_to_cpu(hdr->len);
+-		spin_unlock_bh(&mk_vsk->rx_lock);
++		spin_unlock_irqrestore(&mk_vsk->rx_lock, flags);
+ 
+ 		vsock_data_ready(sk);
+ 		sock_put(sk);
+@@ -306,6 +307,9 @@ static void mk_vsock_ipi_handler(u32 msg_type, u32 subtype,
+ 	 * takes socket-table/queue spinlocks and wakes readers.  Dispatch them
+ 	 * here, while the IPI interrupt is active, so the single deferred worker
+ 	 * cannot accumulate an unbounded skb backlog during bulk RPC transfers.
++	 * Every rx_lock user disables local IRQs: otherwise this handler can
++	 * interrupt stream_has_data/dequeue while that same CPU holds rx_lock and
++	 * deadlock trying to enqueue the packet.
+ 	 * Connection-management packets remain deferred because they may create
+ 	 * sockets and allocate with GFP_KERNEL.
+ 	 */
+@@ -525,13 +529,14 @@ static ssize_t mk_transport_stream_dequeue(struct vsock_sock *vsk,
+ 	struct sk_buff *skb;
+ 	struct virtio_vsock_hdr *hdr;
+ 	size_t to_copy, off;
++	unsigned long irq_flags;
+ 	int err;
+ 
+-	spin_lock_bh(&mk_vsk->rx_lock);
++	spin_lock_irqsave(&mk_vsk->rx_lock, irq_flags);
+ 
+ 	skb = __skb_dequeue(&mk_vsk->rx_queue);
+ 	if (!skb) {
+-		spin_unlock_bh(&mk_vsk->rx_lock);
++		spin_unlock_irqrestore(&mk_vsk->rx_lock, irq_flags);
+ 		return -EAGAIN;
+ 	}
+ 
+@@ -540,22 +545,22 @@ static ssize_t mk_transport_stream_dequeue(struct vsock_sock *vsk,
+ 	to_copy = min(len, (size_t)le32_to_cpu(hdr->len) - off);
+ 
+ 	mk_vsk->fwd_cnt += to_copy;
+-	spin_unlock_bh(&mk_vsk->rx_lock);
++	spin_unlock_irqrestore(&mk_vsk->rx_lock, irq_flags);
+ 
+ 	err = skb_copy_datagram_msg(skb, sizeof(*hdr) + off, msg, to_copy);
+ 	if (err) {
+-		spin_lock_bh(&mk_vsk->rx_lock);
++		spin_lock_irqsave(&mk_vsk->rx_lock, irq_flags);
+ 		__skb_queue_head(&mk_vsk->rx_queue, skb);
+ 		mk_vsk->fwd_cnt -= to_copy;
+-		spin_unlock_bh(&mk_vsk->rx_lock);
++		spin_unlock_irqrestore(&mk_vsk->rx_lock, irq_flags);
+ 		return err;
+ 	}
+ 
+ 	if (to_copy + off < le32_to_cpu(hdr->len)) {
+ 		VIRTIO_VSOCK_SKB_CB(skb)->offset = off + to_copy;
+-		spin_lock_bh(&mk_vsk->rx_lock);
++		spin_lock_irqsave(&mk_vsk->rx_lock, irq_flags);
+ 		__skb_queue_head(&mk_vsk->rx_queue, skb);
+-		spin_unlock_bh(&mk_vsk->rx_lock);
++		spin_unlock_irqrestore(&mk_vsk->rx_lock, irq_flags);
+ 	} else {
+ 		kfree_skb(skb);
+ 	}
+@@ -568,14 +573,15 @@ static s64 mk_transport_stream_has_data(struct vsock_sock *vsk)
+ 	struct mk_vsock_sock *mk_vsk = mk_vsock_sk(vsk);
+ 	struct sk_buff *skb;
+ 	struct virtio_vsock_hdr *hdr;
++	unsigned long flags;
+ 	s64 data = 0;
+ 
+-	spin_lock_bh(&mk_vsk->rx_lock);
++	spin_lock_irqsave(&mk_vsk->rx_lock, flags);
+ 	skb_queue_walk(&mk_vsk->rx_queue, skb) {
+ 		hdr = (struct virtio_vsock_hdr *)skb->data;
+ 		data += le32_to_cpu(hdr->len) - VIRTIO_VSOCK_SKB_CB(skb)->offset;
+ 	}
+-	spin_unlock_bh(&mk_vsk->rx_lock);
++	spin_unlock_irqrestore(&mk_vsk->rx_lock, flags);
+ 
+ 	return data;
+ }

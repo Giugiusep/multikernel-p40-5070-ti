@@ -1,0 +1,278 @@
+{
+  "ling-3-flash-iq2-s": {
+    "model": "ling-3-flash-iq2-s",
+    "load_seconds": 38.99,
+    "switch": {
+      "active_model": "ling-3-flash-iq2-s"
+    },
+    "answer_seconds": 16.41,
+    "content": "4",
+    "reasoning_excerpt": "The user is asking me to reply with the numeral 4. This is a straightforward request.",
+    "usage": {
+      "completion_tokens": 23,
+      "prompt_tokens": 28,
+      "total_tokens": 51,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "max_tokens": 128,
+    "passed": true
+  },
+  "k2-horizon-mova-q4-k-m": {
+    "model": "k2-horizon-mova-q4-k-m",
+    "load_seconds": 33.74,
+    "switch": {
+      "active_model": "k2-horizon-mova-q4-k-m"
+    },
+    "answer_seconds": 58.43,
+    "content": "4",
+    "reasoning_excerpt": "The user asks: \"Reply with the numeral 4.\" So we should respond with \"4\". Probably just the numeral. No extra text. So answer: 4.\n",
+    "usage": {
+      "completion_tokens": 40,
+      "prompt_tokens": 17,
+      "total_tokens": 57,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "max_tokens": 128,
+    "passed": true
+  },
+  "nemotron3-nano-4b-q4-k-m": {
+    "model": "nemotron3-nano-4b-q4-k-m",
+    "load_seconds": 2.74,
+    "switch": {
+      "active_model": "nemotron3-nano-4b-q4-k-m"
+    },
+    "answer_seconds": 0.23,
+    "content": "4",
+    "reasoning_excerpt": "The user says: \"Reply with the numeral 4.\" So we should output \"4\". No extra text. Just numeral 4.\n",
+    "usage": {
+      "completion_tokens": 32,
+      "prompt_tokens": 24,
+      "total_tokens": 56,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "max_tokens": 128,
+    "passed": true
+  },
+  "nemotron-3.5-lightning-q8": {
+    "model": "nemotron-3.5-lightning-q8",
+    "load_seconds": 28.74,
+    "switch": {
+      "active_model": "nemotron-3.5-lightning-q8"
+    },
+    "answer_seconds": 119.51,
+    "content": "4",
+    "reasoning_excerpt": "Here's a thinking process:\n\n1.  **Analyze User Input:** The user says \"Reply with the numeral 4.\"\n2.  **Identify Task:** The user wants me to output the number 4 as a numeral.\n3.  ",
+    "usage": {
+      "completion_tokens": 108,
+      "prompt_tokens": 23,
+      "total_tokens": 131,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "max_tokens": 128,
+    "passed": true
+  },
+  "mistral-small-4-iq2-xxs": {
+    "model": "mistral-small-4-iq2-xxs",
+    "load_seconds": 30.19,
+    "switch": {
+      "active_model": "mistral-small-4-iq2-xxs"
+    },
+    "answer_seconds": 6.56,
+    "content": "4",
+    "reasoning_excerpt": "",
+    "usage": {
+      "completion_tokens": 2,
+      "prompt_tokens": 564,
+      "total_tokens": 566,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "max_tokens": 128,
+    "passed": true
+  },
+  "qwen3.8-27b-q8": {
+    "model": "qwen3.8-27b-q8",
+    "load_seconds": 21.88,
+    "switch": {
+      "active_model": "qwen3.8-27b-q8"
+    },
+    "answer_seconds": 23.34,
+    "content": "4",
+    "reasoning_excerpt": "We need to respond to user: \"Reply with the numeral 4.\" Need final just 4. Ensure no extra.\n",
+    "usage": {
+      "completion_tokens": 30,
+      "prompt_tokens": 59,
+      "total_tokens": 89,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "max_tokens": 128,
+    "passed": true
+  },
+  "qwen3.8-27b-q4-xl": {
+    "model": "qwen3.8-27b-q4-xl",
+    "load_seconds": 21.05,
+    "switch": {
+      "active_model": "qwen3.8-27b-q4-xl"
+    },
+    "answer_seconds": 13.45,
+    "content": "4",
+    "reasoning_excerpt": "We need to respond to user: \"Reply with the numeral 4.\" Need final only 4. Ensure no extra.\n",
+    "usage": {
+      "completion_tokens": 30,
+      "prompt_tokens": 59,
+      "total_tokens": 89,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "max_tokens": 128,
+    "passed": true
+  },
+  "gemma-4-e4b-q2-xl": {
+    "model": "gemma-4-e4b-q2-xl",
+    "load_seconds": 6.36,
+    "switch": {
+      "active_model": "gemma-4-e4b-q2-xl"
+    },
+    "answer_seconds": 0.76,
+    "content": "4",
+    "reasoning_excerpt": "Thinking Process:\n\n1.  **Analyze the Request:** The user has provided a specific instruction: \"Reply with the numeral 4.\"\n2.  **Determine the Output:** The required output is the n",
+    "usage": {
+      "completion_tokens": 71,
+      "prompt_tokens": 23,
+      "total_tokens": 94,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "max_tokens": 128,
+    "passed": true
+  },
+  "gemma-4-26b-iq3-xxs": {
+    "model": "gemma-4-26b-iq3-xxs",
+    "load_seconds": 8.25,
+    "switch": {
+      "active_model": "gemma-4-26b-iq3-xxs"
+    },
+    "answer_seconds": 20.14,
+    "content": "4",
+    "reasoning_excerpt": "The user wants me to reply with the numeral \"4\".\n\n    *   Input: \"Reply with the numeral 4.\"\n    *   Constraint: Only the numeral 4.\n\n    *   The numeral is 4.",
+    "usage": {
+      "completion_tokens": 54,
+      "prompt_tokens": 23,
+      "total_tokens": 77,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "max_tokens": 128,
+    "passed": true
+  },
+  "glm-4.7-flash-q6-xl": {
+    "model": "glm-4.7-flash-q6-xl",
+    "load_seconds": 26.84,
+    "switch": {
+      "active_model": "glm-4.7-flash-q6-xl"
+    },
+    "answer_seconds": 8.46,
+    "content": "4",
+    "reasoning_excerpt": "1.  **Analyze the Request:** The user wants me to reply with the numeral \"4\".\n\n2.  **Identify the Intent:** The intent is extremely simple and direct. There is no hidden complexity",
+    "usage": {
+      "completion_tokens": 93,
+      "prompt_tokens": 12,
+      "total_tokens": 105,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "max_tokens": 128,
+    "passed": true
+  },
+  "muse-glimmer-30b-q8": {
+    "model": "muse-glimmer-30b-q8",
+    "load_seconds": 26.61,
+    "switch": {
+      "active_model": "muse-glimmer-30b-q8"
+    },
+    "answer_seconds": 51.13,
+    "content": "",
+    "reasoning_excerpt": "Reply with the numeral 4.\n\nReply with the numeral 4.\n\nWe need to reply with the numeral 4. Probably just \"4\". The instruction says reply with the numeral 4. So output 4.\n\nPossibly ",
+    "usage": {
+      "completion_tokens": 128,
+      "prompt_tokens": 63,
+      "total_tokens": 191,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "length",
+    "retry_max_tokens_320": {
+      "content": "4",
+      "finish_reason": "stop",
+      "completion_tokens": 137,
+      "passed": true
+    },
+    "max_tokens": 128,
+    "passed": false
+  },
+  "mimo-v2.6-q6-k": {
+    "model": "mimo-v2.6-q6-k",
+    "load_seconds": 6.75,
+    "switch": {
+      "active_model": "mimo-v2.6-q6-k"
+    },
+    "answer_seconds": 0.1,
+    "content": "4",
+    "reasoning_excerpt": "",
+    "usage": {
+      "completion_tokens": 4,
+      "prompt_tokens": 14,
+      "total_tokens": 18,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "max_tokens": 128,
+    "passed": true
+  },
+  "qwen3.8-flash-next-strata": {
+    "model": "qwen3.8-flash-next-strata",
+    "load_seconds": 22.23,
+    "switch": {
+      "active_model": "qwen3.8-flash-next-strata"
+    },
+    "answer_seconds": 2.2,
+    "content": "4",
+    "reasoning_excerpt": "We need answer user's request: \"Reply with the numeral 4.\" Need final only 4. Ensure no extra.\n",
+    "usage": {
+      "prompt_tokens": 59,
+      "completion_tokens": 30,
+      "total_tokens": 89
+    },
+    "finish_reason": "stop",
+    "max_tokens": 128,
+    "passed": true
+  }
+}

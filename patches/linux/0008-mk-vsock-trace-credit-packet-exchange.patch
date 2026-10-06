@@ -1,0 +1,38 @@
+From 6f4fc5113e9e778362b1ca946497d39f6eeb0e83 Mon Sep 17 00:00:00 2001
+From: Shiba Multikernel Experiment <shiba@localhost>
+Date: Thu, 17 Sep 2026 16:16:43 +0000
+Subject: [PATCH 08/10] mk vsock: trace credit packet exchange
+
+Assisted-by: Codex
+---
+ net/vmw_vsock/mk_transport.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/net/vmw_vsock/mk_transport.c b/net/vmw_vsock/mk_transport.c
+index 8fb491c..2f8f623 100644
+--- a/net/vmw_vsock/mk_transport.c
++++ b/net/vmw_vsock/mk_transport.c
+@@ -282,6 +282,12 @@ static void mk_vsock_rx_pkt(struct sk_buff *skb)
+ 		break;
+ 
+ 	case VIRTIO_VSOCK_OP_CREDIT_UPDATE:
++		pr_info_ratelimited("mk_vsock: rx credit cid=%llu port=%u buf=%u fwd=%u tx=%u\n",
++					(unsigned long long)le64_to_cpu(hdr->src_cid),
++					le32_to_cpu(hdr->src_port),
++					le32_to_cpu(hdr->buf_alloc),
++					le32_to_cpu(hdr->fwd_cnt),
++					mk_vsock_sk(vsk)->tx_bytes);
+ 		if (mk_update_peer_credit(mk_vsock_sk(vsk), hdr))
+ 			sk->sk_write_space(sk);
+ 		break;
+@@ -406,6 +412,10 @@ static int mk_send_credit_pkt(struct vsock_sock *vsk, u16 op)
+ 	ret = mk_send_pkt(skb);
+ 	kfree_skb(skb);
+ 	if (ret >= 0 && op == VIRTIO_VSOCK_OP_CREDIT_UPDATE) {
++		pr_info_ratelimited("mk_vsock: tx credit cid=%u port=%u buf=%u fwd=%u\n",
++					(u32)le64_to_cpu(hdr->dst_cid),
++					le32_to_cpu(hdr->dst_port),
++					le32_to_cpu(hdr->buf_alloc), fwd_cnt);
+ 		spin_lock_irqsave(&mk_vsk->rx_lock, flags);
+ 		mk_vsk->last_credit_update = fwd_cnt;
+ 		spin_unlock_irqrestore(&mk_vsk->rx_lock, flags);

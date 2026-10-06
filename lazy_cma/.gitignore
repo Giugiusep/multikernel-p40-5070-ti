@@ -1,0 +1,15 @@
+# Kernel module build artifacts
+*.o
+*.ko
+*.mod
+*.mod.c
+*.mod.o
+*.symvers
+*.order
+.*.cmd
+modules.order
+Module.symvers
+.tmp_versions/
+
+# Userspace tool binary
+/lazy_cma_tool

@@ -1,0 +1,128 @@
+From 7448ae683608c68e6350c49a4ef3ae17b49ee586 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Fri, 18 Sep 2026 17:07:51 +0000
+Subject: [PATCH 09/15] ggml rpc: add opt-in server phase timing
+
+---
+ ggml/src/ggml-rpc/ggml-rpc.cpp | 45 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 45 insertions(+)
+
+diff --git a/ggml/src/ggml-rpc/ggml-rpc.cpp b/ggml/src/ggml-rpc/ggml-rpc.cpp
+index 0dff1a34d..d0fc9856a 100644
+--- a/ggml/src/ggml-rpc/ggml-rpc.cpp
++++ b/ggml/src/ggml-rpc/ggml-rpc.cpp
+@@ -27,6 +27,7 @@
+ 
+ static const char * RPC_DEBUG = std::getenv("GGML_RPC_DEBUG");
+ static const char * RPC_TRACE = std::getenv("GGML_RPC_TRACE");
++static const char * RPC_SERVER_TRACE = std::getenv("GGML_RPC_SERVER_TRACE");
+ 
+ #define LOG_DBG(...) \
+     do { if (RPC_DEBUG) GGML_LOG_DEBUG(__VA_ARGS__); } while (0)
+@@ -110,6 +111,24 @@ static const char * rpc_cmd_name(enum rpc_cmd cmd) {
+     }
+ }
+ 
++static int64_t rpc_elapsed_us(
++        std::chrono::steady_clock::time_point begin,
++        std::chrono::steady_clock::time_point end) {
++    return std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
++}
++
++static void rpc_server_trace(enum rpc_cmd cmd, size_t bytes,
++                             int64_t recv_us, int64_t handler_us, int64_t send_us) {
++    if (!RPC_SERVER_TRACE) {
++        return;
++    }
++    std::fprintf(stderr,
++                 "rpc-server-trace cmd=%s bytes=%zu recv_us=%lld handler_us=%lld send_us=%lld\n",
++                 rpc_cmd_name(cmd), bytes, (long long) recv_us,
++                 (long long) handler_us, (long long) send_us);
++    std::fflush(stderr);
++}
++
+ // Try RPC_CMD_SET_TENSOR_HASH first when data size is larger than this threshold
+ const size_t HASH_THRESHOLD = 10 * 1024 * 1024;
+ 
+@@ -1984,13 +2003,19 @@ static void rpc_serve_client(const std::vector<ggml_backend_t> & backends, const
+                 break;
+             }
+             case RPC_CMD_SET_TENSOR: {
++                const auto recv_started = std::chrono::steady_clock::now();
+                 std::vector<uint8_t> input;
+                 if (!recv_msg(sock, input)) {
+                     return;
+                 }
++                const auto handler_started = std::chrono::steady_clock::now();
+                 if (!server.set_tensor(input)) {
+                     return;
+                 }
++                const auto handler_finished = std::chrono::steady_clock::now();
++                rpc_server_trace(RPC_CMD_SET_TENSOR, input.size(),
++                                 rpc_elapsed_us(recv_started, handler_started),
++                                 rpc_elapsed_us(handler_started, handler_finished), 0);
+                 break;
+             }
+             case RPC_CMD_SET_TENSOR_HASH: {
+@@ -2018,17 +2043,25 @@ static void rpc_serve_client(const std::vector<ggml_backend_t> & backends, const
+                 break;
+             }
+             case RPC_CMD_GET_TENSOR: {
++                const auto recv_started = std::chrono::steady_clock::now();
+                 rpc_msg_get_tensor_req request;
+                 if (!recv_msg(sock, &request, sizeof(request))) {
+                     return;
+                 }
++                const auto handler_started = std::chrono::steady_clock::now();
+                 std::vector<uint8_t> response;
+                 if (!server.get_tensor(request, response)) {
+                     return;
+                 }
++                const auto send_started = std::chrono::steady_clock::now();
+                 if (!send_msg(sock, response.data(), response.size())) {
+                     return;
+                 }
++                const auto send_finished = std::chrono::steady_clock::now();
++                rpc_server_trace(RPC_CMD_GET_TENSOR, response.size(),
++                                 rpc_elapsed_us(recv_started, handler_started),
++                                 rpc_elapsed_us(handler_started, send_started),
++                                 rpc_elapsed_us(send_started, send_finished));
+                 break;
+             }
+             case RPC_CMD_COPY_TENSOR: {
+@@ -2046,23 +2079,35 @@ static void rpc_serve_client(const std::vector<ggml_backend_t> & backends, const
+                 break;
+             }
+             case RPC_CMD_GRAPH_COMPUTE: {
++                const auto recv_started = std::chrono::steady_clock::now();
+                 std::vector<uint8_t> input;
+                 if (!recv_msg(sock, input)) {
+                     return;
+                 }
++                const auto handler_started = std::chrono::steady_clock::now();
+                 if (!server.graph_compute(input)) {
+                     return;
+                 }
++                const auto handler_finished = std::chrono::steady_clock::now();
++                rpc_server_trace(RPC_CMD_GRAPH_COMPUTE, input.size(),
++                                 rpc_elapsed_us(recv_started, handler_started),
++                                 rpc_elapsed_us(handler_started, handler_finished), 0);
+                 break;
+             }
+             case RPC_CMD_GRAPH_RECOMPUTE: {
++                const auto recv_started = std::chrono::steady_clock::now();
+                 rpc_msg_graph_recompute_req request;
+                 if (!recv_msg(sock, &request, sizeof(request))) {
+                     return;
+                 }
++                const auto handler_started = std::chrono::steady_clock::now();
+                 if (!server.graph_recompute(request)) {
+                     return;
+                 }
++                const auto handler_finished = std::chrono::steady_clock::now();
++                rpc_server_trace(RPC_CMD_GRAPH_RECOMPUTE, sizeof(request),
++                                 rpc_elapsed_us(recv_started, handler_started),
++                                 rpc_elapsed_us(handler_started, handler_finished), 0);
+                 break;
+             }
+             case RPC_CMD_GET_DEVICE_MEMORY: {

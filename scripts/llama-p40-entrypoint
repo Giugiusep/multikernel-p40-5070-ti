@@ -1,0 +1,37 @@
+#!/bin/sh
+export PATH=/bin:/sbin:/opt/llama
+export LD_LIBRARY_PATH=/opt/llama/lib:/lib:/lib/x86_64-linux-gnu
+export HOME=/tmp
+mkdir -p /tmp /dev/shm
+mount -t tmpfs -o size=256m tmpfs /tmp
+mount -t tmpfs -o size=64m tmpfs /dev/shm
+
+echo 'LLAMA_P40_SECONDARY_START'
+uname -a
+for device in /sys/bus/pci/devices/*; do
+    echo "DEVICE $device"
+    cat "$device/vendor" "$device/device" "$device/class" "$device/irq"
+    cat "$device/resource"
+done
+
+insmod "/lib/modules/$(uname -r)/nvidia.ko" || exec sh
+nvidia-modprobe -c 0 || true
+insmod "/lib/modules/$(uname -r)/nvidia-uvm.ko" || exec sh
+nvidia-modprobe -u -c 0 || true
+nvidia-smi || exec sh
+
+echo 'LLAMA_P40_INFERENCE_BEGIN'
+llama-cli \
+    -m /models/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-Q8_0.gguf \
+    --device CUDA0 --split-mode none \
+    -ngl 99 -c 256 -b 128 -ub 64 \
+    -n 16 --seed 42 --temp 0 --no-display-prompt \
+    -p 'Explain briefly why PCIe transfers are slower than on-device memory.'
+status=$?
+echo "LLAMA_P40_INFERENCE_STATUS=$status"
+echo 'Use poweroff -f after inspecting the result.'
+export PS1='mk-llama-p40# '
+while true; do
+    setsid cttyhack /bin/sh
+    echo 'Shell exited; returning to the llama P40 console.'
+done

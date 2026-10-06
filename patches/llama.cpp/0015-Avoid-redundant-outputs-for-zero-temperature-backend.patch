@@ -1,0 +1,62 @@
+From 3e88755aaf1e05c1e9858bb35f3507bef7ff0e97 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Fri, 25 Sep 2026 17:26:15 +0000
+Subject: [PATCH 15/15] Avoid redundant outputs for zero-temperature backend
+ greedy sampling
+
+---
+ common/sampling.cpp   | 12 ++++++++++--
+ src/llama-sampler.cpp |  3 +++
+ 2 files changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/common/sampling.cpp b/common/sampling.cpp
+index 06dea1e1c..cf5f149d8 100644
+--- a/common/sampling.cpp
++++ b/common/sampling.cpp
+@@ -339,6 +339,12 @@ struct common_sampler * common_sampler_init(
+ 
+     if (params.mirostat == 0) {
+ 
++        // With only zero-temperature sampling, the selected token is the
++        // argmax. Avoid constructing a distribution over that one token.
++        const bool use_greedy = params.temp <= 0.0f && params.dynatemp_range == 0.0f &&
++            params.samplers.size() == 1 &&
++            params.samplers[0] == COMMON_SAMPLER_TYPE_TEMPERATURE;
++
+         bool use_adaptive_p = false; // see below
+ 
+         for (const auto & cnstr : params.samplers) {
+@@ -372,7 +378,9 @@ struct common_sampler * common_sampler_init(
+                     samplers.push_back(llama_sampler_init_typical(params.typ_p, params.min_keep));
+                     break;
+                 case COMMON_SAMPLER_TYPE_TEMPERATURE:
+-                    samplers.push_back(llama_sampler_init_temp_ext(params.temp, params.dynatemp_range, params.dynatemp_exponent));
++                    samplers.push_back(use_greedy
++                        ? llama_sampler_init_greedy()
++                        : llama_sampler_init_temp_ext(params.temp, params.dynatemp_range, params.dynatemp_exponent));
+                     break;
+                 case COMMON_SAMPLER_TYPE_INFILL:
+                     samplers.push_back(llama_sampler_init_infill(vocab));
+@@ -394,7 +402,7 @@ struct common_sampler * common_sampler_init(
+         if (use_adaptive_p) {
+             // only if user explicitly included adaptive-p sampler
+             samplers.push_back(llama_sampler_init_adaptive_p(params.adaptive_target, params.adaptive_decay, params.seed));
+-        } else {
++        } else if (!use_greedy) {
+             // default: sample from distribution
+             samplers.push_back(llama_sampler_init_dist(params.seed));
+         }
+diff --git a/src/llama-sampler.cpp b/src/llama-sampler.cpp
+index 34a798826..40bb4a6db 100644
+--- a/src/llama-sampler.cpp
++++ b/src/llama-sampler.cpp
+@@ -1087,6 +1087,9 @@ static void llama_sampler_greedy_backend_apply(
+     ggml_set_name(curl, "greedy_argmax");
+ 
+     data->sampled = curl;
++    // The token ID is the complete result of greedy sampling. Leaving the
++    // original logits here makes backend sampling download the whole vocab.
++    data->logits = nullptr;
+ }
+ 
+ static struct llama_sampler_i llama_sampler_greedy_i = {

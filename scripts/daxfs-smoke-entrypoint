@@ -1,0 +1,12 @@
+#!/bin/sh
+export PATH=/bin:/sbin
+echo 'DAXFS_SECONDARY_READY'
+uname -a
+cat /known.txt
+sha256sum /known.txt
+mount
+export PS1='mk-daxfs# '
+while true; do
+    setsid cttyhack /bin/sh
+    echo 'Shell exited; returning to the DAXFS secondary console.'
+done

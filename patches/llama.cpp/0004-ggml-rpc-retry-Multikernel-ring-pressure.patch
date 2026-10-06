@@ -1,0 +1,48 @@
+From 66ecc801ec20d305fa295a2da6a343d3187a6660 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Mon, 14 Sep 2026 16:45:58 +0000
+Subject: [PATCH 04/15] ggml rpc: retry Multikernel ring pressure
+
+Retry transient AF_VSOCK send failures caused by shared IPI ring exhaustion with bounded backoff.
+
+Assisted-by: Codex
+---
+ ggml/src/ggml-rpc/transport.cpp | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/ggml/src/ggml-rpc/transport.cpp b/ggml/src/ggml-rpc/transport.cpp
+index de0f1fa46..d8bf4ee08 100644
+--- a/ggml/src/ggml-rpc/transport.cpp
++++ b/ggml/src/ggml-rpc/transport.cpp
+@@ -500,6 +500,7 @@ bool socket_t::impl::send_data(const void * data, size_t size) {
+     }
+ #endif
+     size_t bytes_sent = 0;
++    unsigned int retry_delay_us = 100;
+     while (bytes_sent < size) {
+         size_t size_to_send = std::min(size - bytes_sent, MAX_CHUNK_SIZE);
+ #if defined(__linux__)
+@@ -511,6 +512,15 @@ bool socket_t::impl::send_data(const void * data, size_t size) {
+         if (n < 0 && errno == EINTR) {
+             continue;
+         }
++#if defined(__linux__)
++        if (n < 0 && multikernel &&
++                (errno == EAGAIN || errno == EWOULDBLOCK || errno == ENOBUFS ||
++                 errno == ENOMEM || errno == ENOSPC)) {
++            usleep(retry_delay_us);
++            retry_delay_us = std::min(retry_delay_us * 2, 5000u);
++            continue;
++        }
++#endif
+         if (n < 0) {
+             GGML_LOG_ERROR("send failed (bytes_sent=%zu, size_to_send=%zu)\n",
+                            bytes_sent, size_to_send);
+@@ -521,6 +531,7 @@ bool socket_t::impl::send_data(const void * data, size_t size) {
+             return false;
+         }
+         bytes_sent += (size_t)n;
++        retry_delay_us = 100;
+ #if defined(__linux__)
+         if (multikernel && bytes_sent < size) {
+             // The Multikernel IPI ring is small; give the peer time to drain it.

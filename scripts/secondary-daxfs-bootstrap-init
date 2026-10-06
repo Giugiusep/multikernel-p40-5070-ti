@@ -1,0 +1,15 @@
+#!/bin/sh
+export PATH=/bin:/sbin
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+mount -t devtmpfs devtmpfs /dev
+mkdir -p /newroot
+insmod "/lib/modules/$(uname -r)/daxfs.ko"
+rootflags=$(sed -n 's/.*rootflags=\([^ ]*\).*/\1/p' /proc/cmdline)
+test -n "$rootflags" || { echo 'missing rootflags on kernel command line'; exec sh; }
+mount -t daxfs -o "$rootflags" none /newroot || {
+    echo 'DAXFS root mount failed'
+    dmesg | tail -n 100
+    exec sh
+}
+exec switch_root /newroot /init

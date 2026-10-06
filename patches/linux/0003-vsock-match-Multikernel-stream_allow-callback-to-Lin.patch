@@ -1,0 +1,23 @@
+From 696d7b01075d6942b1113b4174263d2ad56d537a Mon Sep 17 00:00:00 2001
+From: Codex <codex@localhost>
+Date: Sun, 13 Sep 2026 11:52:52 +0000
+Subject: [PATCH 03/10] vsock: match Multikernel stream_allow callback to Linux
+ 7.0 API
+
+---
+ net/vmw_vsock/mk_transport.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/net/vmw_vsock/mk_transport.c b/net/vmw_vsock/mk_transport.c
+index f75dbf3..8440ec4 100644
+--- a/net/vmw_vsock/mk_transport.c
++++ b/net/vmw_vsock/mk_transport.c
+@@ -585,7 +585,7 @@ static bool mk_transport_stream_is_active(struct vsock_sock *vsk)
+ 	return true;
+ }
+ 
+-static bool mk_transport_stream_allow(u32 cid, u32 port)
++static bool mk_transport_stream_allow(struct vsock_sock *vsk, u32 cid, u32 port)
+ {
+ 	/* Allow connections to any multikernel instance */
+ 	return true;

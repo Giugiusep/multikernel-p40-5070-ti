@@ -1,0 +1,89 @@
+From 5dcbae93aaedfed2ff2b5bb40d08677ac1bbce2f Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Wed, 16 Sep 2026 16:37:08 +0000
+Subject: [PATCH 07/15] ggml rpc: add opt-in request timing trace
+
+Assisted-by: Codex
+---
+ ggml/src/ggml-rpc/ggml-rpc.cpp | 41 +++++++++++++++++++++++++++++++---
+ 1 file changed, 38 insertions(+), 3 deletions(-)
+
+diff --git a/ggml/src/ggml-rpc/ggml-rpc.cpp b/ggml/src/ggml-rpc/ggml-rpc.cpp
+index e53d7ea32..60ea7a9cb 100644
+--- a/ggml/src/ggml-rpc/ggml-rpc.cpp
++++ b/ggml/src/ggml-rpc/ggml-rpc.cpp
+@@ -22,13 +22,14 @@
+ #include <algorithm>
+ #include <atomic>
+ #include <thread>
++#include <chrono>
+ 
+ static const char * RPC_DEBUG = std::getenv("GGML_RPC_DEBUG");
++static const char * RPC_TRACE = std::getenv("GGML_RPC_TRACE");
+ 
+ #define LOG_DBG(...) \
+     do { if (RPC_DEBUG) GGML_LOG_DEBUG(__VA_ARGS__); } while (0)
+ 
+-
+ namespace fs = std::filesystem;
+ 
+ // macro for nicer error messages on server crash
+@@ -83,6 +84,31 @@ enum rpc_cmd {
+ 
+ static_assert(RPC_CMD_HELLO == 14, "RPC_CMD_HELLO must be always 14");
+ 
++static const char * rpc_cmd_name(enum rpc_cmd cmd) {
++    switch (cmd) {
++        case RPC_CMD_ALLOC_BUFFER: return "alloc_buffer";
++        case RPC_CMD_GET_ALIGNMENT: return "get_alignment";
++        case RPC_CMD_GET_MAX_SIZE: return "get_max_size";
++        case RPC_CMD_BUFFER_GET_BASE: return "buffer_get_base";
++        case RPC_CMD_FREE_BUFFER: return "free_buffer";
++        case RPC_CMD_BUFFER_CLEAR: return "buffer_clear";
++        case RPC_CMD_SET_TENSOR: return "set_tensor";
++        case RPC_CMD_SET_TENSOR_HASH: return "set_tensor_hash";
++        case RPC_CMD_GET_TENSOR: return "get_tensor";
++        case RPC_CMD_COPY_TENSOR: return "copy_tensor";
++        case RPC_CMD_GRAPH_COMPUTE: return "graph_compute";
++        case RPC_CMD_GET_DEVICE_MEMORY: return "get_device_memory";
++        case RPC_CMD_INIT_TENSOR: return "init_tensor";
++        case RPC_CMD_GET_ALLOC_SIZE: return "get_alloc_size";
++        case RPC_CMD_HELLO: return "hello";
++        case RPC_CMD_DEVICE_COUNT: return "device_count";
++        case RPC_CMD_GRAPH_RECOMPUTE: return "graph_recompute";
++        case RPC_CMD_MEMSET_TENSOR: return "memset_tensor";
++        case RPC_CMD_NONE: return "synchronize";
++        default: return "unknown";
++    }
++}
++
+ // Try RPC_CMD_SET_TENSOR_HASH first when data size is larger than this threshold
+ const size_t HASH_THRESHOLD = 10 * 1024 * 1024;
+ 
+@@ -560,15 +586,24 @@ void rpc_dispatcher::work() {
+         if (!queue.pop(&msg_ptr)) {
+             break;
+         }
++        const auto started = std::chrono::steady_clock::now();
++        bool status = true;
+         if (msg_ptr->cmd != RPC_CMD_NONE) {
+             if (msg_ptr->output) {
+-                bool status = send_rpc_cmd(sock, msg_ptr->cmd, msg_ptr->input.get(), msg_ptr->input_size, msg_ptr->output, msg_ptr->output_size);
++                status = send_rpc_cmd(sock, msg_ptr->cmd, msg_ptr->input.get(), msg_ptr->input_size, msg_ptr->output, msg_ptr->output_size);
+                 RPC_STATUS_ASSERT(status);
+             } else {
+-                bool status = send_rpc_cmd(sock, msg_ptr->cmd, msg_ptr->input.get(), msg_ptr->input_size);
++                status = send_rpc_cmd(sock, msg_ptr->cmd, msg_ptr->input.get(), msg_ptr->input_size);
+                 RPC_STATUS_ASSERT(status);
+             }
+         }
++        if (RPC_TRACE) {
++            const auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(
++                std::chrono::steady_clock::now() - started).count();
++            GGML_LOG_INFO("rpc-trace cmd=%s input=%zu output=%zu elapsed_us=%lld status=%s\n",
++                          rpc_cmd_name(msg_ptr->cmd), msg_ptr->input_size, msg_ptr->output_size,
++                          (long long) elapsed, status ? "ok" : "error");
++        }
+         msg_ptr->completion.set_value();
+     }
+ }

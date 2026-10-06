@@ -1,0 +1,113 @@
+From 9663810bba5486a6acc4c7b95979ad1190f3034f Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Sat, 19 Sep 2026 18:05:07 +0000
+Subject: [PATCH 10/15] ggml rpc: make Multikernel progress sleeps
+ independently switchable
+
+---
+ ggml/src/ggml-rpc/transport.cpp  | 10 ++++--
+ tests/mkvsock_transport_bulk.cpp | 60 ++++++++++++++++++++++++++++++++
+ 2 files changed, 68 insertions(+), 2 deletions(-)
+ create mode 100644 tests/mkvsock_transport_bulk.cpp
+
+diff --git a/ggml/src/ggml-rpc/transport.cpp b/ggml/src/ggml-rpc/transport.cpp
+index b5e29cb43..ab3916f39 100644
+--- a/ggml/src/ggml-rpc/transport.cpp
++++ b/ggml/src/ggml-rpc/transport.cpp
+@@ -51,6 +51,12 @@ static constexpr int MK_VSOCK_TRANSPORT_OPTION = 9;
+ static constexpr int MK_VSOCK_TRANSPORT_VALUE = 1;
+ static constexpr size_t MK_VSOCK_CHUNK_SIZE = 32 * 1024;
+ static std::mutex mk_vsock_send_mutex;
++// Keep the proven paced path as the default. Test receive and transmit pacing
++// independently because a short recv() is normal for this packetized stream.
++static const bool mk_vsock_no_read_sleep =
++    std::getenv("GGML_MK_VSOCK_NO_PROGRESS_SLEEP") || std::getenv("GGML_MK_VSOCK_NO_READ_SLEEP");
++static const bool mk_vsock_no_write_sleep =
++    std::getenv("GGML_MK_VSOCK_NO_PROGRESS_SLEEP") || std::getenv("GGML_MK_VSOCK_NO_WRITE_SLEEP");
+ #endif
+ 
+ static const char * RPC_DEBUG = std::getenv("GGML_RPC_DEBUG");
+@@ -551,7 +557,7 @@ bool socket_t::impl::send_data(const void * data, size_t size) {
+         retry_count = 0;
+         retry_delay_us = 100;
+ #if defined(__linux__)
+-        if (multikernel && bytes_sent < size) {
++        if (multikernel && !mk_vsock_no_write_sleep && bytes_sent < size) {
+             // The Multikernel IPI ring is small; give the peer time to drain it.
+             usleep(100);
+         }
+@@ -593,7 +599,7 @@ bool socket_t::impl::recv_data(void * data, size_t size) {
+         }
+         bytes_recv += (size_t)n;
+ #if defined(__linux__)
+-        if (multikernel && bytes_recv < size) {
++        if (multikernel && !mk_vsock_no_read_sleep && bytes_recv < size) {
+             usleep(100);
+         }
+ #endif
+diff --git a/tests/mkvsock_transport_bulk.cpp b/tests/mkvsock_transport_bulk.cpp
+new file mode 100644
+index 000000000..21e8b658a
+--- /dev/null
++++ b/tests/mkvsock_transport_bulk.cpp
+@@ -0,0 +1,60 @@
++#include "../ggml/src/ggml-rpc/transport.h"
++
++#include <chrono>
++#include <cstdint>
++#include <cstdio>
++#include <cstdlib>
++#include <cstring>
++#include <vector>
++
++using clock_type = std::chrono::steady_clock;
++
++static double elapsed_ms(clock_type::time_point start) {
++    return std::chrono::duration<double, std::milli>(clock_type::now() - start).count();
++}
++
++static bool valid(const std::vector<uint8_t> & data) {
++    for (uint8_t value : data) {
++        if (value != 0x5a) return false;
++    }
++    return true;
++}
++
++int main(int argc, char ** argv) {
++    constexpr int port = 6002;
++    const bool server = argc > 1 && std::strcmp(argv[1], "server") == 0;
++    if (server) {
++        auto listener = socket_t::create_server("mkvsock", port);
++        if (!listener) return 1;
++        std::puts("LLAMA_TRANSPORT_BULK_READY");
++        std::fflush(stdout);
++        for (;;) {
++            auto peer = listener->accept();
++            if (!peer) continue;
++            uint32_t size = 0;
++            if (!peer->recv_data(&size, sizeof(size)) || size > 16 * 1024 * 1024) continue;
++            std::vector<uint8_t> data(size, 0x5a);
++            if (!peer->recv_data(data.data(), data.size()) || !valid(data)) continue;
++            if (!peer->send_data(data.data(), data.size())) continue;
++        }
++    }
++
++    for (uint32_t size : {512u * 1024, 1024u * 1024, 16u * 1024 * 1024}) {
++        auto peer = socket_t::connect("mkvsock:1", port);
++        if (!peer) return 2;
++        std::vector<uint8_t> data(size, 0x5a);
++        if (!peer->send_data(&size, sizeof(size))) return 3;
++        auto start = clock_type::now();
++        if (!peer->send_data(data.data(), data.size())) return 4;
++        double upload_ms = elapsed_ms(start);
++        std::memset(data.data(), 0, data.size());
++        start = clock_type::now();
++        if (!peer->recv_data(data.data(), data.size()) || !valid(data)) return 5;
++        double download_ms = elapsed_ms(start);
++        std::printf("bytes=%u primary_to_P40_ms=%.3f P40_to_primary_ms=%.3f "
++                    "download_MiB_s=%.3f\n", size, upload_ms, download_ms,
++                    (size / 1048576.0) / (download_ms / 1000.0));
++        std::fflush(stdout);
++    }
++    return 0;
++}

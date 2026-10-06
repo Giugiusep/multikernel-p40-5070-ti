@@ -1,0 +1,48 @@
+From df0139d5edbd5169ad63cb6f51df57071a13e45b Mon Sep 17 00:00:00 2001
+From: Shiba Multikernel Experiment <shiba@localhost>
+Date: Sat, 19 Sep 2026 18:05:10 +0000
+Subject: [PATCH 10/10] multikernel: avoid logging expected IPI ring
+ backpressure
+
+---
+ kernel/multikernel/ipi.c       | 10 ++++------
+ kernel/multikernel/messaging.c |  4 +++-
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/kernel/multikernel/ipi.c b/kernel/multikernel/ipi.c
+index 749500f..4913b17 100644
+--- a/kernel/multikernel/ipi.c
++++ b/kernel/multikernel/ipi.c
+@@ -212,13 +212,11 @@ int multikernel_send_ipi_data(int instance_id, void *data, size_t data_size, uns
+ 		/* Check if ring buffer is full */
+ 		if (next_head == tail) {
+ 			/*
+-			 * Console output reaches this path, so a plain printk
+-			 * here re-enters the console write that called us and
+-			 * deadlocks on its lock with interrupts already off.
++			 * A full ring is normal backpressure for the nonblocking
++			 * VSOCK sender.  Logging here can itself try to send through
++			 * the same ring (mktty), sustaining an ENOSPC/console loop.
++			 * The caller must handle the return value instead.
+ 			 */
+-			printk_deferred(KERN_WARNING
+-					"multikernel: IPI ring full for instance %d (head=%u, tail=%u)\n",
+-					instance_id, head, tail);
+ 			mk_instance_put(instance);
+ 			return -ENOSPC;
+ 		}
+diff --git a/kernel/multikernel/messaging.c b/kernel/multikernel/messaging.c
+index 2cd2b76..d6e6664 100644
+--- a/kernel/multikernel/messaging.c
++++ b/kernel/multikernel/messaging.c
+@@ -229,7 +229,9 @@ int mk_send_message(int instance_id, u32 msg_type, u32 subtype,
+ 	kfree(msg);
+ 
+ 	if (ret < 0) {
+-		pr_err("Failed to send multikernel message: %d\n", ret);
++		/* ENOSPC is expected flow control; a log can recurse through mktty. */
++		if (ret != -ENOSPC)
++			pr_err("Failed to send multikernel message: %d\n", ret);
+ 		return ret;
+ 	}
+ 

@@ -1,0 +1,76 @@
+From f7e14fd93e679e61fb0538eab52d8f5beecff036 Mon Sep 17 00:00:00 2001
+From: Shiba Multikernel Experiment <shiba@localhost>
+Date: Thu, 17 Sep 2026 16:03:46 +0000
+Subject: [PATCH 07/10] mk vsock: reserve transmit credit across concurrent
+ writers
+
+Assisted-by: Codex
+---
+ net/vmw_vsock/mk_transport.c | 32 ++++++++++++++++++++++++--------
+ 1 file changed, 24 insertions(+), 8 deletions(-)
+
+diff --git a/net/vmw_vsock/mk_transport.c b/net/vmw_vsock/mk_transport.c
+index 16d1974..8fb491c 100644
+--- a/net/vmw_vsock/mk_transport.c
++++ b/net/vmw_vsock/mk_transport.c
+@@ -571,18 +571,31 @@ static ssize_t mk_transport_stream_enqueue(struct vsock_sock *vsk,
+ 	size_t to_send;
+ 	int ret;
+ 
++	/*
++	 * Reserve transmit credit while holding tx_lock.  RPC can have
++	 * multiple worker threads writing the same stream; checking credit and
++	 * incrementing tx_bytes later allowed every writer to observe the same
++	 * window and overrun the peer's receive queue.
++	 */
+ 	spin_lock_irqsave(&mk_vsk->tx_lock, flags);
+ 	space = mk_peer_space_locked(mk_vsk);
+-	spin_unlock_irqrestore(&mk_vsk->tx_lock, flags);
+-	if (!space)
++	if (!space) {
++		spin_unlock_irqrestore(&mk_vsk->tx_lock, flags);
+ 		return -EAGAIN;
++	}
+ 
+ 	to_send = min3(len, (size_t)space,
+ 		       (size_t)(MK_VSOCK_MAX_PKT_SIZE - sizeof(*hdr)));
++	mk_vsk->tx_bytes += to_send;
++	spin_unlock_irqrestore(&mk_vsk->tx_lock, flags);
+ 
+ 	skb = alloc_skb(sizeof(*hdr) + to_send, GFP_KERNEL);
+-	if (!skb)
++	if (!skb) {
++		spin_lock_irqsave(&mk_vsk->tx_lock, flags);
++		mk_vsk->tx_bytes -= to_send;
++		spin_unlock_irqrestore(&mk_vsk->tx_lock, flags);
+ 		return -ENOMEM;
++	}
+ 
+ 	hdr = (struct virtio_vsock_hdr *)skb_put(skb, sizeof(*hdr));
+ 	hdr->op = cpu_to_le16(VIRTIO_VSOCK_OP_RW);
+@@ -599,17 +612,20 @@ static ssize_t mk_transport_stream_enqueue(struct vsock_sock *vsk,
+ 	ret = copy_from_iter(skb_put(skb, to_send), to_send, &msg->msg_iter);
+ 	if (ret != to_send) {
+ 		kfree_skb(skb);
++		spin_lock_irqsave(&mk_vsk->tx_lock, flags);
++		mk_vsk->tx_bytes -= to_send;
++		spin_unlock_irqrestore(&mk_vsk->tx_lock, flags);
+ 		return -EFAULT;
+ 	}
+ 
+ 	ret = mk_send_pkt(skb);
+ 	kfree_skb(skb);
+-	if (ret < 0)
++	if (ret < 0) {
++		spin_lock_irqsave(&mk_vsk->tx_lock, flags);
++		mk_vsk->tx_bytes -= to_send;
++		spin_unlock_irqrestore(&mk_vsk->tx_lock, flags);
+ 		return ret;
+-
+-	spin_lock_irqsave(&mk_vsk->tx_lock, flags);
+-	mk_vsk->tx_bytes += to_send;
+-	spin_unlock_irqrestore(&mk_vsk->tx_lock, flags);
++	}
+ 
+ 	return to_send;
+ }

@@ -1,0 +1,42 @@
+From 2bea6c832da739c23e0126ef7098627f2ca0689c Mon Sep 17 00:00:00 2001
+From: Shiba Multikernel Experiment <shiba@localhost>
+Date: Wed, 16 Sep 2026 16:22:45 +0000
+Subject: [PATCH 06/15] ggml rpc: serialize Multikernel VSOCK writers
+
+Share the finite IPI ring across concurrent RPC connections without allowing independent writers to overrun it.
+
+Assisted-by: Codex
+---
+ ggml/src/ggml-rpc/transport.cpp | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/ggml/src/ggml-rpc/transport.cpp b/ggml/src/ggml-rpc/transport.cpp
+index 0552b8a6a..b5e29cb43 100644
+--- a/ggml/src/ggml-rpc/transport.cpp
++++ b/ggml/src/ggml-rpc/transport.cpp
+@@ -50,6 +50,7 @@ static constexpr int MK_VSOCK_TRANSPORT_LEVEL = AF_VSOCK;
+ static constexpr int MK_VSOCK_TRANSPORT_OPTION = 9;
+ static constexpr int MK_VSOCK_TRANSPORT_VALUE = 1;
+ static constexpr size_t MK_VSOCK_CHUNK_SIZE = 32 * 1024;
++static std::mutex mk_vsock_send_mutex;
+ #endif
+ 
+ static const char * RPC_DEBUG = std::getenv("GGML_RPC_DEBUG");
+@@ -498,6 +499,17 @@ bool socket_t::impl::send_data(const void * data, size_t size) {
+     if (use_rdma) {
+         return rdma_send(data, size);
+     }
++#endif
++#if defined(__linux__)
++    /*
++     * RPC may use several connections concurrently.  The Multikernel IPI
++     * ring is shared by all of them, so serialize its writers to keep one
++     * request from filling the ring while another request is in flight.
++     */
++    std::unique_lock<std::mutex> mk_vsock_lock(mk_vsock_send_mutex, std::defer_lock);
++    if (multikernel) {
++        mk_vsock_lock.lock();
++    }
+ #endif
+     size_t bytes_sent = 0;
+     unsigned int retry_delay_us = 100;

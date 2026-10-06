@@ -1,0 +1,35 @@
+From 330ccbedd5cd89d2f1f3ed9a53f4c1a063fb2301 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Tue, 22 Sep 2026 17:07:49 +0000
+Subject: [PATCH 13/15] tools: add reproducible backend-sampling benchmark
+
+---
+ tools/run_mk_nemotron_backend_sampling.sh | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+ create mode 100755 tools/run_mk_nemotron_backend_sampling.sh
+
+diff --git a/tools/run_mk_nemotron_backend_sampling.sh b/tools/run_mk_nemotron_backend_sampling.sh
+new file mode 100755
+index 000000000..91e178c8d
+--- /dev/null
++++ b/tools/run_mk_nemotron_backend_sampling.sh
+@@ -0,0 +1,19 @@
++#!/usr/bin/env bash
++# Reproduce the opt-in primary RTX + secondary P40 Multikernel benchmark.
++# The RPC server must already be running on the secondary at mkvsock:1:5002.
++set -euo pipefail
++
++split=${1:-48,52}
++root=/home/shiba
++build="$root/llama.cpp/build-main-cuda-rpc-128/bin"
++model="$root/.cache/huggingface/hub/models--unsloth--NVIDIA-Nemotron-3.5-Lightning-30B-A3B-GGUF/snapshots/ff84a7685a5cf4fb8f1c4959129999d808ff3ba5/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-Q8_0.gguf"
++
++exec env \
++    LD_LIBRARY_PATH="$build" \
++    GGML_MK_VSOCK_NO_READ_SLEEP=1 \
++    GGML_RPC_NO_RDMA=1 \
++    "$build/llama-cli" -m "$model" \
++    --rpc mkvsock:1:5002 --device CUDA0,RPC0 --tensor-split "$split" \
++    --backend-sampling \
++    -ngl 99 -c 256 -b 128 -ub 64 -n 16 --seed 42 --temp 0 -st \
++    -p 'Explain briefly why PCIe transfers are slower than on-device memory.'

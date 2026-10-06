@@ -1,0 +1,28 @@
+From 0650d21ed7c4a3abd44420a5cf20860c595bc586 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Sun, 20 Sep 2026 10:27:27 +0000
+Subject: [PATCH 11/15] test: allow single-size Multikernel VSOCK bulk probe
+
+---
+ tests/mkvsock_transport_bulk.cpp | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/tests/mkvsock_transport_bulk.cpp b/tests/mkvsock_transport_bulk.cpp
+index 21e8b658a..ef7507fec 100644
+--- a/tests/mkvsock_transport_bulk.cpp
++++ b/tests/mkvsock_transport_bulk.cpp
+@@ -39,7 +39,13 @@ int main(int argc, char ** argv) {
+         }
+     }
+ 
+-    for (uint32_t size : {512u * 1024, 1024u * 1024, 16u * 1024 * 1024}) {
++    std::vector<uint32_t> sizes = {512u * 1024, 1024u * 1024, 16u * 1024 * 1024};
++    if (argc > 1) {
++        const unsigned long requested = std::strtoul(argv[1], nullptr, 10);
++        if (requested == 0 || requested > 16u * 1024 * 1024) return 6;
++        sizes = {static_cast<uint32_t>(requested)};
++    }
++    for (uint32_t size : sizes) {
+         auto peer = socket_t::connect("mkvsock:1", port);
+         if (!peer) return 2;
+         std::vector<uint8_t> data(size, 0x5a);

@@ -951,3 +951,10 @@ Added qwen3.8-27b-hauhau-iq2-m-rtx to existing authenticated model-switching API
 Three greedy128token chat requests with seed42 and thinking disabled returned byte-identical counting output11..53; deterministic range check passed. Generation59.635,59.695,59.663tok/s,median59.663. These are short-live-context requests at60Kallocation, not a filled60Kcontext benchmark or general model-quality proof. Raw responses/timings in model-api/hauhau-iq2-m-60k-validation.json.
 
 Existing API endpointhttp://100.81.184.58:19080/v1 preserved with unchanged bearer key. Authenticated tailnet-address health confirms new model active; catalog lists16models. Other models remain switchable. No kernel,NVIDIA,P40,RPC,pacing or stable llama.cpp source changes. Model left resident for user.
+
+
+## 2026-10-07 — Strata API startup repaired after release upgrade
+
+User reported qwen3.8-flash-next-strata exit1 on load. Exact traceback: tools/strata_tokenizer.py importregex -> ModuleNotFoundError, because API invoked upgraded /usr/bin/python3 without prior interpreter's dependencies. Created isolated research/strata-venv-resolute (Python3.14), installed regex2026.9.29,jinja2 3.1.6,MarkupSafe3.0.4, verified server--help and Python syntax. Added optional per-Strata-entry python field in API launcher, defaulting to old interpreter for unspecified entries; catalog selects repaired venv. No Strata source/engine/model or safe config changes.
+
+Restarted same API and selected Strata. Coldload22.21seconds; authenticated chat smoke returned exactly4,finishstop,30completion tokens in2.28s; report model-api/strata-post-upgrade-repair.json. Strata left active. Existing262144context,pcie-frac0,adapt-every0,bypass expert-hit diagnostic and nativeMTP settings unchanged. Saved pinned dependency file and restore-strata-python.sh. No NVIDIA,kernel,P40 orRPC changes. This verifies startup/one chat, not general Strata speculative correctness.

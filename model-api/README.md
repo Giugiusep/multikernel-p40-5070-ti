@@ -79,3 +79,6 @@ At 4K allocated context on a 256-token greedy Mistral Small 4 prompt, the RTX/P4
 ### HauhauCS RTX-only profile (2026-10-07)
 
 Model ID: `qwen3.8-27b-hauhau-iq2-m-rtx`. Requested context60,000 (actual slot60,160), Q8KV, all model layers onCUDA0, noRPC. Verified model-file SHA256 and three deterministic chat outputs; approximately59.7decode tok/s on a short prompt. Ordinary decoding is active; embeddedMTP tensors are not enabled. The existing endpoint and bearer key are unchanged. Select this ID through `/v1/switch` or `/v1/chat/completions`; other models remain available.
+
+
+Strata uses the dedicated `research/strata-venv-resolute/bin/python` interpreter after the Ubuntu26.04 upgrade. Recreate its dependencies using `scripts/restore-strata-python.sh` and the pinned `strata-python-requirements.txt`. The model catalog's optional `python` field selects this interpreter; engine and safe execution settings are unchanged.

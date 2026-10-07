@@ -1,0 +1,20 @@
+{
+  "qwen3.8-flash-next-strata": {
+    "model": "qwen3.8-flash-next-strata",
+    "max_tokens": 128,
+    "load_seconds": 22.21,
+    "switch": {
+      "active_model": "qwen3.8-flash-next-strata"
+    },
+    "answer_seconds": 2.28,
+    "content": "4",
+    "reasoning_excerpt": "We need answer user's request: \"Reply with the numeral 4.\" Need final only 4. Ensure no extra.\n",
+    "usage": {
+      "prompt_tokens": 59,
+      "completion_tokens": 30,
+      "total_tokens": 89
+    },
+    "finish_reason": "stop",
+    "passed": true
+  }
+}

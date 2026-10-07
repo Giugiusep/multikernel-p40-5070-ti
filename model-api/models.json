@@ -4,7 +4,8 @@
     "runner": "strata",
     "config": "strata-iq2-xs-safe.json",
     "context": 262144,
-    "note": "RTX-only Strata IQ2_XS; diagnostic no-GPU-expert path"
+    "note": "RTX-only Strata IQ2_XS; diagnostic no-GPU-expert path",
+    "python": "/home/shiba/multikernel-experiment/research/strata-venv-resolute/bin/python"
   },
   {
     "id": "ling-3-flash-iq2-s",

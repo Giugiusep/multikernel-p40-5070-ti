@@ -78,7 +78,7 @@ class Backend:
         env = os.environ.copy()
         if entry["runner"] == "strata":
             env["STRATA_DIAG_BYPASS_EXPERT_HITS"] = "1"
-            return (["/usr/bin/python3", STRATA_SERVER, "--engine", "strata",
+            return ([entry.get("python", "/usr/bin/python3"), STRATA_SERVER, "--engine", "strata",
                      "--config", entry["path"], "--host", "127.0.0.1",
                      "--port", str(BACKEND_PORT)], env)
         exe = (K2 if entry["runner"] == "k2" else

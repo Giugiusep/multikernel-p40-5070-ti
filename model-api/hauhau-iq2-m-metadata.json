@@ -1,0 +1,13 @@
+{
+  "revision": "993a5971fda8f30dd1b7eb2654792ba4415c7460",
+  "file": {
+    "rfilename": "Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ2_M.gguf",
+    "blobId": "f4baef37a0e5b00a71d4d1cab7e42e977e1f4d07",
+    "size": 10319906944,
+    "lfs": {
+      "sha256": "5e14825174e02733b873cc01358787d570b648dd530c061623764aba743512ce",
+      "size": 10319906944,
+      "pointerSize": 136
+    }
+  }
+}

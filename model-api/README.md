@@ -74,3 +74,8 @@ At 160K allocated context, the 50/50 Nemotron Q8 split ran out of RTX VRAM durin
 At 4K allocated context on a 256-token greedy Mistral Small 4 prompt, the RTX/P40 38/62 split returned exactly the same output hash as local execution and measured 48.02 and 48.04 decode tok/s in two warmed runs. The current local Unsloth backend had a seven-run median of 24.29 tok/s on the same prompt, with substantial run-to-run variation. Mistral's distributed cold load took about 16 minutes. GLM 4.7 Flash Q6_XL measured 45.88 tok/s distributed versus 9.33 tok/s on the patched RTX/RAM coordinator for one 128-token prompt; their measured outputs matched, and its distributed cold load took 11.2 minutes. These are limited short-context comparisons.
 
 **Do not reuse the 131,072-token Mistral split profile yet.** Although it loaded and completed one 256-token response at 47.01 tok/s, the VM froze during the next response and its last saved kernel event was a `kcompactd0` soft lockup. The user manually shut down the VM. No 131K result was written to `context-probe-results.json`, and no distributed Mistral alias was published. After reboot, the P40 secondary was restored and the validated Nemotron profile was tested separately. Details are in `multikernel-engineering-audit.md`.
+
+
+### HauhauCS RTX-only profile (2026-10-07)
+
+Model ID: `qwen3.8-27b-hauhau-iq2-m-rtx`. Requested context60,000 (actual slot60,160), Q8KV, all model layers onCUDA0, noRPC. Verified model-file SHA256 and three deterministic chat outputs; approximately59.7decode tok/s on a short prompt. Ordinary decoding is active; embeddedMTP tensors are not enabled. The existing endpoint and bearer key are unchanged. Select this ID through `/v1/switch` or `/v1/chat/completions`; other models remain available.

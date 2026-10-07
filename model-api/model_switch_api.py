@@ -95,6 +95,11 @@ class Backend:
             env["GGML_RPC_NO_RDMA"] = "1"
             env.pop("GGML_MK_VSOCK_NO_WRITE_SLEEP", None)
             env.pop("GGML_MK_VSOCK_NO_PROGRESS_SLEEP", None)
+        if entry["runner"] != "multikernel":
+            if device := entry.get("device"):
+                command += ["--device", device]
+            if fit := entry.get("fit"):
+                command += ["--fit", fit]
         if cache_type := entry.get("cache_type"):
             command += ["--cache-type-k", cache_type, "--cache-type-v", cache_type]
         if flash_attn := entry.get("flash_attn"):

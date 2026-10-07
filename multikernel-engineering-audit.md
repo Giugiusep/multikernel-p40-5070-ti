@@ -940,3 +940,14 @@ All three outputs per placement match byte-for-byte for each model; GLM digest0f
 GLM split/local measured means48.06/6.80tok/s (~7.07x); Ling30.22/4.87 (~6.21x). Local rates vary noticeably; split repeats are tight. Cold-load durations96.03sGLM/154.09sLing differ from historical tests; no unmeasured explanation or general cold-load guarantee is claimed. Ling split fit with observed14,738MiBRTX and21,879MiBP40 during loading. Secondary dmesg after both probes: noXid,ring-full orOOM. RTX returned2MiB; P40347MiB. Primary's previously documented single softirqWARN remains a separate issue.
 
 Mistral staysRTX-only per user request after prior freeze; Qwen27B distributed remains blocked by historical output mismatch; MuseQ8 unchanged split would repeat secondaryOOM; K2 publisher fork lacks native transport. Models fitting entirely onRTX remain local. No high-context split alias was added for GLM/Ling: these are4K feasibility/performance checks and do not validate their262K/202K API allocations. Existing15entry API resumed with no model resident. No kernel,NVIDIA,transport source or pacing changes. Raw response/timing reports and reproducible harness are archived in model-api/.
+
+
+## 2026-10-07 — HauhauCS Qwen3.8 27B IQ2_M, RTX-only API
+
+Downloaded requested Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ2_M.gguf from HauhauCS/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-MTP-GGUF, pinned revision993a5971fda8f30dd1b7eb2654792ba4415c7460. Exact size10,319,906,944 bytes; SHA2565e14825174e02733b873cc01358787d570b648dd530c061623764aba743512ce matches published LFS metadata. Upgrade-broken hf entrypoint could not import huggingface_hub; used resumable curl against pinned resolve URL instead.
+
+Added qwen3.8-27b-hauhau-iq2-m-rtx to existing authenticated model-switching API, using unchanged Unsloth llama-server329b6160f,99GPU layers,explicitCUDA0,fitoff,context60000,Q8KV,flashattention,batch512/ubatch128. Added optional device/fit fields to local API launcher without changing existing launch defaults. Live command verified noRPC and CUDA0only. Actual slotcontext60160; observedRTX11916MiBused/3927MiBfree after load. Embedded NextN tensors are ignored in ordinary decode; no speculative/MTP mode or sidecar enabled.
+
+Three greedy128token chat requests with seed42 and thinking disabled returned byte-identical counting output11..53; deterministic range check passed. Generation59.635,59.695,59.663tok/s,median59.663. These are short-live-context requests at60Kallocation, not a filled60Kcontext benchmark or general model-quality proof. Raw responses/timings in model-api/hauhau-iq2-m-60k-validation.json.
+
+Existing API endpointhttp://100.81.184.58:19080/v1 preserved with unchanged bearer key. Authenticated tailnet-address health confirms new model active; catalog lists16models. Other models remain switchable. No kernel,NVIDIA,P40,RPC,pacing or stable llama.cpp source changes. Model left resident for user.

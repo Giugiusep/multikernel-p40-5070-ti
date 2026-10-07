@@ -1,17 +1,135 @@
 [
-  {"id":"qwen3.8-flash-next-strata", "runner":"strata", "config":"strata-iq2-xs-safe.json", "context":262144, "note":"RTX-only Strata IQ2_XS; diagnostic no-GPU-expert path"},
-  {"id":"ling-3-flash-iq2-s", "runner":"llama", "path":"/home/shiba/models/ling-3.0-flash-IQ2_S/Ling-3.0-flash-IQ2_S.gguf", "ngl":16, "context":262144},
-  {"id":"mimo-v2.6-q6-k", "runner":"llama", "path":"/home/shiba/models/mimo-v2.6-distill-qwen-9b-Q6_K/MiMo-V2.6-Distill-Qwen-9B-Q6_K.gguf", "ngl":99, "context":262144},
-  {"id":"k2-horizon-mova-q4-k-m", "runner":"k2", "path":"/home/shiba/models/k2-horizon-mova-36b-a4b-Q4_K_M/K2-Horizon-MoVA-36B-A4B-Q4_K_M.gguf", "ngl":8, "context":262144, "cache_type":"q8_0"},
-  {"id":"nemotron3-nano-4b-q4-k-m", "runner":"llama", "path":"/home/shiba/models/nemotron3-nano-4b/NVIDIA-Nemotron3-Nano-4B-Q4_K_M.gguf", "ngl":99, "context":917504, "cache_type":"q8_0", "batch_size":512},
-  {"id":"nemotron-3.5-lightning-q8", "runner":"llama", "pattern":"/home/shiba/.cache/huggingface/hub/models--unsloth--NVIDIA-Nemotron-3.5-Lightning-30B-A3B-GGUF/snapshots/*/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-Q8_0.gguf", "ngl":16, "context":1048576, "note":"local RTX/CPU fallback; no P40; separate -mk alias uses Multikernel"},
-  {"id":"nemotron-3.5-lightning-q8-mk", "runner":"multikernel", "pattern":"/home/shiba/.cache/huggingface/hub/models--unsloth--NVIDIA-Nemotron-3.5-Lightning-30B-A3B-GGUF/snapshots/*/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-Q8_0.gguf", "ngl":99, "context":160000, "cache_type":"q8_0", "batch_size":128, "flash_attn":"on", "backend_sampling":true, "tensor_split":"44,56", "load_timeout":1500, "note":"RTX 5070 Ti + P40 native Multikernel VSOCK; 160K allocated context, ~58 decode tok/s on tested short prompt; cold load ~14 min"},
-  {"id":"mistral-small-4-iq2-xxs", "runner":"llama", "pattern":"/home/shiba/.cache/huggingface/hub/models--unsloth--Mistral-Small-4-119B-2603-GGUF/snapshots/*/Mistral-Small-4-119B-2603-UD-IQ2_XXS.gguf", "ngl":4, "context":524288},
-  {"id":"qwen3.8-27b-q8", "runner":"llama", "pattern":"/home/shiba/.cache/huggingface/hub/models--unsloth--Qwen3.8-27B-GGUF/snapshots/*/Qwen3.8-27B-Q8_0.gguf", "ngl":16, "context":262144},
-  {"id":"qwen3.8-27b-q4-xl", "runner":"llama", "pattern":"/home/shiba/.cache/huggingface/hub/models--unsloth--Qwen3.8-27B-GGUF/snapshots/*/Qwen3.8-27B-UD-Q4_K_XL.gguf", "ngl":16, "context":262144},
-  {"id":"qwen3.8-27b-iq2-s-rtx", "runner":"llama", "path":"/home/shiba/models/qwen3.8-27b-iq2-s/Qwen3.8-27B-UD-IQ2_S.gguf", "ngl":99, "context":180000, "cache_type":"q8_0", "batch_size":512, "flash_attn":"on", "note":"RTX 5070 Ti CUDA0 only; all layers offloaded, no RPC; IQ2_S, Q8 KV"},
-  {"id":"gemma-4-e4b-q2-xl", "runner":"llama", "pattern":"/home/shiba/.cache/huggingface/hub/models--unsloth--gemma-4-E4B-it-qat-mobile-GGUF/snapshots/*/gemma-4-E4B-it-qat-UD-Q2_K_XL.gguf", "ngl":99, "context":131072},
-  {"id":"gemma-4-26b-iq3-xxs", "runner":"llama", "pattern":"/home/shiba/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/*/gemma-4-26B-A4B-it-UD-IQ3_XXS.gguf", "ngl":16, "context":262144},
-  {"id":"glm-4.7-flash-q6-xl", "runner":"llama", "pattern":"/home/shiba/.cache/huggingface/hub/models--unsloth--GLM-4.7-Flash-GGUF/snapshots/*/GLM-4.7-Flash-UD-Q6_K_XL.gguf", "ngl":16, "context":202752},
-  {"id":"muse-glimmer-30b-q8", "runner":"llama", "pattern":"/home/shiba/.cache/huggingface/hub/models--unsloth--Muse-Glimmer-30B-GGUF/snapshots/*/Muse-Glimmer-30B-Q8_0.gguf", "ngl":16, "context":131072}
+  {
+    "id": "qwen3.8-flash-next-strata",
+    "runner": "strata",
+    "config": "strata-iq2-xs-safe.json",
+    "context": 262144,
+    "note": "RTX-only Strata IQ2_XS; diagnostic no-GPU-expert path"
+  },
+  {
+    "id": "ling-3-flash-iq2-s",
+    "runner": "llama",
+    "path": "/home/shiba/models/ling-3.0-flash-IQ2_S/Ling-3.0-flash-IQ2_S.gguf",
+    "ngl": 16,
+    "context": 262144
+  },
+  {
+    "id": "mimo-v2.6-q6-k",
+    "runner": "llama",
+    "path": "/home/shiba/models/mimo-v2.6-distill-qwen-9b-Q6_K/MiMo-V2.6-Distill-Qwen-9B-Q6_K.gguf",
+    "ngl": 99,
+    "context": 262144
+  },
+  {
+    "id": "k2-horizon-mova-q4-k-m",
+    "runner": "k2",
+    "path": "/home/shiba/models/k2-horizon-mova-36b-a4b-Q4_K_M/K2-Horizon-MoVA-36B-A4B-Q4_K_M.gguf",
+    "ngl": 8,
+    "context": 262144,
+    "cache_type": "q8_0"
+  },
+  {
+    "id": "nemotron3-nano-4b-q4-k-m",
+    "runner": "llama",
+    "path": "/home/shiba/models/nemotron3-nano-4b/NVIDIA-Nemotron3-Nano-4B-Q4_K_M.gguf",
+    "ngl": 99,
+    "context": 917504,
+    "cache_type": "q8_0",
+    "batch_size": 512
+  },
+  {
+    "id": "nemotron-3.5-lightning-q8",
+    "runner": "llama",
+    "pattern": "/home/shiba/.cache/huggingface/hub/models--unsloth--NVIDIA-Nemotron-3.5-Lightning-30B-A3B-GGUF/snapshots/*/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-Q8_0.gguf",
+    "ngl": 16,
+    "context": 1048576,
+    "note": "local RTX/CPU fallback; no P40; separate -mk alias uses Multikernel"
+  },
+  {
+    "id": "nemotron-3.5-lightning-q8-mk",
+    "runner": "multikernel",
+    "pattern": "/home/shiba/.cache/huggingface/hub/models--unsloth--NVIDIA-Nemotron-3.5-Lightning-30B-A3B-GGUF/snapshots/*/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-Q8_0.gguf",
+    "ngl": 99,
+    "context": 160000,
+    "cache_type": "q8_0",
+    "batch_size": 128,
+    "flash_attn": "on",
+    "backend_sampling": true,
+    "tensor_split": "44,56",
+    "load_timeout": 1500,
+    "note": "RTX 5070 Ti + P40 native Multikernel VSOCK; 160K allocated context, ~58 decode tok/s on tested short prompt; cold load ~14 min"
+  },
+  {
+    "id": "mistral-small-4-iq2-xxs",
+    "runner": "llama",
+    "pattern": "/home/shiba/.cache/huggingface/hub/models--unsloth--Mistral-Small-4-119B-2603-GGUF/snapshots/*/Mistral-Small-4-119B-2603-UD-IQ2_XXS.gguf",
+    "ngl": 4,
+    "context": 524288
+  },
+  {
+    "id": "qwen3.8-27b-q8",
+    "runner": "llama",
+    "pattern": "/home/shiba/.cache/huggingface/hub/models--unsloth--Qwen3.8-27B-GGUF/snapshots/*/Qwen3.8-27B-Q8_0.gguf",
+    "ngl": 16,
+    "context": 262144
+  },
+  {
+    "id": "qwen3.8-27b-q4-xl",
+    "runner": "llama",
+    "pattern": "/home/shiba/.cache/huggingface/hub/models--unsloth--Qwen3.8-27B-GGUF/snapshots/*/Qwen3.8-27B-UD-Q4_K_XL.gguf",
+    "ngl": 16,
+    "context": 262144
+  },
+  {
+    "id": "qwen3.8-27b-iq2-s-rtx",
+    "runner": "llama",
+    "path": "/home/shiba/models/qwen3.8-27b-iq2-s/Qwen3.8-27B-UD-IQ2_S.gguf",
+    "ngl": 99,
+    "context": 180000,
+    "cache_type": "q8_0",
+    "batch_size": 512,
+    "flash_attn": "on",
+    "note": "RTX 5070 Ti CUDA0 only; all layers offloaded, no RPC; IQ2_S, Q8 KV"
+  },
+  {
+    "id": "gemma-4-e4b-q2-xl",
+    "runner": "llama",
+    "pattern": "/home/shiba/.cache/huggingface/hub/models--unsloth--gemma-4-E4B-it-qat-mobile-GGUF/snapshots/*/gemma-4-E4B-it-qat-UD-Q2_K_XL.gguf",
+    "ngl": 99,
+    "context": 131072
+  },
+  {
+    "id": "gemma-4-26b-iq3-xxs",
+    "runner": "llama",
+    "pattern": "/home/shiba/.cache/huggingface/hub/models--unsloth--gemma-4-26B-A4B-it-GGUF/snapshots/*/gemma-4-26B-A4B-it-UD-IQ3_XXS.gguf",
+    "ngl": 16,
+    "context": 262144
+  },
+  {
+    "id": "glm-4.7-flash-q6-xl",
+    "runner": "llama",
+    "pattern": "/home/shiba/.cache/huggingface/hub/models--unsloth--GLM-4.7-Flash-GGUF/snapshots/*/GLM-4.7-Flash-UD-Q6_K_XL.gguf",
+    "ngl": 16,
+    "context": 202752
+  },
+  {
+    "id": "muse-glimmer-30b-q8",
+    "runner": "llama",
+    "pattern": "/home/shiba/.cache/huggingface/hub/models--unsloth--Muse-Glimmer-30B-GGUF/snapshots/*/Muse-Glimmer-30B-Q8_0.gguf",
+    "ngl": 16,
+    "context": 131072
+  },
+  {
+    "id": "qwen3.8-27b-hauhau-iq2-m-rtx",
+    "runner": "llama",
+    "path": "/home/shiba/models/qwen38-hauhau-iq2-m/Qwen3.8-27B-Uncensored-HauhauCS-Aggressive-IQ2_M.gguf",
+    "ngl": 99,
+    "device": "CUDA0",
+    "fit": "off",
+    "context": 60000,
+    "cache_type": "q8_0",
+    "batch_size": 512,
+    "flash_attn": "on",
+    "note": "HauhauCS Aggressive IQ2_M; RTX only; 60K allocated context; ordinary decode, no speculative/MTP mode enabled"
+  }
 ]

@@ -41,10 +41,14 @@ def catalog() -> dict[str, dict]:
             matches = sorted(Path(p) for p in glob.glob(item["pattern"]) if Path(p).is_file())
             item["path"] = str(matches[0]) if matches else None
         elif "path" in item:
-            item["path"] = str(Path(item["path"])) if Path(item["path"]).is_file() else None
+            item["path"] = str(Path(item["path"])) if (
+                Path(item["path"]).is_dir() if item["runner"] == "transformers"
+                else Path(item["path"]).is_file()) else None
         else:
             item["path"] = str(ROOT / item["config"])
-        item["available"] = item["path"] is not None and Path(item["path"]).is_file()
+        item["available"] = item["path"] is not None and (
+            (Path(item["path"]) / "model.safetensors").is_file()
+            if item["runner"] == "transformers" else Path(item["path"]).is_file())
         if item["id"] in result:
             raise ValueError(f"duplicate model id: {item['id']}")
         result[item["id"]] = item
@@ -76,6 +80,12 @@ class Backend:
 
     def command(self, entry: dict) -> tuple[list[str], dict[str, str]]:
         env = os.environ.copy()
+        if entry["runner"] == "transformers":
+            env["CUDA_VISIBLE_DEVICES"] = "0"
+            return ([entry["python"], str(ROOT / "hf_gpt_backend.py"),
+                     "--model", entry["path"], "--alias", entry["id"],
+                     "--context", str(entry["context"]), "--host", "127.0.0.1",
+                     "--port", str(BACKEND_PORT)], env)
         if entry["runner"] == "strata":
             env["STRATA_DIAG_BYPASS_EXPERT_HITS"] = "1"
             return ([entry.get("python", "/usr/bin/python3"), STRATA_SERVER, "--engine", "strata",

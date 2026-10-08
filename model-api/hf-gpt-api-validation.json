@@ -1,0 +1,262 @@
+[
+  {
+    "model": "openai-gpt",
+    "context": 512,
+    "switch": {
+      "active_model": "openai-gpt"
+    },
+    "load_seconds": 2.4713505399995483,
+    "completions": [
+      {
+        "id": "cmpl-f9b7a142fe3c475db00244f50eb65171",
+        "created": 1791454671,
+        "model": "openai-gpt",
+        "object": "text_completion",
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "length",
+            "text": ", i had been a part of the family . i had been the one to help them . i had been the one to help them . \ni had been"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 4,
+          "completion_tokens": 32,
+          "total_tokens": 36
+        },
+        "timings": {
+          "generation_wall_seconds": 0.25861767897731625,
+          "generated_tokens_per_second": 123.73477376543454
+        }
+      },
+      {
+        "id": "cmpl-91ccdb3c3e9b4e4e84560986a76a2fb9",
+        "created": 1791454671,
+        "model": "openai-gpt",
+        "object": "text_completion",
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "length",
+            "text": ", i had been a part of the family . i had been the one to help them . i had been the one to help them . \ni had been"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 4,
+          "completion_tokens": 32,
+          "total_tokens": 36
+        },
+        "timings": {
+          "generation_wall_seconds": 0.0789768070098944,
+          "generated_tokens_per_second": 405.1822454153023
+        }
+      }
+    ],
+    "chat": {
+      "id": "chatcmpl-ddc023cac1c648f29a98eaa63fcb46c4",
+      "created": 1791454672,
+      "model": "openai-gpt",
+      "object": "chat.completion",
+      "choices": [
+        {
+          "index": 0,
+          "finish_reason": "length",
+          "message": {
+            "role": "assistant",
+            "content": "i 'm here to see mr. smith . \nthe woman 's voice was soft and"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 5,
+        "completion_tokens": 16,
+        "total_tokens": 21
+      },
+      "timings": {
+        "generation_wall_seconds": 0.037988264026353136,
+        "generated_tokens_per_second": 421.18271024178716
+      }
+    },
+    "streams": [
+      {
+        "route": "/v1/completions",
+        "events": [
+          "data: {\"id\": \"cmpl-4f02af751c094c07a5906cc07b208bfe\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \", \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-4f02af751c094c07a5906cc07b208bfe\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"i \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-4f02af751c094c07a5906cc07b208bfe\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"had \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-4f02af751c094c07a5906cc07b208bfe\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"been \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-4f02af751c094c07a5906cc07b208bfe\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"a \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-4f02af751c094c07a5906cc07b208bfe\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"part \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-4f02af751c094c07a5906cc07b208bfe\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"of \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-4f02af751c094c07a5906cc07b208bfe\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"the \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-4f02af751c094c07a5906cc07b208bfe\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"family \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-4f02af751c094c07a5906cc07b208bfe\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \". \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-4f02af751c094c07a5906cc07b208bfe\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"i \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-4f02af751c094c07a5906cc07b208bfe\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"had \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-4f02af751c094c07a5906cc07b208bfe\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"been \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-4f02af751c094c07a5906cc07b208bfe\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"the \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-4f02af751c094c07a5906cc07b208bfe\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"one \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-4f02af751c094c07a5906cc07b208bfe\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"to\", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-4f02af751c094c07a5906cc07b208bfe\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"\", \"finish_reason\": \"length\"}]}",
+          "data: [DONE]"
+        ],
+        "exact_nonstream_agreement": true
+      },
+      {
+        "route": "/v1/chat/completions",
+        "events": [
+          "data: {\"id\": \"chatcmpl-f0ef2d3624a341289e414c60a11fc640\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"i \"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-f0ef2d3624a341289e414c60a11fc640\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"'m \"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-f0ef2d3624a341289e414c60a11fc640\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"here \"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-f0ef2d3624a341289e414c60a11fc640\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"to \"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-f0ef2d3624a341289e414c60a11fc640\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"see \"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-f0ef2d3624a341289e414c60a11fc640\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"mr. \"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-f0ef2d3624a341289e414c60a11fc640\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"smith \"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-f0ef2d3624a341289e414c60a11fc640\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \". \\n\"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-f0ef2d3624a341289e414c60a11fc640\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"the \"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-f0ef2d3624a341289e414c60a11fc640\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"woman \"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-f0ef2d3624a341289e414c60a11fc640\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"'s \"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-f0ef2d3624a341289e414c60a11fc640\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"voice \"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-f0ef2d3624a341289e414c60a11fc640\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"was \"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-f0ef2d3624a341289e414c60a11fc640\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"soft \"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-f0ef2d3624a341289e414c60a11fc640\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"and\"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-f0ef2d3624a341289e414c60a11fc640\", \"created\": 1791454672, \"model\": \"openai-gpt\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"\"}, \"finish_reason\": \"length\"}]}",
+          "data: [DONE]"
+        ],
+        "exact_nonstream_agreement": true
+      }
+    ],
+    "stop_check": true,
+    "overflow_error": {
+      "error": {
+        "message": "Context limit is 512 tokens: prompt=1, requested output=512"
+      }
+    }
+  },
+  {
+    "model": "gpt2-xl",
+    "context": 1024,
+    "switch": {
+      "active_model": "gpt2-xl"
+    },
+    "load_seconds": 4.117320710996864,
+    "completions": [
+      {
+        "id": "cmpl-2af986e8057146cc86e97bbec8b9a938",
+        "created": 1791454676,
+        "model": "gpt2-xl",
+        "object": "text_completion",
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "length",
+            "text": ", the United States was the world's leading producer of oil and natural gas. Today, we are the world's leading producer of coal.\n\nThe United"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 4,
+          "completion_tokens": 32,
+          "total_tokens": 36
+        },
+        "timings": {
+          "generation_wall_seconds": 0.45036985498154536,
+          "generated_tokens_per_second": 71.05271288930129
+        }
+      },
+      {
+        "id": "cmpl-202f3c38c3514e158dab031239f5770f",
+        "created": 1791454676,
+        "model": "gpt2-xl",
+        "object": "text_completion",
+        "choices": [
+          {
+            "index": 0,
+            "finish_reason": "length",
+            "text": ", the United States was the world's leading producer of oil and natural gas. Today, we are the world's leading producer of coal.\n\nThe United"
+          }
+        ],
+        "usage": {
+          "prompt_tokens": 4,
+          "completion_tokens": 32,
+          "total_tokens": 36
+        },
+        "timings": {
+          "generation_wall_seconds": 0.2579187850060407,
+          "generated_tokens_per_second": 124.07006336995008
+        }
+      }
+    ],
+    "chat": {
+      "id": "chatcmpl-79d1d31c01524526931c503a953d0924",
+      "created": 1791454677,
+      "model": "gpt2-xl",
+      "object": "chat.completion",
+      "choices": [
+        {
+          "index": 0,
+          "finish_reason": "length",
+          "message": {
+            "role": "assistant",
+            "content": " Hello\nAssistant: Hello\nAssistant: Hello\nAssistant: Hello\nAssistant:"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 6,
+        "completion_tokens": 16,
+        "total_tokens": 22
+      },
+      "timings": {
+        "generation_wall_seconds": 0.13172491700970568,
+        "generated_tokens_per_second": 121.46525018361635
+      }
+    },
+    "streams": [
+      {
+        "route": "/v1/completions",
+        "events": [
+          "data: {\"id\": \"cmpl-5bcb750946d5484d8f1cc9cca52a14b2\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \", \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-5bcb750946d5484d8f1cc9cca52a14b2\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"the \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-5bcb750946d5484d8f1cc9cca52a14b2\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"United \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-5bcb750946d5484d8f1cc9cca52a14b2\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"States \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-5bcb750946d5484d8f1cc9cca52a14b2\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"was \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-5bcb750946d5484d8f1cc9cca52a14b2\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"the \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-5bcb750946d5484d8f1cc9cca52a14b2\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"world's \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-5bcb750946d5484d8f1cc9cca52a14b2\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"leading \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-5bcb750946d5484d8f1cc9cca52a14b2\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"producer \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-5bcb750946d5484d8f1cc9cca52a14b2\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"of \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-5bcb750946d5484d8f1cc9cca52a14b2\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"oil \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-5bcb750946d5484d8f1cc9cca52a14b2\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"and \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-5bcb750946d5484d8f1cc9cca52a14b2\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"natural \", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-5bcb750946d5484d8f1cc9cca52a14b2\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"gas.\", \"finish_reason\": null}]}",
+          "data: {\"id\": \"cmpl-5bcb750946d5484d8f1cc9cca52a14b2\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"text_completion\", \"choices\": [{\"index\": 0, \"text\": \"\", \"finish_reason\": \"length\"}]}",
+          "data: [DONE]"
+        ],
+        "exact_nonstream_agreement": true
+      },
+      {
+        "route": "/v1/chat/completions",
+        "events": [
+          "data: {\"id\": \"chatcmpl-fb6102072f6c4859b653d260b200089b\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \" \"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-fb6102072f6c4859b653d260b200089b\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"Hello\\n\"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-fb6102072f6c4859b653d260b200089b\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"Assistant: \"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-fb6102072f6c4859b653d260b200089b\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"Hello\\n\"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-fb6102072f6c4859b653d260b200089b\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"Assistant: \"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-fb6102072f6c4859b653d260b200089b\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"Hello\\n\"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-fb6102072f6c4859b653d260b200089b\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"Assistant: \"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-fb6102072f6c4859b653d260b200089b\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"Hello\\n\"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-fb6102072f6c4859b653d260b200089b\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"Assistant:\"}, \"finish_reason\": null}]}",
+          "data: {\"id\": \"chatcmpl-fb6102072f6c4859b653d260b200089b\", \"created\": 1791454677, \"model\": \"gpt2-xl\", \"object\": \"chat.completion.chunk\", \"choices\": [{\"index\": 0, \"delta\": {\"content\": \"\"}, \"finish_reason\": \"length\"}]}",
+          "data: [DONE]"
+        ],
+        "exact_nonstream_agreement": true
+      }
+    ],
+    "stop_check": true,
+    "overflow_error": {
+      "error": {
+        "message": "Context limit is 1024 tokens: prompt=1, requested output=1024"
+      }
+    }
+  }
+]

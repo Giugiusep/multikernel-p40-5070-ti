@@ -132,5 +132,21 @@
     "batch_size": 512,
     "flash_attn": "on",
     "note": "HauhauCS Aggressive IQ2_M; RTX only; 60K allocated context; ordinary decode, no speculative/MTP mode enabled"
+  },
+  {
+    "id": "openai-gpt",
+    "runner": "transformers",
+    "python": "/home/shiba/multikernel-experiment/research/hf-gpt-venv/bin/python",
+    "path": "/home/shiba/models/openai-gpt",
+    "context": 512,
+    "note": "Official openai-community base checkpoint, FP16 CUDA0 only; text completions recommended; chat uses plain role labels"
+  },
+  {
+    "id": "gpt2-xl",
+    "runner": "transformers",
+    "python": "/home/shiba/multikernel-experiment/research/hf-gpt-venv/bin/python",
+    "path": "/home/shiba/models/gpt2-xl",
+    "context": 1024,
+    "note": "Official openai-community base checkpoint, FP16 CUDA0 only; text completions recommended; chat uses plain role labels"
   }
 ]

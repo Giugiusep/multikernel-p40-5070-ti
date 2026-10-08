@@ -82,3 +82,20 @@ Model ID: `qwen3.8-27b-hauhau-iq2-m-rtx`. Requested context60,000 (actual slot60
 
 
 Strata uses the dedicated `research/strata-venv-resolute/bin/python` interpreter after the Ubuntu26.04 upgrade. Recreate its dependencies using `scripts/restore-strata-python.sh` and the pinned `strata-python-requirements.txt`. The model catalog's optional `python` field selects this interpreter; engine and safe execution settings are unchanged.
+
+
+### Original OpenAI GPT checkpoints
+
+- `openai-gpt`: official GPT base model,512-token total context.
+- `gpt2-xl`: official GPT-2 XL base model,1,024-token total context.
+
+Both use isolated Transformers/PyTorch FP16 onRTXCUDA0 and participate in the same single-resident switcher. They are base completion models; `/v1/completions` is preferred. `/v1/chat/completions` is also available using plain role labels rather than a learned chat template. Prompt plus requested output must fit the native context; oversize requests fail400. Text/chat streaming is supported. Tools,images and nonzero presence/frequency penalties are unsupported.
+
+```bash
+curl http://100.81.184.58:19080/v1/completions \
+  -H "Authorization: Bearer $SHIBA_MODEL_API_KEY" \
+  -H 'Content-Type: application/json' \
+  -d '{"model":"gpt2-xl","prompt":"Once upon a time","max_tokens":64,"temperature":0.8}'
+```
+
+Runtime recovery: `scripts/restore-hf-gpt-python.sh`. Official model provenance and all-file verification records are in `model-provenance/`; model weights are excluded fromGit.

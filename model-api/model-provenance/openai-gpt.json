@@ -1,0 +1,53 @@
+{
+  "repo": "openai-community/openai-gpt",
+  "revision": "1e0d4f3028acbffb47fe933cea64619c5ec1a002",
+  "files": [
+    {
+      "rfilename": "config.json",
+      "blobId": "812e9b1784617ec5b57f89fc2278cf59d4e474c8",
+      "size": 656,
+      "actual_sha256": "0499825b2f56e282ebc36725df61754abe58a3cd117ef99b571570d27e62ff36"
+    },
+    {
+      "rfilename": "generation_config.json",
+      "blobId": "ff245ea7c803122ca5a2c8459333017d47c2130d",
+      "size": 74,
+      "actual_sha256": "1e2517a57ece356260dd9976d678143f6557c585fbc9bd933012cf33a77859ae"
+    },
+    {
+      "rfilename": "merges.txt",
+      "blobId": "0023a687b3d4d0b795a5e97cc914bdabb5a253df",
+      "size": 458495,
+      "actual_sha256": "0ea9b51ae695073cd871e0358f7016311d671a7ff3963e367d5236522f294725"
+    },
+    {
+      "rfilename": "model.safetensors",
+      "blobId": "8f74082d4f9dac41afe2ba24effc65abfbca9734",
+      "size": 478736214,
+      "lfs": {
+        "sha256": "25c82cdf1844d2d93e9120b3b628fc6c2b4fcc7801a1297f58465ba67d45deb3",
+        "size": 478736214,
+        "pointerSize": 134
+      },
+      "actual_sha256": "25c82cdf1844d2d93e9120b3b628fc6c2b4fcc7801a1297f58465ba67d45deb3"
+    },
+    {
+      "rfilename": "tokenizer.json",
+      "blobId": "5da717f8ef45efd3b31c686b722c58e3b12195d7",
+      "size": 1272610,
+      "actual_sha256": "ad8b2a00566d1cce8f64b3bb73243c716ddb130ef09ae073cecf217c84cc42d3"
+    },
+    {
+      "rfilename": "tokenizer_config.json",
+      "blobId": "34ddbd64a4cd3f2d9d8a9120d3662d0bf91baead",
+      "size": 25,
+      "actual_sha256": "994f46754c5bf4014f1aa92d34b1374319c3a6b3f702105cd5b742beaecd18ce"
+    },
+    {
+      "rfilename": "vocab.json",
+      "blobId": "9dc3f0af5a80956e57dc8d9401e16dfadcade7c2",
+      "size": 815973,
+      "actual_sha256": "fdf49b19e7de236852091da09b84a7a3cd5e7b0e79916376cf45f6b8127b8078"
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+[
+  {
+    "expected": "red",
+    "seconds": 7.885557559988229,
+    "response": {
+      "id": "chatcmpl-40937022ab594181b1f960b9",
+      "object": "chat.completion",
+      "created": 1791566974,
+      "model": "qwen3.8-flash-next-iq2-xs",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "Red",
+            "reasoning_content": "The user wants the dominant color. The image is a solid red square. The instruction says to reply with just the color name. I need to provide a single word. The dominant color is red.\n"
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 134,
+        "completion_tokens": 45,
+        "total_tokens": 179
+      }
+    }
+  },
+  {
+    "expected": "blue",
+    "seconds": 2.2574900859908666,
+    "response": {
+      "id": "chatcmpl-8dcac1250c094efc96e6c63e",
+      "object": "chat.completion",
+      "created": 1791566978,
+      "model": "qwen3.8-flash-next-iq2-xs",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "Blue",
+            "reasoning_content": "The user wants the dominant color. The image is a solid blue field. The instruction says to reply with just the color name. I need to provide a single word. The color is blue.\n"
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 134,
+        "completion_tokens": 44,
+        "total_tokens": 178
+      }
+    }
+  },
+  {
+    "expected": "3",
+    "seconds": 2.6075395009829663,
+    "response": {
+      "id": "chatcmpl-13a15b242658458995626f42",
+      "object": "chat.completion",
+      "created": 1791567046,
+      "model": "qwen3.8-flash-next-iq2-xs",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "3",
+            "reasoning_content": "The user wants the count of red circles. Looking at the image, there are three red circles arranged horizontally. The instruction is to reply with only the numeral. So the answer is 3.\n"
+          },
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 133,
+        "completion_tokens": 44,
+        "total_tokens": 177
+      }
+    }
+  }
+]

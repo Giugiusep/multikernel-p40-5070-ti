@@ -148,5 +148,14 @@
     "path": "/home/shiba/models/gpt2-xl",
     "context": 1024,
     "note": "Official openai-community base checkpoint, FP16 CUDA0 only; text completions recommended; chat uses plain role labels"
+  },
+  {
+    "id": "qwen3.8-flash-next-strata-vision",
+    "runner": "strata",
+    "python": "/home/shiba/multikernel-experiment/research/strata-venv-resolute/bin/python",
+    "config": "strata-iq2-xs-vision.json",
+    "context": 262144,
+    "vision": true,
+    "note": "Vision profile: matching BF16 projector on CPU; RTX language engine, safe no-GPU-expert path; separate text-only alias retained"
   }
 ]

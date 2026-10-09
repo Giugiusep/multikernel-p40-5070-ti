@@ -99,3 +99,10 @@ curl http://100.81.184.58:19080/v1/completions \
 ```
 
 Runtime recovery: `scripts/restore-hf-gpt-python.sh`. Official model provenance and all-file verification records are in `model-provenance/`; model weights are excluded fromGit.
+
+
+### Qwen Flash Next vision profile
+
+Select `qwen3.8-flash-next-strata-vision` to send text plus `image_url` content blocks to the same `/v1/chat/completions` endpoint. Base64 `data:image/png;base64,...` image URLs are supported. The matched BF16 projector runs onCPU (4threads,300image-token budget); language generation stays onRTX with262144context. Basic colour and shape-count fixtures passed; detailed grounding/OCR is unvalidated. The original `qwen3.8-flash-next-strata` stays text-only.
+
+Build recovery: `scripts/build-strata-vision.sh`, using Strata's pinned third_party llama.cpp. Download the matching projector pinned in `qwen38-vision-metadata.json` and check its SHA256. `validate_strata_vision.py` repeats the controlled checks.

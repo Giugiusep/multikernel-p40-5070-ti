@@ -1,0 +1,24 @@
+{
+  "repository": "rhasspy/piper-voices",
+  "revision": "c10ece1aade47bb51c153c893d14e5bf8e5b7117",
+  "files": [
+    {
+      "name": "MODEL_CARD",
+      "bytes": 351,
+      "sha256": "ce49eb457742208166d399a40cdec2c7fa9db77960930031564ab56f12882645",
+      "verified": true
+    },
+    {
+      "name": "en_US-lessac-medium.onnx",
+      "bytes": 63201294,
+      "sha256": "5efe09e69902187827af646e1a6e9d269dee769f9877d17b16b1b46eeaaf019f",
+      "verified": true
+    },
+    {
+      "name": "en_US-lessac-medium.onnx.json",
+      "bytes": 4885,
+      "sha256": "efe19c417bed055f2d69908248c6ba650fa135bc868b0e6abb3da181dab690a0",
+      "verified": true
+    }
+  ]
+}

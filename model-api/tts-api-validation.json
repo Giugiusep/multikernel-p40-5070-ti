@@ -1,0 +1,35 @@
+{
+  "voice": {
+    "model": "piper-tts",
+    "voices": [
+      {
+        "id": "lessac",
+        "language": "en-US",
+        "format": "wav",
+        "sample_rate": 22050
+      }
+    ]
+  },
+  "runs": [
+    {
+      "seconds": 0.10639828199055046,
+      "audio_seconds": 5.375419501133787,
+      "real_time_factor": 0.019793484390959414,
+      "bytes": 237100
+    },
+    {
+      "seconds": 0.10426768899196759,
+      "audio_seconds": 5.77015873015873,
+      "real_time_factor": 0.018070159568920437,
+      "bytes": 254508
+    },
+    {
+      "seconds": 0.10055310901952907,
+      "audio_seconds": 5.584399092970521,
+      "real_time_factor": 0.018006075021769558,
+      "bytes": 246316
+    }
+  ],
+  "active_model_preserved": "qwen3.8-flash-next-strata-vision",
+  "auth_and_validation": "passed"
+}

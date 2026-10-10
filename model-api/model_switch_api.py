@@ -203,6 +203,12 @@ class Handler(BaseHTTPRequestHandler):
         if not self.authorized():
             self.reply(401, {"error": {"message": "unauthorized"}})
             return
+        if self.path == "/v1/audio/voices":
+            try:
+                self.forward({}, "http://127.0.0.1:19083", "GET")
+            except (OSError, urllib.error.URLError) as exc:
+                self.reply(503, {"error": {"message": str(exc)}})
+            return
         if self.path == "/v1/models":
             now = int(time.time())
             self.reply(200, {"object": "list", "data": [
@@ -217,6 +223,14 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self) -> None:
         if not self.authorized():
             self.reply(401, {"error": {"message": "unauthorized"}})
+            return
+        if self.path == "/v1/audio/speech":
+            try:
+                self.forward(self.read_json(), "http://127.0.0.1:19083")
+            except (ValueError, json.JSONDecodeError) as exc:
+                self.reply(400, {"error": {"message": str(exc)}})
+            except (OSError, urllib.error.URLError) as exc:
+                self.reply(503, {"error": {"message": str(exc)}})
             return
         if self.path not in {"/v1/switch", "/v1/unload", "/v1/chat/completions",
                              "/v1/completions", "/v1/messages"}:
@@ -249,9 +263,9 @@ class Handler(BaseHTTPRequestHandler):
         except (OSError, RuntimeError, urllib.error.URLError) as exc:
             self.reply(503, {"error": {"message": str(exc)}})
 
-    def forward(self, payload: dict) -> None:
+    def forward(self, payload: dict, backend: str = BACKEND, method: str = "POST") -> None:
         body = json.dumps(payload).encode()
-        request = urllib.request.Request(f"{BACKEND}{self.path}", data=body, method="POST",
+        request = urllib.request.Request(f"{backend}{self.path}", data=body if method == "POST" else None, method=method,
                                          headers={"Content-Type": "application/json"})
         try:
             upstream = urllib.request.urlopen(request, timeout=600)

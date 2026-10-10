@@ -106,3 +106,17 @@ Runtime recovery: `scripts/restore-hf-gpt-python.sh`. Official model provenance 
 Select `qwen3.8-flash-next-strata-vision` to send text plus `image_url` content blocks to the same `/v1/chat/completions` endpoint. Base64 `data:image/png;base64,...` image URLs are supported. The matched BF16 projector runs onCPU (4threads,300image-token budget); language generation stays onRTX with262144context. Basic colour and shape-count fixtures passed; detailed grounding/OCR is unvalidated. The original `qwen3.8-flash-next-strata` stays text-only.
 
 Build recovery: `scripts/build-strata-vision.sh`, using Strata's pinned third_party llama.cpp. Download the matching projector pinned in `qwen38-vision-metadata.json` and check its SHA256. `validate_strata_vision.py` repeats the controlled checks.
+
+### Independent CPU speech endpoint
+
+Piper `en_US-lessac-medium` is a 63.2 MB, single-speaker English voice. A separate CPU-only service (`shiba-tts.service`, loopback port19083, two inference threads) exposes speech through the existing authenticated API. It does not participate in chat-model switching or unload the active model. Generated audio is WAV, mono22,050Hz; other formats and speech streaming are not implemented. This is text-to-speech, not microphone input or speech recognition.
+
+```bash
+curl http://100.81.184.58:19080/v1/audio/speech \
+  -H "Authorization: Bearer $SHIBA_MODEL_API_KEY" \
+  -H 'Content-Type: application/json' \
+  -d '{"model":"piper-tts","voice":"lessac","input":"Hello! Your local assistant can speak now.","response_format":"wav"}' \
+  --output speech.wav
+```
+
+`GET /v1/audio/voices` lists the speech voice separately from chat models. Optional `speed` accepts0.25–4, default1. Input accepts up to4096characters. To speak a chat answer, submit its text to this endpoint; chat completions themselves continue returning text. Runtime recovery: `scripts/restore-tts-python.sh`, install the supplied user unit, download voice files at the revision in `model-provenance/piper-lessac.json`, verify their hashes, and enable `shiba-tts.service`. `validate_tts_api.py` verifies WAV structure/non-silent samples, authentication, invalid-input rejection, and preservation of the active vision model. This does not establish subjective pronunciation quality; listen to the generated sample.

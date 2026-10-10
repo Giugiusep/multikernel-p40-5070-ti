@@ -1,0 +1,28 @@
+{
+  "standalone_transcript": {
+    "text": "Please reply with a words hello friend.",
+    "language": "en",
+    "duration": 2.1826875,
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 2.0,
+        "text": " Please reply with a words hello friend."
+      }
+    ]
+  },
+  "stt_seconds": 0.2118985340348445,
+  "multipart_agreement": true,
+  "auth_invalid_audio_checks": "passed",
+  "strata_answer": "hello friend",
+  "strata_transcript": [
+    {
+      "message_index": 0,
+      "part_index": 0,
+      "text": "Please reply with a words hello friend.",
+      "language": "en"
+    }
+  ],
+  "full_request_seconds_including_model_load": 4.384355818037875,
+  "output_audio_bytes": 43052
+}

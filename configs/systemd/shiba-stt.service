@@ -1,0 +1,11 @@
+[Unit]
+Description=Shiba CPU Whisper speech recognition sidecar
+After=network.target
+[Service]
+WorkingDirectory=/home/shiba/multikernel-experiment/model-api
+ExecStart=/home/shiba/multikernel-experiment/research/stt-venv/bin/python /home/shiba/multikernel-experiment/model-api/stt_backend.py
+Restart=on-failure
+RestartSec=5
+MemoryMax=1G
+[Install]
+WantedBy=default.target

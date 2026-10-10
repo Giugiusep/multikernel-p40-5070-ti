@@ -6,7 +6,8 @@
     "context": 262144,
     "note": "RTX-only Strata IQ2_XS; diagnostic no-GPU-expert path",
     "python": "/home/shiba/multikernel-experiment/research/strata-venv-resolute/bin/python",
-    "speech": true
+    "speech": true,
+    "audio_input": true
   },
   {
     "id": "ling-3-flash-iq2-s",
@@ -158,6 +159,7 @@
     "context": 262144,
     "vision": true,
     "note": "Vision profile: matching BF16 projector on CPU; RTX language engine, safe no-GPU-expert path; separate text-only alias retained",
-    "speech": true
+    "speech": true,
+    "audio_input": true
   }
 ]

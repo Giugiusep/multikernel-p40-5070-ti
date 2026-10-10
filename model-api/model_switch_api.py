@@ -215,7 +215,7 @@ class Handler(BaseHTTPRequestHandler):
                 {"id": mid, "object": "model", "created": now, "owned_by": "shiba-local",
                  "metadata": {"active": MANAGER.active == mid, "available": e["available"],
                               "runner": e["runner"], "context_length": e["context"],
-                              "note": e.get("note", ""), "vision": e.get("vision", False), "speech": e.get("speech", False)}}
+                              "note": e.get("note", ""), "vision": e.get("vision", False), "speech": e.get("speech", False), "audio_input": e.get("audio_input", False)}}
                 for mid, e in ENTRIES.items()]})
             return
         self.reply(404, {"error": {"message": "not found"}})
@@ -223,6 +223,19 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self) -> None:
         if not self.authorized():
             self.reply(401, {"error": {"message": "unauthorized"}})
+            return
+        if self.path == "/v1/audio/transcriptions":
+            try:
+                length = int(self.headers.get("Content-Length", "0"))
+                if not 0 < length <= 24 * 1024 * 1024:
+                    raise ValueError("audio request limit is 24 MiB")
+                self.forward({}, "http://127.0.0.1:19084",
+                             raw_body=self.rfile.read(length),
+                             content_type=self.headers.get("Content-Type", ""))
+            except ValueError as exc:
+                self.reply(400, {"error": {"message": str(exc)}})
+            except (OSError, urllib.error.URLError) as exc:
+                self.reply(503, {"error": {"message": str(exc)}})
             return
         if self.path == "/v1/audio/speech":
             try:
@@ -263,10 +276,11 @@ class Handler(BaseHTTPRequestHandler):
         except (OSError, RuntimeError, urllib.error.URLError) as exc:
             self.reply(503, {"error": {"message": str(exc)}})
 
-    def forward(self, payload: dict, backend: str = BACKEND, method: str = "POST") -> None:
-        body = json.dumps(payload).encode()
+    def forward(self, payload: dict, backend: str = BACKEND, method: str = "POST",
+                raw_body: bytes | None = None, content_type: str = "application/json") -> None:
+        body = json.dumps(payload).encode() if raw_body is None else raw_body
         request = urllib.request.Request(f"{backend}{self.path}", data=body if method == "POST" else None, method=method,
-                                         headers={"Content-Type": "application/json"})
+                                         headers={"Content-Type": content_type})
         try:
             upstream = urllib.request.urlopen(request, timeout=600)
         except urllib.error.HTTPError as exc:

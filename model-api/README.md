@@ -135,3 +135,17 @@ python3 -c 'import json,base64; r=json.load(open("spoken-answer.json")); open("a
 ```
 
 `validate_strata_speech.py` checks target text agreement, image-to-spoken-answer, WAV structure, exact transcript matching and unsupported-stream rejection. Apply the saved `patches/strata/` patch to recover the Strata server changes; keep `shiba-tts.service` enabled.
+
+### Speech recognition and Strata audio input
+
+`POST /v1/audio/transcriptions` accepts an authenticated multipart upload (`model=whisper-tiny`, `file=@recording.wav`, optional `language=en` or `it`). Multilingual Whisper Tiny runs separately onCPU with INT8 inference/two threads, leaving GPUs and the active model untouched. JSON output includes text/language/duration/segments. File size limit24MiB, decoded duration limit120seconds; batch uploads only, no live microphone streaming. Tiny trades accuracy for size/speed; noisy speech and Italian have not been validated locally.
+
+```bash
+curl http://100.81.184.58:19080/v1/audio/transcriptions \
+  -H "Authorization: Bearer $SHIBA_MODEL_API_KEY" \
+  -F model=whisper-tiny -F file=@recording.wav -F language=en
+```
+
+Both Strata profiles also accept user content blocks `{"type":"input_audio","input_audio":{"data":"BASE64_AUDIO","format":"wav","language":"en"}}` (wav/mp3); the server transcribes these into text before its ordinary text/vision frontend. Add the speech-output options described above for one-request audio→Strata→spoken answer. Mixed audio/text/image blocks are supported; at most four audio blocks/request. Non-streaming responses expose `input_audio_transcripts` for inspection. This is an STT frontend, not native Qwen audio understanding. Audio-input requests can use ordinary text streaming; audio output still requires stream=false.
+
+Recovery: `scripts/restore-stt-python.sh`, verified model files from `model-provenance/whisper-tiny.json`, user unit `shiba-stt.service`, and `patches/strata/` audio-input patch. Decoder/runtime versions are pinned. `validate_stt_api.py` tests multipart/JSON agreement, bad-audio/auth rejection and end-to-end speech-to-speech. `stt-human-validation.json` records a separate upstream human-speech fixture check.

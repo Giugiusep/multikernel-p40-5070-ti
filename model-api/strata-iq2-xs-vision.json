@@ -49,5 +49,8 @@
   "speech": {
     "endpoint": "http://127.0.0.1:19083/v1/audio/speech",
     "voice": "lessac"
+  },
+  "audio_input": {
+    "endpoint": "http://127.0.0.1:19084/v1/audio/transcriptions"
   }
 }

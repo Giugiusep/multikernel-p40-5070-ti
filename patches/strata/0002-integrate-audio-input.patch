@@ -1,0 +1,168 @@
+From 8f4f8ba37e291c409ac29cd3877bc5300f677a56 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Sat, 10 Oct 2026 09:25:07 +0000
+Subject: [PATCH] Integrate CPU transcription of audio messages into Strata
+ chat
+
+---
+ serve/audio_input.py      | 46 +++++++++++++++++++++++++++++++++++++++
+ serve/server.py           | 18 ++++++++++++---
+ serve/test_audio_input.py | 27 +++++++++++++++++++++++
+ 3 files changed, 88 insertions(+), 3 deletions(-)
+ create mode 100644 serve/audio_input.py
+ create mode 100644 serve/test_audio_input.py
+
+diff --git a/serve/audio_input.py b/serve/audio_input.py
+new file mode 100644
+index 0000000..770bbde
+--- /dev/null
++++ b/serve/audio_input.py
+@@ -0,0 +1,46 @@
++"""Transcribe user audio blocks before Strata's existing text/vision frontend."""
++import copy
++import json
++import urllib.error
++import urllib.request
++
++
++class AudioInput:
++    def __init__(self, config):
++        self.endpoint = config['endpoint']
++
++    def prepare(self, request):
++        request = copy.deepcopy(request)
++        transcripts = []
++        for index, message in enumerate(request.get('messages', [])):
++            content = message.get('content')
++            if not isinstance(content, list):
++                continue
++            for part_index, part in enumerate(content):
++                if not isinstance(part, dict) or part.get('type') != 'input_audio':
++                    continue
++                if message.get('role') != 'user':
++                    raise ValueError('input_audio is supported only in user messages')
++                audio = part.get('input_audio')
++                if not isinstance(audio, dict) or audio.get('format') not in ('wav','mp3') or not isinstance(audio.get('data'), str):
++                    raise ValueError('input_audio requires base64 data and format=wav or mp3')
++                if len(transcripts) >= 4:
++                    raise ValueError('at most four audio blocks per request')
++                body = json.dumps({'model':'whisper-tiny','audio':audio['data'],
++                                   'language':audio.get('language')}).encode()
++                req = urllib.request.Request(self.endpoint, data=body, headers={'Content-Type':'application/json'})
++                try:
++                    with urllib.request.urlopen(req, timeout=120) as response:
++                        result = json.load(response)
++                except urllib.error.HTTPError as exc:
++                    if exc.code == 400:
++                        error = json.loads(exc.read()).get('error', {}).get('message', 'invalid audio')
++                        raise ValueError(error) from exc
++                    raise
++                text = result.get('text')
++                if not isinstance(text, str) or not text.strip():
++                    raise ValueError('no speech recognized in input_audio')
++                content[part_index] = {'type':'text','text':text}
++                transcripts.append({'message_index':index,'part_index':part_index,
++                                    'text':text,'language':result.get('language')})
++        return request, transcripts
+diff --git a/serve/server.py b/serve/server.py
+index 7adebd0..dfeb7e3 100644
+--- a/serve/server.py
++++ b/serve/server.py
+@@ -43,6 +43,7 @@ from serve.frontend import (ChatTemplate, Event, OutputParser, anthropic_to_mess
+                             images_of, openai_to_messages)
+ 
+ from serve.speech import Speech
++from serve.audio_input import AudioInput
+ 
+ IM_END = "<|im_end|>"
+ IMAGE_PAD = "<|image_pad|>"
+@@ -361,9 +362,10 @@ class Detokenizer:
+ 
+ class Service:
+     def __init__(self, engine: Engine, tokenizer, template: ChatTemplate, model_name: str = "qwen3.8-flash-next",
+-                 vision: Vision | None = None, sampling_defaults: dict | None = None, speech: Speech | None = None):
++                 vision: Vision | None = None, sampling_defaults: dict | None = None, speech: Speech | None = None, audio_input: AudioInput | None = None):
+         self.engine, self.tok, self.template, self.model, self.vision = engine, tokenizer, template, model_name, vision
+         self.speech = speech
++        self.audio_input = audio_input
+         self.sampling_defaults = dict(sampling_defaults or {})   # the run config's `sampling` block
+         self.fifo = threading.Lock()
+         self.embeddings = threading.local()           # the current request's image embeddings file (GENI)
+@@ -726,7 +728,7 @@ def make_handler(svc: Service):
+                 self.wfile.write(body)
+             elif path == "/health":
+                 self._json(200, {"status": "ok", "max_context": svc.engine.max_context, "model": svc.model,
+-                                 "images": svc.vision is not None, "speech": svc.speech is not None, "api_key": bool(svc.api_key)})
++                                 "images": svc.vision is not None, "speech": svc.speech is not None, "audio_input": svc.audio_input is not None, "api_key": bool(svc.api_key)})
+             elif path == "/status":
+                 with svc.status_lock:
+                     s = dict(svc.status)
+@@ -772,6 +774,13 @@ def make_handler(svc: Service):
+                 audio_requested = svc.speech.validate(req)
+             elif "audio" in req.get("modalities", []):
+                 raise ValueError("this Strata profile has no speech output configured")
++            transcripts = []
++            if svc.audio_input:
++                req, transcripts = svc.audio_input.prepare(req)
++            elif any(isinstance(p, dict) and p.get("type") == "input_audio"
++                     for m in req.get("messages", []) if isinstance(m.get("content"), list)
++                     for p in m["content"]):
++                raise ValueError("this profile has no audio input configured")
+             messages, tools, kw = openai_to_messages(req)
+             max_new = int(req.get("max_completion_tokens") or req.get("max_tokens") or 0)   # 0/-1: the rest of the context
+             ids, thinking, max_new = svc.prepare(messages, tools, kw, max_new)
+@@ -780,6 +789,8 @@ def make_handler(svc: Service):
+             chunks = openai_chunks(svc, req, ids, thinking, tools, max_new, cancel)
+             if not req.get("stream"):
+                 response = openai_collect(chunks)
++                if transcripts:
++                    response["input_audio_transcripts"] = transcripts
+                 if audio_requested:
+                     response = svc.speech.attach(response, req)
+                 return self._json(200, response)
+@@ -944,7 +955,8 @@ def main() -> int:
+     svc = Service(engine, tok, ChatTemplate(tpl if tpl.exists() else ROOT / "serve/chat_template.jinja"),
+                   model_name=cfg.get("model_name", "qwen3.8-flash-next"), vision=vision,
+                   sampling_defaults=sampling_defaults,
+-                  speech=Speech(cfg["speech"]) if cfg.get("speech") else None)
++                  speech=Speech(cfg["speech"]) if cfg.get("speech") else None,
++                  audio_input=AudioInput(cfg["audio_input"]) if cfg.get("audio_input") else None)
+     svc.api_key = a.api_key or cfg.get("api_key", "")
+     httpd = serve(svc, host=a.host, port=a.port)
+     print(f"ready: http://{a.host}:{a.port}/v1  (OpenAI: /v1/chat/completions, Anthropic: /v1/messages, "
+diff --git a/serve/test_audio_input.py b/serve/test_audio_input.py
+new file mode 100644
+index 0000000..81f5919
+--- /dev/null
++++ b/serve/test_audio_input.py
+@@ -0,0 +1,27 @@
++import copy
++import io
++import json
++import unittest
++from unittest.mock import patch
++from serve.audio_input import AudioInput
++
++class AudioInputTests(unittest.TestCase):
++    def setUp(self):
++        self.adapter=AudioInput({'endpoint':'http://127.0.0.1:19084/v1/audio/transcriptions'})
++    def test_text_preserved(self):
++        request={'messages':[{'role':'user','content':'hello'}]}
++        self.assertEqual(self.adapter.prepare(request),(request,[]))
++    def test_audio_replaced_and_image_preserved(self):
++        request={'messages':[{'role':'user','content':[{'type':'input_audio','input_audio':{'data':'AAAA','format':'wav'}},{'type':'image_url','image_url':{'url':'image'}}]}]}
++        original=copy.deepcopy(request)
++        with patch('serve.audio_input.urllib.request.urlopen') as call:
++            call.return_value.__enter__.return_value=io.BytesIO(json.dumps({'text':'hello','language':'en'}).encode())
++            prepared,transcripts=self.adapter.prepare(request)
++        self.assertEqual(request,original)
++        self.assertEqual(prepared['messages'][0]['content'][0],{'type':'text','text':'hello'})
++        self.assertEqual(prepared['messages'][0]['content'][1],original['messages'][0]['content'][1])
++        self.assertEqual(transcripts[0]['text'],'hello')
++    def test_invalid_role_and_format(self):
++        for role,fmt in [('assistant','wav'),('user','ogg')]:
++            with self.assertRaises(ValueError):
++                self.adapter.prepare({'messages':[{'role':role,'content':[{'type':'input_audio','input_audio':{'data':'AAAA','format':fmt}}]}]})
+-- 
+2.53.0
+

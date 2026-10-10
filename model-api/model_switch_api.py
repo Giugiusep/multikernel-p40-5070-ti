@@ -215,7 +215,7 @@ class Handler(BaseHTTPRequestHandler):
                 {"id": mid, "object": "model", "created": now, "owned_by": "shiba-local",
                  "metadata": {"active": MANAGER.active == mid, "available": e["available"],
                               "runner": e["runner"], "context_length": e["context"],
-                              "note": e.get("note", ""), "vision": e.get("vision", False)}}
+                              "note": e.get("note", ""), "vision": e.get("vision", False), "speech": e.get("speech", False)}}
                 for mid, e in ENTRIES.items()]})
             return
         self.reply(404, {"error": {"message": "not found"}})

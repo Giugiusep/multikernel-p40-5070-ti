@@ -1,0 +1,16 @@
+[
+  {
+    "case": "text",
+    "text": "Hello friend.",
+    "audio_bytes": 39468,
+    "audio_seconds": 0.893968253968254,
+    "request_seconds": 0.7638347109896131
+  },
+  {
+    "case": "vision",
+    "text": "Blue",
+    "audio_bytes": 23596,
+    "audio_seconds": 0.5340589569160997,
+    "request_seconds": 2.5235420370008796
+  }
+]

@@ -45,5 +45,9 @@
     "gpu": false,
     "threads": 4,
     "max_tokens": 300
+  },
+  "speech": {
+    "endpoint": "http://127.0.0.1:19083/v1/audio/speech",
+    "voice": "lessac"
   }
 }

@@ -120,3 +120,18 @@ curl http://100.81.184.58:19080/v1/audio/speech \
 ```
 
 `GET /v1/audio/voices` lists the speech voice separately from chat models. Optional `speed` accepts0.25–4, default1. Input accepts up to4096characters. To speak a chat answer, submit its text to this endpoint; chat completions themselves continue returning text. Runtime recovery: `scripts/restore-tts-python.sh`, install the supplied user unit, download voice files at the revision in `model-provenance/piper-lessac.json`, verify their hashes, and enable `shiba-tts.service`. `validate_tts_api.py` verifies WAV structure/non-silent samples, authentication, invalid-input rejection, and preservation of the active vision model. This does not establish subjective pronunciation quality; listen to the generated sample.
+
+### Strata chat with spoken answers
+
+Both the text and vision Strata profiles now support optional speech output directly in `POST /v1/chat/completions`. Add `"modalities":["text","audio"]`, `"audio":{"voice":"lessac","format":"wav"}`, and `"stream":false`. The same response contains normal `choices[0].message.content` and `choices[0].message.audio` with base64 WAV `data` and matching `transcript`. Image input works with these options too. Speech uses only the visible answer; reasoning and tool-call arguments are never synthesized. Normal text/SSE requests are unchanged. Audio streaming is explicitly rejected, and spoken answers are limited to4096characters. This wires Piper into Strata's server/configuration rather than requiring a client-side second request. It remains a separate CPU model, not native Qwen audio generation.
+
+```bash
+curl http://100.81.184.58:19080/v1/chat/completions \
+  -H "Authorization: Bearer $SHIBA_MODEL_API_KEY" \
+  -H 'Content-Type: application/json' \
+  -d '{"model":"qwen3.8-flash-next-strata-vision","messages":[{"role":"user","content":"Say hello."}],"max_tokens":128,"stream":false,"modalities":["text","audio"],"audio":{"voice":"lessac","format":"wav"}}' \
+  --output spoken-answer.json
+python3 -c 'import json,base64; r=json.load(open("spoken-answer.json")); open("answer.wav","wb").write(base64.b64decode(r["choices"][0]["message"]["audio"]["data"]))'
+```
+
+`validate_strata_speech.py` checks target text agreement, image-to-spoken-answer, WAV structure, exact transcript matching and unsupported-stream rejection. Apply the saved `patches/strata/` patch to recover the Strata server changes; keep `shiba-tts.service` enabled.

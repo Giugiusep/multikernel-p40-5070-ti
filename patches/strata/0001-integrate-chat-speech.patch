@@ -1,0 +1,175 @@
+From f210bab7cbe7655556f0f731879b04cc000209ae Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Sat, 10 Oct 2026 09:06:00 +0000
+Subject: [PATCH] Integrate optional CPU speech output into Strata chat
+ responses
+
+---
+ serve/server.py      | 23 +++++++++++++++++++----
+ serve/speech.py      | 43 +++++++++++++++++++++++++++++++++++++++++++
+ serve/test_speech.py | 19 +++++++++++++++++++
+ 3 files changed, 81 insertions(+), 4 deletions(-)
+ create mode 100644 serve/speech.py
+ create mode 100644 serve/test_speech.py
+
+diff --git a/serve/server.py b/serve/server.py
+index 4f96809..7adebd0 100644
+--- a/serve/server.py
++++ b/serve/server.py
+@@ -30,6 +30,7 @@ import tempfile
+ import threading
+ import time
+ import urllib.request
++import urllib.error
+ import uuid
+ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+ from pathlib import Path
+@@ -41,6 +42,8 @@ sys.path.insert(0, str(ROOT))   # run as a script (run-<model>.bat) as well as a
+ from serve.frontend import (ChatTemplate, Event, OutputParser, anthropic_to_messages,  # noqa: E402
+                             images_of, openai_to_messages)
+ 
++from serve.speech import Speech
++
+ IM_END = "<|im_end|>"
+ IMAGE_PAD = "<|image_pad|>"
+ CTX_SLACK = 8               # `strata --serve` rejects prompt + max_new + 8 > context: keep the same margin here
+@@ -358,8 +361,9 @@ class Detokenizer:
+ 
+ class Service:
+     def __init__(self, engine: Engine, tokenizer, template: ChatTemplate, model_name: str = "qwen3.8-flash-next",
+-                 vision: Vision | None = None, sampling_defaults: dict | None = None):
++                 vision: Vision | None = None, sampling_defaults: dict | None = None, speech: Speech | None = None):
+         self.engine, self.tok, self.template, self.model, self.vision = engine, tokenizer, template, model_name, vision
++        self.speech = speech
+         self.sampling_defaults = dict(sampling_defaults or {})   # the run config's `sampling` block
+         self.fifo = threading.Lock()
+         self.embeddings = threading.local()           # the current request's image embeddings file (GENI)
+@@ -722,7 +726,7 @@ def make_handler(svc: Service):
+                 self.wfile.write(body)
+             elif path == "/health":
+                 self._json(200, {"status": "ok", "max_context": svc.engine.max_context, "model": svc.model,
+-                                 "images": svc.vision is not None, "api_key": bool(svc.api_key)})
++                                 "images": svc.vision is not None, "speech": svc.speech is not None, "api_key": bool(svc.api_key)})
+             elif path == "/status":
+                 with svc.status_lock:
+                     s = dict(svc.status)
+@@ -751,6 +755,8 @@ def make_handler(svc: Service):
+                     self._anthropic(req)
+                 else:
+                     self._json(404, {"error": {"message": "not found"}})
++            except urllib.error.URLError:
++                self._json(503, {"error": {"message": "speech service unavailable"}})
+             except ValueError as e:
+                 self._json(400, {"error": {"type": "invalid_request_error", "message": str(e)}})
+ 
+@@ -761,6 +767,11 @@ def make_handler(svc: Service):
+             self.end_headers()
+ 
+         def _openai(self, req):
++            audio_requested = False
++            if svc.speech:
++                audio_requested = svc.speech.validate(req)
++            elif "audio" in req.get("modalities", []):
++                raise ValueError("this Strata profile has no speech output configured")
+             messages, tools, kw = openai_to_messages(req)
+             max_new = int(req.get("max_completion_tokens") or req.get("max_tokens") or 0)   # 0/-1: the rest of the context
+             ids, thinking, max_new = svc.prepare(messages, tools, kw, max_new)
+@@ -768,7 +779,10 @@ def make_handler(svc: Service):
+             cancel = threading.Event()
+             chunks = openai_chunks(svc, req, ids, thinking, tools, max_new, cancel)
+             if not req.get("stream"):
+-                return self._json(200, openai_collect(chunks))
++                response = openai_collect(chunks)
++                if audio_requested:
++                    response = svc.speech.attach(response, req)
++                return self._json(200, response)
+             self._sse()
+             try:
+                 for c in chunks:
+@@ -929,7 +943,8 @@ def main() -> int:
+     tpl = tpath / "chat_template.jinja"
+     svc = Service(engine, tok, ChatTemplate(tpl if tpl.exists() else ROOT / "serve/chat_template.jinja"),
+                   model_name=cfg.get("model_name", "qwen3.8-flash-next"), vision=vision,
+-                  sampling_defaults=sampling_defaults)
++                  sampling_defaults=sampling_defaults,
++                  speech=Speech(cfg["speech"]) if cfg.get("speech") else None)
+     svc.api_key = a.api_key or cfg.get("api_key", "")
+     httpd = serve(svc, host=a.host, port=a.port)
+     print(f"ready: http://{a.host}:{a.port}/v1  (OpenAI: /v1/chat/completions, Anthropic: /v1/messages, "
+diff --git a/serve/speech.py b/serve/speech.py
+new file mode 100644
+index 0000000..652bd77
+--- /dev/null
++++ b/serve/speech.py
+@@ -0,0 +1,43 @@
++"""Optional CPU speech output for Strata; language generation stays unchanged."""
++import base64
++import json
++import time
++import urllib.request
++import uuid
++
++
++class Speech:
++    def __init__(self, config):
++        self.endpoint = config['endpoint']
++        self.voice = config.get('voice', 'lessac')
++
++    def validate(self, request):
++        modalities = request.get('modalities', ['text'])
++        if not isinstance(modalities, list) or not modalities or any(x not in ('text', 'audio') for x in modalities):
++            raise ValueError('modalities must contain text and/or audio')
++        enabled = 'audio' in modalities
++        if enabled:
++            if request.get('stream'):
++                raise ValueError('Strata speech output currently requires stream=false')
++            audio = request.get('audio', {})
++            if not isinstance(audio, dict) or audio.get('voice', self.voice) != self.voice or audio.get('format', 'wav') != 'wav':
++                raise ValueError('audio must specify voice=lessac and format=wav')
++        return enabled
++
++    def attach(self, response, request):
++        message = response['choices'][0]['message']
++        text = message.get('content')
++        if not text:
++            return response  # tool calls/thinking are not speech
++        if len(text) > 4096:
++            raise ValueError('spoken answer exceeds 4096 characters; reduce max_tokens')
++        body = json.dumps({'model': 'piper-tts', 'voice': self.voice,
++                           'input': text, 'response_format': 'wav'}).encode()
++        req = urllib.request.Request(self.endpoint, data=body, headers={'Content-Type': 'application/json'})
++        with urllib.request.urlopen(req, timeout=120) as reply:
++            if reply.headers.get_content_type() != 'audio/wav':
++                raise ValueError('speech backend returned an unexpected format')
++            data = reply.read()
++        message['audio'] = {'id': 'audio_' + uuid.uuid4().hex, 'expires_at': int(time.time()) + 3600,
++                            'data': base64.b64encode(data).decode(), 'transcript': text}
++        return response
+diff --git a/serve/test_speech.py b/serve/test_speech.py
+new file mode 100644
+index 0000000..20f0186
+--- /dev/null
++++ b/serve/test_speech.py
+@@ -0,0 +1,19 @@
++import unittest
++from unittest.mock import patch
++from serve.speech import Speech
++
++class SpeechTests(unittest.TestCase):
++    def setUp(self):
++        self.speech = Speech({'endpoint': 'http://127.0.0.1:19083/v1/audio/speech'})
++    def test_text_is_unchanged(self):
++        self.assertFalse(self.speech.validate({}))
++    def test_explicit_audio(self):
++        self.assertTrue(self.speech.validate({'modalities': ['text','audio'], 'audio': {'voice':'lessac','format':'wav'}}))
++    def test_reject_unsupported_before_generation(self):
++        for req in [{'modalities':['audio'],'stream':True}, {'modalities':['audio'],'audio':{'format':'mp3'}}, {'modalities':'audio'}]:
++            with self.assertRaises(ValueError): self.speech.validate(req)
++    def test_never_speak_reasoning_or_tools(self):
++        response={'choices':[{'message':{'content':None,'reasoning_content':'private','tool_calls':[{}]}}]}
++        with patch('serve.speech.urllib.request.urlopen') as call:
++            self.assertIs(self.speech.attach(response, {}),response)
++            call.assert_not_called()
+-- 
+2.53.0
+

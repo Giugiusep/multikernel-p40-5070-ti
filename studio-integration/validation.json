@@ -1,0 +1,8 @@
+{
+  "provider_id": "shiba-local-models",
+  "catalog_count": 19,
+  "registered_count": 19,
+  "model": "qwen3.8-flash-next-iq2-xs",
+  "answer": "Hello!",
+  "saved_credential_used": true
+}

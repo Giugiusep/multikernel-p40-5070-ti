@@ -1,0 +1,17 @@
+[Unit]
+Description=Existing Unsloth Studio with Shiba model API provider
+After=network-online.target shiba-model-api.service
+Wants=shiba-model-api.service
+[Service]
+Type=simple
+WorkingDirectory=/home/shiba
+Environment=LLAMA_SERVER_PATH=/home/shiba/.unsloth/llama.cpp/build/bin/llama-server
+Environment=CUDA_VISIBLE_DEVICES=0
+ExecStart=/home/shiba/.local/bin/unsloth studio --host 100.81.184.58 --port 8888 --no-cloudflare --parallel 1
+Restart=on-failure
+RestartSec=10
+TimeoutStartSec=180
+TimeoutStopSec=45
+KillMode=control-group
+[Install]
+WantedBy=default.target

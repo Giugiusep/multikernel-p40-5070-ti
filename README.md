@@ -145,3 +145,7 @@ systemctl --user enable --now shiba-model-api.service
 Model weights, NVIDIA installers, compiled kernels/modules, secondary root filesystem, API keys and other credentials are excluded. This snapshot preserves the stable Nemotron/Multikernel source branch; it does not claim to include or validate every later Qwen/MTP research branch.
 
 The repository-level license does not relicense third-party patches or copied sources. Their upstream notices and licenses continue to apply.
+
+### Unsloth Studio
+
+The existing Studio is available at **http://100.81.184.58:8888**. In Chat select **Shiba local models (Strata / Multikernel / RTX)** to switch among all19 registered model profiles through the established API. Existing Studio login is unchanged. See [setup and recovery](studio-integration/README.md).

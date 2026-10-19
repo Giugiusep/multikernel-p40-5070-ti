@@ -1,0 +1,19 @@
+{
+  "local": {
+    "missing_key": 401,
+    "wrong_key": 401,
+    "model_counts": {
+      "owner": 19,
+      "user-2": 19
+    }
+  },
+  "funnel": {
+    "missing_key": 401,
+    "wrong_key": 401,
+    "model_counts": {
+      "owner": 19,
+      "user-2": 19
+    }
+  },
+  "immediate_revocation": "passed"
+}

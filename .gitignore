@@ -8,3 +8,7 @@ __pycache__/
 *.so
 *.so.*
 build/
+
+# Local per-user API secrets
+api-keys/
+*.key

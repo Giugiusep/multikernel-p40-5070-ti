@@ -24,6 +24,7 @@ PORT = int(os.environ.get("MODEL_API_PORT", "19080"))
 BACKEND_PORT = int(os.environ.get("MODEL_API_BACKEND_PORT", "19081"))
 BACKEND = f"http://127.0.0.1:{BACKEND_PORT}"
 KEY_FILE = Path(os.environ.get("MODEL_API_KEY_FILE", str(ROOT / "api-key")))
+EXTRA_KEYS_DIR = Path(os.environ.get("MODEL_API_EXTRA_KEYS_DIR", str(ROOT / "api-keys")))
 LLAMA = "/home/shiba/.unsloth/llama.cpp/build/bin/llama-server"
 K2 = "/home/shiba/multikernel-experiment/research/llama-k2horizon/build-k2-cuda128/bin/llama-server"
 MULTIKERNEL_LLAMA = "/home/shiba/llama.cpp/build-main-cuda-rpc-128/bin/llama-server"
@@ -185,7 +186,17 @@ class Handler(BaseHTTPRequestHandler):
     def authorized(self) -> bool:
         bearer = self.headers.get("Authorization", "")
         supplied = bearer[7:] if bearer.startswith("Bearer ") else self.headers.get("X-API-Key", "")
-        return bool(API_KEY) and hmac.compare_digest(supplied, API_KEY)
+        if not supplied:
+            return False
+        # Extra user keys are reloaded per request so deletion revokes access immediately.
+        keys = [API_KEY]
+        if EXTRA_KEYS_DIR.is_dir():
+            for key_file in EXTRA_KEYS_DIR.glob("*.key"):
+                try:
+                    keys.append(key_file.read_text().strip())
+                except OSError:
+                    continue
+        return any(key and hmac.compare_digest(supplied, key) for key in keys)
 
     def read_json(self) -> dict:
         length = int(self.headers.get("Content-Length", "0"))

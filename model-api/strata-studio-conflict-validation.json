@@ -1,0 +1,14 @@
+[
+  {
+    "case": "text",
+    "answer": "Hello!",
+    "seconds": 33.97416486707516,
+    "HTTP": 200
+  },
+  {
+    "case": "vision",
+    "answer": "Blue",
+    "seconds": 4.118443042971194,
+    "HTTP": 200
+  }
+]

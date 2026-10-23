@@ -1,11 +1,11 @@
 [
   {
     "expected": "red",
-    "seconds": 7.885557559988229,
+    "seconds": 45.29397129896097,
     "response": {
-      "id": "chatcmpl-40937022ab594181b1f960b9",
+      "id": "chatcmpl-4e0e76c5c5fa4c90a082ffae",
       "object": "chat.completion",
-      "created": 1791566974,
+      "created": 1792751831,
       "model": "qwen3.8-flash-next-iq2-xs",
       "choices": [
         {
@@ -27,11 +27,11 @@
   },
   {
     "expected": "blue",
-    "seconds": 2.2574900859908666,
+    "seconds": 2.802724731853232,
     "response": {
-      "id": "chatcmpl-8dcac1250c094efc96e6c63e",
+      "id": "chatcmpl-cb859c088aac452fbe28783f",
       "object": "chat.completion",
-      "created": 1791566978,
+      "created": 1792751836,
       "model": "qwen3.8-flash-next-iq2-xs",
       "choices": [
         {
@@ -53,11 +53,11 @@
   },
   {
     "expected": "3",
-    "seconds": 2.6075395009829663,
+    "seconds": 4.246961558004841,
     "response": {
-      "id": "chatcmpl-13a15b242658458995626f42",
+      "id": "chatcmpl-f42e4ba2740543aba7cf2b6d",
       "object": "chat.completion",
-      "created": 1791567046,
+      "created": 1792751839,
       "model": "qwen3.8-flash-next-iq2-xs",
       "choices": [
         {

@@ -56,6 +56,26 @@ def catalog() -> dict[str, dict]:
     return result
 
 
+def native_studio_models(proc_root: Path = Path("/proc")) -> list[int]:
+    """Find Studio's separate native GPU loader, excluding exited/zombie children."""
+    found = []
+    for process in proc_root.iterdir():
+        if not process.name.isdigit():
+            continue
+        try:
+            if "shiba-unsloth-studio.service" not in (process / "cgroup").read_text():
+                continue
+            if any(line.startswith("State:") and "Z" in line
+                   for line in (process / "status").read_text().splitlines()):
+                continue
+            executable = (process / "cmdline").read_bytes().split(b"\0", 1)[0].decode()
+            if executable == LLAMA:
+                found.append(int(process.name))
+        except (OSError, UnicodeError):
+            continue
+    return found
+
+
 class Backend:
     def __init__(self, entries: dict[str, dict]):
         self.entries = entries
@@ -130,6 +150,12 @@ class Backend:
             raise ValueError(f"model file unavailable: {model_id}")
         if self.active == model_id and self.proc is not None and self.proc.poll() is None:
             return
+        if native_studio_models():
+            raise RuntimeError(
+                "RTX GPU is occupied by a separately loaded Unsloth Studio model. "
+                "Unload that model in Studio, or select the 'Shiba local models "
+                "(Strata / Multikernel / RTX)' provider so Studio shares this API. "
+                "No active Studio generation was interrupted.")
         self.stop()
         command, env = self.command(entry)
         log_path = ROOT / "logs" / f"{model_id}.log"

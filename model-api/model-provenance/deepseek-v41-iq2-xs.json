@@ -1,0 +1,32 @@
+{
+  "repository": "AtomicChat/DeepSeek-V4.1-Flash-1017-Uncensored-GSQ-RCO-GGUF",
+  "revision": "4f1d2f730cff977961db81789e81bfc0d3e6dd2e",
+  "total_bytes": 155225824256,
+  "files": [
+    {
+      "file": "DeepSeek-V4.1-Flash-1017-GSQ-RCO-IQ2_XS-00001-of-00004.gguf",
+      "bytes": 39535776992,
+      "sha256": "4c65307992ab586c527ca1f6f64062aa96a33b23c02b7fed103f45f75e854798",
+      "verified": true
+    },
+    {
+      "file": "DeepSeek-V4.1-Flash-1017-GSQ-RCO-IQ2_XS-00002-of-00004.gguf",
+      "bytes": 39494617536,
+      "sha256": "933461a974fcccee741bf2f9798201e72ab4aa3f8a952be56f849896ca6ea30e",
+      "verified": true
+    },
+    {
+      "file": "DeepSeek-V4.1-Flash-1017-GSQ-RCO-IQ2_XS-00003-of-00004.gguf",
+      "bytes": 39423838496,
+      "sha256": "bbf91fa346a85ebaf32dd4fd5c456b534d780d381e54f46ac90783a481373240",
+      "verified": true
+    },
+    {
+      "file": "DeepSeek-V4.1-Flash-1017-GSQ-RCO-IQ2_XS-00004-of-00004.gguf",
+      "bytes": 36771591232,
+      "sha256": "18305a5afbf8087e1f88a9f2978cc74650357f482629d346349ed374cb7c8451",
+      "verified": true
+    }
+  ],
+  "completed_utc": "2026-10-31T21:14:45Z"
+}

@@ -1,0 +1,46 @@
+{
+  "architecture": "deepseek41",
+  "context": 1048576,
+  "expert_tensor_types": {
+    "IQ2_XXS": 76,
+    "IQ2_S": 16,
+    "IQ2_XS": 27,
+    "IQ3_XXS": 1
+  },
+  "examples": [
+    {
+      "name": "blk.0.ffn_gate_exps.weight",
+      "type": "IQ2_XXS",
+      "dimensions": [
+        5120,
+        2304,
+        384
+      ]
+    },
+    {
+      "name": "blk.0.ffn_down_exps.weight",
+      "type": "IQ2_XXS",
+      "dimensions": [
+        2304,
+        5120,
+        384
+      ]
+    },
+    {
+      "name": "blk.0.ffn_up_exps.weight",
+      "type": "IQ2_XXS",
+      "dimensions": [
+        5120,
+        2304,
+        384
+      ]
+    }
+  ],
+  "has_engram_token_map_metadata": false,
+  "free_bytes": 126471823360,
+  "engram_bytes": 110595290816,
+  "drafter_bytes": 7976914240,
+  "metadata_bytes": 5780589,
+  "remaining_after_engram_GiB": 14.780789571814239,
+  "remaining_after_engram_drafter_GiB": 7.351709264330566
+}

@@ -1,0 +1,12 @@
+Running as unit: shiba-dsv41-block5-draft.service; invocation ID: d43c008f0c0640e1bc23e10c59a295ea
+loaded-off prose 0 DONE 64 14 4852.9 14140.3 length 0 0 0 0 0 match None
+loaded-on prose 0 DONE 64 14 4742.1 12381.5 length 18 23 0 0 0 match True
+loaded-on-lowconf prose 0 DONE 64 14 4821.4 12676.3 length 30 62 0 0 0 match True
+loaded-off code 0 DONE 64 21 6373.5 14948.9 length 0 0 0 0 0 match None
+loaded-on code 0 DONE 64 21 5581.1 11165.9 length 44 46 0 0 0 match True
+loaded-on-lowconf code 0 DONE 64 21 5247.6 11613.1 length 50 60 0 0 0 match True
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 2min 5.431s
+             CPU time consumed: 14min 39.579s
+                   Memory peak: 33G (swap: 0B)

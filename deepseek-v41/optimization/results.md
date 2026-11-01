@@ -1,0 +1,20 @@
+| Experiment | Prompt | Repeat | Mode | Tokens | tok/s | Speedup | Exact |
+|---|---|---:|---|---:|---:|---:|---|
+| controlled-draft | prose | 0 | loaded-off | 32 | 4.12 | 1.000 | yes |
+| controlled-draft | prose | 0 | loaded-on | 32 | 4.65 | 1.131 | yes |
+| controlled-draft | code | 0 | loaded-off | 32 | 3.72 | 1.000 | yes |
+| controlled-draft | code | 0 | loaded-on | 32 | 5.26 | 1.413 | yes |
+| controlled-draft | prose | 1 | loaded-off | 32 | 3.88 | 1.000 | yes |
+| controlled-draft | prose | 1 | loaded-on | 32 | 4.96 | 1.279 | yes |
+| controlled-draft | code | 1 | loaded-off | 32 | 3.98 | 1.000 | yes |
+| controlled-draft | code | 1 | loaded-on | 32 | 5.40 | 1.356 | yes |
+| block5-draft | prose | 0 | loaded-off | 64 | 4.53 | 1.000 | yes |
+| block5-draft | prose | 0 | loaded-on | 64 | 5.17 | 1.142 | yes |
+| block5-draft | prose | 0 | loaded-on-lowconf | 64 | 5.05 | 1.115 | yes |
+| block5-draft | code | 0 | loaded-off | 64 | 4.28 | 1.000 | yes |
+| block5-draft | code | 0 | loaded-on | 64 | 5.73 | 1.339 | yes |
+| block5-draft | code | 0 | loaded-on-lowconf | 64 | 5.51 | 1.287 | yes |
+| confirm128-draft | prose | 0 | loaded-off | 128 | 5.52 | 1.000 | yes |
+| confirm128-draft | prose | 0 | loaded-on | 128 | 5.69 | 1.030 | yes |
+| confirm128-draft | code | 0 | loaded-off | 128 | 4.53 | 1.000 | yes |
+| confirm128-draft | code | 0 | loaded-on | 128 | 5.60 | 1.236 | yes |

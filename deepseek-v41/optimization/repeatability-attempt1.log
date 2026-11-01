@@ -1,0 +1,21 @@
+Running as unit: shiba-dsv41-repeatability.service; invocation ID: 5c2d43667f194619a46a0783e75d4735
+prompt token counts {'prose': 14, 'code': 21}
+adaptive prose 0 DONE 32 14 4309.8 7211.8 length 0 0 0 0 0
+adaptive code 0 DONE 32 21 5458.2 7772.5 length 0 0 0 0 0
+adaptive prose 1 DONE 32 14 4318.8 6940.6 length 0 0 0 0 0
+adaptive code 1 DONE 32 21 5027.6 8150.1 length 0 0 0 0 0
+Traceback (most recent call last):
+  File "/home/shiba/multikernel-experiment/deepseek-v41/optimization/repeatability.py", line 39, in <module>
+    p.stdin.write('QUIT\n');p.stdin.flush();p.wait(timeout=60)
+                                            ~~~~~~^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 1279, in wait
+    return self._wait(timeout=timeout)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 2076, in _wait
+    raise TimeoutExpired(self.args, timeout)
+subprocess.TimeoutExpired: Command '['/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/engine-dsv41/0.1.55-linux-x86_64-cuda-cuda13/strata-dsv41', '--pack', '/home/shiba/models/deepseek-v4.1-flash-1017-iq2-xs/strata-pack', '--gpus', '0', '--max-context', '8192', '--cpu-threads', '8', '--reserve-mib', '1024', '--ssd-cache', '32', '--experts', '6', '--dspark', 'none', '--vision', 'off', '--expert-profile', '/home/shiba/models/deepseek-v4.1-flash-1017-iq2-xs/strata-pack/expert-profile.bin', '--profile-readonly', '--serve']' timed out after 60 seconds
+          Finished with result: exit-code
+Main processes terminated with: code=exited, status=1/FAILURE
+               Service runtime: 2min 4.836s
+             CPU time consumed: 6min 40.391s
+                   Memory peak: 34.2G (swap: 0B)

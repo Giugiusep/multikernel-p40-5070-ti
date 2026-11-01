@@ -177,5 +177,21 @@
     "speech": false,
     "audio_input": false,
     "note": "RTX only; Strata dsv41; full 6 experts; SSD/RAM-backed IQ2_XS; DSpark off; 8K initial validated context."
+  },
+  {
+    "id": "deepseek-v4.1-flash-1017-uncensored-iq2-xs-dspark",
+    "runner": "strata",
+    "config": "/home/shiba/multikernel-experiment/deepseek-v41/strata-deepseek-iq2-xs-dspark.json",
+    "python": "/home/shiba/multikernel-experiment/research/dsv41-venv/bin/python",
+    "server": "/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/serve/server.py",
+    "context": 8192,
+    "ngl": 99,
+    "memory_limit_gib": 42,
+    "diagnostic_no_gpu_experts": false,
+    "load_timeout": 3600,
+    "vision": false,
+    "speech": false,
+    "audio_input": false,
+    "note": "Opt-in DSpark block5/confidence0.65; full 6 experts; fixed expert residency; short greedy exact-token checks passed through128tokens on two prompts; speed depends on workload. 8K context."
   }
 ]

@@ -1,0 +1,13 @@
+ds4: tensor parallel 2 -> 1: the experts' 256-value blocks split n_ff 2304 no other way (each GPU its own layers)
+ds4: experts per word: 6 (full quality)
+ds4: the experts VRAM leaves over (~142.8 GB) are read in place from the model's files (--mmap-experts off copies them into RAM) (44.8 GB of RAM free to keep them: the most-routed 0.0 GB read ahead; prompts in chunks of 4096)
+ds4: RAM store: up to 2812 slots of 11.4 MB (32.0 GB), policy 0, 8 reader threads, unbuffered reads
+ds4: RAM store: 2812 of the profile's hottest experts read in (25.7 GB) in 9.6 s
+ds4: prompt path: the chunked pass from 96 tokens, windows of 16 below
+ds4: CUDA0 layers [0, 39] + head: weights 5.86 GB, experts 6.66 GB (645 of 15360 in VRAM), caches 0.01 GB, 960 MiB free
+ds4: 14715 routed experts on the CPU lane (143.2 GB, in place in the model's files), 8 threads
+maya ds4 serve: GEN <max_new> [keys] <ids>; GENI <max_new> [keys] <pictures> <ids>; STOP, QUIT
+maya ds4 serve: prompt 14 tokens = 0 reused + 14 read in 3944 ms (3.5 tok/s), 32 generated in 7591 ms (4.22 tok/s); CPU lane 73.5% of the experts
+maya ds4 serve: prompt 21 tokens = 0 reused + 21 read in 5324 ms (3.9 tok/s), 32 generated in 7595 ms (4.21 tok/s); CPU lane 70.0% of the experts
+maya ds4 serve: prompt 14 tokens = 0 reused + 14 read in 3950 ms (3.5 tok/s), 32 generated in 6976 ms (4.59 tok/s); CPU lane 65.1% of the experts
+maya ds4 serve: prompt 21 tokens = 0 reused + 21 read in 4980 ms (4.2 tok/s), 32 generated in 8363 ms (3.83 tok/s); CPU lane 63.2% of the experts

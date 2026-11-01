@@ -1,0 +1,84 @@
+[
+  {
+    "case": "prose",
+    "wall_seconds": 33.23745101900204,
+    "response": {
+      "id": "chatcmpl-1b3785673005401e908c80cc",
+      "object": "chat.completion",
+      "created": 1793549303,
+      "model": "deepseek-v4.1-flash-1017-uncensored-iq2-xs-dspark",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "A bicycle works by converting the rider's muscular energy into forward motion through a chain-driven system of gears and wheels. When the rider pushes the pedals, they turn the front chainring, which pulls the chain and rotates the rear sprocket, thereby spinning the rear wheel. The rear wheel's rotation pushes against the"
+          },
+          "finish_reason": "length"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 14,
+        "completion_tokens": 64,
+        "total_tokens": 78,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 14,
+        "prompt_ms": 4506.3,
+        "prompt_per_token_ms": 321.879,
+        "prompt_per_second": 3.1,
+        "predicted_n": 64,
+        "predicted_ms": 12705.3,
+        "predicted_per_token_ms": 198.52,
+        "predicted_per_second": 5.0,
+        "draft_n": 23,
+        "draft_n_accepted": 18
+      }
+    }
+  },
+  {
+    "case": "code",
+    "wall_seconds": 17.445608103000268,
+    "response": {
+      "id": "chatcmpl-3a6f29890a2c40e1b20be871",
+      "object": "chat.completion",
+      "created": 1793549320,
+      "model": "deepseek-v4.1-flash-1017-uncensored-iq2-xs-dspark",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": "# First n Fibonacci Numbers\n\n```python\ndef first_n_fibonacci(n):\n    \"\"\"\n    Return a list of the first n Fibonacci numbers.\n    \n    Args:\n        n (int): Number of Fibonacci numbers to return.\n    \n    Returns:\n        list: The first n Fibonacci numbers.\n    \"\"\"\n    if n"
+          },
+          "finish_reason": "length"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 21,
+        "completion_tokens": 64,
+        "total_tokens": 85,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 21,
+        "prompt_ms": 6014.6,
+        "prompt_per_token_ms": 286.41,
+        "prompt_per_second": 3.5,
+        "predicted_n": 64,
+        "predicted_ms": 11428.0,
+        "predicted_per_token_ms": 178.562,
+        "predicted_per_second": 5.6,
+        "draft_n": 46,
+        "draft_n_accepted": 44
+      }
+    }
+  }
+]

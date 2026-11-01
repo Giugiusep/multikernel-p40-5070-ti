@@ -1,0 +1,17 @@
+Running as unit: shiba-dsv41-repeatability.service; invocation ID: a9845c7b6a6b46bc8b8d3ddda42bcb2f
+prompt token counts {'prose': 14, 'code': 21}
+adaptive prose 0 DONE 32 14 3944.1 7590.6 length 0 0 0 0 0
+adaptive code 0 DONE 32 21 5324.1 7595.5 length 0 0 0 0 0
+adaptive prose 1 DONE 32 14 3949.6 6975.9 length 0 0 0 0 0
+adaptive code 1 DONE 32 21 4980.3 8363.0 length 0 0 0 0 0
+adaptive {'prose': True, 'code': False}
+fixed prose 0 DONE 32 14 4178.6 7107.1 length 0 0 0 0 0
+fixed code 0 DONE 32 21 5254.6 7864.3 length 0 0 0 0 0
+fixed prose 1 DONE 32 14 4382.1 7519.2 length 0 0 0 0 0
+fixed code 1 DONE 32 21 6107.0 7241.4 length 0 0 0 0 0
+fixed {'prose': True, 'code': True}
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 2min 10.035s
+             CPU time consumed: 13min 29.194s
+                   Memory peak: 38G (swap: 0B)

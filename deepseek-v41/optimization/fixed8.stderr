@@ -1,0 +1,18 @@
+ds4: tensor parallel 2 -> 1: the experts' 256-value blocks split n_ff 2304 no other way (each GPU its own layers)
+ds4: experts per word: 6 (full quality)
+ds4: the experts VRAM leaves over (~142.8 GB) are read in place from the model's files (--mmap-experts off copies them into RAM) (44.9 GB of RAM free to keep them: the most-routed 0.0 GB read ahead; prompts in chunks of 4096)
+ds4: RAM store: up to 2812 slots of 11.4 MB (32.0 GB), policy 0, 8 reader threads, unbuffered reads
+ds4: RAM store: 2812 of the profile's hottest experts read in (25.7 GB) in 9.4 s
+ds4: prompt path: the chunked pass from 96 tokens, windows of 16 below
+ds4: CUDA0 layers [0, 39] + head: weights 5.86 GB, experts 6.66 GB (685 of 15360 in VRAM), caches 0.01 GB, 960 MiB free
+ds4: 14675 routed experts on the CPU lane (142.8 GB, in place in the model's files), 8 threads
+prompt: 21 tokens in 5555 ms (3.78 tok/s, windows of 8192)
+prompt's Engram rows: 1008, 0.0% without a read (repeats and the row cache), 1008 read
+dspark: 63 rounds, 0 drafts offered, 0 accepted (1.02 tokens a round); drafting 0.00 ms a round, verifying 0.0 ms in all (0 windows)
+dspark per position (kept / reached):
+token latency ms: p50 202 p95 342 p99 446 max 446 mean 218 (63 tokens)
+decode: 64 tokens in 13712 ms (4.59 tok/s); CPU lane: 11100 of 15120 experts; the cache moved 0 (0 in all)
+decode per token: layers 66.20 ms (of it: routing waits 0.00, CPU lane 206.43, the rest host launches), head wait 151.18, Engram reads 0.12
+Engram per token: 48 rows, 9.5% without a read (the row cache holds 3744 of 1016800), 43.4 read, the reads 0.08 ms from asking to the last one (left to wait: 0.12)
+decode reads from the disk: 395.2 MB a token
+store: 76.8% of the CPU lane's experts were in RAM (135.4 hits, 40.8 misses a token); read 394.7 MB a token (demand and guesses), the CPU lane waited 148.0 ms a token for them; 0 prefetched, 0 used, 0 given up unused; slots 2812 of 2812, 2572 evictions, 0 failed reads; the GPU computed 0.0 experts a token from the store (0 slots visible)

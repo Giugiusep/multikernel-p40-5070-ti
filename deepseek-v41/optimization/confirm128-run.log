@@ -1,0 +1,10 @@
+Running as unit: shiba-dsv41-confirm128-draft.service; invocation ID: 43a66149cc744fca9ce46e8f88163eea
+loaded-off prose 0 DONE 128 14 4543.5 23188.5 length 0 0 0 0 0 match None
+loaded-on prose 0 DONE 128 14 4413.8 22502.5 length 40 47 0 0 0 match True
+loaded-off code 0 DONE 128 21 6839.0 28241.3 length 0 0 0 0 0 match None
+loaded-on code 0 DONE 128 21 6425.8 22856.2 length 94 109 0 0 0 match True
+          Finished with result: success
+Main processes terminated with: code=exited, status=0/SUCCESS
+               Service runtime: 2min 13.959s
+             CPU time consumed: 16min 32.316s
+                   Memory peak: 32.3G (swap: 0B)

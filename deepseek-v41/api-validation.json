@@ -1,0 +1,41 @@
+{
+  "model": "deepseek-v4.1-flash-1017-uncensored-iq2-xs",
+  "seconds_including_load": 22.584004102001927,
+  "reply": {
+    "id": "chatcmpl-2e70f241035e4c8784a72486",
+    "object": "chat.completion",
+    "created": 1793545837,
+    "model": "deepseek-v4.1-flash-1017-uncensored-iq2-xs",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Paris"
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 17,
+      "completion_tokens": 2,
+      "total_tokens": 19,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 17,
+      "prompt_ms": 4280.0,
+      "prompt_per_token_ms": 251.765,
+      "prompt_per_second": 4.0,
+      "predicted_n": 2,
+      "predicted_ms": 281.5,
+      "predicted_per_token_ms": 140.75,
+      "predicted_per_second": 7.1,
+      "draft_n": 0,
+      "draft_n_accepted": 0
+    }
+  }
+}

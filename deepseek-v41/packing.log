@@ -1,0 +1,5 @@
+not weights, left out (4): engram_token_map.weight (type 26), engram_primes.weight (type 27), engram_offsets.weight (type 27), engram_multipliers.weight (type 27)
+Engram tables from /home/shiba/models/deepseek-v41-shared/DeepSeek-V4.1-Flash-Engram-IQ4_NL.gguf (1 shards)
+DSpark drafter from dspark-DeepSeek-V4.1-Flash-1017-Q8_0.gguf: 3 blocks
+vision tower from mmproj-BF16.gguf: 32 blocks, image token 129264
+deepseek-v4.1-flash-1017-iq2-xs: 48786 tensors in 7 files (BF16 1.4 GB, F32 0.2 GB, IQ2_S 23.2 GB, IQ2_XS 35.4 GB, IQ2_XXS 88.8 GB, IQ3_XXS 1.7 GB, IQ4_NL 110.6 GB, MXFP4 7.2 GB, Q5_K 5.3 GB, Q8_0 1.0 GB), Engram 2 layers x 24 hash columns, the DSpark drafter, the vision tower -> /home/shiba/models/deepseek-v4.1-flash-1017-iq2-xs/strata-pack

@@ -1,0 +1,17 @@
+{
+  "switching": [
+    {
+      "switch_to": "qwen3.8-flash-next-strata",
+      "seconds": 29.463426168000296,
+      "text": "Hello!"
+    },
+    {
+      "switch_to": "deepseek-v4.1-flash-1017-uncensored-iq2-xs",
+      "seconds": 28.32412690500132,
+      "text": "Hello! How can I help you today?"
+    }
+  ],
+  "public_model_count": 20,
+  "public_stream_text": "READY",
+  "public_stream_done": true
+}

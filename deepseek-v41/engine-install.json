@@ -1,0 +1,6 @@
+{
+  "release": "v0.2.9",
+  "archive_sha256": "8eed51bf333bc3bc381bc3cc4daa7dbca51d612647732e6f2a63c63be4c66124",
+  "executable": "/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/engine-dsv41/0.1.55-linux-x86_64-cuda-cuda13/strata-dsv41",
+  "verified_signature_and_files": true
+}

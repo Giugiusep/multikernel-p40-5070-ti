@@ -108,10 +108,22 @@ class Backend:
                      "--context", str(entry["context"]), "--host", "127.0.0.1",
                      "--port", str(BACKEND_PORT)], env)
         if entry["runner"] == "strata":
-            env["STRATA_DIAG_BYPASS_EXPERT_HITS"] = "1"
-            return ([entry.get("python", "/usr/bin/python3"), STRATA_SERVER, "--engine", "strata",
-                     "--config", entry["path"], "--host", "127.0.0.1",
-                     "--port", str(BACKEND_PORT)], env)
+            if entry.get("diagnostic_no_gpu_experts", True):
+                env["STRATA_DIAG_BYPASS_EXPERT_HITS"] = "1"
+            else:
+                env.pop("STRATA_DIAG_BYPASS_EXPERT_HITS", None)
+            command = [entry.get("python", "/usr/bin/python3"), entry.get("server", STRATA_SERVER),
+                       "--engine", "strata", "--config", entry["path"], "--host", "127.0.0.1",
+                       "--port", str(BACKEND_PORT)]
+            if limit := entry.get("memory_limit_gib"):
+                limit = int(limit)
+                if limit < 5:
+                    raise ValueError("memory_limit_gib must be at least 5")
+                command = ["systemd-run", "--user", "--scope", "--quiet",
+                           "--property=MemoryMax=" + str(limit) + "G",
+                           "--property=MemoryHigh=" + str(limit - 4) + "G",
+                           "--property=MemorySwapMax=0"] + command
+            return command, env
         exe = (K2 if entry["runner"] == "k2" else
                MULTIKERNEL_LLAMA if entry["runner"] == "multikernel" else LLAMA)
         command = [exe, "-m", entry["path"], "--alias", entry["id"],

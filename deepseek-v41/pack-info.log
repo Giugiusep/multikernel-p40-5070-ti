@@ -1,0 +1,52 @@
+pack-info /home/shiba/models/deepseek-v4.1-flash-1017-iq2-xs/strata-pack
+  model_dir /home/shiba/models/deepseek-v4.1-flash-1017-iq2-xs   format gguf   40 layers x 384 experts, 6 used; dim 5120, ff 2304, vocab 129280
+  layer  gate+up   down      bytes/expert   MB/token
+      0  IQ2_XXS   IQ2_XXS         9123840      54.74
+      1  IQ2_XXS   IQ2_XXS         9123840      54.74
+      2  IQ2_XXS   IQ2_XXS         9123840      54.74
+      3  IQ2_XXS   IQ2_XXS         9123840      54.74
+      4  IQ2_XXS   IQ2_XXS         9123840      54.74
+      5  IQ2_XXS   IQ2_XXS         9123840      54.74
+      6  IQ2_XXS   IQ2_XXS         9123840      54.74
+      7  IQ2_XXS   IQ2_XXS         9123840      54.74
+      8  IQ2_XXS   IQ2_S           9861120      59.17
+      9  IQ2_XS    IQ2_XS         10229760      61.38
+     10  IQ2_XXS   IQ2_S           9861120      59.17
+     11  IQ2_XXS   IQ2_XS          9492480      56.95
+     12  IQ2_XS    IQ2_XS         10229760      61.38
+     13  IQ2_XXS   IQ2_XXS         9123840      54.74
+     14  IQ2_XXS   IQ2_XS          9492480      56.95
+     15  IQ2_XXS   IQ2_XXS         9123840      54.74
+     16  IQ2_XXS   IQ2_S           9861120      59.17
+     17  IQ2_S     IQ2_XS         10967040      65.80
+     18  IQ2_XXS   IQ2_XS          9492480      56.95
+     19  IQ2_XXS   IQ2_XXS         9123840      54.74
+     20  IQ2_XXS   IQ2_XXS         9123840      54.74
+     21  IQ2_XXS   IQ2_S           9861120      59.17
+     22  IQ2_XXS   IQ2_S           9861120      59.17
+     23  IQ2_XS    IQ3_XXS        11335680      68.01
+     24  IQ2_XS    IQ2_S          10598400      63.59
+     25  IQ2_S     IQ2_S          11335680      68.01
+     26  IQ2_XS    IQ2_XS         10229760      61.38
+     27  IQ2_XS    IQ2_XS         10229760      61.38
+     28  IQ2_XXS   IQ2_XS          9492480      56.95
+     29  IQ2_XXS   IQ2_XS          9492480      56.95
+     30  IQ2_S     IQ2_XXS        10598400      63.59
+     31  IQ2_XS    IQ2_XXS         9861120      59.17
+     32  IQ2_XXS   IQ2_S           9861120      59.17
+     33  IQ2_XXS   IQ2_XXS         9123840      54.74
+     34  IQ2_XXS   IQ2_XS          9492480      56.95
+     35  IQ2_XXS   IQ2_XXS         9123840      54.74
+     36  IQ2_XXS   IQ2_XXS         9123840      54.74
+     37  IQ2_XXS   IQ2_XXS         9123840      54.74
+     38  IQ2_XS    IQ2_S          10598400      63.59
+     39  IQ2_XXS   IQ2_S           9861120      59.17
+  expert tensors by type: IQ2_S 16 IQ2_XS 27 IQ2_XXS 76 IQ3_XXS 1
+  an expert 9.70 MB, 6 picks a token: 2.329 GB a token
+  all experts 149.1 GB at 2.19 bpw (544 G parameters), dense 125.70 GB (embed 0.46, head 0.46, mtp 7.97, vision 0.97, engram 110.81)
+  dense types: BF16 F32 IQ4_NL MXFP4 Q5_K Q8_0
+  dspark: block_size 5, noise_token_id 128799, markov_rank 256, routed experts 128 of 3
+  mtp tensors: 1242
+  engram layers: 1,14
+  no GPU kernel: none (every tensor is a device type)
+  files: 7, all present and long enough

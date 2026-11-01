@@ -20,9 +20,10 @@
     "qwen3.8-27b-hauhau-iq2-m-rtx",
     "openai-gpt",
     "gpt2-xl",
-    "qwen3.8-flash-next-strata-vision"
+    "qwen3.8-flash-next-strata-vision",
+    "deepseek-v4.1-flash-1017-uncensored-iq2-xs"
   ],
-  "count": 19,
+  "count": 20,
   "scan_folder": {
     "id": 1,
     "path": "/home/shiba/models",

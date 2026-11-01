@@ -1,0 +1,169 @@
+Running as unit: shiba-deepseek-dspark-test.service; invocation ID: bdb6c4a232534666819374bf5412b116
+baseline prose 0 {"cache_n": 0, "prompt_n": 14, "prompt_ms": 4099.9, "prompt_per_token_ms": 292.85, "prompt_per_second": 3.4, "predicted_n": 64, "predicted_ms": 12795.4, "predicted_per_token_ms": 199.928, "predicted_per_second": 5.0, "draft_n": 0, "draft_n_accepted": 0}
+baseline code 0 {"cache_n": 0, "prompt_n": 21, "prompt_ms": 5801.4, "prompt_per_token_ms": 276.257, "prompt_per_second": 3.6, "predicted_n": 64, "predicted_ms": 14286.1, "predicted_per_token_ms": 223.22, "predicted_per_second": 4.5, "draft_n": 0, "draft_n_accepted": 0}
+baseline prose 1 {"cache_n": 0, "prompt_n": 14, "prompt_ms": 4958.3, "prompt_per_token_ms": 354.164, "prompt_per_second": 2.8, "predicted_n": 64, "predicted_ms": 10291.9, "predicted_per_token_ms": 160.811, "predicted_per_second": 6.2, "draft_n": 0, "draft_n_accepted": 0}
+baseline code 1 {"cache_n": 0, "prompt_n": 21, "prompt_ms": 5530.2, "prompt_per_token_ms": 263.343, "prompt_per_second": 3.8, "predicted_n": 64, "predicted_ms": 15636.8, "predicted_per_token_ms": 244.325, "predicted_per_second": 4.1, "draft_n": 0, "draft_n_accepted": 0}
+Running as unit: shiba-deepseek-dspark-test.service; invocation ID: 7750c03517f04209bebb3689bcace0d2
+dspark prose 0 {"cache_n": 0, "prompt_n": 14, "prompt_ms": 4484.1, "prompt_per_token_ms": 320.293, "prompt_per_second": 3.1, "predicted_n": 64, "predicted_ms": 13066.5, "predicted_per_token_ms": 204.164, "predicted_per_second": 4.9, "draft_n": 23, "draft_n_accepted": 18}
+Traceback (most recent call last):
+  File "/home/shiba/multikernel-experiment/deepseek-v41/dspark-test/run_test.py", line 53, in <module>
+    run('baseline');run('dspark')
+                    ~~~^^^^^^^^^^
+  File "/home/shiba/multikernel-experiment/deepseek-v41/dspark-test/run_test.py", line 47, in run
+    left=baseline['text'] or '';right=row['text'] or '';index=next((i for i,(a,b) in enumerate(zip(left,right)) if a!=b),min(len(left),len(right)));row['first_different_character']=index;save();raise RuntimeError('greedy output mismatch in '+label+'; stopping performance tests')
+                                                                                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: greedy output mismatch in prose; stopping performance tests
+{
+  "baseline_config_untouched": true,
+  "modes": {
+    "baseline": {
+      "load_seconds": 18.03102655999828,
+      "runs": [
+        {
+          "prompt": "prose",
+          "repeat": 0,
+          "wall_seconds": 16.897730822001904,
+          "text": "A bicycle works by converting the rider's muscular energy into forward motion through a chain-driven system of gears and wheels. When the rider pushes the pedals, they turn the front chainring, which pulls a chain that rotates the rear sprocket and thus the rear wheel, propelling the bike forward; the gear ratio",
+          "usage": {
+            "prompt_tokens": 14,
+            "completion_tokens": 64,
+            "total_tokens": 78,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 14,
+            "prompt_ms": 4099.9,
+            "prompt_per_token_ms": 292.85,
+            "prompt_per_second": 3.4,
+            "predicted_n": 64,
+            "predicted_ms": 12795.4,
+            "predicted_per_token_ms": 199.928,
+            "predicted_per_second": 5.0,
+            "draft_n": 0,
+            "draft_n_accepted": 0
+          }
+        },
+        {
+          "prompt": "code",
+          "repeat": 0,
+          "wall_seconds": 20.090654701001768,
+          "text": "# First n Fibonacci Numbers\n\n```python\ndef first_n_fibonacci(n):\n    \"\"\"\n    Return a list of the first n Fibonacci numbers.\n    \n    Args:\n        n (int): Number of Fibonacci numbers to return.\n    \n    Returns:\n        list: The first n Fibonacci numbers.\n    \"\"\"\n    if n",
+          "usage": {
+            "prompt_tokens": 21,
+            "completion_tokens": 64,
+            "total_tokens": 85,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 21,
+            "prompt_ms": 5801.4,
+            "prompt_per_token_ms": 276.257,
+            "prompt_per_second": 3.6,
+            "predicted_n": 64,
+            "predicted_ms": 14286.1,
+            "predicted_per_token_ms": 223.22,
+            "predicted_per_second": 4.5,
+            "draft_n": 0,
+            "draft_n_accepted": 0
+          }
+        },
+        {
+          "prompt": "prose",
+          "repeat": 1,
+          "wall_seconds": 15.252700214998185,
+          "text": "A bicycle works by converting the rider's pedaling energy into forward motion through a chain-driven system: the rider pushes the pedals, which rotate the front chainring, and the chain transfers that rotation to the rear sprocket, spinning the rear wheel. The rear wheel's rotation pushes against the ground, and friction",
+          "usage": {
+            "prompt_tokens": 14,
+            "completion_tokens": 64,
+            "total_tokens": 78,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 14,
+            "prompt_ms": 4958.3,
+            "prompt_per_token_ms": 354.164,
+            "prompt_per_second": 2.8,
+            "predicted_n": 64,
+            "predicted_ms": 10291.9,
+            "predicted_per_token_ms": 160.811,
+            "predicted_per_second": 6.2,
+            "draft_n": 0,
+            "draft_n_accepted": 0
+          }
+        },
+        {
+          "prompt": "code",
+          "repeat": 1,
+          "wall_seconds": 21.16883776999748,
+          "text": "# Fibonacci Function\n\n```python\ndef fibonacci(n):\n    \"\"\"Return the first n Fibonacci numbers as a list.\"\"\"\n    if n <= 0:\n        return []\n    if n == 1:\n        return [0]\n    \n    fibs = [0, 1]\n    for i in range(2,",
+          "usage": {
+            "prompt_tokens": 21,
+            "completion_tokens": 64,
+            "total_tokens": 85,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 21,
+            "prompt_ms": 5530.2,
+            "prompt_per_token_ms": 263.343,
+            "prompt_per_second": 3.8,
+            "predicted_n": 64,
+            "predicted_ms": 15636.8,
+            "predicted_per_token_ms": 244.325,
+            "predicted_per_second": 4.1,
+            "draft_n": 0,
+            "draft_n_accepted": 0
+          }
+        }
+      ]
+    },
+    "dspark": {
+      "load_seconds": 18.032714943001338,
+      "runs": [
+        {
+          "prompt": "prose",
+          "repeat": 0,
+          "wall_seconds": 17.552624128002208,
+          "text": "A bicycle works by converting the rider's muscular energy into forward motion through a chain-driven system of gears and wheels. When the rider pushes the pedals, they turn the front chainring, which pulls the chain and rotates the rear sprocket, thereby spinning the rear wheel. The rear wheel's rotation pushes against the",
+          "usage": {
+            "prompt_tokens": 14,
+            "completion_tokens": 64,
+            "total_tokens": 78,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "timings": {
+            "cache_n": 0,
+            "prompt_n": 14,
+            "prompt_ms": 4484.1,
+            "prompt_per_token_ms": 320.293,
+            "prompt_per_second": 3.1,
+            "predicted_n": 64,
+            "predicted_ms": 13066.5,
+            "predicted_per_token_ms": 204.164,
+            "predicted_per_second": 4.9,
+            "draft_n": 23,
+            "draft_n_accepted": 18
+          },
+          "exact_text_agreement": false,
+          "first_different_character": 206
+        }
+      ]
+    }
+  },
+  "restored": true,
+  "error": "greedy output mismatch in prose; stopping performance tests"
+}

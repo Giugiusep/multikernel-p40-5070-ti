@@ -1,0 +1,11 @@
+# DSpark first A/B trial — 2026-11-01
+
+User requested enabling the installed drafter experimentally. Compared independent private engine runs with six experts, same IQ2_XS pack,8Kcontext,32GBRAM cache,8CPU threads,1GiBVRAM reserve and frozen expert profile. Original API profile never edited. Private services were42Gmax/38Ghigh/swap0. Shared API paused after serialized unload, then restored automatically. Prompt reuse/persistent slot caching disabled in both arms. Two prose/code repeats64output tokens each in no-drafter arm; attempted on/confidence0.65 arm next.
+
+Baseline decode rates: prose5.0/6.2tok/s, code4.5/4.1tok/s. Neither baseline prompt repeated exactly under temperature0. Prose first difference was character42 (“muscular” versus “pedaling”), so deterministic agreement was not established even without DSpark. This alone does not identify a sampling, numerical, cache-placement or state bug; root cause remains uninvestigated.
+
+DSpark loaded successfully with full6experts and proposed23tokens, accepted18(78.2609%). First64token prose response decoded at4.9tok/s(13.066seconds), versus12.795/10.292seconds in no-drafter prose runs. Output differed from baseline at character206. Stopped subsequent performance runs at this comparison gate; code and repeat DSpark requests were not run. Because baseline was itself not repeatable and text workloads differ, neither correctness failure specific to DSpark nor a controlled speed ratio is established. This trial shows drafting worked but provided no measured advantage in its one tested response.
+
+Engine load report changed from5.86GBdense/6.66GBresident experts(645resident) without drafter to6.58GBdense/5.86GBresident experts(311resident, now including the drafter) with it; more experts ran on the CPU lane. Counts/work differ between configurations, so this suggests VRAM/cache competition, not proof of a quantified bottleneck.
+
+Original --dspark none profile restored and no alternative alias published. Next useful investigation is baseline repeatability and CPU/GPU expert-placement numerical behavior before further speculative tuning. Results/summary JSONs and engine/test logs are the evidence; narrow earlier smoke-test success remains distinct from deterministic full-continuation agreement.

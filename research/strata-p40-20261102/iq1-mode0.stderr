@@ -1,0 +1,2 @@
+CHECK type=29 M=1 diversity=0 rel=1.000000000
+FAIL: independent float expert reference

@@ -1,0 +1,496 @@
+Script started on 2026-11-02 16:38:55+00:00 [COMMAND="/home/shiba/multikernel-experiment/venv/bin/kerf console rpc-p40" TERM="xterm-kitty" TTY="/dev/pts/2" COLUMNS="80" LINES="24"]
+Connecting to console for instance 'rpc-p40' (ID: 1)...
+Escape sequence: Ctrl+] followed by . to detach
+
+
+imk-rpc-p40# nvidia-smi --query-gpu=name,pstate,clocks.sm,clocks.mem,memory.used 
+--format=csv
+name, pstate, clocks.current.sm [MHz], clocks.current.memory [MHz], memory.used [MiB]
+Tesla P40, P0, 1303 MHz, 3615 MHz, 301 MiB
+mk-rpc-p40# [6n/bin/busybox rm -f /tmp/iq-probe.tar.gz /tmp/iq-qwen-gu-fixtures.tar
+.gz /tmp/probe-runtime.tar.gz
+bin/busybox df -h /tmp
+mk-rpc-p40# /bin/busybox df -h /tmp
+Filesystem                Size      Used Available Use% Mounted on
+tmpfs                   256.0M    121.4M    134.6M  47% /tmp
+mk-rpc-p40# [6n/tmp/vsock_file_pull client 0 /tmp/speed-probe.tar.gz
+n/busybox tar -xzf /tmp/speed-probe.tar.gz -C /tmp
+nvidia-smi --query-gpu=timestareceived 34752001 bytes
+mp,pstate,clocks.sm,clocks.mem,power.draw,temperature.gpu[ 1466.839543] multikernel: IPI ring full for instance 0 (head=20, tail=21)
+ti[ 1466.839544] multikernel: IPI ring full for instance 0 (head=20, tail=21)
+l[ 1466.839547] Failed to send multikernel message: -28
+i[ 1466.839547] multikernel: IPI ring full for instance 0 (head=20, tail=21)
+zation.gpu,memors[ 1466.839595] multikernel: IPI ring full for instance 0 (head=58, tail=59)
+e[ 1466.839596] multikernel: IPI ring full for instance 0 (head=58, tail=59)
+d[ 1466.839597] multikernel: IPI ring full for instance 0 (head=58, tail=59)
+ -[ 1466.839597] Failed to send multikernel message: -28
+-[ 1466.839597] multikernel: IPI ring full for instance 0 (head=58, tail=59)
+f[ 1466.839612] Failed to send multikernel message: -28
+t=[ 1466.839614] multikernel: IPI ring full for instance 0 (head=6, tail=7)
+c[ 1466.839614] multikernel: IPI ring full for instance 0 (head=6, tail=7)
+s[ 1466.839614] multikernel: IPI ring full for instance 0 (head=6, tail=7)
+v [ 1466.839615] multikernel: IPI ring full for instance 0 (head=6, tail=7)
+ [ 1466.839626] multikernel: IPI ring full for instance 0 (head=17, tail=18)
+2[ 1466.839628] multikernel: IPI ring full for instance 0 (head=17, tail=18)
+0[ 1466.839627] multikernel: IPI ring full for instance 0 (head=17, tail=18)
+0[ 1466.839628] multikernel: IPI ring full for instance 0 (head=17, tail=18)
+ [ 1466.839629] multikernel: IPI ring full for instance 0 (head=17, tail=18)
+> /tmp/sped[ 1466.839658] Failed to send multikernel message: -28
+-[ 1466.839659] multikernel: IPI ring full for instance 0 (head=44, tail=45)
+g[ 1466.839660] multikernel: IPI ring full for instance 0 (head=44, tail=45)
+pu.c[ 1466.839671] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+v[ 1466.839672] Failed to send multikernel message: -28
+ [ 1466.839674] multikernel: IPI ring full for instance 0 (head=56, tail=57)
+& moitor=$!
+/tmp/proum[ 1466.839728] multikernel: IPI ring full for instance 0 (head=36, tail=37)
+e[ 1466.839728] multikernel: IPI ring full for instance 0 (head=36, tail=37)
+/[ 1466.839728] multikernel: IPI ring full for instance 0 (head=36, tail=37)
+l[ 1466.839729] multikernel: IPI ring full for instance 0 (head=36, tail=37)
+d[ 1466.839729] multikernel: IPI ring full for instance 0 (head=36, tail=37)
+-u[ 1466.839743] multikernel: IPI ring full for instance 0 (head=47, tail=48)
+x[ 1466.839744] multikernel: IPI ring full for instance 0 (head=47, tail=48)
+[ 1466.839745] multikernel: IPI ring full for instance 0 (head=47, tail=48)
+x[ 1466.839745] multikernel: IPI ring full for instance 0 (head=47, tail=48)
+s[ 1466.839746] multikernel: IPI ring full for instance 0 (head=47, tail=48)
+o[ 1466.839751] multikernel: IPI ring full for instance 0 (head=51, tail=52)
+.[ 1466.839755] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+[ 1466.839757] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+br[ 1466.839757] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+a[ 1466.839758] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+r[ 1466.839766] multikernel: IPI ring full for instance 0 (head=60, tail=61)
+[ 1466.839768] multikernel: IPI ring full for instance 0 (head=60, tail=61)
+-r[ 1466.839776] multikernel: IPI ring full for instance 0 (head=3, tail=4)
+u[ 1466.839777] multikernel: IPI ring full for instance 0 (head=3, tail=4)
+n[ 1466.839777] multikernel: IPI ring full for instance 0 (head=3, tail=4)
+t[ 1466.839778] multikernel: IPI ring full for instance 0 (head=4, tail=5)
+mt[ 1466.839798] multikernel: IPI ring full for instance 0 (head=15, tail=16)
+/l[ 1466.839799] multikernel: IPI ring full for instance 0 (head=15, tail=16)
+i[ 1466.839799] multikernel: IPI ring full for instance 0 (head=15, tail=16)
+b[ 1466.839799] multikernel: IPI ring full for instance 0 (head=15, tail=16)
+:[ 1466.839800] multikernel: IPI ring full for instance 0 (head=15, tail=16)
+/l[ 1466.839800] multikernel: IPI ring full for instance 0 (head=15, tail=16)
+i[ 1466.839800] multikernel: IPI ring full for instance 0 (head=15, tail=16)
+b[ 1466.839800] multikernel: IPI ring full for instance 0 (head=15, tail=16)
+ [ 1466.839801] multikernel: IPI ring full for instance 0 (head=15, tail=16)
+/t[ 1466.839801] multikernel: IPI ring full for instance 0 (head=15, tail=16)
+m[ 1466.839803] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+/p[ 1466.839803] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+4[ 1466.839803] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+0[ 1466.839804] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+_[ 1466.839804] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+i[ 1466.839804] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+q_[ 1466.839804] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+s[ 1466.839804] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+e[ 1466.839805] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+e[ 1466.839806] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+d[ 1466.839806] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+ /[ 1466.839806] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+t[ 1466.839806] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+[ 1466.839806] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+mp[ 1466.839807] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+/[ 1466.839807] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+s[ 1466.839832] multikernel: IPI ring full for instance 0 (head=39, tail=40)
+p[ 1466.839833] multikernel: IPI ring full for instance 0 (head=39, tail=40)
+e[ 1466.839833] multikernel: IPI ring full for instance 0 (head=39, tail=40)
+ed[ 1466.839834] multikernel: IPI ring full for instance 0 (head=39, tail=40)
+-[ 1466.839833] multikernel: IPI ring full for instance 0 (head=39, tail=40)
+f[ 1466.839834] multikernel: IPI ring full for instance 0 (head=39, tail=40)
+i[ 1466.839853] multikernel: IPI ring full for instance 0 (head=56, tail=57)
+x[ 1466.839854] multikernel: IPI ring full for instance 0 (head=56, tail=57)
+tures/u-IQ2_XXS tmps[ 1466.839904] multikernel: IPI ring full for instance 0 (head=37, tail=38)
+pe[ 1466.839926] multikernel: IPI ring full for instance 0 (head=57, tail=58)
+e[ 1466.839934] multikernel: IPI ring full for instance 0 (head=63, tail=0)
+d-[ 1466.839936] Failed to send multikernel message: -28
+f[ 1466.839945] multikernel: IPI ring full for instance 0 (head=7, tail=8)
+ixturs/gu-Q2_XSt[ 1466.839959] multikernel: IPI ring full for instance 0 (head=20, tail=21)
+m[ 1466.839979] multikernel: IPI ring full for instance 0 (head=33, tail=34)
+p[ 1466.839991] multikernel: IPI ring full for instance 0 (head=43, tail=44)
+/[ 1466.839992] multikernel: IPI ring full for instance 0 (head=43, tail=44)
+sp[ 1466.839994] Failed to send multikernel message: -28
+Q[ 1466.840013] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+2[ 1466.840013] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+_S[ 1466.840013] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+ [ 1466.840014] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+/[ 1466.840014] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+t[ 1466.840014] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+[ 1466.840014] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+p/[ 1466.840015] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+s[ 1466.840015] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+p[ 1466.840015] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+ee[ 1466.840015] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+-[ 1466.840015] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+f[ 1466.840016] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+i[ 1466.840051] multikernel: IPI ring full for instance 0 (head=19, tail=20)
+s/[ 1466.840051] multikernel: IPI ring full for instance 0 (head=19, tail=20)
+d[ 1466.840052] multikernel: IPI ring full for instance 0 (head=19, tail=20)
+o[ 1466.840053] multikernel: IPI ring full for instance 0 (head=19, tail=20)
+[ 1466.840054] multikernel: IPI ring full for instance 0 (head=19, tail=20)
+ >[ 1466.840054] multikernel: IPI ring full for instance 0 (head=19, tail=20)
+[ 1466.840054] multikernel: IPI ring full for instance 0 (head=19, tail=20)
+m[ 1466.840055] multikernel: IPI ring full for instance 0 (head=19, tail=20)
+p/[ 1466.840063] multikernel: IPI ring full for instance 0 (head=27, tail=28)
+p[ 1466.840065] multikernel: IPI ring full for instance 0 (head=27, tail=28)
+[ 1466.840066] multikernel: IPI ring full for instance 0 (head=27, tail=28)
+ [ 1466.840089] multikernel: IPI ring full for instance 0 (head=40, tail=41)
+mp[ 1466.840089] multikernel: IPI ring full for instance 0 (head=40, tail=41)
+/[ 1466.840090] multikernel: IPI ring full for instance 0 (head=40, tail=41)
+p[ 1466.840089] multikernel: IPI ring full for instance 0 (head=40, tail=41)
+4[ 1466.840090] multikernel: IPI ring full for instance 0 (head=40, tail=41)
+0[ 1466.840091] multikernel: IPI ring full for instance 0 (head=40, tail=41)
+s[ 1466.840091] multikernel: IPI ring full for instance 0 (head=40, tail=41)
+ee[ 1466.840092] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+d[ 1466.840092] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+.[ 1466.840092] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+s[ 1466.840093] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+td[ 1466.840093] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+e[ 1466.840093] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+r[ 1466.840094] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+r[ 1466.840094] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+; [ 1466.840094] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+s[ 1466.840095] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+p[ 1466.840095] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+e[ 1466.840094] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+e[ 1466.840095] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+d_[ 1466.840096] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+r[ 1466.840096] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+c[ 1466.840096] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+=[ 1466.840097] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+$[ 1466.840097] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+?[ 1466.840109] multikernel: IPI ring full for instance 0 (head=52, tail=53)
+
+k[ 1466.840110] multikernel: IPI ring full for instance 0 (head=52, tail=53)
+i[ 1466.840111] multikernel: IPI ring full for instance 0 (head=52, tail=53)
+l[ 1466.840114] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+l[ 1466.840113] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+ $monitor
+echo PEED_EXIT=s[ 1466.840198] multikernel: IPI ring full for instance 0 (head=5, tail=6)
+p[ 1466.840219] multikernel: IPI ring full for instance 0 (head=24, tail=25)
+e[ 1466.840220] multikernel: IPI ring full for instance 0 (head=24, tail=25)
+e[ 1466.840230] multikernel: IPI ring full for instance 0 (head=31, tail=32)
+_r[ 1466.840230] multikernel: IPI ring full for instance 0 (head=31, tail=32)
+c
+bin/bs[ 1466.840240] multikernel: IPI ring full for instance 0 (head=39, tail=40)
+y[ 1466.840250] multikernel: IPI ring full for instance 0 (head=48, tail=49)
+bo  [ 1466.840265] multikernel: IPI ring full for instance 0 (head=55, tail=56)
+/[ 1466.840265] multikernel: IPI ring full for instance 0 (head=55, tail=56)
+t[ 1466.840266] multikernel: IPI ring full for instance 0 (head=55, tail=56)
+m[ 1466.840266] multikernel: IPI ring full for instance 0 (head=55, tail=56)
+p[ 1466.840266] multikernel: IPI ring full for instance 0 (head=55, tail=56)
+/p[ 1466.840267] multikernel: IPI ring full for instance 0 (head=55, tail=56)
+4[ 1466.840267] multikernel: IPI ring full for instance 0 (head=55, tail=56)
+0p[ 1466.840287] multikernel: IPI ring full for instance 0 (head=7, tail=8)
+e[ 1466.840287] multikernel: IPI ring full for instance 0 (head=7, tail=8)
+/b[ 1466.840293] multikernel: IPI ring full for instance 0 (head=11, tail=12)
+[ 1466.840294] multikernel: IPI ring full for instance 0 (head=11, tail=12)
+[ 1466.840295] multikernel: IPI ring full for instance 0 (head=11, tail=12)
+i[ 1466.840295] multikernel: IPI ring full for instance 0 (head=11, tail=12)
+n[ 1466.840295] multikernel: IPI ring full for instance 0 (head=11, tail=12)
+/[ 1466.840296] multikernel: IPI ring full for instance 0 (head=11, tail=12)
+b[ 1466.840296] multikernel: IPI ring full for instance 0 (head=11, tail=12)
+u[ 1466.840296] multikernel: IPI ring full for instance 0 (head=11, tail=12)
+sy[ 1466.840296] multikernel: IPI ring full for instance 0 (head=11, tail=12)
+b[ 1466.840296] multikernel: IPI ring full for instance 0 (head=11, tail=12)
+o[ 1466.840297] multikernel: IPI ring full for instance 0 (head=11, tail=12)
+x[ 1466.840297] multikernel: IPI ring full for instance 0 (head=11, tail=12)
+ cat /tmp/p40-speed.stderr
+mk-rpc-p40# /bin/[ 1466.840445] multikernel: IPI ring full for instance 0 (head=49, tail=50)
+[ 1466.840450] multikernel: IPI ring full for instance 0 (head=50, tail=51)
+y[ 1466.840450] multikernel: IPI ring full for instance 0 (head=50, tail=51)
+[ 1466.840451] multikernel: IPI ring full for instance 0 (head=50, tail=51)
+b[ 1466.840451] multikernel: IPI ring full for instance 0 (head=50, tail=51)
+ox tar -xzf[ 1466.840511] multikernel: IPI ring full for instance 0 (head=24, tail=25)
+[ 1466.840512] Failed to send multikernel message: -28
+ /tm[ 1466.840533] multikernel: IPI ring full for instance 0 (head=36, tail=37)
+[ 1466.840534] multikernel: IPI ring full for instance 0 (head=36, tail=37)
+p/sp[ 1466.840555] multikernel: IPI ring full for instance 0 (head=49, tail=50)
+[ 1466.840556] Failed to send multikernel message: -28
+ep[ 1466.840571] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+[ 1466.840573] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+r[ 1466.840573] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+[ 1466.840573] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+[ 1466.840574] Failed to send multikernel message: -28
+obe.ta[ 1466.840614] multikernel: IPI ring full for instance 0 (head=13, tail=14)
+.[ 1466.840625] multikernel: IPI ring full for instance 0 (head=15, tail=16)
+ [ 1466.840626] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+[ 1466.840628] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+[ 1466.840628] multikernel: IPI ring full for instance 0 (head=16, tail=17)
+-C /tm[ 1466.840667] multikernel: IPI ring full for instance 0 (head=40, tail=41)
+[ 1466.840669] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+[ 1466.840671] multikernel: IPI ring full for instance 0 (head=41, tail=42)
+[ 1466.840672] Failed to send multikernel message: -28
+[ 1466.840686] multikernel: IPI ring full for instance 0 (head=46, tail=47)
+[ 1466.840687] Failed to send multikernel message: -28
+[ 1466.840709] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+[ 1466.840710] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+[ 1466.840736] Failed to send multikernel message: -28
+[ 1466.840737] multikernel: IPI ring full for instance 0 (head=0, tail=1)
+[ 1466.840852] multikernel: IPI ring full for instance 0 (head=50, tail=51)
+[ 1466.840853] Failed to send multikernel message: -28
+[ 1466.840871] multikernel: IPI ring full for instance 0 (head=56, tail=57)
+[ 1466.840872] multikernel: IPI ring full for instance 0 (head=56, tail=57)
+[ 1466.840900] multikernel: IPI ring full for instance 0 (head=3, tail=4)
+[ 1466.840906] multikernel: IPI ring full for instance 0 (head=4, tail=5)
+[ 1466.840949] Failed to send multikernel message: -28
+[ 1466.840950] multikernel: IPI ring full for instance 0 (head=22, tail=23)
+[ 1466.841034] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+[ 1466.841034] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+[ 1466.841060] multikernel: IPI ring full for instance 0 (head=1, tail=2)
+[ 1466.841061] Failed to send multikernel message: -28
+[ 1466.841072] multikernel: IPI ring full for instance 0 (head=5, tail=6)
+[ 1466.841074] Failed to send multikernel message: -28
+[ 1466.841172] multikernel: IPI ring full for instance 0 (head=46, tail=47)
+[ 1466.841172] multikernel: IPI ring full for instance 0 (head=46, tail=47)
+[ 1466.841185] multikernel: IPI ring full for instance 0 (head=51, tail=52)
+[ 1466.841186] Failed to send multikernel message: -28
+[ 1466.841200] multikernel: IPI ring full for instance 0 (head=56, tail=57)
+[ 1466.841201] Failed to send multikernel message: -28
+[ 1466.841220] Failed to send multikernel message: -28
+[ 1466.841221] multikernel: IPI ring full for instance 0 (head=63, tail=0)
+[ 1466.841270] Failed to send multikernel message: -28
+[ 1466.841271] multikernel: IPI ring full for instance 0 (head=19, tail=20)
+[ 1466.841522] Failed to send multikernel message: -28
+[ 1466.841523] multikernel: IPI ring full for instance 0 (head=61, tail=62)
+[ 1466.841576] multikernel: IPI ring full for instance 0 (head=15, tail=16)
+[ 1466.841576] multikernel: IPI ring full for instance 0 (head=15, tail=16)
+[ 1466.841594] Failed to send multikernel message: -28
+[ 1466.841595] multikernel: IPI ring full for instance 0 (head=22, tail=23)
+[ 1466.841631] Failed to send multikernel message: -28
+[ 1466.841632] multikernel: IPI ring full for instance 0 (head=36, tail=37)
+[ 1466.842117] multikernel: IPI ring full for instance 0 (head=58, tail=59)
+[ 1466.842119] Failed to send multikernel message: -28
+[ 1466.842220] Failed to send multikernel message: -28
+[ 1466.842221] multikernel: IPI ring full for instance 0 (head=38, tail=39)
+mk-rpc-p40# nvidia-smi --query-gpu=timestamp,pstate,clocks.sm,clocks.mem,power.d
+raw,temperature.gpu,utilization.gpu,memory.used --format=csv -lms 200 > /tmp/spe
+ed-gpu.csv & monitor=$!
+mk-rpc-p40# /tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-ru
+ntime:/opt/rpc/lib:/lib /tmp/p40_iq_speed /tmp/speed-fixtures/gu-IQ2_XXS /tmp/sp
+eed-fixtures/gu-IQ2_XS /tmp/speed-fixtures/gu-IQ2_S /tmp/speed-fixtures/down-Q2_
+0 > /tmp/p40-speed.csv 2> /tmp/p40-speed.stderr; speed_rc=$?
+mk-rpc-p40# kill $monitor
+mk-rpc-p40# echo SPEED_EXIT=$speed_rc
+SPEED_EXIT=0
+mk-rpc-p40# /bin/busybox tail -n 4 /tmp/p40-speed.csv
+/tmp/speed-fixtures/down-Q2_0,42,2560,640,7,enqueue,35.743999,35.792000,12.891674,0.00524043,460800,64,50
+/tmp/speed-fixtures/down-Q2_0,42,2560,640,7,graph,35.695999,35.840000,12.909010,0.00524043,460800,64,50
+/tmp/speed-fixtures/down-Q2_0,42,2560,640,8,enqueue,38.144001,38.240002,12.080537,0.00524043,460800,64,50
+/tmp/speed-fixtures/down-Q2_0,42,2560,640,8,graph,38.079998,38.127998,12.100841,0.00524043,460800,64,50
+mk-rpc-p40# /bin/busybox cat /tmp/p40-speed.stderr
+mk-rpc-p40# [6n
+[2]+  Done                       nvidia-smi --query-gpu=timestamp,pstate,clocks.sm,clocks.mem,power.draw,temperature.gpu,utilization.gpu,memory.used --format=csv -lms 200 1>/tmp/speed-gpu.csv
+mk-rpc-p40# [6n/tmp/vsock_file_pull server /tmp/p40-speed.csv > /tmp/send-speed.log
+ 2>&1 &
+mk-rpc-p40# [6n
+[2]+  Done                       /tmp/vsock_file_pull server /tmp/p40-speed.csv 1>/tmp/send-speed.log 2>&1
+mk-rpc-p40# [6n/tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-ru
+ntime:/opt/rpc/lib:/lib /tmp/p40_iq_speed /tmp/speed-fixtures/gu-IQ2_XXS /tmp/sp
+eed-fixtures/gu-IQ2_XS /tmp/speed-fixtures/gu-IQ2_S /tmp/speed-fixtures/down-Q2_
+0 > /tmp/p40-speed-run2.csv 2> /tmp/p40-speed-run2.stderr; echo SPEED_RUN2_EXIT=
+$?
+SPEED_RUN2_EXIT=0
+mk-rpc-p40# [6n/tmp/vsock_file_pull server /tmp/p40-speed-run2.csv > /tmp/send-spee
+d2.log 2>&1 &
+mk-rpc-p40# [6n
+[2]+  Done                       /tmp/vsock_file_pull server /tmp/p40-speed-run2.csv 1>/tmp/send-speed2.log 2>&1
+mk-rpc-p40# [6n/tmp/vsock_file_pull server /tmp/speed-gpu.csv > /tmp/send-gpu-speed
+.log 2>&1 &
+mk-rpc-p40# [6n
+[2]+  Done                       /tmp/vsock_file_pull server /tmp/speed-gpu.csv 1>/tmp/send-gpu-speed.log 2>&1
+mk-rpc-p40# [6ndmesg > /tmp/speed-dmesg.log
+p/vsock_file_pull server /tmp/speed-dmesg.log > /tmp/send-speed-dmesg.log 2>&1 &
+mk-rpc-p40# /tmp/vsock_file_pull server /tmp/speed-dmesg.log > /tmp/send-speed-d
+mesg.log 2>&1 &
+mk-rpc-p40# [6n
+[2]+  Done                       /tmp/vsock_file_pull server /tmp/speed-dmesg.log 1>/tmp/send-speed-dmesg.log 2>&1
+mk-rpc-p40# [6n/tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-ru
+ntime:/opt/rpc/lib:/lib /tmp/p40_iq_speed /tmp/speed-fixtures/gu-IQ2_XS > /tmp/p
+40-speed-warmup.csv 2>/tmp/warmup.stderr
+mp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-runtime:/opt/rpc/lib:/lib /tmp/p40_iq_speed /tmp/speed-fixtures/gu-IQ2_XXS /tmp/speed-fixtures/gu-IQ2_XS /tmp/speed-fixtures/gu-IQ2_S /tmp/speed-fixtures/down-Q2_0 > /tmp/p40-speed-run3.csv 2>/tmp/p40-speed-run3.stderr; echo SPEED_RUN3_EXIT=$?
+mk-rpc-p40# /tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-ru
+ntime:/opt/rpc/lib:/lib /tmp/p40_iq_speed /tmp/speed-fixtures/gu-IQ2_XXS /tmp/sp
+eed-fixtures/gu-IQ2_XS /tmp/speed-fixtures/gu-IQ2_S /tmp/speed-fixtures/down-Q2_
+0 > /tmp/p40-speed-run3.csv 2>/tmp/p40-speed-run3.stderr; echo SPEED_RUN3_EXIT=$
+?
+SPEED_RUN3_EXIT=0
+mk-rpc-p40# [6n/tmp/vsock_file_pull server /tmp/p40-speed-run3.csv > /tmp/send-spee
+d3.log 2>&1 &
+mk-rpc-p40# [6n
+[2]+  Done                       /tmp/vsock_file_pull server /tmp/p40-speed-run3.csv 1>/tmp/send-speed3.log 2>&1
+mk-rpc-p40# [6n/tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-ru
+ntime:/opt/rpc/lib:/lib /tmp/p40_iq_speed /tmp/speed-fixtures/gu-IQ2_XS > /tmp/p
+40-speed-warmup4.csv 2>/tmp/warmup4.stderr
+/tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-runtime:/opt/rpc/lib:/lib /tmp/p40_iq_speed /tmp/speed-fixtures/gu-IQ2_XXS /tmp/speed-fixtures/gu-IQ2_XS /tmp/speed-fixtures/gu-IQ2_S /tmp/speed-fixtures/down-Q2_0 > /tmp/p40-speed-run4.csv 2>/tmp/p40-speed-run4.stderr; echo SPEED_RUN4_EXIT=$?
+mk-rpc-p40# /tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-ru
+ntime:/opt/rpc/lib:/lib /tmp/p40_iq_speed /tmp/speed-fixtures/gu-IQ2_XXS /tmp/sp
+eed-fixtures/gu-IQ2_XS /tmp/speed-fixtures/gu-IQ2_S /tmp/speed-fixtures/down-Q2_
+0 > /tmp/p40-speed-run4.csv 2>/tmp/p40-speed-run4.stderr; echo SPEED_RUN4_EXIT=$
+?
+SPEED_RUN4_EXIT=0
+mk-rpc-p40# [6n/tmp/vsock_file_pull server /tmp/p40-speed-run4.csv > /tmp/send-spee
+d4.log 2>&1 &
+mk-rpc-p40# [6n
+[2]+  Done                       /tmp/vsock_file_pull server /tmp/p40-speed-run4.csv 1>/tmp/send-speed4.log 2>&1
+mk-rpc-p40# [6n
+Disconnected from console.
+
+Script done on 2026-11-02 16:51:17+00:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2026-11-02 16:54:20+00:00 [COMMAND="/home/shiba/multikernel-experiment/venv/bin/kerf console rpc-p40" TERM="xterm-kitty" TTY="/dev/pts/2" COLUMNS="80" LINES="24"]
+Connecting to console for instance 'rpc-p40' (ID: 1)...
+Escape sequence: Ctrl+] followed by . to detach
+
+
+bumk-rpc-p40# /bin/busybox rm -f /tmp/speed-probe.tar.gz /tmp/p40_iq_speed
+mk-rpc-p40# [6n/tmp/vsock_file_pull client 0 /tmp/expert-speed.tar.gz
+received 28852715 bytes
+mk-rpc-p40# [6n/bin/busybox tar -xzf /tmp/expert-speed.tar.gz -C /tmp
+tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-runtime:/opt/rpc/lib:/lib /tmp/p40_expert_speed /tmp/speed-fixtures/down-Q2_0 /tmp/speed-fixtures/gu-IQ2_XXS /tmp/speed-fixtures/gu-IQ2_XS /tmp/speed-fixtures/gu-IQ2_S > /tmp/p40-expert-speed.csv 2>/tmp/p40-expert-speed.stderr; echo EXPERT_SPEED_EXIT=$?
+mk-rpc-p40# /tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-ru
+ntime:/opt/rpc/lib:/lib /tmp/p40_expert_speed /tmp/speed-fixtures/down-Q2_0 /tmp
+/speed-fixtures/gu-IQ2_XXS /tmp/speed-fixtures/gu-IQ2_XS /tmp/speed-fixtures/gu-
+IQ2_S > /tmp/p40-expert-speed.csv 2>/tmp/p40-expert-speed.stderr; echo EXPERT_SP
+EED_EXIT=$?
+EXPERT_SPEED_EXIT=0
+mk-rpc-p40# [6n/bin/busybox head -n 6 /tmp/p40-expert-speed.csv
+d-expert-speed.log 2>&1 &
+# Tesla P40; mode8 grouped expert; synthetic; 10 experts/row; H2560 FF640; no routing combine, RPC or input quantization timing
+case,gu_type,M,routing,groups,entries,mode,median_us,p95_us,relative_L1,distinct_weight_bytes
+/tmp/speed-fixtures/gu-IQ2_XXS,16,1,shared,10,10,enqueue,108.416000,109.057999,0.01046730,13056000
+/tmp/speed-fixtures/gu-IQ2_XXS,16,1,shared,10,10,graph,106.559998,107.199997,0.01046730,13056000
+/tmp/speed-fixtures/gu-IQ2_XXS,16,1,distinct,10,10,enqueue,99.424999,99.905998,0.01046730,13056000
+/tmp/speed-fixtures/gu-IQ2_XXS,16,1,distinct,10,10,graph,96.960999,98.433998,0.01046730,13056000
+mk-rpc-p40# /bin/busybox cat /tmp/p40-expert-speed.stderr
+mk-rpc-p40# /tmp/vsock_file_pull server /tmp/p40-expert-speed.csv > /tmp/send-ex
+pert-speed.log 2>&1 &
+mk-rpc-p40# [6n
+[2]+  Done                       /tmp/vsock_file_pull server /tmp/p40-expert-speed.csv 1>/tmp/send-expert-speed.log 2>&1
+mk-rpc-p40# [6n/tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-ru
+ntime:/opt/rpc/lib:/lib /tmp/p40_expert_speed /tmp/speed-fixtures/down-Q2_0 /tmp
+/speed-fixtures/gu-IQ2_S > /tmp/p40-expert-warmup.csv 2>/tmp/p40-expert-warmup.s
+tderr
+mp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-runtime:/opt/rpc/lib:/lib /tmp/p40_expert_speed /tmp/speed-fixtures/down-Q2_0 /tmp/speed-fixtures/gu-IQ2_XXS /tmp/speed-fixtures/gu-IQ2_XS /tmp/speed-fixtures/gu-IQ2_S > /tmp/p40-expert-speed-run2.csv 2>/tmp/p40-expert-speed-run2.stderr; echo EXPERT_RUN2_EXIT=$?
+mk-rpc-p40# /tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-ru
+ntime:/opt/rpc/lib:/lib /tmp/p40_expert_speed /tmp/speed-fixtures/down-Q2_0 /tmp
+/speed-fixtures/gu-IQ2_XXS /tmp/speed-fixtures/gu-IQ2_XS /tmp/speed-fixtures/gu-
+IQ2_S > /tmp/p40-expert-speed-run2.csv 2>/tmp/p40-expert-speed-run2.stderr; echo
+ EXPERT_RUN2_EXIT=$?
+EXPERT_RUN2_EXIT=0
+mk-rpc-p40# [6n/tmp/vsock_file_pull client 0 /tmp/iq1-speed-fixture.tar.gz
+received 1208688 bytes
+mk-rpc-p40# [6n/bin/busybox tar -xzf /tmp/iq1-speed-fixture.tar.gz -C /tmp
+e-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-runtime:/opt/rpc/lib:/lib /tmp/p40_expert_speed /tmp/speed-fixtures/down-Q2_0 /tmp/speed-fixtures/gu-IQ1_M > /tmp/p40-expert-iq1-run1.csv 2>/tmp/p40-expert-iq1-run1.stderr; echo IQ1_RUN1_EXIT=$?
+/tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-runtime:/opt/rpc/lib:/lib /tmp/p40_expert_speed /tmp/speed-fixtures/down-Q2_0 /tmp/speed-fixtures/gu-IQ1_M > /tmp/p40-expert-iq1-run2.csv 2>/tmp/p40-expert-iq1-run2.stderr; echo IQ1_RUN2_EXIT=$?
+mk-rpc-p40# /tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-ru
+ntime:/opt/rpc/lib:/lib /tmp/p40_expert_speed /tmp/speed-fixtures/down-Q2_0 /tmp
+/speed-fixtures/gu-IQ1_M > /tmp/p40-expert-iq1-run1.csv 2>/tmp/p40-expert-iq1-ru
+n1.stderr; echo IQ1_RUN1_EXIT=$?
+IQ1_RUN1_EXIT=1
+mk-rpc-p40# /tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-ru
+ntime:/opt/rpc/lib:/lib /tmp/p40_expert_speed /tmp/speed-fixtures/down-Q2_0 /tmp
+/speed-fixtures/gu-IQ1_M > /tmp/p40-expert-iq1-run2.csv 2>/tmp/p40-expert-iq1-ru
+n2.stderr; echo IQ1_RUN2_EXIT=$?
+IQ1_RUN2_EXIT=1
+mk-rpc-p40# [6n/bin/busybox cat /tmp/p40-expert-iq1-run1.stderr
+ybox cat /tmp/p40-expert-iq1-run2.stderr
+/bin/busybox tFAIL: independent float expert reference
+ail -n 3 /tmp/p40-expmk-rpc-p40# /bin/busybox cat /tmp/p40-expert-iq1-run2.stderr
+FAIL: independent float expert reference
+mk-rpc-p40# /bin/busybox tail -n 3 /tmp/p40-expert-iq1-run1.csv
+# Tesla P40; mode8 grouped expert; synthetic; 10 experts/row; H2560 FF640; no routing combine, RPC or input quantization timing
+case,gu_type,M,routing,groups,entries,mode,median_us,p95_us,relative_L1,distinct_weight_bytes
+mk-rpc-p40# [6n/bin/busybox rm -f /tmp/expert-speed.tar.gz /tmp/p40_expert_speed
+in/busybox tar -czf /tmp/expert-evidence.tar.gz -C /tmp p40-expert-speed-run2.csv p40-expert-iq1-run1.csv p40-expert-iq1-run1.stderr p40-expert-iq1-run2.csv p40-expert-iq1-run2.stderr
+/tmp/vsock_file_pulmk-rpc-p40# /bin/busybox tar -czf /tmp/expert-evidence.tar.gz -C /tmp p40-expert
+-speed-run2.csv p40-expert-iq1-run1.csv p40-expert-iq1-run1.stderr p40-expert-iq
+1-run2.csv p40-expert-iq1-run2.stderr
+r.gz > /tmp/send-expert-evidence.log 2>&1 &
+tar: can't execute 'gzip': No such file or directory
+mk-rpc-p40# /tmp/vsock_file_pull server /tmp/expert-evidence.tar.gz > /tmp/send-
+expert-evidence.log 2>&1 &
+mk-rpc-p40# [6n
+[2]+  Done                       /tmp/vsock_file_pull server /tmp/expert-evidence.tar.gz 1>/tmp/send-expert-evidence.log 2>&1
+mk-rpc-p40# [6n/bin/busybox tar -cf /tmp/expert-evidence.tar -C /tmp p40-expert-spe
+ed-run2.csv p40-expert-iq1-run1.csv p40-expert-iq1-run1.stderr p40-expert-iq1-ru
+n2.csv p40-expert-iq1-run2.stderr
+mk-rpc-p40# /tmp/vsock_file_pull server /tmp/expert-evidence.tar > /tmp/send-exp
+ert-evidence.log 2>&1 &
+mk-rpc-p40# [6n
+[2]+  Done                       /tmp/vsock_file_pull server /tmp/expert-evidence.tar 1>/tmp/send-expert-evidence.log 2>&1
+mk-rpc-p40# [6n/tmp/vsock_file_pull client 0 /tmp/expert-diag.tar.gz
+received 28852387 bytes
+mk-rpc-p40# [6n/bin/busybox tar -xzf /tmp/expert-diag.tar.gz -C /tmp
+S_ONLY=1 P40_EXPERT_MODE=8 /tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-runtime:/opt/rpc/lib:/lib /tmp/p40_expert_diag /tmp/speed-fixtures/down-Q2_0 /tmp/speed-fixtures/gu-IQ1_M >/tmp/iq1-mode8.csv 2>/tmp/iq1-mode8.stderr; echo MODE8_EXIT=$?
+P40_CORRECTNESS_ONLY=1 P40_EXPERT_MODE=0 /tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-runtime:/opt/rpc/lib:/lib /tmp/p40_expert_diag /tmp/speed-fixtures/down-Q2_0 /tmp/speed-fixtures/gu-IQ1_M >/tmp/iq1-mode0.csv 2>/tmp/iq1-mode0.stderr; echo MODE0_EXIT=$?
+/bin/busybox cat /tmp/iq1-mode8.stderr /tmp/iq1-mode0.stderr
+mk-rpc-p40# P40_CORRECTNESS_ONLY=1 P40_EXPERT_MODE=8 /tmp/probe-runtime/ld-linux
+-x86-64.so.2 --library-path /tmp/probe-runtime:/opt/rpc/lib:/lib /tmp/p40_expert
+_diag /tmp/speed-fixtures/down-Q2_0 /tmp/speed-fixtures/gu-IQ1_M >/tmp/iq1-mode8
+.csv 2>/tmp/iq1-mode8.stderr; echo MODE8_EXIT=$?
+MODE8_EXIT=1
+mk-rpc-p40# P40_CORRECTNESS_ONLY=1 P40_EXPERT_MODE=0 /tmp/probe-runtime/ld-linux
+-x86-64.so.2 --library-path /tmp/probe-runtime:/opt/rpc/lib:/lib /tmp/p40_expert
+_diag /tmp/speed-fixtures/down-Q2_0 /tmp/speed-fixtures/gu-IQ1_M >/tmp/iq1-mode0
+.csv 2>/tmp/iq1-mode0.stderr; echo MODE0_EXIT=$?
+MODE0_EXIT=1
+mk-rpc-p40# /bin/busybox cat /tmp/iq1-mode8.stderr /tmp/iq1-mode0.stderr
+CHECK type=29 M=1 diversity=0 rel=1.000000000
+FAIL: independent float expert reference
+CHECK type=29 M=1 diversity=0 rel=1.000000000
+FAIL: independent float expert reference
+mk-rpc-p40# [6n/bin/busybox rm -f /tmp/expert-diag.tar.gz
+/tmp/vsock_file_pull client 0 /tmp/iq1-normal-fixture.tar.gz
+mk-rpc-p40# /tmp/vsock_file_pull client 0 /tmp/iq1-normal-fixture.tar.gz
+received 1220660 bytes
+mk-rpc-p40# [6n/bin/busybox tar -xzf /tmp/iq1-normal-fixture.tar.gz -C /tmp
+0_CORRECTNESS_ONLY=1 P40_EXPERT_MODE=8 /tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-runtime:/opt/rpc/lib:/lib /tmp/p40_expert_diag /tmp/speed-fixtures/down-Q2_0 /tmp/speed-fixtures/gu-IQ1_M-normal >/tmp/iq1-normal.csv 2>/tmp/iq1-normal.stderr; echo IQ1_NORMAL_EXIT=$?
+/bin/busybox cat /tmp/iq1-normal.stderr
+mk-rpc-p40# P40_CORRECTNESS_ONLY=1 P40_EXPERT_MODE=8 /tmp/probe-runtime/ld-linux
+-x86-64.so.2 --library-path /tmp/probe-runtime:/opt/rpc/lib:/lib /tmp/p40_expert
+_diag /tmp/speed-fixtures/down-Q2_0 /tmp/speed-fixtures/gu-IQ1_M-normal >/tmp/iq
+1-normal.csv 2>/tmp/iq1-normal.stderr; echo IQ1_NORMAL_EXIT=$?
+IQ1_NORMAL_EXIT=0
+mk-rpc-p40# /bin/busybox cat /tmp/iq1-normal.stderr
+CHECK type=29 M=1 diversity=0 rel=0.010058577
+CHECK type=29 M=1 diversity=1 rel=0.010058577
+CHECK type=29 M=2 diversity=0 rel=0.010023418
+CHECK type=29 M=2 diversity=1 rel=0.010023418
+CHECK type=29 M=3 diversity=0 rel=0.010136554
+CHECK type=29 M=3 diversity=1 rel=0.010136554
+CHECK type=29 M=4 diversity=0 rel=0.010333426
+CHECK type=29 M=4 diversity=1 rel=0.010333426
+CHECK type=29 M=5 diversity=0 rel=0.010442059
+CHECK type=29 M=5 diversity=1 rel=0.010442059
+CHECK type=29 M=6 diversity=0 rel=0.010405616
+CHECK type=29 M=6 diversity=1 rel=0.010405616
+CHECK type=29 M=7 diversity=0 rel=0.010476091
+CHECK type=29 M=7 diversity=1 rel=0.010476091
+CHECK type=29 M=8 diversity=0 rel=0.010503350
+CHECK type=29 M=8 diversity=1 rel=0.010503350
+mk-rpc-p40# [6n/tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-ru
+ntime:/opt/rpc/lib:/lib /tmp/p40_expert_diag /tmp/speed-fixtures/down-Q2_0 /tmp/
+speed-fixtures/gu-IQ1_M-normal >/tmp/iq1-normal-speed1.csv 2>/tmp/iq1-normal-spe
+ed1.stderr; echo IQ1_SPEED1_EXIT=$?
+d-linux-x86-64.so.2 --library-path /tmp/probe-runtime:/opt/rpc/lib:/lib /tmp/p40_expert_diag /tmp/speed-fixtures/down-Q2_0 /tmp/speed-fixtures/gu-IQ1_M-normal >/tmp/iq1-normal-speed2.csv 2>/tmp/iq1-normal-speed2.stderr; echo IQ1_SPEED2_EXIT=$?
+IQ1_SPEED1_EXIT=0
+mk-rpc-p40# /tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-ru
+ntime:/opt/rpc/lib:/lib /tmp/p40_expert_diag /tmp/speed-fixtures/down-Q2_0 /tmp/
+speed-fixtures/gu-IQ1_M-normal >/tmp/iq1-normal-speed2.csv 2>/tmp/iq1-normal-spe
+ed2.stderr; echo IQ1_SPEED2_EXIT=$?
+IQ1_SPEED2_EXIT=0
+mk-rpc-p40# [6nnvidia-smi --query-gpu=name,pstate,clocks.sm,clocks.mem,temperature.
+gpu,memory.used --format=csv > /tmp/speed-gpu-final.csv
+mesg > /tmp/speed-final-dmesg.log
+/bin/busybox tar -cf /tmp/speed-final-evidence.tar -C /tmp iq1-mode8.stderr iq1-mode0.stderr iq1-normal.stderr iq1-normal-speed1.csv iq1-normal-speed1.stderr iq1-normal-speed2.csv iq1-normal-speed2.stderr speed-gpu-final.csv speed-final-dmesg.log
+/tmp/vsock_file_pull server /tmp/speed-final-evidence.tar > /tmp/send-final-evidence.log 2>&1 &
+mk-rpc-p40# dmesg > /tmp/speed-final-dmesg.log
+mk-rpc-p40# /bin/busybox tar -cf /tmp/speed-final-evidence.tar -C /tmp iq1-mode8
+.stderr iq1-mode0.stderr iq1-normal.stderr iq1-normal-speed1.csv iq1-normal-spee
+d1.stderr iq1-normal-speed2.csv iq1-normal-speed2.stderr speed-gpu-final.csv spe
+ed-final-dmesg.log
+mk-rpc-p40# /tmp/vsock_file_pull server /tmp/speed-final-evidence.tar > /tmp/sen
+d-final-evidence.log 2>&1 &
+mk-rpc-p40# [6n
+[2]+  Done                       /tmp/vsock_file_pull server /tmp/speed-final-evidence.tar 1>/tmp/send-final-evidence.log 2>&1
+mk-rpc-p40# [6n
+Disconnected from console.
+
+Script done on 2026-11-02 17:08:21+00:00 [COMMAND_EXIT_CODE="0"]

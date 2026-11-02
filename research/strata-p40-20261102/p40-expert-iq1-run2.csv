@@ -1,0 +1,2 @@
+# Tesla P40; mode8 grouped expert; synthetic; 10 experts/row; H2560 FF640; no routing combine, RPC or input quantization timing
+case,gu_type,M,routing,groups,entries,mode,median_us,p95_us,relative_L1,distinct_weight_bytes

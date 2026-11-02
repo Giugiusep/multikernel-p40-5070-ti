@@ -1,0 +1,100 @@
+[  190.119995] kexec_file: kexec_add_buffer: segment[0] kbuf=0xffff8d45189e4000 bufsz=0x13a0 mem=0x492804000 memsz=0x2000
+[  190.122082] kexec_file: kexec_locate_mem_hole: called for segment size=0x3600000, mem=0x0, image_type=2
+[  190.122085] kexec_file: kexec_alloc_multikernel: called for segment size=0x3600000, buf_min=0x100000, buf_max=0xffffffffffffffff, align=0x200000
+[  190.122091] kexec_file: Allocated 56623104 bytes from multikernel pool at 0x492a00000
+[  190.122093] kexec_file: kexec_add_buffer: segment[1] kbuf=0xffffd3fa54200000 bufsz=0x3600000 mem=0x492a00000 memsz=0x3600000
+[  190.122095] kexec-vmlinux: Loading kernel segments to 0x492a00000 (buffer=ffffd3fa54200000, size=0x3600000)
+[  190.122096] kexec-vmlinux:   PT_LOAD[0]: paddr=0x1000000 offset=0x0 filesz=0x1e96230 memsz=0x1e96230
+[  190.123526] kexec-vmlinux:   PT_LOAD[1]: paddr=0x3000000 offset=0x2000000 filesz=0x1600000 memsz=0x1600000
+[  190.124258] kexec-vmlinux: ELF kernel loaded: kernel_load_addr=0x492a00000 buf=ffffd3fa54200000
+[  190.124260] kexec_file: kexec_locate_mem_hole: called for segment size=0x118000, mem=0x0, image_type=2
+[  190.124261] kexec_file: kexec_alloc_multikernel: called for segment size=0x118000, buf_min=0x1000000, buf_max=0xffffffffffffffff, align=0x1000
+[  190.124262] kexec_file: Allocated 1146880 bytes from multikernel pool at 0x492806000
+[  190.124262] kexec_file: kexec_add_buffer: segment[2] kbuf=0xffffd3fa4f803000 bufsz=0x117507 mem=0x492806000 memsz=0x118000
+[  190.124263] kexec-bzImage64: setup_cmdline: cmdline=rdinit=/init loglevel=7 rootfstype=daxfs rootflags=phys=0xc15603000,size=2599702528 init=/init kerf.entrypoint=/sbin/entrypoint console=mktty0 len=143 offset=4096
+[  190.124264] kexec-bzImage64: setup_cmdline: cmd_line_ptr=0x92805000 ext=0x4 (phys=0x492805000)
+[  190.124265] kexec-vmlinux: Multikernel: entry=0x494f0f124 boot_params=0x492804000
+[  190.124266] mk_e820: instance 1: 1792 MB RAM in 1 regions
+[  190.124368] kexec_core: Loading multikernel segment: mem=0x492804000, memsz=0x2000, kbuf=0xffff8d45189e4000, buf=0x0000000000000000, bufsz=0x13a0, file_mode=1
+[  190.124372] kexec_core: Loading multikernel segment: mem=0x492a00000, memsz=0x3600000, kbuf=0xffffd3fa54200000, buf=0x0000000000000000, bufsz=0x3600000, file_mode=1
+[  190.126727] kexec_core: Loading multikernel segment: mem=0x492806000, memsz=0x118000, kbuf=0xffffd3fa4f803000, buf=0x0000000000000000, bufsz=0x117507, file_mode=1
+[  190.215601] kexec_core: multikernel kexec: using physical CPU 8 (logical 8), 4 CPUs assigned
+[  190.215605] kexec_core: Loading multikernel segment: mem=0x492804000, memsz=0x2000, kbuf=0xffff8d45189e4000, buf=0x0000000000000000, bufsz=0x13a0, file_mode=1
+[  190.215609] kexec_core: Loading multikernel segment: mem=0x492a00000, memsz=0x3600000, kbuf=0xffffd3fa54200000, buf=0x0000000000000000, bufsz=0x3600000, file_mode=1
+[  190.217983] kexec_core: Loading multikernel segment: mem=0x492806000, memsz=0x118000, kbuf=0xffffd3fa4f803000, buf=0x0000000000000000, bufsz=0x117507, file_mode=1
+[  190.218038] Preserving multikernel DTB for instance 1
+[  190.218045] Generated instance DTB for 'rpc-p40' (ID 1): 435 bytes
+[  190.218047] Preserved DTB for instance 1 (435 bytes)
+[  190.218047] Preserving host IPI buffer: phys=0x100c80000, pages=65
+[  190.218048] Added host IPI buffer to manifest
+[  190.218049] multikernel: added IPI buffer to manifest: phys=0x3c4480000, pages=65 (263696 bytes)
+[  190.218049] multikernel: finalized manifest for instance 1 (size: 728 bytes)
+[  190.218050] kexec_core: Manifest finalized for multikernel instance
+[  190.218250] mk_e820: instance 1: 1792 MB RAM in 1 regions
+[  190.218685] Multikernel instance 1 is now active
+[  190.311090] Generated instance DTB for 'rpc-p40' (ID 1): 435 bytes
+[  190.311096] Generated instance DTB for 'rpc-p40' (ID 1): 435 bytes
+[  214.496897] mktty: fd connected to instance 1
+[  435.855354] ------------[ cut here ]------------
+[  435.855358] WARNING: kernel/softirq.c:429 at __local_bh_enable_ip+0x5a/0x70, CPU#0: swapper/0/0
+[  435.855374] Modules linked in: daxfs(OE) lazy_cma(OE) vhost_net(E) tap(E) nft_masq(E) vhost_vsock(E) vmw_vsock_virtio_transport_common(E) vhost(E) vhost_iotlb(E) nf_conntrack_netlink(E) xt_nat(E) xt_tcpudp(E) veth(E) xt_conntrack(E) xt_MASQUERADE(E) bridge(E) stp(E) llc(E) xfrm_user(E) xfrm_algo(E) xt_set(E) ip_set(E) xt_addrtype(E) xt_mark(E) nft_compat(E) x_tables(E) nft_chain_nat(E) nf_nat(E) nf_conntrack(E) nf_defrag_ipv6(E) nf_defrag_ipv4(E) overlay(E) nf_tables(E) vxlan(E) ip6_udp_tunnel(E) udp_tunnel(E) nfnetlink(E) cfg80211(E) binfmt_misc(E) intel_rapl_msr(E) intel_rapl_common(E) kvm_amd(E) ccp(E) snd_hda_codec_hdmi(E) kvm(E) irqbypass(E) snd_hda_intel(E) snd_intel_dspcfg(E) snd_hda_codec(E) snd_hwdep(E) snd_hda_core(E) snd_pcm(E) snd_timer(E) i2c_piix4(E) snd(E) i2c_smbus(E) vmgenid(E) soundcore(E) joydev(E) input_leds(E) mac_hid(E) sch_fq_codel(E) nvidia_uvm(OE) efi_pstore(E) dm_multipath(E) dmi_sysfs(E) qemu_fw_cfg(E) autofs4(E) btrfs(E) libblake2b(E) raid10(E) raid456(E) async_raid6_recov(E)
+[  435.855401]  async_memcpy(E) async_pq(E) async_xor(E) async_tx(E) xor(E) raid6_pq(E) raid1(E) raid0(E) nvidia_drm(OE) nvidia_modeset(OE) hid_generic(E) usbhid(E) hid(E) ghash_clmulni_intel(E) nvidia(OE) psmouse(E) video(E) serio_raw(E) wmi(E) drm_ttm_helper(E) floppy(E) ttm(E) pata_acpi(E) bochs(E) aesni_intel(E)
+[  435.855412] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Tainted: G           OE       7.0.0-mk2-shiba-mk1 #9 PREEMPT(lazy) 
+[  435.855414] Tainted: [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
+[  435.855415] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+[  435.855416] RIP: 0010:__local_bh_enable_ip+0x5a/0x70
+[  435.855418] Code: ff 0d 7a 45 63 02 65 8b 05 73 45 63 02 85 c0 74 0a 5d 31 c0 31 f6 c3 cc cc cc cc e8 70 7a f0 ff 5d 31 c0 31 f6 c3 cc cc cc cc <0f> 0b eb b8 65 66 83 3d 51 45 63 02 00 74 c6 e8 e2 f4 ff ff eb bf
+[  435.855419] RSP: 0018:ffffd3fa40003e68 EFLAGS: 00010006
+[  435.855420] RAX: 0000000000000001 RBX: 0000000000000000 RCX: 0000000000000000
+[  435.855421] RDX: 00000000828cbfbf RSI: 0000000000000201 RDI: ffffffffa4ae473f
+[  435.855421] RBP: ffffd3fa40003e68 R08: 0000000000000000 R09: 0000000000000000
+[  435.855422] R10: 0000000000000000 R11: 0000000000000000 R12: ffffd3fa40003ee8
+[  435.855422] R13: ffffd3fa40003ef8 R14: 00000000828cbfbf R15: ffffffffa6212078
+[  435.855425] FS:  0000000000000000(0000) GS:ffff8d515f860000(0000) knlGS:0000000000000000
+[  435.855427] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  435.855427] CR2: 00007ffd8cdc4758 CR3: 00000008c59df000 CR4: 0000000000f50ef0
+[  435.855430] PKRU: 55555554
+[  435.855432] Call Trace:
+[  435.855433]  <IRQ>
+[  435.855435]  _raw_spin_unlock_bh+0x1d/0x30
+[  435.855443]  vsock_find_connected_socket_net+0x16f/0x210
+[  435.855446]  vsock_find_connected_socket+0x10/0x20
+[  435.855447]  mk_vsock_rx_pkt+0x80/0x650
+[  435.855449]  mk_vsock_ipi_handler+0x10a/0x130
+[  435.855450]  mk_message_type_ipi_callback+0x84/0x170
+[  435.855457]  ? __pfx_mk_message_type_ipi_callback+0x10/0x10
+[  435.855459]  generic_multikernel_interrupt+0x13f/0x1d0
+[  435.855460]  __sysvec_multikernel+0x1a/0x20
+[  435.855462]  sysvec_multikernel+0x9b/0xc0
+[  435.855464]  </IRQ>
+[  435.855464]  <TASK>
+[  435.855465]  asm_sysvec_multikernel+0x1b/0x20
+[  435.855466] RIP: 0010:pv_native_safe_halt+0xb/0x10
+[  435.855467] Code: 22 df 31 ff c3 cc cc cc cc 66 0f 1f 44 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 eb 07 0f 00 2d f9 ac 09 00 fb f4 <c3> cc cc cc cc 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 83
+[  435.855468] RSP: 0018:ffffffffa5603de8 EFLAGS: 00000246
+[  435.855469] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
+[  435.855470] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+[  435.855470] RBP: ffffffffa5603df0 R08: 0000000000000000 R09: 0000000000000000
+[  435.855470] R10: 0000000000000000 R11: 0000000000000000 R12: ffffffffa5613480
+[  435.855471] R13: 0000000000000000 R14: 0000000000000000 R15: 000000000008a000
+[  435.855472]  ? default_idle+0x9/0x30
+[  435.855474]  arch_cpu_idle+0x9/0x10
+[  435.855475]  default_idle_call+0x33/0x120
+[  435.855476]  do_idle+0x1ba/0x2d0
+[  435.855478]  cpu_startup_entry+0x29/0x30
+[  435.855479]  rest_init+0xde/0x100
+[  435.855480]  start_kernel+0x899/0xca0
+[  435.855482]  x86_64_start_reservations+0x18/0x30
+[  435.855484]  x86_64_start_kernel+0x10d/0x160
+[  435.855484]  ? soft_restart_cpu+0x14/0x14
+[  435.855487]  common_startup_64+0x13e/0x141
+[  435.855488]  </TASK>
+[  435.855488] ---[ end trace 0000000000000000 ]---
+[ 1365.562793] Generated instance DTB for 'rpc-p40' (ID 1): 435 bytes
+[ 1365.562799] Generated instance DTB for 'rpc-p40' (ID 1): 435 bytes
+[ 1365.637715] mktty: fd connected to instance 1
+[ 1824.261678] multikernel: IPI ring full for instance 1 (head=46, tail=47)
+[ 1824.261682] Failed to send multikernel message: -28
+[ 2290.693937] mktty: fd connected to instance 1
+[ 3119.921606] multikernel: IPI ring full for instance 1 (head=22, tail=23)
+[ 3119.921610] Failed to send multikernel message: -28

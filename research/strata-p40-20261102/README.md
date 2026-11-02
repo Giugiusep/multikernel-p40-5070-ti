@@ -44,3 +44,28 @@ Transport caveat: first native file transfer emitted secondary__local_bh_enable_
 Restored5002using exact stable libggml-rpcSHA2565c0fb8e5279b4c1270f209e08f4d0a154cf95fcc77bd8300c4e41a4986bb75b5, unchanged primarywritepacing, secondary NO_READ_SLEEP/NO_WRITE_SLEEP opt-ins.5000untouched. Exact remoteADD/allocation/copy passed1KiB,8KiB,64KiB,1MiB,16MiB;16MiBread83.214ms. Primary validator also enumeratedRTX5070Ti. APIhealthok,noresidentmodelafterreboot. No full Nemotron load rerun.
 
 Full Qwen inference still needs model access and enough CPU expert memory or an expert-only worker. Normal Strata multi-GPU code requires devices in one CUDA process, while ours span kernels. Neither fullQwenP40inference nor dualGPUStrata execution has been tested. The successful kernels establish a useful prerequisite, not a performance improvement.
+
+
+## Speed tests — 2026-11-02
+
+No production config or optimization accepted/changed. All source changes are isolated harnesses, engine source clean. API was idle and briefly paused for timed runs, then restored; public second-user catalog200/21models, localhealthok,active_modelnull. BothP40RPClisteners retained. Final exactRPCvalidator passed1KiB–16MiB afteralltests.
+
+### Matvec
+
+p40_iq_speed.cpp measures native_mmvq at Qwen gate/up640x2560anddown2560x640 shapes with deterministic packed syntheticweights and independently decoded float references.64weightcopies exceedP40L2by>4x, preventing an all-L2 result. Activationquantization/preprocessing,RPC and allothermodelworkexcluded. Ordinaryenqueue andCUDAgraph times separately saved,M1–8,50samplesof64calls; p95isofbatchaverages,notindividualcalltail. Single-rowfloatreference relL1<.02;eachMbitwiseequal to single-row calls andtimedresultscheckedagain. Earlycoldruns variedup to15% onfirstshape asclocksramped; explicitwhole-probe warmup before runs3/4 gave maxmedianvariation1.609%. See speed-results.md andspeed-summary.json. These are ordinarymatvec timings, notthegroupedexpertkernel or fullmodeltok/s. P40sampled1531MHzSM/3615MHzmemory,peaktemperatureinfirstmonitor57C,final62C. No clocks/powerlimitset.
+
+### Actual grouped experts
+
+p40_expert_speed.cpp calls native_expert_grouped mode8 atH2560/FF640,10selectedexpertsperverificationrow. Includesgate/up,SwiGLU,internalactivationquantizationanddown;excludesinputquantization,Hadamardpreprocessing,weightedroutingcombine,attention,denselayersandRPC. Sharedcase:allMrowschoose10sameexperts;distinctcase:10*Mexperts,eachservingonerow. Weightsaresynthetic, identicalvaluesacrossexpertcopiesbutdifferentphysicalGPUaddresses. OutputsofthefullMLPcheckedagainstindependentdequantizedfloatreference(relL1<.03),timedoutputbitwisechecked.50samplesof16calls,ordinaryenqueueandgraph,M1–8. Commonformatsrun2followedwholeformatwarmup;firstcoldIQ2_XXSwas~106.6usversuswarmed92.1us,sopreservebothrawrunsratherthanpoolingthecoldpoint.
+
+Actualpackcontains48expertlayers:34IQ2_S,11IQ2_XXS,3IQ1_M,allQ2_0down. IQ2_XSisalsoexercisedbutisnotanexpertGUtypeinthisparticularmixedpack. Warmingraphmediansper10-expertgroup:IQ2_S M1 .103424ms,M4shared .157056ms,M8shared .289408ms,M8distinct .708928ms;IQ2_XXS .092064/.141440/.263104/.620672ms;IQ1_Mnormal .108736/.221632/.406272/.768576ms. Seefullexpert-speed-results.md andexpert-speed-summary.json;notmodeltok/sorameasuredspeculativeacceptancegain.
+
+### IQ1_M fixture gate
+
+OriginalupstreamsyntheticIQ1_MfixturehasRMS6.6607e-5whileotherGUfixturesare~53–56. InitialgroupedMLPcomparisonreturnedrelL1=1inmode0and8andtimingswererejected. DeterministicCPUreproductionwithidenticalRNGinputscomputedmaxfloat-referenceintermediate1.6122446571e-8andmaxQ8_1scale1.26948398197e-10,whichroundsto0inFP16. Thisisconsistentwithobservedzerooutputfromunderflow,notdemonstratedwrongcheckpointbehavior. AseparatelynamedlegalfixturewithpackedF16scale.0100021362andRMS.057319passedreferencechecksforbothroutingcasesatallM;warmedtimingsuseonlythatnormalfixture. Failedtestsanddiagnosticsretained;notensorssubstitutedinanyservedmodel. Noproductionkernelpatch.
+
+### Transport and health
+
+8KiBRPCcontrol~.10mswrite+.057mscompute/control+.16msread;thisisnotpurewireRTT. Final16MiBreadresultisin speed-rpc-final.log. During34.75MBtestpayloaduploadwithconsoleactivity,secondaryreported468IPIringfullmessagesover1466.839543–1466.842221(~2.68ms),thenrecovered;nochange to32KiB/100usprimarypacing. Allpayloadsarrivedandallcorrectnesschecks/finalRPCvalidationpassed. NoXid/OOMinsavedsecondarylog. Do notclaimzeroerrorsorfulltransportreliability;theseeventsareseparatefromquiescentGPUtimingandarenotevidenceofnestedPCI/DMAfailure. Laterlargefiletransferwascompletedbeforeissuingconsolecommandsandshowednonewconsoleburst. Existingsoftirqwarningremainsdocumented.
+
+Theusefulresult:expertreuseamortizesGPUwork,butroutingdiversityreducesit,andcommunicationislargeenoughtobatchcarefully. FullQwen/DeepSeektok/sremainunmeasured;cross-kernelStrataworkeradapterandDeepSeekSM61pathremainrequired.

@@ -1,0 +1,9 @@
+{
+  "packed_scale": 0.01000213623046875,
+  "reference_RMS": 0.0573192834854126,
+  "original_reference_RMS": 6.660743383690715e-05,
+  "sha256": {
+    ".bin": "e944f3eb2b87816052c4e40fe8ed68d28d5e14887f69feeba2956dafe4f1891f",
+    ".f32": "e73468782a771033c9dba9bb746cce0ddecc63b136065e891c5dd0b1c9ca8813"
+  }
+}

@@ -1,0 +1,9 @@
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 15841 MiB):
+  Device 0: NVIDIA GeForce RTX 5070 Ti, compute capability 12.0, VMM: yes, VRAM: 15841 MiB
+device=RPC0 description=mkvsock:1:5002 free=25311182848 total=25625886720
+bytes=1024 write_us=114.1 compute_us=75.1 read_us=169.5 result=ok
+bytes=8192 write_us=100.1 compute_us=56.9 read_us=155.9 result=ok
+bytes=65536 write_us=837.5 compute_us=65.5 read_us=439.6 result=ok
+bytes=1048576 write_us=12290.6 compute_us=67.0 read_us=5499.9 result=ok
+bytes=16777216 write_us=219386.6 compute_us=75.4 read_us=83766.8 result=ok
+RPC validation passed

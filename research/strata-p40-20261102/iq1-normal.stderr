@@ -1,0 +1,16 @@
+CHECK type=29 M=1 diversity=0 rel=0.010058577
+CHECK type=29 M=1 diversity=1 rel=0.010058577
+CHECK type=29 M=2 diversity=0 rel=0.010023418
+CHECK type=29 M=2 diversity=1 rel=0.010023418
+CHECK type=29 M=3 diversity=0 rel=0.010136554
+CHECK type=29 M=3 diversity=1 rel=0.010136554
+CHECK type=29 M=4 diversity=0 rel=0.010333426
+CHECK type=29 M=4 diversity=1 rel=0.010333426
+CHECK type=29 M=5 diversity=0 rel=0.010442059
+CHECK type=29 M=5 diversity=1 rel=0.010442059
+CHECK type=29 M=6 diversity=0 rel=0.010405616
+CHECK type=29 M=6 diversity=1 rel=0.010405616
+CHECK type=29 M=7 diversity=0 rel=0.010476091
+CHECK type=29 M=7 diversity=1 rel=0.010476091
+CHECK type=29 M=8 diversity=0 rel=0.010503350
+CHECK type=29 M=8 diversity=1 rel=0.010503350

@@ -1,0 +1,90 @@
+[108427.193645] Generated instance DTB for '' (ID 0): 183 bytes
+[108427.195027] Loading host kernel device tree configuration (445 bytes at offset 0)
+[108427.195035] Baseline CPU pool: 4 CPUs requested: 8,9,10,11
+[108427.195040] Baseline device pool: 1 PCI devices requested
+[108427.195041] Baseline CPUs validated: 4 CPUs available for multikernel pool
+[108427.485249] Baseline: failed to allocate 6144 MB on node 0: -12
+[108427.485263] Baseline pool allocation failed: -12
+[108427.485268] Baseline validation and initialization failed: -12
+[108427.485305] Loading host kernel device tree configuration (445 bytes at offset 0)
+[108427.485311] Baseline CPU pool: 4 CPUs requested: 8,9,10,11
+[108427.485315] Baseline device pool: 1 PCI devices requested
+[108427.485317] Baseline CPUs validated: 4 CPUs available for multikernel pool
+[108427.773894] Baseline: failed to allocate 6144 MB on node 0: -12
+[108427.773909] Baseline pool allocation failed: -12
+[108427.773916] Baseline validation and initialization failed: -12
+[108474.966953] Generated instance DTB for '' (ID 0): 158 bytes
+[108474.968319] Loading host kernel device tree configuration (445 bytes at offset 0)
+[108474.968327] Baseline CPU pool: 4 CPUs requested: 8,9,10,11
+[108474.968332] Baseline device pool: 1 PCI devices requested
+[108474.968334] Baseline CPUs validated: 4 CPUs available for multikernel pool
+[108475.396536] Baseline: failed to allocate 6144 MB on node 0: -12
+[108475.396559] Baseline pool allocation failed: -12
+[108475.396566] Baseline validation and initialization failed: -12
+[108475.396598] Loading host kernel device tree configuration (445 bytes at offset 0)
+[108475.396604] Baseline CPU pool: 4 CPUs requested: 8,9,10,11
+[108475.396609] Baseline device pool: 1 PCI devices requested
+[108475.396610] Baseline CPUs validated: 4 CPUs available for multikernel pool
+[108475.824895] Baseline: failed to allocate 6144 MB on node 0: -12
+[108475.824911] Baseline pool allocation failed: -12
+[108475.824916] Baseline validation and initialization failed: -12
+[108487.857098] Generated instance DTB for '' (ID 0): 158 bytes
+[108487.858507] Loading host kernel device tree configuration (445 bytes at offset 0)
+[108487.858515] Baseline CPU pool: 4 CPUs requested: 8,9,10,11
+[108487.858520] Baseline device pool: 1 PCI devices requested
+[108487.858521] Baseline CPUs validated: 4 CPUs available for multikernel pool
+[108488.186603] Baseline: failed to allocate 3072 MB on node 0: -12
+[108488.186618] Baseline pool allocation failed: -12
+[108488.186622] Baseline validation and initialization failed: -12
+[108488.186658] Loading host kernel device tree configuration (445 bytes at offset 0)
+[108488.186664] Baseline CPU pool: 4 CPUs requested: 8,9,10,11
+[108488.186669] Baseline device pool: 1 PCI devices requested
+[108488.186670] Baseline CPUs validated: 4 CPUs available for multikernel pool
+[108488.513508] Baseline: failed to allocate 3072 MB on node 0: -12
+[108488.513524] Baseline pool allocation failed: -12
+[108488.513529] Baseline validation and initialization failed: -12
+[108512.133678] Generated instance DTB for '' (ID 0): 158 bytes
+[108512.135043] Loading host kernel device tree configuration (445 bytes at offset 0)
+[108512.135051] Baseline CPU pool: 4 CPUs requested: 8,9,10,11
+[108512.135056] Baseline device pool: 1 PCI devices requested
+[108512.135057] Baseline CPUs validated: 4 CPUs available for multikernel pool
+[108512.422660] Baseline: failed to allocate 3072 MB on node 0: -12
+[108512.422677] Baseline pool allocation failed: -12
+[108512.422683] Baseline validation and initialization failed: -12
+[108512.422717] Loading host kernel device tree configuration (445 bytes at offset 0)
+[108512.422724] Baseline CPU pool: 4 CPUs requested: 8,9,10,11
+[108512.422728] Baseline device pool: 1 PCI devices requested
+[108512.422730] Baseline CPUs validated: 4 CPUs available for multikernel pool
+[108512.710522] Baseline: failed to allocate 3072 MB on node 0: -12
+[108512.710537] Baseline pool allocation failed: -12
+[108512.710542] Baseline validation and initialization failed: -12
+[108569.733132] Generated instance DTB for '' (ID 0): 158 bytes
+[108569.734578] Loading host kernel device tree configuration (445 bytes at offset 0)
+[108569.734587] Baseline CPU pool: 4 CPUs requested: 8,9,10,11
+[108569.734591] Baseline device pool: 1 PCI devices requested
+[108569.734592] Baseline CPUs validated: 4 CPUs available for multikernel pool
+[108569.929994] Baseline: failed to allocate 1024 MB on node 0: -12
+[108569.930010] Baseline pool allocation failed: -12
+[108569.930014] Baseline validation and initialization failed: -12
+[108569.930047] Loading host kernel device tree configuration (445 bytes at offset 0)
+[108569.930054] Baseline CPU pool: 4 CPUs requested: 8,9,10,11
+[108569.930058] Baseline device pool: 1 PCI devices requested
+[108569.930059] Baseline CPUs validated: 4 CPUs available for multikernel pool
+[108570.124690] Baseline: failed to allocate 1024 MB on node 0: -12
+[108570.124706] Baseline pool allocation failed: -12
+[108570.124711] Baseline validation and initialization failed: -12
+[108600.373917] Generated instance DTB for '' (ID 0): 158 bytes
+[108600.375360] Loading host kernel device tree configuration (445 bytes at offset 0)
+[108600.375367] Baseline CPU pool: 4 CPUs requested: 8,9,10,11
+[108600.375372] Baseline device pool: 1 PCI devices requested
+[108600.375373] Baseline CPUs validated: 4 CPUs available for multikernel pool
+[108600.549455] Baseline: failed to allocate 512 MB on node 0: -12
+[108600.549470] Baseline pool allocation failed: -12
+[108600.549475] Baseline validation and initialization failed: -12
+[108600.549515] Loading host kernel device tree configuration (445 bytes at offset 0)
+[108600.549522] Baseline CPU pool: 4 CPUs requested: 8,9,10,11
+[108600.549526] Baseline device pool: 1 PCI devices requested
+[108600.549528] Baseline CPUs validated: 4 CPUs available for multikernel pool
+[108600.721284] Baseline: failed to allocate 512 MB on node 0: -12
+[108600.721300] Baseline pool allocation failed: -12
+[108600.721305] Baseline validation and initialization failed: -12

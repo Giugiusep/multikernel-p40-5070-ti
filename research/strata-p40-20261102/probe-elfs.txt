@@ -1,0 +1,4 @@
+ELF file    1: mmvq_multi_parity.1.sm_61.cubin
+ELF file    2: mmvq_multi_parity.2.sm_61.cubin
+ELF file    3: mmvq_multi_parity.3.sm_61.cubin
+ELF file    4: mmvq_multi_parity.4.sm_61.cubin

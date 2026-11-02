@@ -1,0 +1,15 @@
+{
+  "archive_sha256": "2455898afd445fa2c814676f0923339707344bc198286f14694b76c9a7baefb6",
+  "signature_and_files_verified": true,
+  "archs": [
+    "sm_60",
+    "sm_61",
+    "sm_70",
+    "sm_75",
+    "sm_80",
+    "sm_86",
+    "sm_89",
+    "compute_89"
+  ],
+  "executable": "/home/shiba/multikernel-experiment/research/strata-p40-20261102/engine/strata"
+}

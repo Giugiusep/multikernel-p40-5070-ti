@@ -1,0 +1,16 @@
+--- a/sbin/entrypoint
++++ b/sbin/entrypoint
+@@ -14,6 +14,13 @@
+ insmod "/lib/modules/$(uname -r)/nvidia-uvm.ko" || exec sh
+ nvidia-modprobe -u -c 0 || true
+ nvidia-smi || exec sh
++echo STRATA_SM61_PROBE_START
++LD_LIBRARY_PATH=/opt/strata:/lib /opt/strata/strata --version
++if /bin/busybox timeout 180 /opt/strata/mmvq_multi_parity; then
++    echo STRATA_SM61_PROBE_PASS
++else
++    echo STRATA_SM61_PROBE_FAILED
++fi
+ 
+ ggml-rpc-server --host mkvsock --port 5000 --device CUDA0 > /tmp/ggml-rpc.log 2>&1 &
+ rpc_pid=$!

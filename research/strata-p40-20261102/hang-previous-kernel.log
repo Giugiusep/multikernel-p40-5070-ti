@@ -1,0 +1,1457 @@
+2026-11-02T16:16:15+00:00 shiba2th kernel: platform-quirks: hardware_subarch=0 (MULTIKERNEL=5)
+2026-11-02T16:16:15+00:00 shiba2th kernel: Linux version 7.0.0-mk2-shiba-mk1 (shiba@shiba2th) (gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #9 SMP PREEMPT_DYNAMIC Thu Sep 17 16:49:34 UTC 2026
+2026-11-02T16:16:15+00:00 shiba2th kernel: Command line: BOOT_IMAGE=/vmlinuz-7.0.0-mk2-shiba-mk1 root=/dev/mapper/ubuntu--vg-ubuntu--lv ro
+2026-11-02T16:16:15+00:00 shiba2th kernel: KERNEL supported cpus:
+2026-11-02T16:16:15+00:00 shiba2th kernel:   Intel GenuineIntel
+2026-11-02T16:16:15+00:00 shiba2th kernel:   AMD AuthenticAMD
+2026-11-02T16:16:15+00:00 shiba2th kernel:   Hygon HygonGenuine
+2026-11-02T16:16:15+00:00 shiba2th kernel:   Centaur CentaurHauls
+2026-11-02T16:16:15+00:00 shiba2th kernel:   zhaoxin   Shanghai  
+2026-11-02T16:16:15+00:00 shiba2th kernel: BIOS-provided physical RAM map:
+2026-11-02T16:16:15+00:00 shiba2th kernel: BIOS-e820: [mem 0x0000000000000000-0x000000000009fbff]  System RAM
+2026-11-02T16:16:15+00:00 shiba2th kernel: BIOS-e820: [mem 0x000000000009fc00-0x000000000009ffff]  device reserved
+2026-11-02T16:16:15+00:00 shiba2th kernel: BIOS-e820: [gap 0x00000000000a0000-0x00000000000effff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: BIOS-e820: [mem 0x00000000000f0000-0x00000000000fffff]  device reserved
+2026-11-02T16:16:15+00:00 shiba2th kernel: BIOS-e820: [mem 0x0000000000100000-0x00000000bffd9fff]  System RAM
+2026-11-02T16:16:15+00:00 shiba2th kernel: BIOS-e820: [mem 0x00000000bffda000-0x00000000bfffffff]  device reserved
+2026-11-02T16:16:15+00:00 shiba2th kernel: BIOS-e820: [gap 0x00000000c0000000-0x00000000feffbfff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: BIOS-e820: [mem 0x00000000feffc000-0x00000000feffffff]  device reserved
+2026-11-02T16:16:15+00:00 shiba2th kernel: BIOS-e820: [gap 0x00000000ff000000-0x00000000fffbffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: BIOS-e820: [mem 0x00000000fffc0000-0x00000000ffffffff]  device reserved
+2026-11-02T16:16:15+00:00 shiba2th kernel: BIOS-e820: [mem 0x0000000100000000-0x0000000d39ffffff]  System RAM
+2026-11-02T16:16:15+00:00 shiba2th kernel: BIOS-e820: [gap 0x0000000d3a000000-0x000000fcffffffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: BIOS-e820: [mem 0x000000fd00000000-0x000000ffffffffff]  device reserved
+2026-11-02T16:16:15+00:00 shiba2th kernel: NX (Execute Disable) protection: active
+2026-11-02T16:16:15+00:00 shiba2th kernel: APIC: Static calls initialized
+2026-11-02T16:16:15+00:00 shiba2th kernel: SMBIOS 2.8 present.
+2026-11-02T16:16:15+00:00 shiba2th kernel: DMI: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+2026-11-02T16:16:15+00:00 shiba2th kernel: DMI: Memory slots populated: 1/1
+2026-11-02T16:16:15+00:00 shiba2th kernel: Hypervisor detected: KVM
+2026-11-02T16:16:15+00:00 shiba2th kernel: last_pfn = 0xbffda max_arch_pfn = 0x400000000
+2026-11-02T16:16:15+00:00 shiba2th kernel: kvm-clock: Using msrs 4b564d01 and 4b564d00
+2026-11-02T16:16:15+00:00 shiba2th kernel: kvm-clock: using sched offset of 109280323219208 cycles
+2026-11-02T16:16:15+00:00 shiba2th kernel: clocksource: kvm-clock: mask: 0xffffffffffffffff max_cycles: 0x1cd42e4dffb, max_idle_ns: 881590591483 ns
+2026-11-02T16:16:15+00:00 shiba2th kernel: tsc: Detected 3800.012 MHz processor
+2026-11-02T16:16:15+00:00 shiba2th kernel: e820: update [mem 0x00000000-0x00000fff] System RAM ==> device reserved
+2026-11-02T16:16:15+00:00 shiba2th kernel: e820: remove [mem 0x000a0000-0x000fffff] System RAM
+2026-11-02T16:16:15+00:00 shiba2th kernel: last_pfn = 0xd3a000 max_arch_pfn = 0x400000000
+2026-11-02T16:16:15+00:00 shiba2th kernel: MTRR map: 4 entries (3 fixed + 1 variable; max 19), built from 8 variable MTRRs
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/PAT: Configuration [0-7]: WB  WC  UC- UC  WB  WP  UC- WT  
+2026-11-02T16:16:15+00:00 shiba2th kernel: last_pfn = 0xbffda max_arch_pfn = 0x400000000
+2026-11-02T16:16:15+00:00 shiba2th kernel: found SMP MP-table at [mem 0x000f5480-0x000f548f]
+2026-11-02T16:16:15+00:00 shiba2th kernel: Using GB pages for direct mapping
+2026-11-02T16:16:15+00:00 shiba2th kernel: RAMDISK: [mem 0x27803000-0x2fbf8fff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: Early table checksum verification disabled
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: RSDP 0x00000000000F5280 000014 (v00 BOCHS )
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: RSDT 0x00000000BFFE403E 000038 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: FACP 0x00000000BFFE3DD0 000074 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: DSDT 0x00000000BFFDF040 004D90 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: FACS 0x00000000BFFDF000 000040
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: APIC 0x00000000BFFE3E44 0000D0 (v03 BOCHS  BXPC     00000001 BXPC 00000001)
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: SSDT 0x00000000BFFE3F14 0000CA (v01 BOCHS  VMGENID  00000001 BXPC 00000001)
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: HPET 0x00000000BFFE3FDE 000038 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: WAET 0x00000000BFFE4016 000028 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: Reserving FACP table memory at [mem 0xbffe3dd0-0xbffe3e43]
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: Reserving DSDT table memory at [mem 0xbffdf040-0xbffe3dcf]
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: Reserving FACS table memory at [mem 0xbffdf000-0xbffdf03f]
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: Reserving APIC table memory at [mem 0xbffe3e44-0xbffe3f13]
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: Reserving SSDT table memory at [mem 0xbffe3f14-0xbffe3fdd]
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: Reserving HPET table memory at [mem 0xbffe3fde-0xbffe4015]
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: Reserving WAET table memory at [mem 0xbffe4016-0xbffe403d]
+2026-11-02T16:16:15+00:00 shiba2th kernel: No NUMA configuration found
+2026-11-02T16:16:15+00:00 shiba2th kernel: Faking a node at [mem 0x0000000000000000-0x0000000d39ffffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: NODE_DATA(0) allocated [mem 0xd39fd5280-0xd39ffffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: PM-Timer IO Port: 0x608
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: LAPIC_NMI (acpi_id[0xff] dfl dfl lint[0x1])
+2026-11-02T16:16:15+00:00 shiba2th kernel: IOAPIC[0]: apic_id 0, version 17, address 0xfec00000, GSI 0-23
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: INT_SRC_OVR (bus 0 bus_irq 5 global_irq 5 high level)
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: INT_SRC_OVR (bus 0 bus_irq 10 global_irq 10 high level)
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: INT_SRC_OVR (bus 0 bus_irq 11 global_irq 11 high level)
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: Using ACPI (MADT) for SMP configuration information
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: HPET id: 0x8086a201 base: 0xfed00000
+2026-11-02T16:16:15+00:00 shiba2th kernel: TSC deadline timer available
+2026-11-02T16:16:15+00:00 shiba2th kernel: CPU topo: Max. logical packages:   1
+2026-11-02T16:16:15+00:00 shiba2th kernel: CPU topo: Max. logical nodes:      1
+2026-11-02T16:16:15+00:00 shiba2th kernel: CPU topo: Num. nodes per package:  1
+2026-11-02T16:16:15+00:00 shiba2th kernel: CPU topo: Max. logical dies:       1
+2026-11-02T16:16:15+00:00 shiba2th kernel: CPU topo: Max. dies per package:   1
+2026-11-02T16:16:15+00:00 shiba2th kernel: CPU topo: Max. threads per core:   1
+2026-11-02T16:16:15+00:00 shiba2th kernel: CPU topo: Num. cores per package:    12
+2026-11-02T16:16:15+00:00 shiba2th kernel: CPU topo: Num. threads per package:  12
+2026-11-02T16:16:15+00:00 shiba2th kernel: CPU topo: Allowing 12 present CPUs plus 0 hotplug CPUs
+2026-11-02T16:16:15+00:00 shiba2th kernel: kvm-guest: APIC: eoi() replaced with kvm_guest_apic_eoi_write()
+2026-11-02T16:16:15+00:00 shiba2th kernel: kvm-guest: KVM setup pv remote TLB flush
+2026-11-02T16:16:15+00:00 shiba2th kernel: kvm-guest: setup PV sched yield
+2026-11-02T16:16:15+00:00 shiba2th kernel: PM: hibernation: Registered nosave memory: [mem 0x00000000-0x00000fff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: PM: hibernation: Registered nosave memory: [mem 0x0009f000-0x000fffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: PM: hibernation: Registered nosave memory: [mem 0xbffda000-0xffffffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: [gap 0xc0000000-0xfeffbfff] available for PCI devices
+2026-11-02T16:16:15+00:00 shiba2th kernel: Booting paravirtualized kernel on KVM
+2026-11-02T16:16:15+00:00 shiba2th kernel: clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1910969940391419 ns
+2026-11-02T16:16:15+00:00 shiba2th kernel: Zone ranges:
+2026-11-02T16:16:15+00:00 shiba2th kernel:   DMA      [mem 0x0000000000001000-0x0000000000ffffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel:   DMA32    [mem 0x0000000001000000-0x00000000ffffffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel:   Normal   [mem 0x0000000100000000-0x0000000d39ffffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel:   Device   empty
+2026-11-02T16:16:15+00:00 shiba2th kernel: Movable zone start for each node
+2026-11-02T16:16:15+00:00 shiba2th kernel: Early memory node ranges
+2026-11-02T16:16:15+00:00 shiba2th kernel:   node   0: [mem 0x0000000000001000-0x000000000009efff]
+2026-11-02T16:16:15+00:00 shiba2th kernel:   node   0: [mem 0x0000000000100000-0x00000000bffd9fff]
+2026-11-02T16:16:15+00:00 shiba2th kernel:   node   0: [mem 0x0000000100000000-0x0000000d39ffffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: Initmem setup node 0 [mem 0x0000000000001000-0x0000000d39ffffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: On node 0, zone DMA: 1 pages in unavailable ranges
+2026-11-02T16:16:15+00:00 shiba2th kernel: On node 0, zone DMA: 97 pages in unavailable ranges
+2026-11-02T16:16:15+00:00 shiba2th kernel: On node 0, zone Normal: 38 pages in unavailable ranges
+2026-11-02T16:16:15+00:00 shiba2th kernel: On node 0, zone Normal: 24576 pages in unavailable ranges
+2026-11-02T16:16:15+00:00 shiba2th kernel: setup_percpu: NR_CPUS:8192 nr_cpumask_bits:12 nr_cpu_ids:12 nr_node_ids:1
+2026-11-02T16:16:15+00:00 shiba2th kernel: percpu: Embedded 84 pages/cpu s221184 r8192 d114688 u524288
+2026-11-02T16:16:15+00:00 shiba2th kernel: pcpu-alloc: s221184 r8192 d114688 u524288 alloc=1*2097152
+2026-11-02T16:16:15+00:00 shiba2th kernel: pcpu-alloc: [0] 00 01 02 03 [0] 04 05 06 07 
+2026-11-02T16:16:15+00:00 shiba2th kernel: pcpu-alloc: [0] 08 09 10 11 
+2026-11-02T16:16:15+00:00 shiba2th kernel: kvm-guest: PV spinlocks enabled
+2026-11-02T16:16:15+00:00 shiba2th kernel: PV qspinlock hash table entries: 256 (order: 0, 4096 bytes, linear)
+2026-11-02T16:16:15+00:00 shiba2th kernel: Kernel command line: BOOT_IMAGE=/vmlinuz-7.0.0-mk2-shiba-mk1 root=/dev/mapper/ubuntu--vg-ubuntu--lv ro
+2026-11-02T16:16:15+00:00 shiba2th kernel: random: crng init done
+2026-11-02T16:16:15+00:00 shiba2th kernel: printk: log buffer data + meta data: 262144 + 917504 = 1179648 bytes
+2026-11-02T16:16:15+00:00 shiba2th kernel: Dentry cache hash table entries: 8388608 (order: 14, 67108864 bytes, linear)
+2026-11-02T16:16:15+00:00 shiba2th kernel: Inode-cache hash table entries: 4194304 (order: 13, 33554432 bytes, linear)
+2026-11-02T16:16:15+00:00 shiba2th kernel: software IO TLB: area num 16.
+2026-11-02T16:16:15+00:00 shiba2th kernel: Fallback order for Node 0: 0 
+2026-11-02T16:16:15+00:00 shiba2th kernel: Built 1 zonelists, mobility grouping on.  Total pages: 13606776
+2026-11-02T16:16:15+00:00 shiba2th kernel: Policy zone: Normal
+2026-11-02T16:16:15+00:00 shiba2th kernel: mem auto-init: stack:all(zero), heap alloc:on, heap free:off
+2026-11-02T16:16:15+00:00 shiba2th kernel: SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=12, Nodes=1
+2026-11-02T16:16:15+00:00 shiba2th kernel: ftrace: allocating 58004 entries in 228 pages
+2026-11-02T16:16:15+00:00 shiba2th kernel: ftrace: allocated 228 pages with 4 groups
+2026-11-02T16:16:15+00:00 shiba2th kernel: Dynamic Preempt: lazy
+2026-11-02T16:16:15+00:00 shiba2th kernel: rcu: Preemptible hierarchical RCU implementation.
+2026-11-02T16:16:15+00:00 shiba2th kernel: rcu:         RCU restricting CPUs from NR_CPUS=8192 to nr_cpu_ids=12.
+2026-11-02T16:16:15+00:00 shiba2th kernel:         Trampoline variant of Tasks RCU enabled.
+2026-11-02T16:16:15+00:00 shiba2th kernel:         Rude variant of Tasks RCU enabled.
+2026-11-02T16:16:15+00:00 shiba2th kernel:         Tracing variant of Tasks RCU enabled.
+2026-11-02T16:16:15+00:00 shiba2th kernel: rcu: RCU calculated value of scheduler-enlistment delay is 100 jiffies.
+2026-11-02T16:16:15+00:00 shiba2th kernel: rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=12
+2026-11-02T16:16:15+00:00 shiba2th kernel: RCU Tasks: Setting shift to 4 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=12.
+2026-11-02T16:16:15+00:00 shiba2th kernel: RCU Tasks Rude: Setting shift to 4 and lim to 1 rcu_task_cb_adjust=1 rcu_task_cpu_ids=12.
+2026-11-02T16:16:15+00:00 shiba2th kernel: NR_IRQS: 524544, nr_irqs: 520, preallocated irqs: 16
+2026-11-02T16:16:15+00:00 shiba2th kernel: rcu: srcu_init: Setting srcu_struct sizes based on contention.
+2026-11-02T16:16:15+00:00 shiba2th kernel: Console: colour dummy device 80x25
+2026-11-02T16:16:15+00:00 shiba2th kernel: printk: legacy console [tty0] enabled
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: Core revision 20251212
+2026-11-02T16:16:15+00:00 shiba2th kernel: clocksource: hpet: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604467 ns
+2026-11-02T16:16:15+00:00 shiba2th kernel: APIC: Switch to symmetric I/O mode setup
+2026-11-02T16:16:15+00:00 shiba2th kernel: x2apic enabled
+2026-11-02T16:16:15+00:00 shiba2th kernel: APIC: Switched APIC routing to: physical x2apic
+2026-11-02T16:16:15+00:00 shiba2th kernel: kvm-guest: APIC: send_IPI_mask() replaced with kvm_send_ipi_mask()
+2026-11-02T16:16:15+00:00 shiba2th kernel: kvm-guest: APIC: send_IPI_mask_allbutself() replaced with kvm_send_ipi_mask_allbutself()
+2026-11-02T16:16:15+00:00 shiba2th kernel: kvm-guest: setup PV IPIs
+2026-11-02T16:16:15+00:00 shiba2th kernel: ..TIMER: vector=0x30 apic1=0 pin1=2 apic2=-1 pin2=-1
+2026-11-02T16:16:15+00:00 shiba2th kernel: clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles: 0x6d8cc852a24, max_idle_ns: 881590654887 ns
+2026-11-02T16:16:15+00:00 shiba2th kernel: Calibrating delay loop (skipped) preset value.. 7600.02 BogoMIPS (lpj=3800012)
+2026-11-02T16:16:15+00:00 shiba2th kernel: RDSEED32 is broken. Disabling the corresponding CPUID bit.
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/cpu: User Mode Instruction Prevention (UMIP) activated
+2026-11-02T16:16:15+00:00 shiba2th kernel: Last level iTLB entries: 4KB 512, 2MB 255, 4MB 127
+2026-11-02T16:16:15+00:00 shiba2th kernel: Last level dTLB entries: 4KB 512, 2MB 255, 4MB 127, 1GB 0
+2026-11-02T16:16:15+00:00 shiba2th kernel: mitigations: Enabled attack vectors: user_kernel, user_user, guest_host, guest_guest, SMT mitigations: auto
+2026-11-02T16:16:15+00:00 shiba2th kernel: Speculative Store Bypass: Mitigation: Speculative Store Bypass disabled via prctl
+2026-11-02T16:16:15+00:00 shiba2th kernel: Spectre V2 : Mitigation: Enhanced / Automatic IBRS
+2026-11-02T16:16:15+00:00 shiba2th kernel: Speculative Return Stack Overflow: Mitigation: IBPB on VMEXIT only
+2026-11-02T16:16:15+00:00 shiba2th kernel: Spectre V1 : Mitigation: usercopy/swapgs barriers and __user pointer sanitization
+2026-11-02T16:16:15+00:00 shiba2th kernel: Spectre V2 : mitigation: Enabling conditional Indirect Branch Prediction Barrier
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/fpu: Supporting XSAVE feature 0x020: 'AVX-512 opmask'
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/fpu: Supporting XSAVE feature 0x040: 'AVX-512 Hi256'
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/fpu: Supporting XSAVE feature 0x080: 'AVX-512 ZMM_Hi256'
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/fpu: Supporting XSAVE feature 0x200: 'Protection Keys User registers'
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/fpu: Supporting XSAVE feature 0x800: 'Control-flow User registers'
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/fpu: Supporting XSAVE feature 0x1000: 'Control-flow Kernel registers (KVM only)'
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/fpu: xstate_offset[5]:  832, xstate_sizes[5]:   64
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/fpu: xstate_offset[6]:  896, xstate_sizes[6]:  512
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/fpu: xstate_offset[7]: 1408, xstate_sizes[7]: 1024
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/fpu: xstate_offset[9]: 2432, xstate_sizes[9]:    8
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/fpu: xstate_offset[11]: 2440, xstate_sizes[11]:   16
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/fpu: xstate_offset[12]: 2456, xstate_sizes[12]:   24
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/fpu: Enabled xstate features 0x1ae7, context size is 2480 bytes, using 'compacted' format.
+2026-11-02T16:16:15+00:00 shiba2th kernel: Freeing SMP alternatives memory: 52K
+2026-11-02T16:16:15+00:00 shiba2th kernel: pid_max: default: 32768 minimum: 301
+2026-11-02T16:16:15+00:00 shiba2th kernel: landlock: Up and running.
+2026-11-02T16:16:15+00:00 shiba2th kernel: Yama: becoming mindful.
+2026-11-02T16:16:15+00:00 shiba2th kernel: AppArmor: AppArmor initialized
+2026-11-02T16:16:15+00:00 shiba2th kernel: Mount-cache hash table entries: 131072 (order: 8, 1048576 bytes, linear)
+2026-11-02T16:16:15+00:00 shiba2th kernel: Mountpoint-cache hash table entries: 131072 (order: 8, 1048576 bytes, linear)
+2026-11-02T16:16:15+00:00 shiba2th kernel: VFS: Finished mounting rootfs on nullfs
+2026-11-02T16:16:15+00:00 shiba2th kernel: smpboot: CPU0: AMD Ryzen 7 9700X 8-Core Processor (family: 0x1a, model: 0x44, stepping: 0x0)
+2026-11-02T16:16:15+00:00 shiba2th kernel: Performance Events: Fam17h+ core perfctr, AMD PMU driver.
+2026-11-02T16:16:15+00:00 shiba2th kernel: ... version:                   2
+2026-11-02T16:16:15+00:00 shiba2th kernel: ... bit width:                 48
+2026-11-02T16:16:15+00:00 shiba2th kernel: ... generic counters:          6
+2026-11-02T16:16:15+00:00 shiba2th kernel: ... generic bitmap:            000000000000003f
+2026-11-02T16:16:15+00:00 shiba2th kernel: ... fixed-purpose counters:    0
+2026-11-02T16:16:15+00:00 shiba2th kernel: ... fixed-purpose bitmap:      0000000000000000
+2026-11-02T16:16:15+00:00 shiba2th kernel: ... value mask:                0000ffffffffffff
+2026-11-02T16:16:15+00:00 shiba2th kernel: ... max period:                00007fffffffffff
+2026-11-02T16:16:15+00:00 shiba2th kernel: ... global_ctrl mask:          000000000000003f
+2026-11-02T16:16:15+00:00 shiba2th kernel: signal: max sigframe size: 3376
+2026-11-02T16:16:15+00:00 shiba2th kernel: rcu: Hierarchical SRCU implementation.
+2026-11-02T16:16:15+00:00 shiba2th kernel: rcu:         Max phase no-delay instances is 400.
+2026-11-02T16:16:15+00:00 shiba2th kernel: No manifest available for multikernel DTB restoration
+2026-11-02T16:16:15+00:00 shiba2th kernel: Allocated IPI buffer for instance 0: phys=0x100c80000, virt=ffff8d4500c80000, pages=65
+2026-11-02T16:16:15+00:00 shiba2th kernel: Root instance initialized with CPUs (physical): 0
+2026-11-02T16:16:15+00:00 shiba2th kernel: Initialized root instance (id=0, name='/')
+2026-11-02T16:16:15+00:00 shiba2th kernel: Timer migration: 2 hierarchy levels; 8 children per group; 2 crossnode level
+2026-11-02T16:16:15+00:00 shiba2th kernel: smp: Bringing up secondary CPUs ...
+2026-11-02T16:16:15+00:00 shiba2th kernel: smpboot: x86: Booting SMP configuration:
+2026-11-02T16:16:15+00:00 shiba2th kernel: .... node  #0, CPUs:        #1  #2  #3  #4  #5  #6  #7  #8  #9 #10 #11
+2026-11-02T16:16:15+00:00 shiba2th kernel: smp: Brought up 1 node, 12 CPUs
+2026-11-02T16:16:15+00:00 shiba2th kernel: smpboot: Total of 12 processors activated (91200.28 BogoMIPS)
+2026-11-02T16:16:15+00:00 shiba2th kernel: Memory: 53206180K/54427104K available (22077K kernel code, 4669K rwdata, 8796K rodata, 5212K init, 6252K bss, 1205900K reserved, 0K cma-reserved)
+2026-11-02T16:16:15+00:00 shiba2th kernel: devtmpfs: initialized
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/mm: Memory block size: 128MB
+2026-11-02T16:16:15+00:00 shiba2th kernel: clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1911260446275000 ns
+2026-11-02T16:16:15+00:00 shiba2th kernel: posixtimers hash table entries: 8192 (order: 5, 131072 bytes, linear)
+2026-11-02T16:16:15+00:00 shiba2th kernel: futex hash table entries: 4096 (262144 bytes on 1 NUMA nodes, total 256 KiB, linear).
+2026-11-02T16:16:15+00:00 shiba2th kernel: PM: RTC time: 16:16:09, date: 2026-11-02
+2026-11-02T16:16:15+00:00 shiba2th kernel: NET: Registered PF_NETLINK/PF_ROUTE protocol family
+2026-11-02T16:16:15+00:00 shiba2th kernel: DMA: preallocated 4096 KiB GFP_KERNEL pool for atomic allocations
+2026-11-02T16:16:15+00:00 shiba2th kernel: DMA: preallocated 4096 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+2026-11-02T16:16:15+00:00 shiba2th kernel: DMA: preallocated 4096 KiB GFP_KERNEL|GFP_DMA32 pool for atomic allocations
+2026-11-02T16:16:15+00:00 shiba2th kernel: audit: initializing netlink subsys (disabled)
+2026-11-02T16:16:15+00:00 shiba2th kernel: audit: type=2000 audit(1793636169.915:1): state=initialized audit_enabled=0 res=1
+2026-11-02T16:16:15+00:00 shiba2th kernel: thermal_sys: Registered thermal governor 'fair_share'
+2026-11-02T16:16:15+00:00 shiba2th kernel: thermal_sys: Registered thermal governor 'bang_bang'
+2026-11-02T16:16:15+00:00 shiba2th kernel: thermal_sys: Registered thermal governor 'step_wise'
+2026-11-02T16:16:15+00:00 shiba2th kernel: thermal_sys: Registered thermal governor 'user_space'
+2026-11-02T16:16:15+00:00 shiba2th kernel: thermal_sys: Registered thermal governor 'power_allocator'
+2026-11-02T16:16:15+00:00 shiba2th kernel: cpuidle: using governor ladder
+2026-11-02T16:16:15+00:00 shiba2th kernel: cpuidle: using governor menu
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: ACPI Hot Plug PCI Controller Driver version: 0.5
+2026-11-02T16:16:15+00:00 shiba2th kernel: PCI: Using configuration type 1 for base access
+2026-11-02T16:16:15+00:00 shiba2th kernel: PCI: Using configuration type 1 for extended access
+2026-11-02T16:16:15+00:00 shiba2th kernel: Multikernel NMI stop handler registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: Multikernel messaging system initialized
+2026-11-02T16:16:15+00:00 shiba2th kernel: Initializing multikernel hotplug subsystem
+2026-11-02T16:16:15+00:00 shiba2th kernel: Multikernel hotplug subsystem initialized
+2026-11-02T16:16:15+00:00 shiba2th kernel: Initializing multikernel overlay subsystem
+2026-11-02T16:16:15+00:00 shiba2th kernel: Multikernel overlay subsystem initialized
+2026-11-02T16:16:15+00:00 shiba2th kernel: Multikernel filesystem initialized. Mount with: mount -t multikernel none /sys/fs/multikernel
+2026-11-02T16:16:15+00:00 shiba2th kernel: Multikernel support initialized
+2026-11-02T16:16:15+00:00 shiba2th kernel: kprobes: kprobe jump-optimization is enabled. All kprobes are optimized if possible.
+2026-11-02T16:16:15+00:00 shiba2th kernel: HugeTLB: registered 1.00 GiB page size, pre-allocated 0 pages
+2026-11-02T16:16:15+00:00 shiba2th kernel: HugeTLB: 16380 KiB vmemmap can be freed for a 1.00 GiB page
+2026-11-02T16:16:15+00:00 shiba2th kernel: HugeTLB: registered 2.00 MiB page size, pre-allocated 0 pages
+2026-11-02T16:16:15+00:00 shiba2th kernel: HugeTLB: 28 KiB vmemmap can be freed for a 2.00 MiB page
+2026-11-02T16:16:15+00:00 shiba2th kernel: fbcon: Taking over console
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: Added _OSI(Module Device)
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: Added _OSI(Processor Device)
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: Added _OSI(Processor Aggregator Device)
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: 2 ACPI AML tables successfully acquired and loaded
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: \_SB_: platform _OSC: OS support mask [006a7efe]
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: Interpreter enabled
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: PM: (supports S0 S5)
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: Using IOAPIC for interrupt routing
+2026-11-02T16:16:15+00:00 shiba2th kernel: PCI: Using host bridge windows from ACPI; if necessary, use "pci=nocrs" and report a bug
+2026-11-02T16:16:15+00:00 shiba2th kernel: PCI: Using E820 reservations for host bridge windows
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: Enabled 3 GPEs in block 00 to 0F
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-ff])
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpi PNP0A03:00: _OSC: OS supports [ExtendedConfig ASPM ClockPM Segments MSI EDR HPX-Type3]
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpi PNP0A03:00: _OSC: OS requested [PCIeHotplug SHPCHotplug PME AER PCIeCapability LTR DPC]
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpi PNP0A03:00: _OSC: platform willing to grant [PCIeHotplug SHPCHotplug PME AER PCIeCapability LTR DPC]
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpi PNP0A03:00: _OSC: platform retains control of PCIe features (AE_ERROR)
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [16] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [17] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [18] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [6] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [7] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [8] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [9] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [10] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [11] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [12] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [13] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [14] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [15] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [19] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [20] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [21] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [22] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [23] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [24] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [25] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [26] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [27] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [28] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [29] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: PCI host bridge to bus 0000:00
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:00: root bus resource [io  0x0000-0x0cf7 window]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:00: root bus resource [io  0x0d00-0xffff window]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:00: root bus resource [mem 0x000a0000-0x000bffff window]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:00: root bus resource [mem 0xc0000000-0xfebfffff window]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:00: root bus resource [mem 0xe0000000000-0xe1a04007fff window]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:00: root bus resource [bus 00-ff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:00.0: [8086:1237] type 00 class 0x060000 conventional PCI endpoint
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:01.0: [8086:7000] type 00 class 0x060100 conventional PCI endpoint
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:01.1: [8086:7010] type 00 class 0x010180 conventional PCI endpoint
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:01.1: BAR 4 [io  0xf100-0xf10f]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:01.1: BAR 0 [io  0x01f0-0x01f7]: legacy IDE quirk
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:01.1: BAR 1 [io  0x03f6]: legacy IDE quirk
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:01.1: BAR 2 [io  0x0170-0x0177]: legacy IDE quirk
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:01.1: BAR 3 [io  0x0376]: legacy IDE quirk
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:01.2: [8086:7020] type 00 class 0x0c0300 conventional PCI endpoint
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:01.2: BAR 4 [io  0xf0c0-0xf0df]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:01.3: [8086:7113] type 00 class 0x068000 conventional PCI endpoint
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:01.3: quirk: [io  0x0600-0x063f] claimed by PIIX4 ACPI
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:01.3: quirk: [io  0x0700-0x070f] claimed by PIIX4 SMB
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:02.0: [1234:1111] type 00 class 0x030000 conventional PCI endpoint
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:02.0: BAR 0 [mem 0xfd000000-0xfdffffff pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:02.0: BAR 2 [mem 0xf96d4000-0xf96d4fff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:02.0: ROM [mem 0xf96c0000-0xf96cffff pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:02.0: Video device with shadowed ROM at [mem 0x000c0000-0x000dffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:03.0: [1af4:1002] type 00 class 0x00ff00 conventional PCI endpoint
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:03.0: BAR 0 [io  0xf080-0xf0bf]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:03.0: BAR 1 [mem 0xf96d5000-0xf96d5fff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:03.0: BAR 4 [mem 0xe1a04000000-0xe1a04003fff 64bit pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:05.0: [1b36:0001] type 01 class 0x060400 conventional PCI bridge
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:05.0: BAR 0 [mem 0xe0000000000-0xe00000000ff 64bit]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:05.0: PCI bridge to [bus 01]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:05.0:   bridge window [io  0xe000-0xefff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:05.0:   bridge window [mem 0xf9400000-0xf95fffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:05.0:   bridge window [mem 0xe1800000000-0xe19ffffffff 64bit pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:10.0: [10de:2c05] type 00 class 0x030000 PCIe Legacy Endpoint
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:10.0: BAR 0 [mem 0xf4000000-0xf7ffffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:10.0: BAR 1 [mem 0xe1000000000-0xe13ffffffff 64bit pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:10.0: BAR 3 [mem 0xe1a00000000-0xe1a01ffffff 64bit pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:10.0: BAR 5 [io  0xf000-0xf07f]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:10.0: ROM [mem 0xf9600000-0xf967ffff pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:10.0: Enabling HDA controller
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:10.0: Video device with shadowed ROM at [mem 0x000c0000-0x000dffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:10.1: [10de:22e9] type 00 class 0x040300 PCIe Endpoint
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:10.1: BAR 0 [mem 0xf96d0000-0xf96d3fff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:11.0: [10de:1b38] type 00 class 0x030200 PCIe Endpoint
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:11.0: BAR 0 [mem 0xf8000000-0xf8ffffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:11.0: BAR 1 [mem 0xe0800000000-0xe0fffffffff 64bit pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:11.0: BAR 3 [mem 0xe1a02000000-0xe1a03ffffff 64bit pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:11.0: Enabling HDA controller
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:11.0: 31.504 Gb/s available PCIe bandwidth, limited by 8.0 GT/s PCIe x4 link at 0000:00:11.0 (capable of 126.016 Gb/s with 8.0 GT/s PCIe x16 link)
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:12.0: [1af4:1000] type 00 class 0x020000 conventional PCI endpoint
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:12.0: BAR 0 [io  0xf0e0-0xf0ff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:12.0: BAR 1 [mem 0xf96d6000-0xf96d6fff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:12.0: BAR 4 [mem 0xe1a04004000-0xe1a04007fff 64bit pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:12.0: ROM [mem 0xf9680000-0xf96bffff pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1e.0: [1b36:0001] type 01 class 0x060400 conventional PCI bridge
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1e.0: BAR 0 [mem 0xe0000001000-0xe00000010ff 64bit]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1e.0: PCI bridge to [bus 02]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1e.0:   bridge window [io  0xd000-0xdfff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1e.0:   bridge window [mem 0xf9200000-0xf93fffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1e.0:   bridge window [mem 0xe1600000000-0xe17ffffffff 64bit pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1f.0: [1b36:0001] type 01 class 0x060400 conventional PCI bridge
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1f.0: BAR 0 [mem 0xe0000002000-0xe00000020ff 64bit]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1f.0: PCI bridge to [bus 03]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1f.0:   bridge window [io  0xc000-0xcfff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1f.0:   bridge window [mem 0xf9000000-0xf91fffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1f.0:   bridge window [mem 0xe1400000000-0xe15ffffffff 64bit pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:01: extended config space not accessible
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [1-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [0] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [3-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [4-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [5] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [6-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [7-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [8-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [9-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [10-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [11-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [12-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [13-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [14-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [15-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [16-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [17-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [18-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [19-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [20-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [21-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [22-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [23-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [24-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [25-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [26-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [27-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [28-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [29-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [30] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [31] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:01:01.0: [1af4:1004] type 00 class 0x010000 conventional PCI endpoint
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:01:01.0: BAR 0 [io  0xe000-0xe03f]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:01:01.0: BAR 1 [mem 0xf9400000-0xf9400fff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:01:01.0: BAR 4 [mem 0xe1800000000-0xe1800003fff 64bit pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:05.0: PCI bridge to [bus 01]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:02: extended config space not accessible
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [0-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [1-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [2-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [3-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [4-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [5-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [6-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [7-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [8-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [9-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [10-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [11-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [12-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [13-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [14-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [15-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [16-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [17-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [18-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [19-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [20-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [21-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [22-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [23-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [24-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [25-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [26-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [27-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [28-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [29-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [30-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [31-2] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1e.0: PCI bridge to [bus 02]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:03: extended config space not accessible
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [0-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [1-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [2-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [3-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [4-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [5-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [6-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [7-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [8-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [9-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [10-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [11-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [12-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [13-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [14-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [15-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [16-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [17-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [18-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [19-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [20-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [21-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [22-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [23-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [24-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [25-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [26-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [27-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [28-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [29-4] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [30-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: acpiphp: Slot [31-3] registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1f.0: PCI bridge to [bus 03]
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: PCI: Interrupt link LNKA configured for IRQ 10
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: PCI: Interrupt link LNKB configured for IRQ 10
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: PCI: Interrupt link LNKC configured for IRQ 11
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: PCI: Interrupt link LNKD configured for IRQ 11
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: PCI: Interrupt link LNKS configured for IRQ 9
+2026-11-02T16:16:15+00:00 shiba2th kernel: iommu: Default domain type: Translated
+2026-11-02T16:16:15+00:00 shiba2th kernel: iommu: DMA domain TLB invalidation policy: lazy mode
+2026-11-02T16:16:15+00:00 shiba2th kernel: SCSI subsystem initialized
+2026-11-02T16:16:15+00:00 shiba2th kernel: libata version 3.00 loaded.
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: bus type USB registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: usbcore: registered new interface driver usbfs
+2026-11-02T16:16:15+00:00 shiba2th kernel: usbcore: registered new interface driver hub
+2026-11-02T16:16:15+00:00 shiba2th kernel: usbcore: registered new device driver usb
+2026-11-02T16:16:15+00:00 shiba2th kernel: pps_core: LinuxPPS API ver. 1 registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+2026-11-02T16:16:15+00:00 shiba2th kernel: PTP clock support registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: EDAC MC: Ver: 3.0.0
+2026-11-02T16:16:15+00:00 shiba2th kernel: NetLabel: Initializing
+2026-11-02T16:16:15+00:00 shiba2th kernel: NetLabel:  domain hash size = 128
+2026-11-02T16:16:15+00:00 shiba2th kernel: NetLabel:  protocols = UNLABELED CIPSOv4 CALIPSO
+2026-11-02T16:16:15+00:00 shiba2th kernel: NetLabel:  unlabeled traffic allowed by default
+2026-11-02T16:16:15+00:00 shiba2th kernel: mctp: management component transport protocol core
+2026-11-02T16:16:15+00:00 shiba2th kernel: NET: Registered PF_MCTP protocol family
+2026-11-02T16:16:15+00:00 shiba2th kernel: PCI: Using ACPI for IRQ routing
+2026-11-02T16:16:15+00:00 shiba2th kernel: PCI: pci_cache_line_size set to 64 bytes
+2026-11-02T16:16:15+00:00 shiba2th kernel: e820: register RAM buffer resource [mem 0x0009fc00-0x0009ffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: e820: register RAM buffer resource [mem 0xbffda000-0xbfffffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: e820: register RAM buffer resource [mem 0xd3a000000-0xd3bffffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:02.0: vgaarb: setting as boot VGA device
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:02.0: vgaarb: bridge control possible
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:02.0: vgaarb: VGA device added: decodes=io+mem,owns=io+mem,locks=none
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:10.0: vgaarb: bridge control possible
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:10.0: vgaarb: VGA device added: decodes=io+mem,owns=io+mem,locks=none
+2026-11-02T16:16:15+00:00 shiba2th kernel: vgaarb: loaded
+2026-11-02T16:16:15+00:00 shiba2th kernel: hpet0: at MMIO 0xfed00000, IRQs 2, 8, 0
+2026-11-02T16:16:15+00:00 shiba2th kernel: hpet0: 3 comparators, 64-bit 100.000000 MHz counter
+2026-11-02T16:16:15+00:00 shiba2th kernel: clocksource: Switched to clocksource kvm-clock
+2026-11-02T16:16:15+00:00 shiba2th kernel: VFS: Disk quotas dquot_6.6.0
+2026-11-02T16:16:15+00:00 shiba2th kernel: VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+2026-11-02T16:16:15+00:00 shiba2th kernel: AppArmor: AppArmor Filesystem Enabled
+2026-11-02T16:16:15+00:00 shiba2th kernel: pnp: PnP ACPI init
+2026-11-02T16:16:15+00:00 shiba2th kernel: pnp 00:02: [dma 2]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pnp: PnP ACPI: found 4 devices
+2026-11-02T16:16:15+00:00 shiba2th kernel: clocksource: acpi_pm: mask: 0xffffff max_cycles: 0xffffff, max_idle_ns: 2085701024 ns
+2026-11-02T16:16:15+00:00 shiba2th kernel: NET: Registered PF_INET protocol family
+2026-11-02T16:16:15+00:00 shiba2th kernel: IP idents hash table entries: 262144 (order: 9, 2097152 bytes, linear)
+2026-11-02T16:16:15+00:00 shiba2th kernel: tcp_listen_portaddr_hash hash table entries: 32768 (order: 7, 524288 bytes, linear)
+2026-11-02T16:16:15+00:00 shiba2th kernel: Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+2026-11-02T16:16:15+00:00 shiba2th kernel: TCP established hash table entries: 524288 (order: 10, 4194304 bytes, linear)
+2026-11-02T16:16:15+00:00 shiba2th kernel: TCP bind hash table entries: 65536 (order: 9, 2097152 bytes, linear)
+2026-11-02T16:16:15+00:00 shiba2th kernel: TCP: Hash tables configured (established 524288 bind 65536)
+2026-11-02T16:16:15+00:00 shiba2th kernel: MPTCP token hash table entries: 65536 (order: 9, 1572864 bytes, linear)
+2026-11-02T16:16:15+00:00 shiba2th kernel: UDP hash table entries: 32768 (order: 9, 2097152 bytes, linear)
+2026-11-02T16:16:15+00:00 shiba2th kernel: UDP-Lite hash table entries: 32768 (order: 9, 2097152 bytes, linear)
+2026-11-02T16:16:15+00:00 shiba2th kernel: NET: Registered PF_UNIX/PF_LOCAL protocol family
+2026-11-02T16:16:15+00:00 shiba2th kernel: NET: Registered PF_XDP protocol family
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:05.0: PCI bridge to [bus 01]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:05.0:   bridge window [io  0xe000-0xefff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:05.0:   bridge window [mem 0xf9400000-0xf95fffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:05.0:   bridge window [mem 0xe1800000000-0xe19ffffffff 64bit pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1e.0: PCI bridge to [bus 02]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1e.0:   bridge window [io  0xd000-0xdfff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1e.0:   bridge window [mem 0xf9200000-0xf93fffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1e.0:   bridge window [mem 0xe1600000000-0xe17ffffffff 64bit pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1f.0: PCI bridge to [bus 03]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1f.0:   bridge window [io  0xc000-0xcfff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1f.0:   bridge window [mem 0xf9000000-0xf91fffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:1f.0:   bridge window [mem 0xe1400000000-0xe15ffffffff 64bit pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:00: resource 4 [io  0x0000-0x0cf7 window]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:00: resource 5 [io  0x0d00-0xffff window]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:00: resource 6 [mem 0x000a0000-0x000bffff window]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:00: resource 7 [mem 0xc0000000-0xfebfffff window]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:00: resource 8 [mem 0xe0000000000-0xe1a04007fff window]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:01: resource 0 [io  0xe000-0xefff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:01: resource 1 [mem 0xf9400000-0xf95fffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:01: resource 2 [mem 0xe1800000000-0xe19ffffffff 64bit pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:02: resource 0 [io  0xd000-0xdfff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:02: resource 1 [mem 0xf9200000-0xf93fffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:02: resource 2 [mem 0xe1600000000-0xe17ffffffff 64bit pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:03: resource 0 [io  0xc000-0xcfff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:03: resource 1 [mem 0xf9000000-0xf91fffff]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci_bus 0000:03: resource 2 [mem 0xe1400000000-0xe15ffffffff 64bit pref]
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:01.0: PIIX3: Enabling Passive Release
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:00.0: Limiting direct PCI/PCI transfers
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: \_SB_.LNKD: Enabled at IRQ 11
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:10.1: extending delay after power-on from D3hot to 20 msec
+2026-11-02T16:16:15+00:00 shiba2th kernel: pci 0000:00:10.1: D0 power state depends on 0000:00:10.0
+2026-11-02T16:16:15+00:00 shiba2th kernel: PCI: CLS 64 bytes, default 64
+2026-11-02T16:16:15+00:00 shiba2th kernel: PCI-DMA: Using software bounce buffering for IO (SWIOTLB)
+2026-11-02T16:16:15+00:00 shiba2th kernel: software IO TLB: mapped [mem 0x00000000bbfda000-0x00000000bffda000] (64MB)
+2026-11-02T16:16:15+00:00 shiba2th kernel: clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x6d8cc852a24, max_idle_ns: 881590654887 ns
+2026-11-02T16:16:15+00:00 shiba2th kernel: Unpacking initramfs...
+2026-11-02T16:16:15+00:00 shiba2th kernel: Initialise system trusted keyrings
+2026-11-02T16:16:15+00:00 shiba2th kernel: Key type blacklist registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: workingset: timestamp_bits=36 max_order=24 bucket_order=0
+2026-11-02T16:16:15+00:00 shiba2th kernel: squashfs: version 4.0 (2009/01/31) Phillip Lougher
+2026-11-02T16:16:15+00:00 shiba2th kernel: fuse: init (API version 7.45)
+2026-11-02T16:16:15+00:00 shiba2th kernel: integrity: Platform Keyring initialized
+2026-11-02T16:16:15+00:00 shiba2th kernel: integrity: Machine keyring initialized
+2026-11-02T16:16:15+00:00 shiba2th kernel: Key type asymmetric registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: Asymmetric key parser 'x509' registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: Block layer SCSI generic (bsg) driver version 0.4 loaded (major 242)
+2026-11-02T16:16:15+00:00 shiba2th kernel: io scheduler mq-deadline registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: ledtrig-cpu: registered to indicate activity on CPUs
+2026-11-02T16:16:15+00:00 shiba2th kernel: shpchp 0000:00:05.0: Requesting control of SHPC hotplug via OSHP (\_SB_.PCI0.S28_)
+2026-11-02T16:16:15+00:00 shiba2th kernel: shpchp 0000:00:05.0: Requesting control of SHPC hotplug via OSHP (\_SB_.PCI0)
+2026-11-02T16:16:15+00:00 shiba2th kernel: shpchp 0000:00:05.0: Cannot get control of SHPC hotplug
+2026-11-02T16:16:15+00:00 shiba2th kernel: shpchp 0000:00:1e.0: Requesting control of SHPC hotplug via OSHP (\_SB_.PCI0.SF0_)
+2026-11-02T16:16:15+00:00 shiba2th kernel: shpchp 0000:00:1e.0: Requesting control of SHPC hotplug via OSHP (\_SB_.PCI0)
+2026-11-02T16:16:15+00:00 shiba2th kernel: shpchp 0000:00:1e.0: Cannot get control of SHPC hotplug
+2026-11-02T16:16:15+00:00 shiba2th kernel: shpchp 0000:00:1f.0: Requesting control of SHPC hotplug via OSHP (\_SB_.PCI0.SF8_)
+2026-11-02T16:16:15+00:00 shiba2th kernel: shpchp 0000:00:1f.0: Requesting control of SHPC hotplug via OSHP (\_SB_.PCI0)
+2026-11-02T16:16:15+00:00 shiba2th kernel: shpchp 0000:00:1f.0: Cannot get control of SHPC hotplug
+2026-11-02T16:16:15+00:00 shiba2th kernel: input: Power Button as /devices/platform/LNXPWRBN:00/input/input0
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: button: Power Button [PWRF]
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: \_SB_.LNKC: Enabled at IRQ 10
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: \_SB_.LNKB: Enabled at IRQ 10
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: \_SB_.LNKA: Enabled at IRQ 11
+2026-11-02T16:16:15+00:00 shiba2th kernel: Free page reporting enabled
+2026-11-02T16:16:15+00:00 shiba2th kernel: Serial: 8250/16550 driver, 32 ports, IRQ sharing enabled
+2026-11-02T16:16:15+00:00 shiba2th kernel: mktty: initializing host driver (PTY-style)
+2026-11-02T16:16:15+00:00 shiba2th kernel: mktty: host ready - open /dev/mktty, write instance ID, then read/write
+2026-11-02T16:16:15+00:00 shiba2th kernel: Linux agpgart interface v0.103
+2026-11-02T16:16:15+00:00 shiba2th kernel: ACPI: bus type drm_connector registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: loop: module loaded
+2026-11-02T16:16:15+00:00 shiba2th kernel: virtio_scsi virtio2: 12/0/0 default/read/poll queues
+2026-11-02T16:16:15+00:00 shiba2th kernel: scsi host0: Virtio SCSI HBA
+2026-11-02T16:16:15+00:00 shiba2th kernel: scsi 0:0:0:0: Direct-Access     QEMU     QEMU HARDDISK    2.5+ PQ: 0 ANSI: 5
+2026-11-02T16:16:15+00:00 shiba2th kernel: scsi host1: ata_piix
+2026-11-02T16:16:15+00:00 shiba2th kernel: scsi host2: ata_piix
+2026-11-02T16:16:15+00:00 shiba2th kernel: ata1: PATA max MWDMA2 cmd 0x1f0 ctl 0x3f6 bmdma 0xf100 irq 14 lpm-pol 0
+2026-11-02T16:16:15+00:00 shiba2th kernel: ata2: PATA max MWDMA2 cmd 0x170 ctl 0x376 bmdma 0xf108 irq 15 lpm-pol 0
+2026-11-02T16:16:15+00:00 shiba2th kernel: tun: Universal TUN/TAP device driver, 1.6
+2026-11-02T16:16:15+00:00 shiba2th kernel: PPP generic driver version 2.4.2
+2026-11-02T16:16:15+00:00 shiba2th kernel: uhci_hcd 0000:00:01.2: UHCI Host Controller
+2026-11-02T16:16:15+00:00 shiba2th kernel: uhci_hcd 0000:00:01.2: new USB bus registered, assigned bus number 1
+2026-11-02T16:16:15+00:00 shiba2th kernel: uhci_hcd 0000:00:01.2: detected 2 ports
+2026-11-02T16:16:15+00:00 shiba2th kernel: uhci_hcd 0000:00:01.2: irq 11, io port 0x0000f0c0
+2026-11-02T16:16:15+00:00 shiba2th kernel: usb usb1: New USB device found, idVendor=1d6b, idProduct=0001, bcdDevice= 7.00
+2026-11-02T16:16:15+00:00 shiba2th kernel: usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+2026-11-02T16:16:15+00:00 shiba2th kernel: usb usb1: Product: UHCI Host Controller
+2026-11-02T16:16:15+00:00 shiba2th kernel: usb usb1: Manufacturer: Linux 7.0.0-mk2-shiba-mk1 uhci_hcd
+2026-11-02T16:16:15+00:00 shiba2th kernel: usb usb1: SerialNumber: 0000:00:01.2
+2026-11-02T16:16:15+00:00 shiba2th kernel: hub 1-0:1.0: USB hub found
+2026-11-02T16:16:15+00:00 shiba2th kernel: hub 1-0:1.0: 2 ports detected
+2026-11-02T16:16:15+00:00 shiba2th kernel: i8042: PNP: PS/2 Controller [PNP0303:KBD,PNP0f13:MOU] at 0x60,0x64 irq 1,12
+2026-11-02T16:16:15+00:00 shiba2th kernel: serio: i8042 KBD port at 0x60,0x64 irq 1
+2026-11-02T16:16:15+00:00 shiba2th kernel: serio: i8042 AUX port at 0x60,0x64 irq 12
+2026-11-02T16:16:15+00:00 shiba2th kernel: mousedev: PS/2 mouse device common for all mice
+2026-11-02T16:16:15+00:00 shiba2th kernel: rtc_cmos 00:03: RTC can wake from S4
+2026-11-02T16:16:15+00:00 shiba2th kernel: rtc_cmos 00:03: registered as rtc0
+2026-11-02T16:16:15+00:00 shiba2th kernel: input: AT Translated Set 2 keyboard as /devices/platform/i8042/serio0/input/input1
+2026-11-02T16:16:15+00:00 shiba2th kernel: rtc_cmos 00:03: setting system clock to 2026-11-02T16:16:10 UTC (1793636170)
+2026-11-02T16:16:15+00:00 shiba2th kernel: rtc_cmos 00:03: alarms up to one day, y3k, 242 bytes nvram, hpet irqs
+2026-11-02T16:16:15+00:00 shiba2th kernel: i2c_dev: i2c /dev entries driver
+2026-11-02T16:16:15+00:00 shiba2th kernel: device-mapper: core: CONFIG_IMA_DISABLE_HTABLE is disabled. Duplicate IMA measurements will not be recorded in the IMA log.
+2026-11-02T16:16:15+00:00 shiba2th kernel: device-mapper: uevent: version 1.0.3
+2026-11-02T16:16:15+00:00 shiba2th kernel: device-mapper: ioctl: 4.50.0-ioctl (2025-04-28) initialised: dm-devel@lists.linux.dev
+2026-11-02T16:16:15+00:00 shiba2th kernel: amd_pstate: The CPPC feature is supported but currently disabled by the BIOS.
+                                           Please enable it if your BIOS has the CPPC option.
+2026-11-02T16:16:15+00:00 shiba2th kernel: amd_pstate: the _CPC object is not present in SBIOS or ACPI disabled
+2026-11-02T16:16:15+00:00 shiba2th kernel: [drm] Initialized simpledrm 1.0.0 for simple-framebuffer.0 on minor 0
+2026-11-02T16:16:15+00:00 shiba2th kernel: Console: switching to colour frame buffer device 100x37
+2026-11-02T16:16:15+00:00 shiba2th kernel: simple-framebuffer simple-framebuffer.0: [drm] fb0: simpledrmdrmfb frame buffer device
+2026-11-02T16:16:15+00:00 shiba2th kernel: drop_monitor: Initializing network drop monitor service
+2026-11-02T16:16:15+00:00 shiba2th kernel: NET: Registered PF_INET6 protocol family
+2026-11-02T16:16:15+00:00 shiba2th kernel: Segment Routing with IPv6
+2026-11-02T16:16:15+00:00 shiba2th kernel: In-situ OAM (IOAM) with IPv6
+2026-11-02T16:16:15+00:00 shiba2th kernel: NET: Registered PF_PACKET protocol family
+2026-11-02T16:16:15+00:00 shiba2th kernel: Key type dns_resolver registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: NET: Registered PF_VSOCK protocol family
+2026-11-02T16:16:15+00:00 shiba2th kernel: Multikernel vsock transport registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: sd 0:0:0:0: Attached scsi generic sg0 type 0
+2026-11-02T16:16:15+00:00 shiba2th kernel: sd 0:0:0:0: Power-on or device reset occurred
+2026-11-02T16:16:15+00:00 shiba2th kernel: sd 0:0:0:0: [sda] 3145728000 512-byte logical blocks: (1.61 TB/1.46 TiB)
+2026-11-02T16:16:15+00:00 shiba2th kernel: sd 0:0:0:0: [sda] Write Protect is off
+2026-11-02T16:16:15+00:00 shiba2th kernel: sd 0:0:0:0: [sda] Mode Sense: 63 00 10 08
+2026-11-02T16:16:15+00:00 shiba2th kernel: sd 0:0:0:0: [sda] Write cache: enabled, read cache: enabled, supports DPO and FUA
+2026-11-02T16:16:15+00:00 shiba2th kernel: IPI shorthand broadcast: enabled
+2026-11-02T16:16:15+00:00 shiba2th kernel: sched_clock: Marking stable (523002333, 1635502)->(528814210, -4176375)
+2026-11-02T16:16:15+00:00 shiba2th kernel: multikernel heap: registered /dev/dma_heap/multikernel
+2026-11-02T16:16:15+00:00 shiba2th kernel: registered taskstats version 1
+2026-11-02T16:16:15+00:00 shiba2th kernel: Loading compiled-in X.509 certificates
+2026-11-02T16:16:15+00:00 shiba2th kernel: Loaded X.509 cert 'Build time autogenerated kernel key: c3f5c28553130d24d86e6b3a953e2bdda47b0d7c'
+2026-11-02T16:16:15+00:00 shiba2th kernel: Demotion targets for Node 0: null
+2026-11-02T16:16:15+00:00 shiba2th kernel: Key type .fscrypt registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: Key type fscrypt-provisioning registered
+2026-11-02T16:16:15+00:00 shiba2th kernel:  sda: sda1 sda2 sda3
+2026-11-02T16:16:15+00:00 shiba2th kernel: sd 0:0:0:0: [sda] Attached SCSI disk
+2026-11-02T16:16:15+00:00 shiba2th kernel: Freeing initrd memory: 135128K
+2026-11-02T16:16:15+00:00 shiba2th kernel: aesni_intel: module verification failed: signature and/or required key missing - tainting kernel
+2026-11-02T16:16:15+00:00 shiba2th kernel: ata2: found unknown device (class 0)
+2026-11-02T16:16:15+00:00 shiba2th kernel: ata2.00: ATAPI: QEMU DVD-ROM, 2.5+, max UDMA/100
+2026-11-02T16:16:15+00:00 shiba2th kernel: scsi 2:0:0:0: CD-ROM            QEMU     QEMU DVD-ROM     2.5+ PQ: 0 ANSI: 5
+2026-11-02T16:16:15+00:00 shiba2th kernel: sr 2:0:0:0: [sr0] scsi3-mmc drive: 4x/4x cd/rw xa/form2 tray
+2026-11-02T16:16:15+00:00 shiba2th kernel: cdrom: Uniform CD-ROM driver Revision: 3.20
+2026-11-02T16:16:15+00:00 shiba2th kernel: sr 2:0:0:0: Attached scsi CD-ROM sr0
+2026-11-02T16:16:15+00:00 shiba2th kernel: sr 2:0:0:0: Attached scsi generic sg1 type 5
+2026-11-02T16:16:15+00:00 shiba2th kernel: Key type encrypted registered
+2026-11-02T16:16:15+00:00 shiba2th kernel: AppArmor: AppArmor sha256 policy hashing enabled
+2026-11-02T16:16:15+00:00 shiba2th kernel: ima: No TPM chip found, activating TPM-bypass!
+2026-11-02T16:16:15+00:00 shiba2th kernel: Loading compiled-in module X.509 certificates
+2026-11-02T16:16:15+00:00 shiba2th kernel: Loaded X.509 cert 'Build time autogenerated kernel key: c3f5c28553130d24d86e6b3a953e2bdda47b0d7c'
+2026-11-02T16:16:15+00:00 shiba2th kernel: ima: Allocated hash algorithm: sha256
+2026-11-02T16:16:15+00:00 shiba2th kernel: ima: No architecture policies found
+2026-11-02T16:16:15+00:00 shiba2th kernel: evm: Initialising EVM extended attributes:
+2026-11-02T16:16:15+00:00 shiba2th kernel: evm: security.selinux
+2026-11-02T16:16:15+00:00 shiba2th kernel: evm: security.SMACK64
+2026-11-02T16:16:15+00:00 shiba2th kernel: evm: security.SMACK64EXEC
+2026-11-02T16:16:15+00:00 shiba2th kernel: evm: security.SMACK64TRANSMUTE
+2026-11-02T16:16:15+00:00 shiba2th kernel: evm: security.SMACK64MMAP
+2026-11-02T16:16:15+00:00 shiba2th kernel: evm: security.apparmor
+2026-11-02T16:16:15+00:00 shiba2th kernel: evm: security.ima
+2026-11-02T16:16:15+00:00 shiba2th kernel: evm: security.capability
+2026-11-02T16:16:15+00:00 shiba2th kernel: evm: HMAC attrs: 0x1
+2026-11-02T16:16:15+00:00 shiba2th kernel: PM:   Magic number: 2:597:286
+2026-11-02T16:16:15+00:00 shiba2th kernel: ppp ppp: hash matches
+2026-11-02T16:16:15+00:00 shiba2th kernel: RAS: Correctable Errors collector initialized.
+2026-11-02T16:16:15+00:00 shiba2th kernel: clk: Disabling unused clocks
+2026-11-02T16:16:15+00:00 shiba2th kernel: Freeing unused decrypted memory: 2036K
+2026-11-02T16:16:15+00:00 shiba2th kernel: Freeing unused kernel image (initmem) memory: 5212K
+2026-11-02T16:16:15+00:00 shiba2th kernel: Write protecting the kernel read-only data: 32768k
+2026-11-02T16:16:15+00:00 shiba2th kernel: Freeing unused kernel image (text/rodata gap) memory: 448K
+2026-11-02T16:16:15+00:00 shiba2th kernel: Freeing unused kernel image (rodata/data gap) memory: 1444K
+2026-11-02T16:16:15+00:00 shiba2th kernel: x86/mm: Checked W+X mappings: passed, no W+X pages found.
+2026-11-02T16:16:15+00:00 shiba2th kernel: Run /init as init process
+2026-11-02T16:16:15+00:00 shiba2th kernel:   with arguments:
+2026-11-02T16:16:15+00:00 shiba2th kernel:     /init
+2026-11-02T16:16:15+00:00 shiba2th kernel:   with environment:
+2026-11-02T16:16:15+00:00 shiba2th kernel:     HOME=/
+2026-11-02T16:16:15+00:00 shiba2th kernel:     TERM=linux
+2026-11-02T16:16:15+00:00 shiba2th kernel: usb 1-1: new full-speed USB device number 2 using uhci_hcd
+2026-11-02T16:16:15+00:00 shiba2th kernel: virtio_net virtio1 ens18: renamed from eth0
+2026-11-02T16:16:15+00:00 shiba2th kernel: input: VirtualPS/2 VMware VMMouse as /devices/platform/i8042/serio1/input/input4
+2026-11-02T16:16:15+00:00 shiba2th kernel: input: VirtualPS/2 VMware VMMouse as /devices/platform/i8042/serio1/input/input3
+2026-11-02T16:16:15+00:00 shiba2th kernel: nvidia: loading out-of-tree module taints kernel.
+2026-11-02T16:16:15+00:00 shiba2th kernel: Console: switching to colour dummy device 80x25
+2026-11-02T16:16:15+00:00 shiba2th kernel: bochs-drm 0000:00:02.0: vgaarb: deactivate vga console
+2026-11-02T16:16:15+00:00 shiba2th kernel: [drm] Found bochs VGA, ID 0xb0c5.
+2026-11-02T16:16:15+00:00 shiba2th kernel: [drm] Framebuffer size 16384 kB @ 0xfd000000, mmio @ 0xf96d4000.
+2026-11-02T16:16:15+00:00 shiba2th kernel: FDC 0 is a S82078B
+2026-11-02T16:16:15+00:00 shiba2th kernel: [drm] Initialized bochs-drm 1.0.0 for 0000:00:02.0 on minor 0
+2026-11-02T16:16:15+00:00 shiba2th kernel: fbcon: bochs-drmdrmfb (fb0) is primary device
+2026-11-02T16:16:15+00:00 shiba2th kernel: nvidia-nvlink: Nvlink Core is being initialized, major device number 238
+2026-11-02T16:16:15+00:00 shiba2th kernel: 
+2026-11-02T16:16:15+00:00 shiba2th kernel: nvidia 0000:00:10.0: vgaarb: VGA decodes changed: olddecodes=io+mem,decodes=none:owns=io+mem
+2026-11-02T16:16:15+00:00 shiba2th kernel: Console: switching to colour frame buffer device 160x50
+2026-11-02T16:16:15+00:00 shiba2th kernel: bochs-drm 0000:00:02.0: [drm] fb0: bochs-drmdrmfb frame buffer device
+2026-11-02T16:16:15+00:00 shiba2th kernel: usb 1-1: New USB device found, idVendor=0627, idProduct=0001, bcdDevice= 0.00
+2026-11-02T16:16:15+00:00 shiba2th kernel: usb 1-1: New USB device strings: Mfr=1, Product=3, SerialNumber=10
+2026-11-02T16:16:15+00:00 shiba2th kernel: usb 1-1: Product: QEMU USB Tablet
+2026-11-02T16:16:15+00:00 shiba2th kernel: usb 1-1: Manufacturer: QEMU
+2026-11-02T16:16:15+00:00 shiba2th kernel: usb 1-1: SerialNumber: 28754-0000:00:01.2-1
+2026-11-02T16:16:15+00:00 shiba2th kernel: hid: raw HID events driver (C) Jiri Kosina
+2026-11-02T16:16:15+00:00 shiba2th kernel: usbcore: registered new interface driver usbhid
+2026-11-02T16:16:15+00:00 shiba2th kernel: usbhid: USB HID core driver
+2026-11-02T16:16:15+00:00 shiba2th kernel: input: QEMU QEMU USB Tablet as /devices/pci0000:00/0000:00:01.2/usb1/1-1/1-1:1.0/0003:0627:0001.0001/input/input5
+2026-11-02T16:16:15+00:00 shiba2th kernel: hid-generic 0003:0627:0001.0001: input,hidraw0: USB HID v0.01 Mouse [QEMU QEMU USB Tablet] on usb-0000:00:01.2-1/input0
+2026-11-02T16:16:15+00:00 shiba2th kernel: NVRM: The NVIDIA GPU 0000:00:11.0 (PCI ID: 10de:1b38)
+                                           NVRM: installed in this system is not supported by open
+                                           NVRM: nvidia.ko because it does not include the required GPU
+                                           NVRM: System Processor (GSP).
+                                           NVRM: Please see the 'Open Linux Kernel Modules' and 'GSP
+                                           NVRM: Firmware' sections in the driver README, available on
+                                           NVRM: the Linux graphics driver download page at
+                                           NVRM: www.nvidia.com.
+2026-11-02T16:16:15+00:00 shiba2th kernel: nvidia 0000:00:11.0: probe with driver nvidia failed with error -1
+2026-11-02T16:16:15+00:00 shiba2th kernel: NVRM: The NVIDIA probe routine failed for 1 device(s).
+2026-11-02T16:16:15+00:00 shiba2th kernel: NVRM: loading NVIDIA UNIX Open Kernel Module for x86_64  595.91.07  Release Build  (dvs-builder@U22-I3-B08-02-2)  Wed Jul 29 03:01:16 UTC 2026
+2026-11-02T16:16:15+00:00 shiba2th kernel: nvidia-modeset: Loading NVIDIA UNIX Open Kernel Mode Setting Driver for x86_64  595.91.07  Release Build  (dvs-builder@U22-I3-B08-02-2)  Wed Jul 29 02:47:37 UTC 2026
+2026-11-02T16:16:15+00:00 shiba2th kernel: [drm] [nvidia-drm] [GPU ID 0x00000010] Loading driver
+2026-11-02T16:16:15+00:00 shiba2th kernel: [drm] Initialized nvidia-drm 0.0.0 for 0000:00:10.0 on minor 1
+2026-11-02T16:16:15+00:00 shiba2th kernel: nvidia 0000:00:10.0: [drm] Cannot find any crtc or sizes
+2026-11-02T16:16:15+00:00 shiba2th kernel: raid6: avx512x4 gen() 76574 MB/s
+2026-11-02T16:16:15+00:00 shiba2th kernel: raid6: avx512x2 gen() 79218 MB/s
+2026-11-02T16:16:15+00:00 shiba2th kernel: raid6: avx512x1 gen() 78774 MB/s
+2026-11-02T16:16:15+00:00 shiba2th kernel: raid6: avx2x4   gen() 76100 MB/s
+2026-11-02T16:16:15+00:00 shiba2th kernel: raid6: avx2x2   gen() 77828 MB/s
+2026-11-02T16:16:15+00:00 shiba2th kernel: raid6: avx2x1   gen() 76067 MB/s
+2026-11-02T16:16:15+00:00 shiba2th kernel: raid6: using algorithm avx512x2 gen() 79218 MB/s
+2026-11-02T16:16:15+00:00 shiba2th kernel: raid6: .... xor() 67706 MB/s, rmw enabled
+2026-11-02T16:16:15+00:00 shiba2th kernel: raid6: using avx512x2 recovery algorithm
+2026-11-02T16:16:15+00:00 shiba2th kernel: xor: automatically using best checksumming function   avx       
+2026-11-02T16:16:15+00:00 shiba2th kernel: async_tx: api initialized (async)
+2026-11-02T16:16:15+00:00 shiba2th kernel: Btrfs loaded, zoned=yes, fsverity=yes
+2026-11-02T16:16:15+00:00 shiba2th kernel: EXT4-fs (dm-0): mounted filesystem a30d6b3f-539b-47bf-98e2-0f1a87f7ce24 ro with ordered data mode. Quota mode: none.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Inserted module 'autofs4'
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: systemd 259.5-0ubuntu3.4 running in system mode (+PAM +AUDIT +SELINUX +APPARMOR +IMA +IPE +SMACK +SECCOMP +GCRYPT -GNUTLS +OPENSSL +ACL +BLKID +CURL +ELFUTILS +FIDO2 +IDN2 -IDN +KMOD +LIBCRYPTSETUP +LIBCRYPTSETUP_PLUGINS +LIBFDISK +PCRE2 +PWQUALITY +P11KIT +QRENCODE +TPM2 +BZIP2 +LZ4 +XZ +ZLIB +ZSTD +BPF_FRAMEWORK +BTF -XKBCOMMON -UTMP +SYSVINIT +LIBARCHIVE)
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Detected virtualization kvm.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Detected architecture x86-64.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Hostname set to <shiba2th>.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: bpf-restrict-fs: BPF LSM hook not enabled in the kernel, BPF LSM not supported.
+2026-11-02T16:16:15+00:00 shiba2th systemd-sysv-generator[425]: SysV service '/etc/init.d/grub-common' lacks a native systemd unit file, automatically generating a unit file for compatibility.
+2026-11-02T16:16:15+00:00 shiba2th systemd-sysv-generator[425]: Please update package to include a native systemd unit file.
+2026-11-02T16:16:15+00:00 shiba2th systemd-sysv-generator[425]: ! This compatibility logic is deprecated, expect removal soon. !
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: /usr/lib/systemd/system/system-xfs_scrub.slice:15: Support for option CPUAccounting= has been removed and it is ignored
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Queued start job for default target graphical.target.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Created slice system-modprobe.slice - Slice /system/modprobe.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Created slice system-postgresql.slice - Slice /system/postgresql.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Created slice system-systemd\x2dfsck.slice - Slice /system/systemd-fsck.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Created slice system-xfs_scrub.slice - xfs_scrub background service slice.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Created slice user.slice - User and Session Slice.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Started systemd-ask-password-wall.path - Forward Password Requests to Wall Directory Watch.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Set up automount proc-sys-fs-binfmt_misc.automount - Arbitrary Executable File Formats File System Automount Point.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Expecting device dev-disk-by\x2duuid-c23da98e\x2d863f\x2d4379\x2d9a65\x2dabef810ec361.device - /dev/disk/by-uuid/c23da98e-863f-4379-9a65-abef810ec361...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Reached target imports.target - Image Downloads.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Reached target integritysetup.target - Local Integrity Protected Volumes.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Reached target slices.target - Slice Units.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Reached target snapd.mounts-pre.target - Mounting snaps.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Reached target veritysetup.target - Local Verity Protected Volumes.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Listening on dm-event.socket - Device-mapper event daemon FIFOs.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Listening on lvm2-lvmpolld.socket - LVM2 poll daemon socket.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Listening on multipathd.socket - multipathd control socket.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Listening on syslog.socket - Syslog Socket.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Listening on systemd-ask-password.socket - Query the User Interactively for a Password.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Listening on systemd-creds.socket - Credential Encryption/Decryption.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Listening on systemd-factory-reset.socket - Factory Reset Management.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Listening on systemd-journald-dev-log.socket - Journal Socket (/dev/log).
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Listening on systemd-journald.socket - Journal Sockets.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Listening on systemd-mute-console.socket - Console Output Muting Service Socket.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Listening on systemd-networkd-varlink.socket - Network Management Varlink Socket.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Listening on systemd-networkd.socket - Network Management Netlink Socket.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: systemd-pcrextend.socket - TPM PCR Measurements skipped, unmet condition check ConditionSecurity=measured-uki
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: systemd-pcrlock.socket - Make TPM PCR Policy skipped, unmet condition check ConditionSecurity=measured-uki
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Listening on systemd-resolved-monitor.socket - Resolve Monitor Varlink Socket.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Listening on systemd-resolved-varlink.socket - Resolve Service Varlink Socket.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Listening on systemd-udevd-control.socket - udev Control Socket.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Listening on systemd-udevd-kernel.socket - udev Kernel Socket.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Listening on systemd-udevd-varlink.socket - udev Varlink Socket.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Mounting dev-hugepages.mount - Huge Pages File System...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Mounting dev-mqueue.mount - POSIX Message Queue File System...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Mounting sys-kernel-debug.mount - Kernel Debug File System...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Mounting sys-kernel-tracing.mount - Kernel Trace File System...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Starting systemd-journald.service - Journal Service...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Starting keyboard-setup.service - Set the console keyboard layout...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Starting kmod-static-nodes.service - Create List of Static Device Nodes...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Starting lvm2-monitor.service - Monitoring of LVM2 mirrors, snapshots etc. using dmeventd or progress polling...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: modprobe@configfs.service - Load Kernel Module configfs skipped, unmet condition check ConditionKernelModuleLoaded=!configfs
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Mounting sys-kernel-config.mount - Kernel Configuration File System...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Starting modprobe@dm_multipath.service - Load Kernel Module dm_multipath...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: modprobe@drm.service - Load Kernel Module drm skipped, unmet condition check ConditionKernelModuleLoaded=!drm
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Starting modprobe@efi_pstore.service - Load Kernel Module efi_pstore...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: modprobe@fuse.service - Load Kernel Module fuse skipped, unmet condition check ConditionKernelModuleLoaded=!fuse
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Mounting sys-fs-fuse-connections.mount - FUSE Control File System...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: netplan-ovs-cleanup.service - OpenVSwitch configuration for cleanup skipped, unmet condition check ConditionFileIsExecutable=/usr/bin/ovs-vsctl
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: systemd-fsck-root.service - File System Check on Root Device skipped, unmet condition check ConditionPathExists=!/run/initramfs/fsck-root
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: systemd-hibernate-clear.service - Clear Stale Hibernate Storage Info skipped, unmet condition check ConditionPathExists=/sys/firmware/efi/efivars/HibernateLocation-8cf2644b-4b0b-428f-9387-6d876050dc67
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Starting systemd-modules-load.service - Load Kernel Modules...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: systemd-pcrmachine.service - TPM PCR Machine ID Measurement skipped, unmet condition check ConditionSecurity=measured-uki
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: systemd-pcrproduct.service - TPM NvPCR Product ID Measurement skipped, unmet condition check ConditionSecurity=measured-uki
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Starting systemd-remount-fs.service - Remount Root and Kernel File Systems...
+2026-11-02T16:16:15+00:00 shiba2th systemd-journald[450]: Collecting audit messages is disabled.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: systemd-tpm2-setup-early.service - Early TPM SRK Setup skipped, unmet condition check ConditionSecurity=measured-uki
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Starting systemd-udev-load-credentials.service - Load udev Rules from Credentials...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Starting systemd-udev-trigger.service - Coldplug All udev Devices...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Mounted dev-hugepages.mount - Huge Pages File System.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Mounted dev-mqueue.mount - POSIX Message Queue File System.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Mounted sys-kernel-debug.mount - Kernel Debug File System.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Mounted sys-kernel-tracing.mount - Kernel Trace File System.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Finished kmod-static-nodes.service - Create List of Static Device Nodes.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Mounted sys-kernel-config.mount - Kernel Configuration File System.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: modprobe@dm_multipath.service: Deactivated successfully.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Finished modprobe@dm_multipath.service - Load Kernel Module dm_multipath.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: modprobe@efi_pstore.service: Deactivated successfully.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Finished modprobe@efi_pstore.service - Load Kernel Module efi_pstore.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Mounted sys-fs-fuse-connections.mount - FUSE Control File System.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Starting systemd-tmpfiles-setup-dev-early.service - Create Static Device Nodes in /dev gracefully...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Finished systemd-udev-load-credentials.service - Load udev Rules from Credentials.
+2026-11-02T16:16:15+00:00 shiba2th kernel: EXT4-fs (dm-0): re-mounted a30d6b3f-539b-47bf-98e2-0f1a87f7ce24 r/w.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Finished systemd-remount-fs.service - Remount Root and Kernel File Systems.
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Activating swap swap.img.swap - /swap.img...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Starting multipathd.service - Device-Mapper Multipath Device Controller...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Starting cloud-init-main.service - Cloud-init: Single Process...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: systemd-hwdb-update.service - Rebuild Hardware Database skipped, unmet condition check ConditionNeedsUpdate=/etc
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: systemd-pstore.service - Platform Persistent Storage Archival skipped, unmet condition check ConditionDirectoryNotEmpty=/sys/fs/pstore
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Starting systemd-random-seed.service - Load/Save OS Random Seed...
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: systemd-tpm2-setup.service - TPM SRK Setup skipped, unmet condition check ConditionSecurity=measured-uki
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: systemd-pcrnvdone.service - TPM PCR NvPCR Initialization Separator skipped, unmet condition check ConditionSecurity=measured-uki
+2026-11-02T16:16:15+00:00 shiba2th systemd[1]: Started systemd-journald.service - Journal Service.
+2026-11-02T16:16:15+00:00 shiba2th kernel: Adding 8388604k swap on /swap.img.  Priority:-1 extents:10 across:8970236k 
+2026-11-02T16:16:15+00:00 shiba2th systemd-journald[450]: Received client request to flush runtime journal.
+2026-11-02T16:16:15+00:00 shiba2th kernel: piix4_smbus 0000:00:01.3: SMBus Host Controller at 0x700, revision 0
+2026-11-02T16:16:15+00:00 shiba2th kernel: i2c i2c-5: Memory type 0x07 not supported yet, not instantiating SPD
+2026-11-02T16:16:15+00:00 shiba2th kernel: snd_hda_intel 0000:00:10.1: Disabling MSI
+2026-11-02T16:16:15+00:00 shiba2th kernel: input: HDA NVidia HDMI/DP,pcm=3 as /devices/pci0000:00/0000:00:10.1/sound/card0/input6
+2026-11-02T16:16:15+00:00 shiba2th kernel: input: HDA NVidia HDMI/DP,pcm=7 as /devices/pci0000:00/0000:00:10.1/sound/card0/input7
+2026-11-02T16:16:15+00:00 shiba2th kernel: input: HDA NVidia HDMI/DP,pcm=8 as /devices/pci0000:00/0000:00:10.1/sound/card0/input8
+2026-11-02T16:16:15+00:00 shiba2th kernel: input: HDA NVidia HDMI/DP,pcm=9 as /devices/pci0000:00/0000:00:10.1/sound/card0/input9
+2026-11-02T16:16:15+00:00 shiba2th kernel: kvm_amd: TSC scaling supported
+2026-11-02T16:16:15+00:00 shiba2th kernel: kvm_amd: Nested Virtualization enabled
+2026-11-02T16:16:15+00:00 shiba2th kernel: kvm_amd: Nested Paging enabled
+2026-11-02T16:16:15+00:00 shiba2th kernel: kvm_amd: LBR virtualization supported
+2026-11-02T16:16:15+00:00 shiba2th kernel: kvm_amd: Virtual VMLOAD VMSAVE supported
+2026-11-02T16:16:15+00:00 shiba2th kernel: kvm_amd: Virtual GIF supported
+2026-11-02T16:16:15+00:00 shiba2th kernel: kvm_amd: Virtual NMI enabled
+2026-11-02T16:16:16+00:00 shiba2th kernel: loop0: detected capacity change from 0 to 26888
+2026-11-02T16:16:16+00:00 shiba2th kernel: loop1: detected capacity change from 0 to 27056
+2026-11-02T16:16:16+00:00 shiba2th kernel: EXT4-fs (sda2): mounted filesystem c23da98e-863f-4379-9a65-abef810ec361 r/w with ordered data mode. Quota mode: none.
+2026-11-02T16:16:16+00:00 shiba2th kernel: loop2: detected capacity change from 0 to 215440
+2026-11-02T16:16:16+00:00 shiba2th kernel: loop3: detected capacity change from 0 to 130624
+2026-11-02T16:16:16+00:00 shiba2th kernel: loop4: detected capacity change from 0 to 130632
+2026-11-02T16:16:16+00:00 shiba2th kernel: loop5: detected capacity change from 0 to 151536
+2026-11-02T16:16:16+00:00 shiba2th kernel: loop6: detected capacity change from 0 to 151512
+2026-11-02T16:16:16+00:00 shiba2th kernel: loop7: detected capacity change from 0 to 136784
+2026-11-02T16:16:16+00:00 shiba2th kernel: loop9: detected capacity change from 0 to 235904
+2026-11-02T16:16:16+00:00 shiba2th kernel: loop8: detected capacity change from 0 to 236152
+2026-11-02T16:16:16+00:00 shiba2th kernel: audit: type=1400 audit(1793636176.451:2): apparmor="STATUS" operation="profile_load" profile="unconfined" name="1password" pid=1036 comm="apparmor_parser"
+2026-11-02T16:16:16+00:00 shiba2th kernel: audit: type=1400 audit(1793636176.451:3): apparmor="STATUS" operation="profile_load" profile="unconfined" name="balena-etcher" pid=1043 comm="apparmor_parser"
+2026-11-02T16:16:16+00:00 shiba2th kernel: audit: type=1400 audit(1793636176.451:4): apparmor="STATUS" operation="profile_load" profile="unconfined" name="buildah" pid=1047 comm="apparmor_parser"
+2026-11-02T16:16:16+00:00 shiba2th kernel: audit: type=1400 audit(1793636176.451:5): apparmor="STATUS" operation="profile_load" profile="unconfined" name="brave" pid=1046 comm="apparmor_parser"
+2026-11-02T16:16:16+00:00 shiba2th kernel: audit: type=1400 audit(1793636176.451:6): apparmor="STATUS" operation="profile_load" profile="unconfined" name=4D6F6E676F444220436F6D70617373 pid=1038 comm="apparmor_parser"
+2026-11-02T16:16:16+00:00 shiba2th kernel: audit: type=1400 audit(1793636176.451:7): apparmor="STATUS" operation="profile_load" profile="unconfined" name="QtWebEngineProcess" pid=1039 comm="apparmor_parser"
+2026-11-02T16:16:16+00:00 shiba2th kernel: audit: type=1400 audit(1793636176.451:8): apparmor="STATUS" operation="profile_load" profile="unconfined" name="Discord" pid=1037 comm="apparmor_parser"
+2026-11-02T16:16:16+00:00 shiba2th kernel: audit: type=1400 audit(1793636176.452:9): apparmor="STATUS" operation="profile_load" profile="unconfined" name="cam" pid=1054 comm="apparmor_parser"
+2026-11-02T16:16:16+00:00 shiba2th kernel: audit: type=1400 audit(1793636176.453:10): apparmor="STATUS" operation="profile_load" profile="unconfined" name="bwrap" pid=1053 comm="apparmor_parser"
+2026-11-02T16:16:16+00:00 shiba2th kernel: audit: type=1400 audit(1793636176.453:11): apparmor="STATUS" operation="profile_load" profile="unconfined" name="unpriv_bwrap" pid=1053 comm="apparmor_parser"
+2026-11-02T16:16:17+00:00 shiba2th kernel: cfg80211: Loading compiled-in X.509 certificates for regulatory database
+2026-11-02T16:16:17+00:00 shiba2th kernel: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+2026-11-02T16:16:17+00:00 shiba2th kernel: Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+2026-11-02T16:16:20+00:00 shiba2th kernel: NVRM: API mismatch: the client 'nvidia-powerd' (pid 1324)
+                                           NVRM: has the version 595.99.02, but this kernel module has
+                                           NVRM: the version 595.91.07.  Please make sure that this
+                                           NVRM: kernel module and all NVIDIA driver components
+                                           NVRM: have the same version.
+2026-11-02T16:16:20+00:00 shiba2th kernel: NVRM: API mismatch: the client 'nvidia-smi' (pid 1364)
+                                           NVRM: has the version 595.99.02, but this kernel module has
+                                           NVRM: the version 595.91.07.  Please make sure that this
+                                           NVRM: kernel module and all NVIDIA driver components
+                                           NVRM: have the same version.
+2026-11-02T16:16:21+00:00 shiba2th kernel: NVRM: API mismatch: the client 'ollama' (pid 1503)
+                                           NVRM: has the version 595.99.02, but this kernel module has
+                                           NVRM: the version 595.91.07.  Please make sure that this
+                                           NVRM: kernel module and all NVIDIA driver components
+                                           NVRM: have the same version.
+2026-11-02T16:16:21+00:00 shiba2th kernel: NVRM: API mismatch: the client 'ollama' (pid 2051)
+                                           NVRM: has the version 595.99.02, but this kernel module has
+                                           NVRM: the version 595.91.07.  Please make sure that this
+                                           NVRM: kernel module and all NVIDIA driver components
+                                           NVRM: have the same version.
+2026-11-02T16:16:21+00:00 shiba2th kernel: NVRM: API mismatch: the client 'nvidia-smi' (pid 2305)
+                                           NVRM: has the version 595.99.02, but this kernel module has
+                                           NVRM: the version 595.91.07.  Please make sure that this
+                                           NVRM: kernel module and all NVIDIA driver components
+                                           NVRM: have the same version.
+2026-11-02T16:16:21+00:00 shiba2th kernel: kauditd_printk_skb: 209 callbacks suppressed
+2026-11-02T16:16:21+00:00 shiba2th kernel: audit: type=1400 audit(1793636181.503:221): apparmor="STATUS" operation="profile_load" profile="unconfined" name="docker-default" pid=2323 comm="apparmor_parser"
+2026-11-02T16:16:21+00:00 shiba2th kernel: NVRM: API mismatch: the client 'ollama' (pid 2266)
+                                           NVRM: has the version 595.99.02, but this kernel module has
+                                           NVRM: the version 595.91.07.  Please make sure that this
+                                           NVRM: kernel module and all NVIDIA driver components
+                                           NVRM: have the same version.
+2026-11-02T16:16:21+00:00 shiba2th kernel: NVRM: API mismatch: the client 'ollama' (pid 2265)
+                                           NVRM: has the version 595.99.02, but this kernel module has
+                                           NVRM: the version 595.91.07.  Please make sure that this
+                                           NVRM: kernel module and all NVIDIA driver components
+                                           NVRM: have the same version.
+2026-11-02T16:16:21+00:00 shiba2th kernel: Initializing XFRM netlink socket
+2026-11-02T16:16:21+00:00 shiba2th kernel: br-36dc93d439bc: port 1(vetha0dc82d) entered blocking state
+2026-11-02T16:16:21+00:00 shiba2th kernel: br-36dc93d439bc: port 1(vetha0dc82d) entered disabled state
+2026-11-02T16:16:21+00:00 shiba2th kernel: vetha0dc82d: entered allmulticast mode
+2026-11-02T16:16:21+00:00 shiba2th kernel: vetha0dc82d: entered promiscuous mode
+2026-11-02T16:16:21+00:00 shiba2th kernel: br-8cbd583aa5af: port 1(veth13f5446) entered blocking state
+2026-11-02T16:16:21+00:00 shiba2th kernel: br-8cbd583aa5af: port 1(veth13f5446) entered disabled state
+2026-11-02T16:16:21+00:00 shiba2th kernel: veth13f5446: entered allmulticast mode
+2026-11-02T16:16:21+00:00 shiba2th kernel: veth13f5446: entered promiscuous mode
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-36dc93d439bc: port 2(veth52e799f) entered blocking state
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-36dc93d439bc: port 2(veth52e799f) entered disabled state
+2026-11-02T16:16:22+00:00 shiba2th kernel: veth52e799f: entered allmulticast mode
+2026-11-02T16:16:22+00:00 shiba2th kernel: veth52e799f: entered promiscuous mode
+2026-11-02T16:16:22+00:00 shiba2th kernel: NVRM: API mismatch: the client 'nvidia-containe' (pid 3101)
+                                           NVRM: has the version 595.99.02, but this kernel module has
+                                           NVRM: the version 595.91.07.  Please make sure that this
+                                           NVRM: kernel module and all NVIDIA driver components
+                                           NVRM: have the same version.
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-36dc93d439bc: port 3(veth8a72872) entered blocking state
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-36dc93d439bc: port 3(veth8a72872) entered disabled state
+2026-11-02T16:16:22+00:00 shiba2th kernel: veth8a72872: entered allmulticast mode
+2026-11-02T16:16:22+00:00 shiba2th kernel: veth8a72872: entered promiscuous mode
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-8cbd583aa5af: port 2(veth0c0ce78) entered blocking state
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-8cbd583aa5af: port 2(veth0c0ce78) entered disabled state
+2026-11-02T16:16:22+00:00 shiba2th kernel: veth0c0ce78: entered allmulticast mode
+2026-11-02T16:16:22+00:00 shiba2th kernel: veth0c0ce78: entered promiscuous mode
+2026-11-02T16:16:22+00:00 shiba2th kernel: NVRM: API mismatch: the client 'nvc:[driver]' (pid 3125)
+                                           NVRM: has the version 595.99.02, but this kernel module has
+                                           NVRM: the version 595.91.07.  Please make sure that this
+                                           NVRM: kernel module and all NVIDIA driver components
+                                           NVRM: have the same version.
+2026-11-02T16:16:22+00:00 shiba2th kernel: eth0: renamed from veth94e2b6a
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-8cbd583aa5af: port 3(veth3c20935) entered blocking state
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-8cbd583aa5af: port 3(veth3c20935) entered disabled state
+2026-11-02T16:16:22+00:00 shiba2th kernel: veth3c20935: entered allmulticast mode
+2026-11-02T16:16:22+00:00 shiba2th kernel: veth3c20935: entered promiscuous mode
+2026-11-02T16:16:22+00:00 shiba2th kernel: eth0: renamed from vethbbd0f84
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-36dc93d439bc: port 1(vetha0dc82d) entered blocking state
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-36dc93d439bc: port 1(vetha0dc82d) entered forwarding state
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-8cbd583aa5af: port 1(veth13f5446) entered blocking state
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-8cbd583aa5af: port 1(veth13f5446) entered forwarding state
+2026-11-02T16:16:22+00:00 shiba2th kernel: eth0: renamed from vetha4c7663
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-36dc93d439bc: port 2(veth52e799f) entered blocking state
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-36dc93d439bc: port 2(veth52e799f) entered forwarding state
+2026-11-02T16:16:22+00:00 shiba2th kernel: eth0: renamed from veth3dc7f96
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-36dc93d439bc: port 3(veth8a72872) entered blocking state
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-36dc93d439bc: port 3(veth8a72872) entered forwarding state
+2026-11-02T16:16:22+00:00 shiba2th kernel: eth0: renamed from veth21ee14e
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-8cbd583aa5af: port 2(veth0c0ce78) entered blocking state
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-8cbd583aa5af: port 2(veth0c0ce78) entered forwarding state
+2026-11-02T16:16:22+00:00 shiba2th kernel: eth0: renamed from veth068f51f
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-8cbd583aa5af: port 3(veth3c20935) entered blocking state
+2026-11-02T16:16:22+00:00 shiba2th kernel: br-8cbd583aa5af: port 3(veth3c20935) entered forwarding state
+2026-11-02T16:16:22+00:00 shiba2th kernel: evm: overlay not supported
+2026-11-02T16:16:22+00:00 shiba2th kernel: NVRM: API mismatch: the client 'nvidia-smi' (pid 4211)
+                                           NVRM: has the version 595.99.02, but this kernel module has
+                                           NVRM: the version 595.91.07.  Please make sure that this
+                                           NVRM: kernel module and all NVIDIA driver components
+                                           NVRM: have the same version.
+2026-11-02T16:16:23+00:00 shiba2th kernel: NVRM: API mismatch: the client 'nvidia-smi' (pid 4560)
+                                           NVRM: has the version 595.99.02, but this kernel module has
+                                           NVRM: the version 595.91.07.  Please make sure that this
+                                           NVRM: kernel module and all NVIDIA driver components
+                                           NVRM: have the same version.
+2026-11-02T16:16:24+00:00 shiba2th kernel: NVRM: API mismatch: the client 'nvidia-smi' (pid 4687)
+                                           NVRM: has the version 595.99.02, but this kernel module has
+                                           NVRM: the version 595.91.07.  Please make sure that this
+                                           NVRM: kernel module and all NVIDIA driver components
+                                           NVRM: have the same version.
+2026-11-02T16:16:25+00:00 shiba2th kernel: NVRM: API mismatch: the client 'nvidia-smi' (pid 4741)
+                                           NVRM: has the version 595.99.02, but this kernel module has
+                                           NVRM: the version 595.91.07.  Please make sure that this
+                                           NVRM: kernel module and all NVIDIA driver components
+                                           NVRM: have the same version.
+2026-11-02T16:16:26+00:00 shiba2th kernel: audit: type=1400 audit(1793636186.430:222): apparmor="STATUS" operation="profile_load" profile="unconfined" name="lxd_dnsmasq-nat_</var/snap/lxd/common/lxd>" pid=4802 comm="apparmor_parser"
+2026-11-02T16:16:27+00:00 shiba2th kernel: audit: type=1400 audit(1793636187.101:223): apparmor="STATUS" operation="profile_load" profile="unconfined" name="lxd_dnsmasq-isolated_</var/snap/lxd/common/lxd>" pid=4831 comm="apparmor_parser"
+2026-11-02T16:16:28+00:00 shiba2th kernel: isolated: port 1(tapa3f4efbb) entered blocking state
+2026-11-02T16:16:28+00:00 shiba2th kernel: isolated: port 1(tapa3f4efbb) entered disabled state
+2026-11-02T16:16:28+00:00 shiba2th kernel: tapa3f4efbb: entered allmulticast mode
+2026-11-02T16:16:28+00:00 shiba2th kernel: tapa3f4efbb: entered promiscuous mode
+2026-11-02T16:16:28+00:00 shiba2th kernel: audit: type=1400 audit(1793636188.965:224): apparmor="STATUS" operation="profile_load" profile="unconfined" name="lxd-jumpbox-vm_</var/snap/lxd/common/lxd>" pid=4901 comm="apparmor_parser"
+2026-11-02T16:16:29+00:00 shiba2th kernel: isolated: port 1(tapa3f4efbb) entered blocking state
+2026-11-02T16:16:29+00:00 shiba2th kernel: isolated: port 1(tapa3f4efbb) entered forwarding state
+2026-11-02T16:16:29+00:00 shiba2th kernel: isolated: port 2(tape108087c) entered blocking state
+2026-11-02T16:16:29+00:00 shiba2th kernel: isolated: port 2(tape108087c) entered disabled state
+2026-11-02T16:16:29+00:00 shiba2th kernel: tape108087c: entered allmulticast mode
+2026-11-02T16:16:29+00:00 shiba2th kernel: tape108087c: entered promiscuous mode
+2026-11-02T16:16:29+00:00 shiba2th kernel: audit: type=1400 audit(1793636189.261:225): apparmor="STATUS" operation="profile_load" profile="unconfined" name="lxd-target-vm_</var/snap/lxd/common/lxd>" pid=4949 comm="apparmor_parser"
+2026-11-02T16:16:29+00:00 shiba2th kernel: isolated: port 2(tape108087c) entered blocking state
+2026-11-02T16:16:29+00:00 shiba2th kernel: isolated: port 2(tape108087c) entered forwarding state
+2026-11-02T16:16:42+00:00 shiba2th kernel: audit: type=1400 audit(1793636202.816:226): apparmor="DENIED" operation="open" class="file" profile="who" name="/etc/nsswitch.conf" pid=5079 comm="who" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+2026-11-02T16:16:42+00:00 shiba2th kernel: audit: type=1400 audit(1793636202.816:227): apparmor="DENIED" operation="open" class="file" profile="who" name="/etc/passwd" pid=5079 comm="who" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+2026-11-02T16:16:42+00:00 shiba2th kernel: audit: type=1400 audit(1793636202.816:228): apparmor="DENIED" operation="open" class="file" profile="who" name="/etc/nsswitch.conf" pid=5079 comm="who" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+2026-11-02T16:16:42+00:00 shiba2th kernel: audit: type=1400 audit(1793636202.816:229): apparmor="DENIED" operation="open" class="file" profile="who" name="/etc/passwd" pid=5079 comm="who" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+2026-11-02T16:17:22+00:00 shiba2th kernel: lazy_cma: registered /dev/lazy_cma
+2026-11-02T16:17:22+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 183 bytes
+2026-11-02T16:17:22+00:00 shiba2th kernel: Loading host kernel device tree configuration (445 bytes at offset 0)
+2026-11-02T16:17:22+00:00 shiba2th kernel: Baseline CPU pool: 4 CPUs requested: 8,9,10,11
+2026-11-02T16:17:22+00:00 shiba2th kernel: Baseline device pool: 1 PCI devices requested
+2026-11-02T16:17:22+00:00 shiba2th kernel: Baseline CPUs validated: 4 CPUs available for multikernel pool
+2026-11-02T16:17:25+00:00 shiba2th kernel: Baseline: failed to allocate 6144 MB on node 0: -12
+2026-11-02T16:17:25+00:00 shiba2th kernel: Baseline pool allocation failed: -12
+2026-11-02T16:17:25+00:00 shiba2th kernel: Baseline validation and initialization failed: -12
+2026-11-02T16:17:25+00:00 shiba2th kernel: Loading host kernel device tree configuration (445 bytes at offset 0)
+2026-11-02T16:17:25+00:00 shiba2th kernel: Baseline CPU pool: 4 CPUs requested: 8,9,10,11
+2026-11-02T16:17:25+00:00 shiba2th kernel: Baseline device pool: 1 PCI devices requested
+2026-11-02T16:17:25+00:00 shiba2th kernel: Baseline CPUs validated: 4 CPUs available for multikernel pool
+2026-11-02T16:17:28+00:00 shiba2th kernel: Baseline: failed to allocate 6144 MB on node 0: -12
+2026-11-02T16:17:28+00:00 shiba2th kernel: Baseline pool allocation failed: -12
+2026-11-02T16:17:28+00:00 shiba2th kernel: Baseline validation and initialization failed: -12
+2026-11-02T16:18:15+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 158 bytes
+2026-11-02T16:18:15+00:00 shiba2th kernel: Loading host kernel device tree configuration (445 bytes at offset 0)
+2026-11-02T16:18:15+00:00 shiba2th kernel: Baseline CPU pool: 4 CPUs requested: 8,9,10,11
+2026-11-02T16:18:15+00:00 shiba2th kernel: Baseline device pool: 1 PCI devices requested
+2026-11-02T16:18:15+00:00 shiba2th kernel: Baseline CPUs validated: 4 CPUs available for multikernel pool
+2026-11-02T16:18:15+00:00 shiba2th kernel: mk_spawn: host pool park area at 0x0000000cdf803000 (slot 0x0000000cdf806000)
+2026-11-02T16:18:15+00:00 shiba2th kernel: Multikernel pool: added 0x0000000cdf800000 (512 MB) on node 0
+2026-11-02T16:18:15+00:00 shiba2th kernel: Moving 4 CPUs into the multikernel pool
+2026-11-02T16:18:15+00:00 shiba2th kernel: IRQ35: set affinity failed(-22).
+2026-11-02T16:18:15+00:00 shiba2th kernel: IRQ35: shutting down managed IRQ after failed migration
+2026-11-02T16:18:15+00:00 shiba2th kernel: smpboot: CPU 8 is now offline
+2026-11-02T16:18:15+00:00 shiba2th kernel: Multikernel hotplug: Successfully removed CPU 8 (phys 8)
+2026-11-02T16:18:15+00:00 shiba2th kernel: IRQ36: set affinity failed(-22).
+2026-11-02T16:18:15+00:00 shiba2th kernel: IRQ36: shutting down managed IRQ after failed migration
+2026-11-02T16:18:15+00:00 shiba2th kernel: smpboot: CPU 9 is now offline
+2026-11-02T16:18:15+00:00 shiba2th kernel: Multikernel hotplug: Successfully removed CPU 9 (phys 9)
+2026-11-02T16:18:15+00:00 shiba2th kernel: IRQ37: set affinity failed(-22).
+2026-11-02T16:18:15+00:00 shiba2th kernel: IRQ37: shutting down managed IRQ after failed migration
+2026-11-02T16:18:15+00:00 shiba2th kernel: smpboot: CPU 10 is now offline
+2026-11-02T16:18:15+00:00 shiba2th kernel: Multikernel hotplug: Successfully removed CPU 10 (phys 10)
+2026-11-02T16:18:15+00:00 shiba2th kernel: IRQ38: set affinity failed(-22).
+2026-11-02T16:18:15+00:00 shiba2th kernel: IRQ38: shutting down managed IRQ after failed migration
+2026-11-02T16:18:15+00:00 shiba2th kernel: smpboot: CPU 11 is now offline
+2026-11-02T16:18:15+00:00 shiba2th kernel: Multikernel hotplug: Successfully removed CPU 11 (phys 11)
+2026-11-02T16:18:15+00:00 shiba2th kernel: Moved 4 CPUs into the multikernel pool
+2026-11-02T16:18:15+00:00 shiba2th kernel: Multikernel hotplug: Removing device 0000:00:11.0
+2026-11-02T16:18:15+00:00 shiba2th kernel: Multikernel hotplug: Successfully removed device 0000:00:11.0
+2026-11-02T16:18:15+00:00 shiba2th kernel: PCI device 10de:1b38@0000:00:11.0 is free in the root pool
+2026-11-02T16:18:15+00:00 shiba2th kernel: Moved 1 PCI devices into the multikernel pool
+2026-11-02T16:18:15+00:00 shiba2th kernel: Multikernel baseline initialized successfully
+2026-11-02T16:18:15+00:00 shiba2th kernel: Successfully stored host kernel device tree configuration
+2026-11-02T16:18:41+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 546 bytes
+2026-11-02T16:18:41+00:00 shiba2th kernel: Applying overlay transaction 2 (target=/resources, resources=unknown)
+2026-11-02T16:18:41+00:00 shiba2th kernel: Overlay tx2: +memory 2560 MB numa=0 -> /resources
+2026-11-02T16:18:42+00:00 shiba2th kernel: Multikernel pool: added 0x0000000c15600000 (2560 MB) on node 0
+2026-11-02T16:18:42+00:00 shiba2th kernel: Overlay transaction 2 applied successfully
+2026-11-02T16:18:42+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 638 bytes
+2026-11-02T16:18:57+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 638 bytes
+2026-11-02T16:18:57+00:00 shiba2th kernel: Applying overlay transaction 3 (target=/resources, resources=unknown)
+2026-11-02T16:18:57+00:00 shiba2th kernel: Overlay tx3: +memory 3072 MB numa=0 -> /resources
+2026-11-02T16:18:59+00:00 shiba2th kernel: Multikernel pool: added 0x0000000492800000 (3072 MB) on node 0
+2026-11-02T16:18:59+00:00 shiba2th kernel: Overlay transaction 3 applied successfully
+2026-11-02T16:18:59+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 730 bytes
+2026-11-02T16:19:18+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 730 bytes
+2026-11-02T16:19:18+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 730 bytes
+2026-11-02T16:19:18+00:00 shiba2th kernel: Applying overlay transaction 4 (target=/instances, resources=unknown)
+2026-11-02T16:19:18+00:00 shiba2th kernel: Overlay tx4: Creating instance 'rpc-p40'
+2026-11-02T16:19:18+00:00 shiba2th kernel: Successfully parsed memory size: 1879048192 bytes (1792 MB)
+2026-11-02T16:19:18+00:00 shiba2th kernel: Successfully parsed 4 physical CPUs: 8,9,10,11
+2026-11-02T16:19:18+00:00 shiba2th kernel: Successfully parsed instance 'rpc-p40': 1879048192 bytes memory, 4 CPUs, 0 PCI devices, 0 platform devices
+2026-11-02T16:19:18+00:00 shiba2th kernel: Created instance pool 1: 1 chunks, total size=1879048192 bytes
+2026-11-02T16:19:18+00:00 shiba2th kernel: Transferred 0x70000000 bytes from root to instance 1 (rpc-p40)
+2026-11-02T16:19:18+00:00 shiba2th kernel: Created instance pool 1: 1 chunks, total size=1879048192 bytes
+2026-11-02T16:19:18+00:00 shiba2th kernel: Transferred 4 CPUs from pool to instance 1 (rpc-p40): 8,9,10,11
+2026-11-02T16:19:18+00:00 shiba2th kernel: Generated instance DTB for 'rpc-p40' (ID 1): 276 bytes
+2026-11-02T16:19:18+00:00 shiba2th kernel: Overlay tx4: Instance 'rpc-p40' created successfully
+2026-11-02T16:19:18+00:00 shiba2th kernel: Overlay tx4: +device 0000:00:11.0 driver=none -> rpc-p40
+2026-11-02T16:19:18+00:00 shiba2th kernel: Transferred PCI device 10de:1b38@0000:00:11.0 to instance 1
+2026-11-02T16:19:18+00:00 shiba2th kernel: Overlay transaction 4 applied successfully
+2026-11-02T16:19:18+00:00 shiba2th kernel: multikernel heap: allocated 2599702528 bytes at 0xc15603000
+2026-11-02T16:19:19+00:00 shiba2th kernel: daxfs: coherence backend = coherent
+2026-11-02T16:19:19+00:00 shiba2th kernel: daxfs: overlay initialized (65536 buckets, 67108864 pool bytes)
+2026-11-02T16:19:19+00:00 shiba2th kernel: daxfs: mounted read-write (overlay)
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec_file: kexec_file_load: multikernel load - flags=0x30, extracted mk_id=1
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec_file: Associated kimage with multikernel instance 1
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec_file: Allocated IPI ring buffer: phys=0x3c4480000, size=263696 bytes (order 7)
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec-vmlinux: Loading ELF vmlinux (type=2)
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec-vmlinux: multikernel: entry=0x350f124
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec-vmlinux: Multikernel entry offset: 0x350f124
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec-vmlinux: ELF kernel: entry=0x34d9b50 load_addr=0x1000000 size=0x3600000
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec-vmlinux: Skipping purgatory for multikernel (direct kernel entry)
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec_file: kexec_locate_mem_hole: called for segment size=0x2000, mem=0x0, image_type=2
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec_file: kexec_alloc_multikernel: called for segment size=0x2000, buf_min=0x3000, buf_max=0xffffffffffffffff, align=0x1000
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec_file: Allocated 8192 bytes from multikernel pool at 0x492804000
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec_file: kexec_add_buffer: segment[0] kbuf=0xffff8d45189e4000 bufsz=0x13a0 mem=0x492804000 memsz=0x2000
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec_file: kexec_locate_mem_hole: called for segment size=0x3600000, mem=0x0, image_type=2
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec_file: kexec_alloc_multikernel: called for segment size=0x3600000, buf_min=0x100000, buf_max=0xffffffffffffffff, align=0x200000
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec_file: Allocated 56623104 bytes from multikernel pool at 0x492a00000
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec_file: kexec_add_buffer: segment[1] kbuf=0xffffd3fa54200000 bufsz=0x3600000 mem=0x492a00000 memsz=0x3600000
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec-vmlinux: Loading kernel segments to 0x492a00000 (buffer=ffffd3fa54200000, size=0x3600000)
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec-vmlinux:   PT_LOAD[0]: paddr=0x1000000 offset=0x0 filesz=0x1e96230 memsz=0x1e96230
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec-vmlinux:   PT_LOAD[1]: paddr=0x3000000 offset=0x2000000 filesz=0x1600000 memsz=0x1600000
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec-vmlinux: ELF kernel loaded: kernel_load_addr=0x492a00000 buf=ffffd3fa54200000
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec_file: kexec_locate_mem_hole: called for segment size=0x118000, mem=0x0, image_type=2
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec_file: kexec_alloc_multikernel: called for segment size=0x118000, buf_min=0x1000000, buf_max=0xffffffffffffffff, align=0x1000
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec_file: Allocated 1146880 bytes from multikernel pool at 0x492806000
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec_file: kexec_add_buffer: segment[2] kbuf=0xffffd3fa4f803000 bufsz=0x117507 mem=0x492806000 memsz=0x118000
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec-bzImage64: setup_cmdline: cmdline=rdinit=/init loglevel=7 rootfstype=daxfs rootflags=phys=0xc15603000,size=2599702528 init=/init kerf.entrypoint=/sbin/entrypoint console=mktty0 len=143 offset=4096
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec-bzImage64: setup_cmdline: cmd_line_ptr=0x92805000 ext=0x4 (phys=0x492805000)
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec-vmlinux: Multikernel: entry=0x494f0f124 boot_params=0x492804000
+2026-11-02T16:19:19+00:00 shiba2th kernel: mk_e820: instance 1: 1792 MB RAM in 1 regions
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec_core: Loading multikernel segment: mem=0x492804000, memsz=0x2000, kbuf=0xffff8d45189e4000, buf=0x0000000000000000, bufsz=0x13a0, file_mode=1
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec_core: Loading multikernel segment: mem=0x492a00000, memsz=0x3600000, kbuf=0xffffd3fa54200000, buf=0x0000000000000000, bufsz=0x3600000, file_mode=1
+2026-11-02T16:19:19+00:00 shiba2th kernel: kexec_core: Loading multikernel segment: mem=0x492806000, memsz=0x118000, kbuf=0xffffd3fa4f803000, buf=0x0000000000000000, bufsz=0x117507, file_mode=1
+2026-11-02T16:19:20+00:00 shiba2th kernel: kexec_core: multikernel kexec: using physical CPU 8 (logical 8), 4 CPUs assigned
+2026-11-02T16:19:20+00:00 shiba2th kernel: kexec_core: Loading multikernel segment: mem=0x492804000, memsz=0x2000, kbuf=0xffff8d45189e4000, buf=0x0000000000000000, bufsz=0x13a0, file_mode=1
+2026-11-02T16:19:20+00:00 shiba2th kernel: kexec_core: Loading multikernel segment: mem=0x492a00000, memsz=0x3600000, kbuf=0xffffd3fa54200000, buf=0x0000000000000000, bufsz=0x3600000, file_mode=1
+2026-11-02T16:19:20+00:00 shiba2th kernel: kexec_core: Loading multikernel segment: mem=0x492806000, memsz=0x118000, kbuf=0xffffd3fa4f803000, buf=0x0000000000000000, bufsz=0x117507, file_mode=1
+2026-11-02T16:19:20+00:00 shiba2th kernel: Preserving multikernel DTB for instance 1
+2026-11-02T16:19:20+00:00 shiba2th kernel: Generated instance DTB for 'rpc-p40' (ID 1): 435 bytes
+2026-11-02T16:19:20+00:00 shiba2th kernel: Preserved DTB for instance 1 (435 bytes)
+2026-11-02T16:19:20+00:00 shiba2th kernel: Preserving host IPI buffer: phys=0x100c80000, pages=65
+2026-11-02T16:19:20+00:00 shiba2th kernel: Added host IPI buffer to manifest
+2026-11-02T16:19:20+00:00 shiba2th kernel: multikernel: added IPI buffer to manifest: phys=0x3c4480000, pages=65 (263696 bytes)
+2026-11-02T16:19:20+00:00 shiba2th kernel: multikernel: finalized manifest for instance 1 (size: 728 bytes)
+2026-11-02T16:19:20+00:00 shiba2th kernel: kexec_core: Manifest finalized for multikernel instance
+2026-11-02T16:19:20+00:00 shiba2th kernel: mk_e820: instance 1: 1792 MB RAM in 1 regions
+2026-11-02T16:19:20+00:00 shiba2th kernel: Multikernel instance 1 is now active
+2026-11-02T16:19:20+00:00 shiba2th kernel: Generated instance DTB for 'rpc-p40' (ID 1): 435 bytes
+2026-11-02T16:19:20+00:00 shiba2th kernel: Generated instance DTB for 'rpc-p40' (ID 1): 435 bytes
+2026-11-02T16:19:44+00:00 shiba2th kernel: mktty: fd connected to instance 1
+2026-11-02T16:23:25+00:00 shiba2th kernel: ------------[ cut here ]------------
+2026-11-02T16:23:25+00:00 shiba2th kernel: WARNING: kernel/softirq.c:429 at __local_bh_enable_ip+0x5a/0x70, CPU#0: swapper/0/0
+2026-11-02T16:23:25+00:00 shiba2th kernel: Modules linked in: daxfs(OE) lazy_cma(OE) vhost_net(E) tap(E) nft_masq(E) vhost_vsock(E) vmw_vsock_virtio_transport_common(E) vhost(E) vhost_iotlb(E) nf_conntrack_netlink(E) xt_nat(E) xt_tcpudp(E) veth(E) xt_conntrack(E) xt_MASQUERADE(E) bridge(E) stp(E) llc(E) xfrm_user(E) xfrm_algo(E) xt_set(E) ip_set(E) xt_addrtype(E) xt_mark(E) nft_compat(E) x_tables(E) nft_chain_nat(E) nf_nat(E) nf_conntrack(E) nf_defrag_ipv6(E) nf_defrag_ipv4(E) overlay(E) nf_tables(E) vxlan(E) ip6_udp_tunnel(E) udp_tunnel(E) nfnetlink(E) cfg80211(E) binfmt_misc(E) intel_rapl_msr(E) intel_rapl_common(E) kvm_amd(E) ccp(E) snd_hda_codec_hdmi(E) kvm(E) irqbypass(E) snd_hda_intel(E) snd_intel_dspcfg(E) snd_hda_codec(E) snd_hwdep(E) snd_hda_core(E) snd_pcm(E) snd_timer(E) i2c_piix4(E) snd(E) i2c_smbus(E) vmgenid(E) soundcore(E) joydev(E) input_leds(E) mac_hid(E) sch_fq_codel(E) nvidia_uvm(OE) efi_pstore(E) dm_multipath(E) dmi_sysfs(E) qemu_fw_cfg(E) autofs4(E) btrfs(E) libblake2b(E) raid10(E) raid456(E) async_raid6_recov(E)
+2026-11-02T16:23:25+00:00 shiba2th kernel:  async_memcpy(E) async_pq(E) async_xor(E) async_tx(E) xor(E) raid6_pq(E) raid1(E) raid0(E) nvidia_drm(OE) nvidia_modeset(OE) hid_generic(E) usbhid(E) hid(E) ghash_clmulni_intel(E) nvidia(OE) psmouse(E) video(E) serio_raw(E) wmi(E) drm_ttm_helper(E) floppy(E) ttm(E) pata_acpi(E) bochs(E) aesni_intel(E)
+2026-11-02T16:23:25+00:00 shiba2th kernel: CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Tainted: G           OE       7.0.0-mk2-shiba-mk1 #9 PREEMPT(lazy) 
+2026-11-02T16:23:25+00:00 shiba2th kernel: Tainted: [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
+2026-11-02T16:23:25+00:00 shiba2th kernel: Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+2026-11-02T16:23:25+00:00 shiba2th kernel: RIP: 0010:__local_bh_enable_ip+0x5a/0x70
+2026-11-02T16:23:25+00:00 shiba2th kernel: Code: ff 0d 7a 45 63 02 65 8b 05 73 45 63 02 85 c0 74 0a 5d 31 c0 31 f6 c3 cc cc cc cc e8 70 7a f0 ff 5d 31 c0 31 f6 c3 cc cc cc cc <0f> 0b eb b8 65 66 83 3d 51 45 63 02 00 74 c6 e8 e2 f4 ff ff eb bf
+2026-11-02T16:23:25+00:00 shiba2th kernel: RSP: 0018:ffffd3fa40003e68 EFLAGS: 00010006
+2026-11-02T16:23:25+00:00 shiba2th kernel: RAX: 0000000000000001 RBX: 0000000000000000 RCX: 0000000000000000
+2026-11-02T16:23:25+00:00 shiba2th kernel: RDX: 00000000828cbfbf RSI: 0000000000000201 RDI: ffffffffa4ae473f
+2026-11-02T16:23:25+00:00 shiba2th kernel: RBP: ffffd3fa40003e68 R08: 0000000000000000 R09: 0000000000000000
+2026-11-02T16:23:25+00:00 shiba2th kernel: R10: 0000000000000000 R11: 0000000000000000 R12: ffffd3fa40003ee8
+2026-11-02T16:23:25+00:00 shiba2th kernel: R13: ffffd3fa40003ef8 R14: 00000000828cbfbf R15: ffffffffa6212078
+2026-11-02T16:23:25+00:00 shiba2th kernel: FS:  0000000000000000(0000) GS:ffff8d515f860000(0000) knlGS:0000000000000000
+2026-11-02T16:23:25+00:00 shiba2th kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+2026-11-02T16:23:25+00:00 shiba2th kernel: CR2: 00007ffd8cdc4758 CR3: 00000008c59df000 CR4: 0000000000f50ef0
+2026-11-02T16:23:25+00:00 shiba2th kernel: PKRU: 55555554
+2026-11-02T16:23:25+00:00 shiba2th kernel: Call Trace:
+2026-11-02T16:23:25+00:00 shiba2th kernel:  <IRQ>
+2026-11-02T16:23:25+00:00 shiba2th kernel:  _raw_spin_unlock_bh+0x1d/0x30
+2026-11-02T16:23:25+00:00 shiba2th kernel:  vsock_find_connected_socket_net+0x16f/0x210
+2026-11-02T16:23:25+00:00 shiba2th kernel:  vsock_find_connected_socket+0x10/0x20
+2026-11-02T16:23:25+00:00 shiba2th kernel:  mk_vsock_rx_pkt+0x80/0x650
+2026-11-02T16:23:25+00:00 shiba2th kernel:  mk_vsock_ipi_handler+0x10a/0x130
+2026-11-02T16:23:25+00:00 shiba2th kernel:  mk_message_type_ipi_callback+0x84/0x170
+2026-11-02T16:23:25+00:00 shiba2th kernel:  ? __pfx_mk_message_type_ipi_callback+0x10/0x10
+2026-11-02T16:23:25+00:00 shiba2th kernel:  generic_multikernel_interrupt+0x13f/0x1d0
+2026-11-02T16:23:25+00:00 shiba2th kernel:  __sysvec_multikernel+0x1a/0x20
+2026-11-02T16:23:25+00:00 shiba2th kernel:  sysvec_multikernel+0x9b/0xc0
+2026-11-02T16:23:25+00:00 shiba2th kernel:  </IRQ>
+2026-11-02T16:23:25+00:00 shiba2th kernel:  <TASK>
+2026-11-02T16:23:25+00:00 shiba2th kernel:  asm_sysvec_multikernel+0x1b/0x20
+2026-11-02T16:23:25+00:00 shiba2th kernel: RIP: 0010:pv_native_safe_halt+0xb/0x10
+2026-11-02T16:23:25+00:00 shiba2th kernel: Code: 22 df 31 ff c3 cc cc cc cc 66 0f 1f 44 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 eb 07 0f 00 2d f9 ac 09 00 fb f4 <c3> cc cc cc cc 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 83
+2026-11-02T16:23:25+00:00 shiba2th kernel: RSP: 0018:ffffffffa5603de8 EFLAGS: 00000246
+2026-11-02T16:23:25+00:00 shiba2th kernel: RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
+2026-11-02T16:23:25+00:00 shiba2th kernel: RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+2026-11-02T16:23:25+00:00 shiba2th kernel: RBP: ffffffffa5603df0 R08: 0000000000000000 R09: 0000000000000000
+2026-11-02T16:23:25+00:00 shiba2th kernel: R10: 0000000000000000 R11: 0000000000000000 R12: ffffffffa5613480
+2026-11-02T16:23:25+00:00 shiba2th kernel: R13: 0000000000000000 R14: 0000000000000000 R15: 000000000008a000
+2026-11-02T16:23:25+00:00 shiba2th kernel:  ? default_idle+0x9/0x30
+2026-11-02T16:23:25+00:00 shiba2th kernel:  arch_cpu_idle+0x9/0x10
+2026-11-02T16:23:25+00:00 shiba2th kernel:  default_idle_call+0x33/0x120
+2026-11-02T16:23:25+00:00 shiba2th kernel:  do_idle+0x1ba/0x2d0
+2026-11-02T16:23:25+00:00 shiba2th kernel:  cpu_startup_entry+0x29/0x30
+2026-11-02T16:23:25+00:00 shiba2th kernel:  rest_init+0xde/0x100
+2026-11-02T16:23:25+00:00 shiba2th kernel:  start_kernel+0x899/0xca0
+2026-11-02T16:23:25+00:00 shiba2th kernel:  x86_64_start_reservations+0x18/0x30
+2026-11-02T16:23:25+00:00 shiba2th kernel:  x86_64_start_kernel+0x10d/0x160
+2026-11-02T16:23:25+00:00 shiba2th kernel:  ? soft_restart_cpu+0x14/0x14
+2026-11-02T16:23:25+00:00 shiba2th kernel:  common_startup_64+0x13e/0x141
+2026-11-02T16:23:25+00:00 shiba2th kernel:  </TASK>
+2026-11-02T16:23:25+00:00 shiba2th kernel: ---[ end trace 0000000000000000 ]---
+2026-11-02T16:38:55+00:00 shiba2th kernel: Generated instance DTB for 'rpc-p40' (ID 1): 435 bytes
+2026-11-02T16:38:55+00:00 shiba2th kernel: Generated instance DTB for 'rpc-p40' (ID 1): 435 bytes
+2026-11-02T16:38:55+00:00 shiba2th kernel: mktty: fd connected to instance 1
+2026-11-02T16:46:34+00:00 shiba2th kernel: multikernel: IPI ring full for instance 1 (head=46, tail=47)
+2026-11-02T16:46:34+00:00 shiba2th kernel: Failed to send multikernel message: -28
+2026-11-02T16:54:20+00:00 shiba2th kernel: mktty: fd connected to instance 1
+2026-11-02T17:08:09+00:00 shiba2th kernel: multikernel: IPI ring full for instance 1 (head=22, tail=23)
+2026-11-02T17:08:09+00:00 shiba2th kernel: Failed to send multikernel message: -28
+2026-11-02T17:15:33+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 512 bytes
+2026-11-02T17:15:33+00:00 shiba2th kernel: Generated instance DTB for 'rpc-p40' (ID 1): 435 bytes
+2026-11-02T17:15:33+00:00 shiba2th kernel: Generated instance DTB for 'rpc-p40' (ID 1): 435 bytes
+2026-11-02T17:16:58+00:00 shiba2th kernel: audit: type=1400 audit(1793639818.115:230): apparmor="DENIED" operation="open" class="file" profile="who" name="/etc/nsswitch.conf" pid=26051 comm="who" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+2026-11-02T17:16:58+00:00 shiba2th kernel: audit: type=1400 audit(1793639818.115:231): apparmor="DENIED" operation="open" class="file" profile="who" name="/etc/passwd" pid=26051 comm="who" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+2026-11-02T17:16:58+00:00 shiba2th kernel: audit: type=1400 audit(1793639818.115:232): apparmor="DENIED" operation="open" class="file" profile="who" name="/etc/nsswitch.conf" pid=26051 comm="who" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+2026-11-02T17:16:58+00:00 shiba2th kernel: audit: type=1400 audit(1793639818.115:233): apparmor="DENIED" operation="open" class="file" profile="who" name="/etc/passwd" pid=26051 comm="who" requested_mask="r" denied_mask="r" fsuid=0 ouid=0
+2026-11-02T17:19:29+00:00 shiba2th kernel: mktty: fd connected to instance 1
+2026-11-02T17:25:34+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 512 bytes
+2026-11-02T17:25:34+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 512 bytes
+2026-11-02T17:26:46+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 512 bytes
+2026-11-02T17:26:46+00:00 shiba2th kernel: Applying overlay transaction 5 (target=/resources, resources=unknown)
+2026-11-02T17:26:46+00:00 shiba2th kernel: Overlay tx5: +memory 1152 MB numa=0 -> /resources
+2026-11-02T17:26:46+00:00 shiba2th kernel: Multikernel pool: added 0x0000000baf800000 (1152 MB) on node 0
+2026-11-02T17:26:46+00:00 shiba2th kernel: Overlay transaction 5 applied successfully
+2026-11-02T17:26:46+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 604 bytes
+2026-11-02T17:26:46+00:00 shiba2th kernel: Applying overlay transaction 6 (target=/instances/rpc-p40, resources=unknown)
+2026-11-02T17:26:46+00:00 shiba2th kernel: Overlay tx6: +memory 0xbb0000000-0xbefffffff (1024 MB) numa=0 -> rpc-p40
+2026-11-02T17:26:46+00:00 shiba2th kernel: Multikernel hotplug: ACK op=0x2003 resource=12255232 result=0
+2026-11-02T17:26:46+00:00 shiba2th kernel: Added memory region 0xbaf802000-0xbef801fff (1024 MB) to instance 1 (rpc-p40)
+2026-11-02T17:26:46+00:00 shiba2th kernel: Overlay transaction 6 applied successfully
+2026-11-02T17:26:59+00:00 shiba2th kernel: mktty: fd connected to instance 1
+2026-11-02T17:27:21+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 604 bytes
+2026-11-02T17:27:21+00:00 shiba2th kernel: Applying overlay transaction 7 (target=/resources, resources=unknown)
+2026-11-02T17:27:21+00:00 shiba2th kernel: Overlay tx7: +memory 1152 MB numa=0 -> /resources
+2026-11-02T17:27:21+00:00 shiba2th kernel: Multikernel pool: added 0x0000000b67800000 (1152 MB) on node 0
+2026-11-02T17:27:21+00:00 shiba2th kernel: Overlay transaction 7 applied successfully
+2026-11-02T17:27:21+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 696 bytes
+2026-11-02T17:27:21+00:00 shiba2th kernel: Applying overlay transaction 8 (target=/instances/rpc-p40, resources=unknown)
+2026-11-02T17:27:21+00:00 shiba2th kernel: Overlay tx8: +memory 0xb68000000-0xba7ffffff (1024 MB) numa=0 -> rpc-p40
+2026-11-02T17:27:21+00:00 shiba2th kernel: Multikernel hotplug: ACK op=0x2003 resource=11960320 result=0
+2026-11-02T17:27:21+00:00 shiba2th kernel: Added memory region 0xb67801000-0xba7800fff (1024 MB) to instance 1 (rpc-p40)
+2026-11-02T17:27:21+00:00 shiba2th kernel: Overlay transaction 8 applied successfully
+2026-11-02T17:27:21+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 696 bytes
+2026-11-02T17:27:21+00:00 shiba2th kernel: Applying overlay transaction 9 (target=/resources, resources=unknown)
+2026-11-02T17:27:21+00:00 shiba2th kernel: Overlay tx9: +memory 1152 MB numa=0 -> /resources
+2026-11-02T17:27:21+00:00 shiba2th kernel: Multikernel pool: added 0x0000000b05000000 (1152 MB) on node 0
+2026-11-02T17:27:21+00:00 shiba2th kernel: Overlay transaction 9 applied successfully
+2026-11-02T17:27:21+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 788 bytes
+2026-11-02T17:27:21+00:00 shiba2th kernel: Applying overlay transaction 10 (target=/instances/rpc-p40, resources=unknown)
+2026-11-02T17:27:21+00:00 shiba2th kernel: Overlay tx10: +memory 0xb08000000-0xb47ffffff (1024 MB) numa=0 -> rpc-p40
+2026-11-02T17:27:21+00:00 shiba2th kernel: Multikernel hotplug: ACK op=0x2003 resource=11567104 result=0
+2026-11-02T17:27:21+00:00 shiba2th kernel: Added memory region 0xb05001000-0xb45000fff (1024 MB) to instance 1 (rpc-p40)
+2026-11-02T17:27:21+00:00 shiba2th kernel: Overlay transaction 10 applied successfully
+2026-11-02T17:27:21+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 788 bytes
+2026-11-02T17:27:21+00:00 shiba2th kernel: Applying overlay transaction 11 (target=/resources, resources=unknown)
+2026-11-02T17:27:21+00:00 shiba2th kernel: Overlay tx11: +memory 1152 MB numa=0 -> /resources
+2026-11-02T17:27:21+00:00 shiba2th kernel: Multikernel pool: added 0x0000000abd000000 (1152 MB) on node 0
+2026-11-02T17:27:21+00:00 shiba2th kernel: Overlay transaction 11 applied successfully
+2026-11-02T17:27:21+00:00 shiba2th kernel: Generated instance DTB for '' (ID 0): 880 bytes
+2026-11-02T17:27:21+00:00 shiba2th kernel: Applying overlay transaction 12 (target=/instances/rpc-p40, resources=unknown)
+2026-11-02T17:27:21+00:00 shiba2th kernel: Overlay tx12: +memory 0xac0000000-0xaffffffff (1024 MB) numa=0 -> rpc-p40
+2026-11-02T17:27:21+00:00 shiba2th kernel: Multikernel hotplug: ACK op=0x2003 resource=11272192 result=0
+2026-11-02T17:27:21+00:00 shiba2th kernel: Added memory region 0xabd002000-0xafd001fff (1024 MB) to instance 1 (rpc-p40)
+2026-11-02T17:27:21+00:00 shiba2th kernel: Overlay transaction 12 applied successfully
+2026-11-02T17:27:38+00:00 shiba2th kernel: mktty: fd connected to instance 1
+2026-11-02T17:30:27+00:00 shiba2th kernel: ------------[ cut here ]------------
+2026-11-02T17:30:27+00:00 shiba2th kernel: bochs-drm 0000:00:02.0: [drm] vblank wait timed out on crtc 0
+2026-11-02T17:30:27+00:00 shiba2th kernel: WARNING: drivers/gpu/drm/drm_vblank.c:1320 at drm_crtc_wait_one_vblank+0x18c/0x200, CPU#3: kworker/3:1/27721
+2026-11-02T17:30:27+00:00 shiba2th kernel: Modules linked in: daxfs(OE) lazy_cma(OE) vhost_net(E) tap(E) nft_masq(E) vhost_vsock(E) vmw_vsock_virtio_transport_common(E) vhost(E) vhost_iotlb(E) nf_conntrack_netlink(E) xt_nat(E) xt_tcpudp(E) veth(E) xt_conntrack(E) xt_MASQUERADE(E) bridge(E) stp(E) llc(E) xfrm_user(E) xfrm_algo(E) xt_set(E) ip_set(E) xt_addrtype(E) xt_mark(E) nft_compat(E) x_tables(E) nft_chain_nat(E) nf_nat(E) nf_conntrack(E) nf_defrag_ipv6(E) nf_defrag_ipv4(E) overlay(E) nf_tables(E) vxlan(E) ip6_udp_tunnel(E) udp_tunnel(E) nfnetlink(E) cfg80211(E) binfmt_misc(E) intel_rapl_msr(E) intel_rapl_common(E) kvm_amd(E) ccp(E) snd_hda_codec_hdmi(E) kvm(E) irqbypass(E) snd_hda_intel(E) snd_intel_dspcfg(E) snd_hda_codec(E) snd_hwdep(E) snd_hda_core(E) snd_pcm(E) snd_timer(E) i2c_piix4(E) snd(E) i2c_smbus(E) vmgenid(E) soundcore(E) joydev(E) input_leds(E) mac_hid(E) sch_fq_codel(E) nvidia_uvm(OE) efi_pstore(E) dm_multipath(E) dmi_sysfs(E) qemu_fw_cfg(E) autofs4(E) btrfs(E) libblake2b(E) raid10(E) raid456(E) async_raid6_recov(E)
+2026-11-02T17:30:27+00:00 shiba2th kernel:  async_memcpy(E) async_pq(E) async_xor(E) async_tx(E) xor(E) raid6_pq(E) raid1(E) raid0(E) nvidia_drm(OE) nvidia_modeset(OE) hid_generic(E) usbhid(E) hid(E) ghash_clmulni_intel(E) nvidia(OE) psmouse(E) video(E) serio_raw(E) wmi(E) drm_ttm_helper(E) floppy(E) ttm(E) pata_acpi(E) bochs(E) aesni_intel(E)
+2026-11-02T17:30:27+00:00 shiba2th kernel: CPU: 3 UID: 0 PID: 27721 Comm: kworker/3:1 Tainted: G        W  OE       7.0.0-mk2-shiba-mk1 #9 PREEMPT(lazy) 
+2026-11-02T17:30:27+00:00 shiba2th kernel: Tainted: [W]=WARN, [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
+2026-11-02T17:30:27+00:00 shiba2th kernel: Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+2026-11-02T17:30:27+00:00 shiba2th kernel: Workqueue: events drm_fb_helper_damage_work
+2026-11-02T17:30:27+00:00 shiba2th kernel: RIP: 0010:drm_crtc_wait_one_vblank+0x192/0x200
+2026-11-02T17:30:27+00:00 shiba2th kernel: Code: ff ff ff 48 85 db 74 7e 48 8b 7b 08 4c 8b 67 50 4d 85 e4 74 6c e8 6e e9 02 00 48 89 c6 48 8d 3d f4 d9 57 01 44 89 e9 4c 89 e2 <67> 48 0f b9 3a 44 89 ee 48 89 df e8 ce fc ff ff c7 45 a4 92 ff ff
+2026-11-02T17:30:27+00:00 shiba2th kernel: RSP: 0018:ffffd3fa4fdbbd78 EFLAGS: 00010246
+2026-11-02T17:30:27+00:00 shiba2th kernel: RAX: ffffffffc04db0f0 RBX: ffff8d4507e3e000 RCX: 0000000000000000
+2026-11-02T17:30:27+00:00 shiba2th kernel: RDX: ffff8d45025edf90 RSI: ffffffffc04db0f0 RDI: ffffffffa5ab3a10
+2026-11-02T17:30:27+00:00 shiba2th kernel: RBP: ffffd3fa4fdbbdd8 R08: 0000000000000000 R09: 0000000000000000
+2026-11-02T17:30:27+00:00 shiba2th kernel: R10: 0000000000000000 R11: 0000000000000000 R12: ffff8d45025edf90
+2026-11-02T17:30:27+00:00 shiba2th kernel: R13: 0000000000000000 R14: 0000000000051939 R15: ffff8d45030a8c30
+2026-11-02T17:30:27+00:00 shiba2th kernel: FS:  0000000000000000(0000) GS:ffff8d515f9e0000(0000) knlGS:0000000000000000
+2026-11-02T17:30:27+00:00 shiba2th kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+2026-11-02T17:30:27+00:00 shiba2th kernel: CR2: 000070e8c4efe670 CR3: 000000056bd86000 CR4: 0000000000f50ef0
+2026-11-02T17:30:27+00:00 shiba2th kernel: PKRU: 55555554
+2026-11-02T17:30:27+00:00 shiba2th kernel: Call Trace:
+2026-11-02T17:30:27+00:00 shiba2th kernel:  <TASK>
+2026-11-02T17:30:27+00:00 shiba2th kernel:  ? __pfx_autoremove_wake_function+0x10/0x10
+2026-11-02T17:30:27+00:00 shiba2th kernel:  drm_client_modeset_wait_for_vblank+0x61/0x80
+2026-11-02T17:30:27+00:00 shiba2th kernel:  drm_fb_helper_damage_work+0x8c/0x1a0
+2026-11-02T17:30:27+00:00 shiba2th kernel:  process_one_work+0x19c/0x420
+2026-11-02T17:30:27+00:00 shiba2th kernel:  worker_thread+0x1a8/0x330
+2026-11-02T17:30:27+00:00 shiba2th kernel:  ? __pfx_worker_thread+0x10/0x10
+2026-11-02T17:30:27+00:00 shiba2th kernel:  kthread+0xfb/0x140
+2026-11-02T17:30:27+00:00 shiba2th kernel:  ? __pfx_kthread+0x10/0x10
+2026-11-02T17:30:27+00:00 shiba2th kernel:  ret_from_fork+0x2ba/0x380
+2026-11-02T17:30:27+00:00 shiba2th kernel:  ? __pfx_kthread+0x10/0x10
+2026-11-02T17:30:27+00:00 shiba2th kernel:  ret_from_fork_asm+0x1a/0x30
+2026-11-02T17:30:27+00:00 shiba2th kernel:  </TASK>
+2026-11-02T17:30:27+00:00 shiba2th kernel: ---[ end trace 0000000000000000 ]---
+2026-11-02T17:30:27+00:00 shiba2th kernel: ------------[ cut here ]------------
+2026-11-02T17:30:27+00:00 shiba2th kernel: [CRTC:35:crtc-0] vblank wait timed out
+2026-11-02T17:30:27+00:00 shiba2th kernel: WARNING: drivers/gpu/drm/drm_atomic_helper.c:1921 at drm_atomic_helper_wait_for_vblanks.part.0+0x240/0x260, CPU#3: kworker/3:1/27721
+2026-11-02T17:30:27+00:00 shiba2th kernel: Modules linked in: daxfs(OE) lazy_cma(OE) vhost_net(E) tap(E) nft_masq(E) vhost_vsock(E) vmw_vsock_virtio_transport_common(E) vhost(E) vhost_iotlb(E) nf_conntrack_netlink(E) xt_nat(E) xt_tcpudp(E) veth(E) xt_conntrack(E) xt_MASQUERADE(E) bridge(E) stp(E) llc(E) xfrm_user(E) xfrm_algo(E) xt_set(E) ip_set(E) xt_addrtype(E) xt_mark(E) nft_compat(E) x_tables(E) nft_chain_nat(E) nf_nat(E) nf_conntrack(E) nf_defrag_ipv6(E) nf_defrag_ipv4(E) overlay(E) nf_tables(E) vxlan(E) ip6_udp_tunnel(E) udp_tunnel(E) nfnetlink(E) cfg80211(E) binfmt_misc(E) intel_rapl_msr(E) intel_rapl_common(E) kvm_amd(E) ccp(E) snd_hda_codec_hdmi(E) kvm(E) irqbypass(E) snd_hda_intel(E) snd_intel_dspcfg(E) snd_hda_codec(E) snd_hwdep(E) snd_hda_core(E) snd_pcm(E) snd_timer(E) i2c_piix4(E) snd(E) i2c_smbus(E) vmgenid(E) soundcore(E) joydev(E) input_leds(E) mac_hid(E) sch_fq_codel(E) nvidia_uvm(OE) efi_pstore(E) dm_multipath(E) dmi_sysfs(E) qemu_fw_cfg(E) autofs4(E) btrfs(E) libblake2b(E) raid10(E) raid456(E) async_raid6_recov(E)
+2026-11-02T17:30:27+00:00 shiba2th kernel:  async_memcpy(E) async_pq(E) async_xor(E) async_tx(E) xor(E) raid6_pq(E) raid1(E) raid0(E) nvidia_drm(OE) nvidia_modeset(OE) hid_generic(E) usbhid(E) hid(E) ghash_clmulni_intel(E) nvidia(OE) psmouse(E) video(E) serio_raw(E) wmi(E) drm_ttm_helper(E) floppy(E) ttm(E) pata_acpi(E) bochs(E) aesni_intel(E)
+2026-11-02T17:30:27+00:00 shiba2th kernel: CPU: 3 UID: 0 PID: 27721 Comm: kworker/3:1 Tainted: G        W  OE       7.0.0-mk2-shiba-mk1 #9 PREEMPT(lazy) 
+2026-11-02T17:30:27+00:00 shiba2th kernel: Tainted: [W]=WARN, [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
+2026-11-02T17:30:27+00:00 shiba2th kernel: Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+2026-11-02T17:30:27+00:00 shiba2th kernel: Workqueue: events drm_fb_helper_damage_work
+2026-11-02T17:30:27+00:00 shiba2th kernel: RIP: 0010:drm_atomic_helper_wait_for_vblanks.part.0+0x247/0x260
+2026-11-02T17:30:27+00:00 shiba2th kernel: Code: ff 84 c0 74 86 48 8d 75 a8 4c 89 f7 e8 02 23 4c ff 8b 45 98 85 c0 0f 85 f7 fe ff ff 48 8d 3d 30 ce 56 01 48 8b 53 20 8b 73 60 <67> 48 0f b9 3a e9 df fe ff ff e8 6a c1 62 00 66 2e 0f 1f 84 00 00
+2026-11-02T17:30:27+00:00 shiba2th kernel: RSP: 0018:ffffd3fa4fdbbbe0 EFLAGS: 00010246
+2026-11-02T17:30:27+00:00 shiba2th kernel: RAX: 0000000000000000 RBX: ffff8d4507e3ebc8 RCX: 0000000000000000
+2026-11-02T17:30:27+00:00 shiba2th kernel: RDX: ffff8d45010f6108 RSI: 0000000000000023 RDI: ffffffffa5ab3ee0
+2026-11-02T17:30:27+00:00 shiba2th kernel: RBP: ffffd3fa4fdbbc50 R08: 0000000000000000 R09: 0000000000000000
+2026-11-02T17:30:27+00:00 shiba2th kernel: R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+2026-11-02T17:30:27+00:00 shiba2th kernel: R13: 0000000000000000 R14: ffff8d45030a8c30 R15: ffff8d4502892800
+2026-11-02T17:30:27+00:00 shiba2th kernel: FS:  0000000000000000(0000) GS:ffff8d515f9e0000(0000) knlGS:0000000000000000
+2026-11-02T17:30:27+00:00 shiba2th kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+2026-11-02T17:30:27+00:00 shiba2th kernel: CR2: 000070e8c4efe670 CR3: 00000009acc57000 CR4: 0000000000f50ef0
+2026-11-02T17:30:27+00:00 shiba2th kernel: PKRU: 55555554
+2026-11-02T17:30:27+00:00 shiba2th kernel: Call Trace:
+2026-11-02T17:30:27+00:00 shiba2th kernel:  <TASK>
+2026-11-02T17:30:27+00:00 shiba2th kernel:  ? __pfx_autoremove_wake_function+0x10/0x10
+2026-11-02T17:30:27+00:00 shiba2th kernel:  drm_atomic_helper_commit_tail+0xa9/0xd0
+2026-11-02T17:30:27+00:00 shiba2th kernel:  commit_tail+0x11f/0x1b0
+2026-11-02T17:30:27+00:00 shiba2th kernel:  drm_atomic_helper_commit+0x132/0x160
+2026-11-02T17:30:27+00:00 shiba2th kernel:  drm_atomic_commit+0xaf/0xf0
+2026-11-02T17:30:27+00:00 shiba2th kernel:  ? __pfx___drm_printfn_info+0x10/0x10
+2026-11-02T17:30:27+00:00 shiba2th kernel:  drm_atomic_helper_dirtyfb+0x1a1/0x290
+2026-11-02T17:30:27+00:00 shiba2th kernel:  drm_fbdev_shmem_helper_fb_dirty+0x4a/0xb0
+2026-11-02T17:30:27+00:00 shiba2th kernel:  drm_fb_helper_damage_work+0xf2/0x1a0
+2026-11-02T17:30:27+00:00 shiba2th kernel:  process_one_work+0x19c/0x420
+2026-11-02T17:30:27+00:00 shiba2th kernel:  worker_thread+0x1a8/0x330
+2026-11-02T17:30:27+00:00 shiba2th kernel:  ? __pfx_worker_thread+0x10/0x10
+2026-11-02T17:30:27+00:00 shiba2th kernel:  kthread+0xfb/0x140
+2026-11-02T17:30:27+00:00 shiba2th kernel:  ? __pfx_kthread+0x10/0x10
+2026-11-02T17:30:27+00:00 shiba2th kernel:  ret_from_fork+0x2ba/0x380
+2026-11-02T17:30:27+00:00 shiba2th kernel:  ? __pfx_kthread+0x10/0x10
+2026-11-02T17:30:27+00:00 shiba2th kernel:  ret_from_fork_asm+0x1a/0x30
+2026-11-02T17:30:27+00:00 shiba2th kernel:  </TASK>
+2026-11-02T17:30:27+00:00 shiba2th kernel: ---[ end trace 0000000000000000 ]---
+2026-11-02T17:30:28+00:00 shiba2th kernel: ------------[ cut here ]------------
+2026-11-02T17:30:28+00:00 shiba2th kernel: bochs-drm 0000:00:02.0: [drm] vblank wait timed out on crtc 0
+2026-11-02T17:30:28+00:00 shiba2th kernel: WARNING: drivers/gpu/drm/drm_vblank.c:1320 at drm_crtc_wait_one_vblank+0x18c/0x200, CPU#3: kworker/3:1/27721
+2026-11-02T17:30:28+00:00 shiba2th kernel: Modules linked in: daxfs(OE) lazy_cma(OE) vhost_net(E) tap(E) nft_masq(E) vhost_vsock(E) vmw_vsock_virtio_transport_common(E) vhost(E) vhost_iotlb(E) nf_conntrack_netlink(E) xt_nat(E) xt_tcpudp(E) veth(E) xt_conntrack(E) xt_MASQUERADE(E) bridge(E) stp(E) llc(E) xfrm_user(E) xfrm_algo(E) xt_set(E) ip_set(E) xt_addrtype(E) xt_mark(E) nft_compat(E) x_tables(E) nft_chain_nat(E) nf_nat(E) nf_conntrack(E) nf_defrag_ipv6(E) nf_defrag_ipv4(E) overlay(E) nf_tables(E) vxlan(E) ip6_udp_tunnel(E) udp_tunnel(E) nfnetlink(E) cfg80211(E) binfmt_misc(E) intel_rapl_msr(E) intel_rapl_common(E) kvm_amd(E) ccp(E) snd_hda_codec_hdmi(E) kvm(E) irqbypass(E) snd_hda_intel(E) snd_intel_dspcfg(E) snd_hda_codec(E) snd_hwdep(E) snd_hda_core(E) snd_pcm(E) snd_timer(E) i2c_piix4(E) snd(E) i2c_smbus(E) vmgenid(E) soundcore(E) joydev(E) input_leds(E) mac_hid(E) sch_fq_codel(E) nvidia_uvm(OE) efi_pstore(E) dm_multipath(E) dmi_sysfs(E) qemu_fw_cfg(E) autofs4(E) btrfs(E) libblake2b(E) raid10(E) raid456(E) async_raid6_recov(E)
+2026-11-02T17:30:28+00:00 shiba2th kernel:  async_memcpy(E) async_pq(E) async_xor(E) async_tx(E) xor(E) raid6_pq(E) raid1(E) raid0(E) nvidia_drm(OE) nvidia_modeset(OE) hid_generic(E) usbhid(E) hid(E) ghash_clmulni_intel(E) nvidia(OE) psmouse(E) video(E) serio_raw(E) wmi(E) drm_ttm_helper(E) floppy(E) ttm(E) pata_acpi(E) bochs(E) aesni_intel(E)
+2026-11-02T17:30:28+00:00 shiba2th kernel: CPU: 3 UID: 0 PID: 27721 Comm: kworker/3:1 Tainted: G        W  OE       7.0.0-mk2-shiba-mk1 #9 PREEMPT(lazy) 
+2026-11-02T17:30:28+00:00 shiba2th kernel: Tainted: [W]=WARN, [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
+2026-11-02T17:30:28+00:00 shiba2th kernel: Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+2026-11-02T17:30:28+00:00 shiba2th kernel: Workqueue: events drm_fb_helper_damage_work
+2026-11-02T17:30:28+00:00 shiba2th kernel: RIP: 0010:drm_crtc_wait_one_vblank+0x192/0x200
+2026-11-02T17:30:28+00:00 shiba2th kernel: Code: ff ff ff 48 85 db 74 7e 48 8b 7b 08 4c 8b 67 50 4d 85 e4 74 6c e8 6e e9 02 00 48 89 c6 48 8d 3d f4 d9 57 01 44 89 e9 4c 89 e2 <67> 48 0f b9 3a 44 89 ee 48 89 df e8 ce fc ff ff c7 45 a4 92 ff ff
+2026-11-02T17:30:28+00:00 shiba2th kernel: RSP: 0018:ffffd3fa4fdbbd78 EFLAGS: 00010246
+2026-11-02T17:30:28+00:00 shiba2th kernel: RAX: ffffffffc04db0f0 RBX: ffff8d4507e3e000 RCX: 0000000000000000
+2026-11-02T17:30:28+00:00 shiba2th kernel: RDX: ffff8d45025edf90 RSI: ffffffffc04db0f0 RDI: ffffffffa5ab3a10
+2026-11-02T17:30:28+00:00 shiba2th kernel: RBP: ffffd3fa4fdbbdd8 R08: 0000000000000000 R09: 0000000000000000
+2026-11-02T17:30:28+00:00 shiba2th kernel: R10: 0000000000000000 R11: 0000000000000000 R12: ffff8d45025edf90
+2026-11-02T17:30:28+00:00 shiba2th kernel: R13: 0000000000000000 R14: 0000000000051939 R15: ffff8d45030a8c30
+2026-11-02T17:30:28+00:00 shiba2th kernel: FS:  0000000000000000(0000) GS:ffff8d515f9e0000(0000) knlGS:0000000000000000
+2026-11-02T17:30:28+00:00 shiba2th kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+2026-11-02T17:30:28+00:00 shiba2th kernel: CR2: 00007f682bfffcd4 CR3: 00000008065b4000 CR4: 0000000000f50ef0
+2026-11-02T17:30:28+00:00 shiba2th kernel: PKRU: 55555554
+2026-11-02T17:30:28+00:00 shiba2th kernel: Call Trace:
+2026-11-02T17:30:28+00:00 shiba2th kernel:  <TASK>
+2026-11-02T17:30:28+00:00 shiba2th kernel:  ? __pfx_autoremove_wake_function+0x10/0x10
+2026-11-02T17:30:28+00:00 shiba2th kernel:  drm_client_modeset_wait_for_vblank+0x61/0x80
+2026-11-02T17:30:28+00:00 shiba2th kernel:  drm_fb_helper_damage_work+0x8c/0x1a0
+2026-11-02T17:30:28+00:00 shiba2th kernel:  process_one_work+0x19c/0x420
+2026-11-02T17:30:28+00:00 shiba2th kernel:  worker_thread+0x1a8/0x330
+2026-11-02T17:30:28+00:00 shiba2th kernel:  ? __pfx_worker_thread+0x10/0x10
+2026-11-02T17:30:28+00:00 shiba2th kernel:  kthread+0xfb/0x140
+2026-11-02T17:30:28+00:00 shiba2th kernel:  ? __pfx_kthread+0x10/0x10
+2026-11-02T17:30:28+00:00 shiba2th kernel:  ret_from_fork+0x2ba/0x380
+2026-11-02T17:30:28+00:00 shiba2th kernel:  ? __pfx_kthread+0x10/0x10
+2026-11-02T17:30:28+00:00 shiba2th kernel:  ret_from_fork_asm+0x1a/0x30
+2026-11-02T17:30:28+00:00 shiba2th kernel:  </TASK>
+2026-11-02T17:30:28+00:00 shiba2th kernel: ---[ end trace 0000000000000000 ]---
+2026-11-02T17:30:38+00:00 shiba2th kernel: bochs-drm 0000:00:02.0: [drm] *ERROR* flip_done timed out
+2026-11-02T17:30:38+00:00 shiba2th kernel: bochs-drm 0000:00:02.0: [drm] *ERROR* [CRTC:35:crtc-0] commit wait timed out
+2026-11-02T17:30:49+00:00 shiba2th kernel: bochs-drm 0000:00:02.0: [drm] *ERROR* flip_done timed out
+2026-11-02T17:30:49+00:00 shiba2th kernel: bochs-drm 0000:00:02.0: [drm] *ERROR* [PLANE:33:plane-0] commit wait timed out
+2026-11-02T17:30:49+00:00 shiba2th kernel: ------------[ cut here ]------------
+2026-11-02T17:30:49+00:00 shiba2th kernel: [CRTC:35:crtc-0] vblank wait timed out
+2026-11-02T17:30:49+00:00 shiba2th kernel: WARNING: drivers/gpu/drm/drm_atomic_helper.c:1921 at drm_atomic_helper_wait_for_vblanks.part.0+0x240/0x260, CPU#3: kworker/3:1/27721
+2026-11-02T17:30:49+00:00 shiba2th kernel: Modules linked in: daxfs(OE) lazy_cma(OE) vhost_net(E) tap(E) nft_masq(E) vhost_vsock(E) vmw_vsock_virtio_transport_common(E) vhost(E) vhost_iotlb(E) nf_conntrack_netlink(E) xt_nat(E) xt_tcpudp(E) veth(E) xt_conntrack(E) xt_MASQUERADE(E) bridge(E) stp(E) llc(E) xfrm_user(E) xfrm_algo(E) xt_set(E) ip_set(E) xt_addrtype(E) xt_mark(E) nft_compat(E) x_tables(E) nft_chain_nat(E) nf_nat(E) nf_conntrack(E) nf_defrag_ipv6(E) nf_defrag_ipv4(E) overlay(E) nf_tables(E) vxlan(E) ip6_udp_tunnel(E) udp_tunnel(E) nfnetlink(E) cfg80211(E) binfmt_misc(E) intel_rapl_msr(E) intel_rapl_common(E) kvm_amd(E) ccp(E) snd_hda_codec_hdmi(E) kvm(E) irqbypass(E) snd_hda_intel(E) snd_intel_dspcfg(E) snd_hda_codec(E) snd_hwdep(E) snd_hda_core(E) snd_pcm(E) snd_timer(E) i2c_piix4(E) snd(E) i2c_smbus(E) vmgenid(E) soundcore(E) joydev(E) input_leds(E) mac_hid(E) sch_fq_codel(E) nvidia_uvm(OE) efi_pstore(E) dm_multipath(E) dmi_sysfs(E) qemu_fw_cfg(E) autofs4(E) btrfs(E) libblake2b(E) raid10(E) raid456(E) async_raid6_recov(E)
+2026-11-02T17:30:49+00:00 shiba2th kernel:  async_memcpy(E) async_pq(E) async_xor(E) async_tx(E) xor(E) raid6_pq(E) raid1(E) raid0(E) nvidia_drm(OE) nvidia_modeset(OE) hid_generic(E) usbhid(E) hid(E) ghash_clmulni_intel(E) nvidia(OE) psmouse(E) video(E) serio_raw(E) wmi(E) drm_ttm_helper(E) floppy(E) ttm(E) pata_acpi(E) bochs(E) aesni_intel(E)
+2026-11-02T17:30:49+00:00 shiba2th kernel: CPU: 3 UID: 0 PID: 27721 Comm: kworker/3:1 Tainted: G        W  OE       7.0.0-mk2-shiba-mk1 #9 PREEMPT(lazy) 
+2026-11-02T17:30:49+00:00 shiba2th kernel: Tainted: [W]=WARN, [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
+2026-11-02T17:30:49+00:00 shiba2th kernel: Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+2026-11-02T17:30:49+00:00 shiba2th kernel: Workqueue: events drm_fb_helper_damage_work
+2026-11-02T17:30:49+00:00 shiba2th kernel: RIP: 0010:drm_atomic_helper_wait_for_vblanks.part.0+0x247/0x260
+2026-11-02T17:30:49+00:00 shiba2th kernel: Code: ff 84 c0 74 86 48 8d 75 a8 4c 89 f7 e8 02 23 4c ff 8b 45 98 85 c0 0f 85 f7 fe ff ff 48 8d 3d 30 ce 56 01 48 8b 53 20 8b 73 60 <67> 48 0f b9 3a e9 df fe ff ff e8 6a c1 62 00 66 2e 0f 1f 84 00 00
+2026-11-02T17:30:49+00:00 shiba2th kernel: RSP: 0018:ffffd3fa4fdbbbe0 EFLAGS: 00010246
+2026-11-02T17:30:49+00:00 shiba2th kernel: RAX: 0000000000000000 RBX: ffff8d4507e3ebc8 RCX: 0000000000000000
+2026-11-02T17:30:49+00:00 shiba2th kernel: RDX: ffff8d45010f6108 RSI: 0000000000000023 RDI: ffffffffa5ab3ee0
+2026-11-02T17:30:49+00:00 shiba2th kernel: RBP: ffffd3fa4fdbbc50 R08: 0000000000000000 R09: 0000000000000000
+2026-11-02T17:30:49+00:00 shiba2th kernel: R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+2026-11-02T17:30:49+00:00 shiba2th kernel: R13: 0000000000000000 R14: ffff8d45030a8c30 R15: ffff8d4502892800
+2026-11-02T17:30:49+00:00 shiba2th kernel: FS:  0000000000000000(0000) GS:ffff8d515f9e0000(0000) knlGS:0000000000000000
+2026-11-02T17:30:49+00:00 shiba2th kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+2026-11-02T17:30:49+00:00 shiba2th kernel: CR2: 00007f4f3a886000 CR3: 0000000107537000 CR4: 0000000000f50ef0
+2026-11-02T17:30:49+00:00 shiba2th kernel: PKRU: 55555554
+2026-11-02T17:30:49+00:00 shiba2th kernel: Call Trace:
+2026-11-02T17:30:49+00:00 shiba2th kernel:  <TASK>
+2026-11-02T17:30:49+00:00 shiba2th kernel:  ? __pfx_autoremove_wake_function+0x10/0x10
+2026-11-02T17:30:49+00:00 shiba2th kernel:  drm_atomic_helper_commit_tail+0xa9/0xd0
+2026-11-02T17:30:49+00:00 shiba2th kernel:  commit_tail+0x11f/0x1b0
+2026-11-02T17:30:49+00:00 shiba2th kernel:  drm_atomic_helper_commit+0x132/0x160
+2026-11-02T17:30:49+00:00 shiba2th kernel:  drm_atomic_commit+0xaf/0xf0
+2026-11-02T17:30:49+00:00 shiba2th kernel:  ? __pfx___drm_printfn_info+0x10/0x10
+2026-11-02T17:30:49+00:00 shiba2th kernel:  drm_atomic_helper_dirtyfb+0x1a1/0x290
+2026-11-02T17:30:49+00:00 shiba2th kernel:  drm_fbdev_shmem_helper_fb_dirty+0x4a/0xb0
+2026-11-02T17:30:49+00:00 shiba2th kernel:  drm_fb_helper_damage_work+0xf2/0x1a0
+2026-11-02T17:30:49+00:00 shiba2th kernel:  process_one_work+0x19c/0x420
+2026-11-02T17:30:49+00:00 shiba2th kernel:  worker_thread+0x1a8/0x330
+2026-11-02T17:30:49+00:00 shiba2th kernel:  ? __pfx_worker_thread+0x10/0x10
+2026-11-02T17:30:49+00:00 shiba2th kernel:  kthread+0xfb/0x140
+2026-11-02T17:30:49+00:00 shiba2th kernel:  ? __pfx_kthread+0x10/0x10
+2026-11-02T17:30:49+00:00 shiba2th kernel:  ret_from_fork+0x2ba/0x380
+2026-11-02T17:30:49+00:00 shiba2th kernel:  ? __pfx_kthread+0x10/0x10
+2026-11-02T17:30:49+00:00 shiba2th kernel:  ret_from_fork_asm+0x1a/0x30
+2026-11-02T17:30:49+00:00 shiba2th kernel:  </TASK>
+2026-11-02T17:30:49+00:00 shiba2th kernel: ---[ end trace 0000000000000000 ]---
+2026-11-02T17:30:50+00:00 shiba2th kernel: ------------[ cut here ]------------
+2026-11-02T17:30:50+00:00 shiba2th kernel: bochs-drm 0000:00:02.0: [drm] vblank wait timed out on crtc 0
+2026-11-02T17:30:50+00:00 shiba2th kernel: WARNING: drivers/gpu/drm/drm_vblank.c:1320 at drm_crtc_wait_one_vblank+0x18c/0x200, CPU#3: kworker/3:1/27721
+2026-11-02T17:30:50+00:00 shiba2th kernel: Modules linked in: daxfs(OE) lazy_cma(OE) vhost_net(E) tap(E) nft_masq(E) vhost_vsock(E) vmw_vsock_virtio_transport_common(E) vhost(E) vhost_iotlb(E) nf_conntrack_netlink(E) xt_nat(E) xt_tcpudp(E) veth(E) xt_conntrack(E) xt_MASQUERADE(E) bridge(E) stp(E) llc(E) xfrm_user(E) xfrm_algo(E) xt_set(E) ip_set(E) xt_addrtype(E) xt_mark(E) nft_compat(E) x_tables(E) nft_chain_nat(E) nf_nat(E) nf_conntrack(E) nf_defrag_ipv6(E) nf_defrag_ipv4(E) overlay(E) nf_tables(E) vxlan(E) ip6_udp_tunnel(E) udp_tunnel(E) nfnetlink(E) cfg80211(E) binfmt_misc(E) intel_rapl_msr(E) intel_rapl_common(E) kvm_amd(E) ccp(E) snd_hda_codec_hdmi(E) kvm(E) irqbypass(E) snd_hda_intel(E) snd_intel_dspcfg(E) snd_hda_codec(E) snd_hwdep(E) snd_hda_core(E) snd_pcm(E) snd_timer(E) i2c_piix4(E) snd(E) i2c_smbus(E) vmgenid(E) soundcore(E) joydev(E) input_leds(E) mac_hid(E) sch_fq_codel(E) nvidia_uvm(OE) efi_pstore(E) dm_multipath(E) dmi_sysfs(E) qemu_fw_cfg(E) autofs4(E) btrfs(E) libblake2b(E) raid10(E) raid456(E) async_raid6_recov(E)
+2026-11-02T17:30:50+00:00 shiba2th kernel:  async_memcpy(E) async_pq(E) async_xor(E) async_tx(E) xor(E) raid6_pq(E) raid1(E) raid0(E) nvidia_drm(OE) nvidia_modeset(OE) hid_generic(E) usbhid(E) hid(E) ghash_clmulni_intel(E) nvidia(OE) psmouse(E) video(E) serio_raw(E) wmi(E) drm_ttm_helper(E) floppy(E) ttm(E) pata_acpi(E) bochs(E) aesni_intel(E)
+2026-11-02T17:30:50+00:00 shiba2th kernel: CPU: 3 UID: 0 PID: 27721 Comm: kworker/3:1 Tainted: G        W  OE       7.0.0-mk2-shiba-mk1 #9 PREEMPT(lazy) 
+2026-11-02T17:30:50+00:00 shiba2th kernel: Tainted: [W]=WARN, [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
+2026-11-02T17:30:50+00:00 shiba2th kernel: Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+2026-11-02T17:30:50+00:00 shiba2th kernel: Workqueue: events drm_fb_helper_damage_work
+2026-11-02T17:30:50+00:00 shiba2th kernel: RIP: 0010:drm_crtc_wait_one_vblank+0x192/0x200
+2026-11-02T17:30:50+00:00 shiba2th kernel: Code: ff ff ff 48 85 db 74 7e 48 8b 7b 08 4c 8b 67 50 4d 85 e4 74 6c e8 6e e9 02 00 48 89 c6 48 8d 3d f4 d9 57 01 44 89 e9 4c 89 e2 <67> 48 0f b9 3a 44 89 ee 48 89 df e8 ce fc ff ff c7 45 a4 92 ff ff
+2026-11-02T17:30:50+00:00 shiba2th kernel: RSP: 0018:ffffd3fa4fdbbd78 EFLAGS: 00010246
+2026-11-02T17:30:50+00:00 shiba2th kernel: RAX: ffffffffc04db0f0 RBX: ffff8d4507e3e000 RCX: 0000000000000000
+2026-11-02T17:30:50+00:00 shiba2th kernel: RDX: ffff8d45025edf90 RSI: ffffffffc04db0f0 RDI: ffffffffa5ab3a10
+2026-11-02T17:30:50+00:00 shiba2th kernel: RBP: ffffd3fa4fdbbdd8 R08: 0000000000000000 R09: 0000000000000000
+2026-11-02T17:30:50+00:00 shiba2th kernel: R10: 0000000000000000 R11: 0000000000000000 R12: ffff8d45025edf90
+2026-11-02T17:30:50+00:00 shiba2th kernel: R13: 0000000000000000 R14: 0000000000051939 R15: ffff8d45030a8c30
+2026-11-02T17:30:50+00:00 shiba2th kernel: FS:  0000000000000000(0000) GS:ffff8d515f9e0000(0000) knlGS:0000000000000000
+2026-11-02T17:30:50+00:00 shiba2th kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+2026-11-02T17:30:50+00:00 shiba2th kernel: CR2: 00007f4f3a886000 CR3: 0000000107537000 CR4: 0000000000f50ef0
+2026-11-02T17:30:50+00:00 shiba2th kernel: PKRU: 55555554
+2026-11-02T17:30:50+00:00 shiba2th kernel: Call Trace:
+2026-11-02T17:30:50+00:00 shiba2th kernel:  <TASK>
+2026-11-02T17:30:50+00:00 shiba2th kernel:  ? __pfx_autoremove_wake_function+0x10/0x10
+2026-11-02T17:30:50+00:00 shiba2th kernel:  drm_client_modeset_wait_for_vblank+0x61/0x80
+2026-11-02T17:30:50+00:00 shiba2th kernel:  drm_fb_helper_damage_work+0x8c/0x1a0
+2026-11-02T17:30:50+00:00 shiba2th kernel:  process_one_work+0x19c/0x420
+2026-11-02T17:30:50+00:00 shiba2th kernel:  worker_thread+0x1a8/0x330
+2026-11-02T17:30:50+00:00 shiba2th kernel:  ? __pfx_worker_thread+0x10/0x10
+2026-11-02T17:30:50+00:00 shiba2th kernel:  kthread+0xfb/0x140
+2026-11-02T17:30:50+00:00 shiba2th kernel:  ? __pfx_kthread+0x10/0x10
+2026-11-02T17:30:50+00:00 shiba2th kernel:  ret_from_fork+0x2ba/0x380
+2026-11-02T17:30:50+00:00 shiba2th kernel:  ? __pfx_kthread+0x10/0x10
+2026-11-02T17:30:50+00:00 shiba2th kernel:  ret_from_fork_asm+0x1a/0x30
+2026-11-02T17:30:50+00:00 shiba2th kernel:  </TASK>
+2026-11-02T17:30:50+00:00 shiba2th kernel: ---[ end trace 0000000000000000 ]---
+2026-11-02T17:30:54+00:00 shiba2th kernel: watchdog: BUG: soft lockup - CPU#6 stuck for 26s! [rcu_exp_gp_kthr:17]

@@ -1,0 +1,28 @@
+/dts-v1/;
+
+/ {
+	compatible = "multikernel-v1";
+	id = <0x00>;
+
+	resources {
+		cpus = <0x00 0x08 0x00 0x09 0x00 0x0a 0x00 0x0b>;
+
+		memory@cdf800000 {
+			device_type = "memory";
+			reg = <0x0c 0xdf800000 0x00 0x20000000>;
+			numa-node-id = <0x00>;
+		};
+
+		memory@c15600000 {
+			device_type = "memory";
+			reg = <0x0c 0x15600000 0x00 0xa0000000>;
+			numa-node-id = <0x00>;
+		};
+
+		memory@492800000 {
+			device_type = "memory";
+			reg = <0x04 0x92800000 0x00 0xc0000000>;
+			numa-node-id = <0x00>;
+		};
+	};
+};

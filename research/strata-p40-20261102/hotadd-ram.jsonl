@@ -1,0 +1,4 @@
+{"pool_transaction": "5", "instance_transaction": "6", "pool_base": 50189041664, "pool_bytes": 1207959552, "added_base": 50197430272, "added_bytes": 1073741824, "operation": "add-only; original region preserved"}
+{"pool_transaction": "7", "instance_transaction": "8", "pool_base": 48981082112, "pool_bytes": 1207959552, "added_base": 48989470720, "added_bytes": 1073741824, "operation": "add-only; original region preserved"}
+{"pool_transaction": "9", "instance_transaction": "10", "pool_base": 47328526336, "pool_bytes": 1207959552, "added_base": 47378857984, "added_bytes": 1073741824, "operation": "add-only; original region preserved"}
+{"pool_transaction": "11", "instance_transaction": "12", "pool_base": 46120566784, "pool_bytes": 1207959552, "added_base": 46170898432, "added_bytes": 1073741824, "operation": "add-only; original region preserved"}

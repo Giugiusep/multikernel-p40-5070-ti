@@ -1,0 +1,14 @@
+{
+  "last_saved_bridge_stats": {
+    "requests": 141000,
+    "read_bytes": 15909628111,
+    "read_seconds": 28.45094054320498,
+    "started": 1793640032.6781948
+  },
+  "primary_persisted_diagnostic_matches": [
+    "2026-11-02T17:30:54+00:00 shiba2th kernel: watchdog: BUG: soft lockup - CPU#6 stuck for 26s! [rcu_exp_gp_kthr:17]"
+  ],
+  "secondary_post_failure_log_available": false,
+  "verified_generation_rate": null,
+  "cause": "unresolved kernel lockup during full-model bridge experiment; no OOM/Xid recorded in persisted primary log does not exclude secondary failure"
+}

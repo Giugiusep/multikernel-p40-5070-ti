@@ -1,0 +1,1 @@
+/dts-v1/; /plugin/; / { fragment@0 { target-path="/instances/rpc-p40"; __overlay__ { memory-add { memory@b68000000 { reg=/bits/ 64 <0xb68000000 0x40000000>; numa-node-id=<0>; }; }; }; }; };

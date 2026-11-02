@@ -1,0 +1,17 @@
+# Full-model experiment failed — disabled
+
+The VM hung during the native Qwen full-model attempt on 2026-11-02 and required a manual reboot. This path is not accepted for serving or throughput testing. `run-full-qwen.sh` and `model_file_server.py` are disabled by default. `MODEL_BRIDGE_RETEST_AFTER_HANG=1` is an engineering override, not proof of safety or authorization to repeat the failed run.
+
+The last persisted primary kernel message, at 17:30:54 UTC, reports a watchdog soft lockup: CPU 6 stuck for 26 seconds in `rcu_exp_gp_kthr`. DRM/vblank warnings at 17:30:27–50 preceded it. Earlier Multikernel VSOCK softirq warnings and ring-full reports are also recorded. The last saved bridge counter was 141,000 requests and 15,909,628,111 bytes read. No verified tok/s result, completed generation or completion time was captured.
+
+The secondary's `/tmp` model log was lost at reboot. No OOM or NVIDIA Xid appears in the persisted primary log, but that does not rule out a secondary OOM or GPU failure. The available evidence does not establish the root cause or attribute it specifically to nested PCI behavior.
+
+The experiment installed `libfuse3-dev` and development dependencies: seven new packages, zero upgrades. It used a private FUSE client and a read-only VSOCK server exporting only the selected pack, two GGUF shards, expert profile and MTP files. Mounting and pack-index hash verification passed. Initial CLI subcommand and native-pack capacity checks failed cleanly, then the corrected launch used `--spec 2` capacity without MTP weights, greedy serving, `--mmap-experts`, `--prefill 1` and a 2K context. Native IQ packs require verification capacity of at least 2; this is not a measured speculative-decoding result.
+
+Add-only overlays added four separate 1 GiB RAM ranges to the secondary, preserving its original kernel region. The secondary reported 5,814 MiB total and about 4,888 MiB available. No NVIDIA stack, Multikernel kernel source or boot configuration changed. The Kerf update command had a device-tree parser mismatch; the test used the kernel's resource-add overlay API. It did not remove the running kernel's memory. The file bridge, RAM additions and model load were introduced together, so this run cannot isolate their contributions to the hang.
+
+Startup reported 8,000 cached experts, about 10.72 GiB VRAM: automatic sizing was limited by the 8,000-pair profile. The full P40 VRAM was therefore not used. A `GEN 16` request was queued, but no verified token output was retained. Do not derive model-load speed or GPU throughput from the bridge's `read_seconds`, which times host `pread` calls only.
+
+After reboot, the unchanged `7.0.0-mk2-shiba-mk1` kernel booted. The RTX passed 25 exact pinned-memory H2D/kernel/D2H repetitions. The API is active; the public authenticated catalog returned HTTP 200 with 21 models. Chat generation was not re-tested. The P40 is present and unbound; the secondary has not been restarted. No bridge or model-test process is running. Reboot returned the live RAM additions. The experimental launchers were never installed as autostart services.
+
+Before another full-model attempt, investigate IRQ/RCU stability and memory hot-add separately, with bounded probes and persistent secondary logging. The earlier passing kernel microbenchmarks remain valid within their recorded scope; they do not establish full-model or VM stability.

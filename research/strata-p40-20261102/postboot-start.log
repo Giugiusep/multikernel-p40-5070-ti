@@ -1,0 +1,53 @@
+Memory: 6144 MB on node 0 (from CPUs 8-11)
+Error: Failed to write baseline to /sys/fs/multikernel/device_tree: [Errno 12] Cannot allocate memory
+Run 'dmesg | tail' for the kernel's reason (it names the busy CPU or chunk).
+Memory: 6144 MB on node 0 (from the chunks the pool already holds)
+✓ Pool already matches the request; nothing to do
+✓ Created instance 'rpc-p40' (transaction 4)
+✓ Kernel loaded successfully
+Booting instance 'rpc-p40' (ID: 1)...
+✓ Boot command executed successfully
+
+================================================================================
+Instance: rpc-p40
+================================================================================
+  ID:              1
+  Status:          active
+
+  Kernel Image:
+    Mk Id           1
+    Type            multikernel
+    Start Address   0x000492804000
+    Segments        3
+    Mode            file
+    Cmdline         "rdinit=/init loglevel=7 rootfstype=daxfs rootflags=phys=0xc15603000,size=2599702528 init=/init kerf.entrypoint=/sbin/entrypoint console=mktty0"
+    Image           /boot/vmlinuz-7.0.0-mk2-shiba-mk1
+    Format          bzImage (zstd compressed, vmlinux extracted at load)
+    Version         7.0.0-mk2-shiba-mk1 (shiba@shiba2th) #9 SMP PREEMPT_DYNAMIC Thu Sep 17 16:49:34 UTC 2026
+    Initrd          /home/shiba/multikernel-experiment/artifacts/secondary-daxfs-bootstrap-initramfs.cpio.gz (gzip compressed)
+    Loaded At       2026-11-02T16:19:19+00:00
+
+  Rootfs:
+    Source          /home/shiba/multikernel-experiment/research/strata-p40-20261102/rootfs (directory)
+    Entrypoint      /sbin/entrypoint
+    Daxfs           phys=0xc15603000, size=2599702528
+
+  Device Tree:
+    /dts-v1/;
+    /rpc-p40 {
+        compatible = "multikernel-v1";
+        id = <0x1>;
+        resources {
+            memory-base = <0x4 0x92804000>;
+            memory-bytes = <0x0 0x70000000>;
+            cpus = <0x0 0x8 0x0 0x9 0x0 0xa 0x0 0xb>;
+            devices {
+                pci_0000_00_11_0 {
+                    device-type = "pci";
+                    pci-id = "0000:00:11.0";
+                    vendor-id = <0x10de>;
+                    device-id = <0x1b38>;
+                };
+            };
+        };
+    };

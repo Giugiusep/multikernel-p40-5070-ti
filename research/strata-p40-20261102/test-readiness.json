@@ -1,10 +1,11 @@
 {
-  "rootfs_bytes": 2599702528,
+  "rootfs_bytes": 2654932992,
   "secondary_RAM_bytes": 1879048192,
   "requested_pool_bytes": 6442450944,
   "fits_arithmetic_budget": true,
   "probe_sha256": "5bc522a657c0388d0f1a5e911c9b4b99a2b5f3c0d37050b27e6672b142df8e3b",
   "probe_built": true,
-  "probe_runtime_tested": false,
-  "kernel_unchanged": "7.0.0-mk2-shiba-mk1"
+  "probe_runtime_tested": true,
+  "kernel_unchanged": "7.0.0-mk2-shiba-mk1",
+  "iq_probe_runtime_tested": true
 }

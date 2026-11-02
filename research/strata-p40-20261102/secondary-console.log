@@ -1,0 +1,209 @@
+Script started on 2026-11-02 16:19:44+00:00 [COMMAND="/home/shiba/multikernel-experiment/venv/bin/kerf console rpc-p40" TERM="xterm-kitty" TTY="/dev/pts/2" COLUMNS="80" LINES="24"]
+Connecting to console for instance 'rpc-p40' (ID: 1)...
+Escape sequence: Ctrl+] followed by . to detach
+
+
+mk-rpc-p40# [6nnvidia-smi
+pt/strata/mmvq_multi_parity > /tmp/strata-probe.log 2>&1; echo STRATA_PROBE_EXIT=$?
+Mon Nov  2 16:20:14 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.173.02             Driver Version: 580.173.02     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  Tesla P40                      Off |   00000000:00:11.0 Off |                  Off |
+| N/A   38C    P0             49W /  250W |     151MiB /  24576MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A             122      C   ggml-rpc-server                         148MiB |
++-----------------------------------------------------------------------------------------+
+mk-rpc-p40# /opt/strata/mmvq_multi_parity > /tmp/strata-probe.log 2>&1; echo STR
+ATA_PROBE_EXIT=$?
+STRATA_PROBE_EXIT=1
+mk-rpc-p40# [6ncat /tmp/strata-probe.log
+ersion
+/opt/strata/mmvq_multi_parity: /lib/libm.so.6: version `GLIBC_2.43' not found (required by /opt/strata/mmvq_multi_parity)
+mk-rpc-p40# LD_LIBRARY_PATH=/opt/strata:/lib /opt/strata/strata --version
+strata 0.1.55
+mk-rpc-p40# [6n/bin/busybox stty -echo
+ /tmp/vsock-pull.b64
+mk-rpc-p40# mk-rpc-p40# zip > /mk-rpc-p40# /bin/busybox base64 -d /tmp/vsock-pull.b64 | /bin/busybox gunzip > /
+tmp/vsock_file_pull
+n/busybox chmod +x /tmp/vsock_file_pull
+/bin/busybox sha256sum /tmp/mk-rpc-p40# /bin/busybox chmod +x /tmp/vsock_file_pull
+k_file_pull
+mk-rpc-p40# /bin/busybox sha256sum /tmp/vsock_file_pull
+29b8fd238e505be361767f3edb0702374010faf025ce6a450a8d888629b88783  /tmp/vsock_file_pull
+mk-rpc-p40# [6n/tmp/vsock_file_pull client 0 /tmp/probe-runtime.tar.gz
+bin/busybox mkdir -p /tmp/probe-runtime
+/bin/busybox tar -xzf /tmp/probe-run[  223.270535] ------------[ cut here ]------------
+[  223.270554] WARNING: kernel/softirq.c:429 at __local_bh_enable_ip+0x5a/0x70, CPU#0: swapper/0/0
+[  223.270579] Modules linked in: nvidia_uvm(POE) nvidia(POE) daxfs(OE)
+[  223.270599] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Tainted: P           OE       7.0.0-mk2-shiba-mk1 #9 PREEMPT(lazy) 
+[  223.270604] Tainted: [P]=PROPRIETARY_MODULE, [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
+[  223.270608] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+[  223.270613] RIP: 0010:__local_bh_enable_ip+0x5a/0x70
+[  223.270619] Code: ff 0d 7a 45 63 02 65 8b 05 73 45 63 02 85 c0 74 0a 5d 31 c0 31 f6 c3 cc cc cc cc e8 70 7a f0 ff 5d 31 c0 31 f6 c3 cc cc cc cc <0f> 0b eb b8 65 66 83 3d 51 45 63 02 00 74 c6 e8 e2 f4 ff ff eb bf
+[  223.270624] RSP: 0018:ffffc90000003e68 EFLAGS: 00010006
+[  223.270629] RAX: 0000000000000001 RBX: 0000000000000000 RCX: 0000000000000000
+[  223.270633] RDX: 00000000828cbfbf RSI: 0000000000000201 RDI: ffffffff824e473f
+[  223.270638] RBP: ffffc90000003e68 R08: 0000000000000000 R09: 0000000000000000
+[  223.270643] R10: 0000000000000000 R11: 0000000000000000 R12: ffffc90000003ee8
+[  223.270647] R13: ffffc90000003ef8 R14: 00000000828cbfbf R15: ffffffff83c121e8
+[  223.270654] FS:  0000000000000000(0000) GS:ffff88857cc60000(0000) knlGS:0000000000000000
+[  223.270659] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  223.270663] CR2: 0000712fdce71bf0 CR3: 00000004966e2000 CR4: 0000000000f50ef0
+[  223.270670] PKRU: 55555554
+[  223.270674] Call Trace:
+[  223.270679]  <IRQ>
+[  223.270684]  _raw_spin_unlock_bh+0x1d/0x30
+[  223.270699]  vsock_find_connected_socket_net+0x16f/0x210
+[  223.270706]  vsock_find_connected_socket+0x10/0x20
+[  223.270712]  mk_vsock_rx_pkt+0x80/0x650
+[  223.270717]  mk_vsock_ipi_handler+0x10a/0x130
+[  223.270723]  mk_message_type_ipi_callback+0x84/0x170
+[  223.270729]  ? __pfx_mk_message_type_ipi_callback+0x10/0x10
+[  223.270735]  generic_multikernel_interrupt+0x13f/0x1d0
+[  223.270741]  __sysvec_multikernel+0x1a/0x20
+[  223.270747]  sysvec_multikernel+0x9b/0xc0
+[  223.270753]  </IRQ>
+[  223.270757]  <TASK>
+[  223.270761]  asm_sysvec_multikernel+0x1b/0x20
+[  223.270767] RIP: 0010:pv_native_safe_halt+0xb/0x10
+[  223.270773] Code: 22 df 31 ff c3 cc cc cc cc 66 0f 1f 44 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 eb 07 0f 00 2d f9 ac 09 00 fb f4 <c3> cc cc cc cc 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 83
+[  223.270777] RSP: 0018:ffffffff83003de8 EFLAGS: 00000246
+[  223.270782] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
+[  223.270787] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+[  223.270791] RBP: ffffffff83003df0 R08: 0000000000000000 R09: 0000000000000000
+[  223.270795] R10: 0000000000000000 R11: 0000000000000000 R12: ffffffff83013480
+[  223.270799] R13: 0000000000000000 R14: 0000000000000000 R15: 0000000492929090
+[  223.270804]  ? default_idle+0x9/0x30
+[  223.270810]  arch_cpu_idle+0x9/0x10
+[  223.270817]  default_idle_call+0x33/0x120
+[  223.270823]  do_idle+0x1ba/0x2d0
+[  223.270829]  cpu_startup_entry+0x29/0x30
+[  223.270835]  rest_init+0xde/0x100
+[  223.270841]  start_kernel+0x899/0xca0
+[  223.270848]  x86_64_start_reservations+0x18/0x30
+[  223.270854]  x86_64_start_kernel+0x10d/0x160
+[  223.270859]  ? soft_restart_cpu+0x14/0x14
+[  223.270865]  multikernel_startup_64+0xfe/0x10c
+[  223.270872]  </TASK>
+[  223.270876] ---[ end trace 0000000000000000 ]---
+time.tar.gz -C /tmp/probe-runtime
+/tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-runtime:/opt/rpc/lib:/lib /opt/strata/mmvq_multi_parity > /tmp/strata-probe.log 2>&1; echo STRATA_PROBE_EXIT=$?
+received 2779753 bytes
+mk-rpc-p40# /bin/busybox mkdir -p /tmp/probe-runtime
+mk-rpc-p40# /bin/busybox tar -xzf /tmp/probe-runtime.tar.gz -C /tmp/probe-runtim
+e
+mk-rpc-p40# /tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-ru
+ntime:/opt/rpc/lib:/lib /opt/strata/mmvq_multi_parity > /tmp/strata-probe.log 2>
+&1; echo STRATA_PROBE_EXIT=$?
+STRATA_PROBE_EXIT=0
+mk-rpc-p40# [6n/tmp/vsock_file_pull server /tmp/strata-probe.log > /tmp/pull-server
+.log 2>&1 &
+mk-rpc-p40# [6n
+[1]+  Done                       /tmp/vsock_file_pull server /tmp/strata-probe.log 1>/tmp/pull-server.log 2>&1
+mk-rpc-p40# [6n/bin/busybox sha256sum /tmp/probe-runtime/*
+mesg | /bin/busybox grep -E 'Xid|NVRM|ring full|WARNING:'
+bda779ea9e9ad234f60315477d7cfd0bdde861cd8ddd9df8cdaf62f18c4cec14  /tmp/probe-runtime/ld-linux-x86-64.so.2
+85e64f97e348786a8fb4d9f3d52fec289e2fb86bba20f0731dfe61990525e0f7  /tmp/probe-runtime/libc.so.6
+9d339ecb409578d6a5d587e6c537a8f9589b8a13fefba30d167433a4b5758bee  /tmp/probe-runtime/libgcc_s.so.1
+1c488db6f4fe8cecb72456bc018de000b7a9b539c2994864b0416b5e8371b3d8  /tmp/probe-runtime/libm.so.6
+5bb0d21308f123b6ad46c6f35b42cedfcb8d6d439a53aa3dae04d880aaffdde3  /tmp/probe-runtime/libstdc++.so.6
+mk-rpc-p40# dmesg | /bin/busybox grep -E 'Xid|NVRM|ring full|WARNING:'
+[    0.335286] NVRM: loading NVIDIA UNIX x86_64 Kernel Module  580.173.02  Tue Jun 23 08:38:17 UTC 2026
+[  223.270554] WARNING: kernel/softirq.c:429 at __local_bh_enable_ip+0x5a/0x70, CPU#0: swapper/0/0
+mk-rpc-p40# [6nnvidia-smi --query-gpu=name,driver_version,pstate,temperature.gpu,cl
+ocks.sm,clocks.mem,memory.used --format=csv
+busybox ls /sys/bus/pci/devices/0000:00:11.0/msi_irqs
+/bin/busybox grep -E 'NVIDIA|nvidia' /proc/interrupts
+name, driver_version, pstate, temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz], memory.used [MiB]
+Tesla P40, 580.173.02, P0, 50, 1303 MHz, 3615 MHz, 151 MiB
+mk-rpc-p40# /bin/busybox ls /sys/bus/pci/devices/0000:00:11.0/msi_irqs
+16
+mk-rpc-p40# /bin/busybox grep -E 'NVIDIA|nvidia' /proc/interrupts
+ 16:       1082          0          0          0 PCI-MSI-0000:00:11.0   0-edge      nvidia
+mk-rpc-p40# [6n/tmp/vsock_file_pull client 0 /tmp/iq-probe.tar.gz
+in/busybox tar -xzf /tmp/iq-probe.tar.gz -C /tmp
+/tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-runtime:/opt/rpc/lib:/lib /tmp/iq_parity /tmp/iq-fixture > /tmp/iq-parity.log 2>&1; echo IQ_PARITY_EXIT=$?
+/bin/busybox cat /tmp/iq-parity.log
+received 28955363 bytes
+mk-rpc-p40# /bin/busybox tar -xzf /tmp/iq-probe.tar.gz -C /tmp
+mk-rpc-p40# /tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-ru
+ntime:/opt/rpc/lib:/lib /tmp/iq_parity /tmp/iq-fixture > /tmp/iq-parity.log 2>&1
+; echo IQ_PARITY_EXIT=$?
+IQ_PARITY_EXIT=0
+mk-rpc-p40# /bin/busybox cat /tmp/iq-parity.log
+IQ2_XXS  type 16   32 x   256  dequant rel 0.00e+00  mmvq rel 4.75e-03 (ncols 1..8)  ok
+IQ2_XS   type 17   32 x   256  dequant rel 0.00e+00  mmvq rel 5.27e-03 (ncols 1..8)  ok
+IQ2_S    type 22   32 x   256  dequant rel 0.00e+00  mmvq rel 5.13e-03 (ncols 1..8)  ok
+IQ3_XXS  type 18   32 x   256  dequant rel 0.00e+00  mmvq rel 5.73e-03 (ncols 1..8)  ok
+IQ3_S    type 21   32 x   256  dequant rel 0.00e+00  mmvq rel 4.63e-03 (ncols 1..8)  ok
+IQ1_M    type 29   32 x   256  dequant rel 0.00e+00  mmvq rel 5.53e-03 (ncols 1..8)  ok
+IQ4_NL   type 20   32 x   256  dequant rel 0.00e+00  mmvq rel 5.06e-03 (ncols 1..8)  ok
+IQ4_XS   type 23   32 x   256  dequant rel 0.00e+00  mmvq rel 5.09e-03 (ncols 1..8)  ok
+Q2_0     type 42   32 x   256  dequant rel 0.00e+00  mmvq rel 4.57e-03 (ncols 1..8)  ok
+Q3_K     type 11   32 x   256  dequant rel 0.00e+00  mmvq rel 4.82e-03 (ncols 1..8)  ok
+iq_parity: 0 failures
+mk-rpc-p40# [6n/tmp/vsock_file_pull server /tmp/iq-parity.log > /tmp/pull-iq.log 2>
+&1 &
+mk-rpc-p40# [6n
+[1]+  Done                       /tmp/vsock_file_pull server /tmp/iq-parity.log 1>/tmp/pull-iq.log 2>&1
+mk-rpc-p40# [6n/tmp/vsock_file_pull client 0 /tmp/iq-qwen-gu-fixtures.tar.gz
+bin/busybox tar -xzf /tmp/iq-qwen-gu-fixtures.tar.gz -C /tmp
+/tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-runtime:/opt/rpc/lib:/lib /tmp/iq_parity /tmp/iq-fixture-qwen-gu > /tmp/iq-qwen-gu.log 2>&1; echo IQ_QWEN_GU_EXIT=$?
+/bin/busybox cat /tmp/iq-qwen-gu.log
+received 19458375 bytes
+mk-rpc-p40# /bin/busybox tar -xzf /tmp/iq-qwen-gu-fixtures.tar.gz -C /tmp
+mk-rpc-p40# /tmp/probe-runtime/ld-linux-x86-64.so.2 --library-path /tmp/probe-ru
+ntime:/opt/rpc/lib:/lib /tmp/iq_parity /tmp/iq-fixture-qwen-gu > /tmp/iq-qwen-gu
+.log 2>&1; echo IQ_QWEN_GU_EXIT=$?
+IQ_QWEN_GU_EXIT=0
+mk-rpc-p40# /bin/busybox cat /tmp/iq-qwen-gu.log
+IQ2_XXS  type 16  640 x  2560  dequant rel 0.00e+00  mmvq rel 5.20e-03 (ncols 1..8)  ok
+IQ2_XS   type 17  640 x  2560  dequant rel 0.00e+00  mmvq rel 5.38e-03 (ncols 1..8)  ok
+IQ2_S    type 22  640 x  2560  dequant rel 0.00e+00  mmvq rel 5.30e-03 (ncols 1..8)  ok
+IQ3_XXS  type 18  640 x  2560  dequant rel 0.00e+00  mmvq rel 5.34e-03 (ncols 1..8)  ok
+IQ3_S    type 21  640 x  2560  dequant rel 0.00e+00  mmvq rel 5.26e-03 (ncols 1..8)  ok
+IQ1_M    type 29  640 x  2560  dequant rel 0.00e+00  mmvq rel 5.22e-03 (ncols 1..8)  ok
+IQ4_NL   type 20  640 x  2560  dequant rel 0.00e+00  mmvq rel 5.31e-03 (ncols 1..8)  ok
+IQ4_XS   type 23  640 x  2560  dequant rel 0.00e+00  mmvq rel 5.30e-03 (ncols 1..8)  ok
+Q2_0     type 42  640 x  2560  dequant rel 0.00e+00  mmvq rel 5.39e-03 (ncols 1..8)  ok
+Q3_K     type 11  640 x  2560  dequant rel 0.00e+00  mmvq rel 5.19e-03 (ncols 1..8)  ok
+iq_parity: 0 failures
+mk-rpc-p40# [6n/tmp/vsock_file_pull server /tmp/iq-qwen-gu.log > /tmp/pull-gu.log 2
+>&1 &
+mk-rpc-p40# [6n
+[1]+  Done                       /tmp/vsock_file_pull server /tmp/iq-qwen-gu.log 1>/tmp/pull-gu.log 2>&1
+mk-rpc-p40# [6n/tmp/vsock_file_pull client 0 /tmp/rpc-fast.tar.gz
+n/busybox mkdir -p /tmp/rpc-fast
+/bin/busybox tar -xzf /tmp/rpc-fast.tar.gz -C /tmp/rpc-fast
+/bin/busybox sha256sum /tmp/rpc-fast/libggml-rpc.so.0
+LD_LIBRARY_PATH=/tmp/rpc-fast:/opt/rpc/lib:/lib GGML_MK_VSOCK_NO_READ_SLEEP=1 GGML_MK_VSOCK_NO_WRITE_SLEEP=1 GGML_RPC_NO_RDMA=1 /opt/rpc/ggml-rpreceived 81274 bytes
+c-server mk-rpc-p40# /bin/busybox mkdir -p /tmp/rpc-fast
+--port 5002 --device CUDA0 > /tmp/ggml-rpc-fast.log 2>&1 &
+mk-rpc-p40# /bin/busybox tar -xzf /tmp/rpc-fast.tar.gz -C /tmp/rpc-fast
+mk-rpc-p40# /bin/busybox sha256sum /tmp/rpc-fast/libggml-rpc.so.0
+5c0fb8e5279b4c1270f209e08f4d0a154cf95fcc77bd8300c4e41a4986bb75b5  /tmp/rpc-fast/libggml-rpc.so.0
+mk-rpc-p40# LD_LIBRARY_PATH=/tmp/rpc-fast:/opt/rpc/lib:/lib GGML_MK_VSOCK_NO_REA
+D_SLEEP=1 GGML_MK_VSOCK_NO_WRITE_SLEEP=1 GGML_RPC_NO_RDMA=1 /opt/rpc/ggml-rpc-se
+rver --host mkvsock --port 5002 --device CUDA0 > /tmp/ggml-rpc-fast.log 2>&1 &
+mk-rpc-p40# [6ndmesg > /tmp/p40-postboot-dmesg.log
+p/vsock_file_pull server /tmp/p40-postboot-dmesg.log > /tmp/pull-dmesg.log 2>&1 &
+mk-rpc-p40# /tmp/vsock_file_pull server /tmp/p40-postboot-dmesg.log > /tmp/pull-
+dmesg.log 2>&1 &
+mk-rpc-p40# [6n
+[2]+  Done                       /tmp/vsock_file_pull server /tmp/p40-postboot-dmesg.log 1>/tmp/pull-dmesg.log 2>&1
+mk-rpc-p40# [6n
+Disconnected from console.
+
+Script done on 2026-11-02 16:33:26+00:00 [COMMAND_EXIT_CODE="0"]

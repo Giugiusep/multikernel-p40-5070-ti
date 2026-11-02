@@ -1,0 +1,125 @@
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(818): error: name must be a namespace name
+  namespace wm = nvcuda::wmma;
+                 ^
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(818): error: expected a ";"
+  namespace wm = nvcuda::wmma;
+                       ^
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(848): error: name followed by "::" must be a class or namespace name
+      wm::fragment<wm::accumulator, 16, 16, 16, float> fg[2], fu[2];
+      ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(848): error: type name is not allowed
+      wm::fragment<wm::accumulator, 16, 16, 16, float> fg[2], fu[2];
+                                                ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(848): error: identifier "fg" is undefined
+      wm::fragment<wm::accumulator, 16, 16, 16, float> fg[2], fu[2];
+                                                       ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(848): error: identifier "fu" is undefined
+      wm::fragment<wm::accumulator, 16, 16, 16, float> fg[2], fu[2];
+                                                              ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(850): error: name followed by "::" must be a class or namespace name
+          wm::fill_fragment(fg[j], 0.0f);
+          ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(851): error: name followed by "::" must be a class or namespace name
+          wm::fill_fragment(fu[j], 0.0f);
+          ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(875): error: name followed by "::" must be a class or namespace name
+              wm::fragment<wm::matrix_a, 16, 16, 16, __half, wm::row_major> fa;
+              ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(875): error: type name is not allowed
+              wm::fragment<wm::matrix_a, 16, 16, 16, __half, wm::row_major> fa;
+                                                     ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(875): error: name followed by "::" must be a class or namespace name
+              wm::fragment<wm::matrix_a, 16, 16, 16, __half, wm::row_major> fa;
+                                                             ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(875): error: identifier "fa" is undefined
+              wm::fragment<wm::matrix_a, 16, 16, 16, __half, wm::row_major> fa;
+                                                                            ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(876): error: name followed by "::" must be a class or namespace name
+              wm::load_matrix_sync(fa, &Tl.x[wm_ * 16][kk], kLdT);
+              ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(879): error: name followed by "::" must be a class or namespace name
+                  wm::fragment<wm::matrix_b, 16, 16, 16, __half, wm::col_major> fb;
+                  ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(879): error: type name is not allowed
+                  wm::fragment<wm::matrix_b, 16, 16, 16, __half, wm::col_major> fb;
+                                                         ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(879): error: name followed by "::" must be a class or namespace name
+                  wm::fragment<wm::matrix_b, 16, 16, 16, __half, wm::col_major> fb;
+                                                                 ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(879): error: identifier "fb" is undefined
+                  wm::fragment<wm::matrix_b, 16, 16, 16, __half, wm::col_major> fb;
+                                                                                ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(880): error: name followed by "::" must be a class or namespace name
+                  wm::load_matrix_sync(fb, &Tl.wg[(wn + j) * 16][kk], kLdT);
+                  ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(881): error: name followed by "::" must be a class or namespace name
+                  wm::mma_sync(fg[j], fa, fb, fg[j]);
+                  ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(883): error: name followed by "::" must be a class or namespace name
+                      wm::load_matrix_sync(fb, &Tl.wu[(wn + j) * 16][kk], kLdT);
+                      ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(884): error: name followed by "::" must be a class or namespace name
+                      wm::mma_sync(fu[j], fa, fb, fu[j]);
+                      ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(891): error: name followed by "::" must be a class or namespace name
+          wm::store_matrix_sync(&O.g[wm_ * 16][(wn + j) * 16], fg[j], BN + 4, wm::mem_row_major);
+          ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(891): error: name followed by "::" must be a class or namespace name
+          wm::store_matrix_sync(&O.g[wm_ * 16][(wn + j) * 16], fg[j], BN + 4, wm::mem_row_major);
+                                                                              ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(892): error: name followed by "::" must be a class or namespace name
+          if (GATE_UP) wm::store_matrix_sync(&O.u[wm_ * 16][(wn + j) * 16], fu[j], BN + 4, wm::mem_row_major);
+                       ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu(892): error: name followed by "::" must be a class or namespace name
+          if (GATE_UP) wm::store_matrix_sync(&O.u[wm_ * 16][(wn + j) * 16], fu[j], BN + 4, wm::mem_row_major);
+                                                                                           ^
+          detected during instantiation of "void strata::ds4::gguf::iq::<unnamed>::launch_set<T,GU>(const strata::ds4::gguf::iq::SetArgs &, dim3, cudaStream_t) [with T=16, GU=true]" at line 1599
+
+25 errors detected in the compilation of "/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_iq.cu".

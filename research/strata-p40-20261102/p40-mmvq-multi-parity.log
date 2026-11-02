@@ -1,0 +1,109 @@
+
+=== multi_exact ON (the default) ===
+type           T    outputs  bits diff    finite diff  nonfinite
+Q4_0           1        512          0              0          0  ok
+Q4_0           2       1024          0              0          0  ok
+Q4_0           3       1536          0              0          0  ok
+Q4_0           4       2048          0              0          0  ok
+Q4_0           5       2560          0              0          0  ok
+Q4_0           6       3072          0              0          0  ok
+Q4_0           8       4096          0              0          0  ok
+Q8_0           1        512          0              0          0  ok
+Q8_0           2       1024          0              0          0  ok
+Q8_0           3       1536          0              0          0  ok
+Q8_0           4       2048          0              0          0  ok
+Q8_0           5       2560          0              0          0  ok
+Q8_0           6       3072          0              0          0  ok
+Q8_0           8       4096          0              0          0  ok
+Q4_K           1        512          0              0          0  ok
+Q4_K           2       1024          0              0          0  ok
+Q4_K           3       1536          0              0          0  ok
+Q4_K           4       2048          0              0          0  ok
+Q4_K           5       2560          0              0          0  ok
+Q4_K           6       3072          0              0          0  ok
+Q4_K           8       4096          0              0          0  ok
+Q5_K           1        512          0              0          0  ok
+Q5_K           2       1024          0              0          0  ok
+Q5_K           3       1536          0              0          0  ok
+Q5_K           4       2048          0              0          0  ok
+Q5_K           5       2560          0              0          0  ok
+Q5_K           6       3072          0              0          0  ok
+Q5_K           8       4096          0              0          0  ok
+Q6_K           1        512          0              0          0  ok
+Q6_K           2       1024          0              0          0  ok
+Q6_K           3       1536          0              0          0  ok
+Q6_K           4       2048          0              0          0  ok
+Q6_K           5       2560          0              0          0  ok
+Q6_K           6       3072          0              0          0  ok
+Q6_K           8       4096          0              0          0  ok
+IQ4_XS         1        512          0              0          0  ok
+IQ4_XS         2       1024          0              0          0  ok
+IQ4_XS         3       1536          0              0          0  ok
+IQ4_XS         4       2048          0              0          0  ok
+IQ4_XS         5       2560          0              0          0  ok
+IQ4_XS         6       3072          0              0          0  ok
+IQ4_XS         8       4096          0              0          0  ok
+Q5_K wide      1       2048          0              0          0  ok
+Q5_K wide      2       4096          0              0          0  ok
+Q5_K wide      3       6144          0              0          0  ok
+Q5_K wide      4       8192          0              0          0  ok
+Q5_K wide      5      10240          0              0          0  ok
+Q5_K wide      6      12288          0              0          0  ok
+Q5_K wide      8      16384          0              0          0  ok
+
+=== multi_exact off (negative control) ===
+type           T    outputs  bits diff    finite diff  nonfinite
+Q4_0           1        512          0              0          0  layouts coincide here (NW = 4)
+Q4_0           2       1024          0              0          0  layouts coincide here (NW = 4)
+Q4_0           3       1536          0              0          0  layouts coincide here (NW = 4)
+Q4_0           4       2048          0              0          0  layouts coincide here (NW = 4)
+Q4_0           5       2560       1746           1746          0  control sees it
+Q4_0           6       3072       2110           2110          0  control sees it
+Q4_0           8       4096       2795           2795          0  control sees it
+Q8_0           1        512          0              0          0  layouts coincide here (NW = 4)
+Q8_0           2       1024          0              0          0  layouts coincide here (NW = 4)
+Q8_0           3       1536          0              0          0  layouts coincide here (NW = 4)
+Q8_0           4       2048          0              0          0  layouts coincide here (NW = 4)
+Q8_0           5       2560       1713           1713          0  control sees it
+Q8_0           6       3072       2085           2085          0  control sees it
+Q8_0           8       4096       2770           2770          0  control sees it
+Q4_K           1        512          0              0          0  layouts coincide here (NW = 4)
+Q4_K           2       1024          0              0          0  layouts coincide here (NW = 4)
+Q4_K           3       1536          0              0          0  layouts coincide here (NW = 4)
+Q4_K           4       2048          0              0          0  layouts coincide here (NW = 4)
+Q4_K           5       2560       1490           1490          0  control sees it
+Q4_K           6       3072       1885           1885          0  control sees it
+Q4_K           8       4096       2484           2484          0  control sees it
+Q5_K           1        512          0              0          0  layouts coincide here (NW = 4)
+Q5_K           2       1024          0              0          0  layouts coincide here (NW = 4)
+Q5_K           3       1536          0              0          0  layouts coincide here (NW = 4)
+Q5_K           4       2048          0              0          0  layouts coincide here (NW = 4)
+Q5_K           5       2560       1503           1503          0  control sees it
+Q5_K           6       3072       1840           1840          0  control sees it
+Q5_K           8       4096       2510           2510          0  control sees it
+Q6_K           1        512          0              0          0  layouts coincide here (NW = 4)
+Q6_K           2       1024          0              0          0  layouts coincide here (NW = 4)
+Q6_K           3       1536          0              0          0  layouts coincide here (NW = 4)
+Q6_K           4       2048          0              0          0  layouts coincide here (NW = 4)
+Q6_K           5       2560       1731           1731          0  control sees it
+Q6_K           6       3072       2079           2079          0  control sees it
+Q6_K           8       4096       2798           2798          0  control sees it
+IQ4_XS         1        512          0              0          0  layouts coincide here (NW = 4)
+IQ4_XS         2       1024          0              0          0  layouts coincide here (NW = 4)
+IQ4_XS         3       1536          0              0          0  layouts coincide here (NW = 4)
+IQ4_XS         4       2048          0              0          0  layouts coincide here (NW = 4)
+IQ4_XS         5       2560       1598           1598          0  control sees it
+IQ4_XS         6       3072       1924           1924          0  control sees it
+IQ4_XS         8       4096       2515           2515          0  control sees it
+Q5_K wide      1       2048          0              0          0  layouts coincide here (NW = 4)
+Q5_K wide      2       4096          0              0          0  layouts coincide here (NW = 4)
+Q5_K wide      3       6144          0              0          0  layouts coincide here (NW = 4)
+Q5_K wide      4       8192          0              0          0  layouts coincide here (NW = 4)
+Q5_K wide      5      10240       6976           6976          0  control sees it
+Q5_K wide      6      12288       8068           8068          0  control sees it
+Q5_K wide      8      16384      11210          11210          0  control sees it
+
+multi_exact on:   148480 outputs compared, 0 differ bitwise, 0 non-finite
+multi_exact off:  148480 outputs compared, 63830 differ bitwise (63830 on finite outputs, 63830 at T > 4)
+
+mmvq_multi_parity: ok. With multi_exact on every column is bitwise equal to a single-column call; with it off the control finds differences at T > 4 in every case, so the comparison has power.

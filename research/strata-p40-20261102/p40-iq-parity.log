@@ -1,0 +1,11 @@
+IQ2_XXS  type 16   32 x   256  dequant rel 0.00e+00  mmvq rel 4.75e-03 (ncols 1..8)  ok
+IQ2_XS   type 17   32 x   256  dequant rel 0.00e+00  mmvq rel 5.27e-03 (ncols 1..8)  ok
+IQ2_S    type 22   32 x   256  dequant rel 0.00e+00  mmvq rel 5.13e-03 (ncols 1..8)  ok
+IQ3_XXS  type 18   32 x   256  dequant rel 0.00e+00  mmvq rel 5.73e-03 (ncols 1..8)  ok
+IQ3_S    type 21   32 x   256  dequant rel 0.00e+00  mmvq rel 4.63e-03 (ncols 1..8)  ok
+IQ1_M    type 29   32 x   256  dequant rel 0.00e+00  mmvq rel 5.53e-03 (ncols 1..8)  ok
+IQ4_NL   type 20   32 x   256  dequant rel 0.00e+00  mmvq rel 5.06e-03 (ncols 1..8)  ok
+IQ4_XS   type 23   32 x   256  dequant rel 0.00e+00  mmvq rel 5.09e-03 (ncols 1..8)  ok
+Q2_0     type 42   32 x   256  dequant rel 0.00e+00  mmvq rel 4.57e-03 (ncols 1..8)  ok
+Q3_K     type 11   32 x   256  dequant rel 0.00e+00  mmvq rel 4.82e-03 (ncols 1..8)  ok
+iq_parity: 0 failures

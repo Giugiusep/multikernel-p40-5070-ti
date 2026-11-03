@@ -1,0 +1,80 @@
+From 91e98f5013315f09fc8696e35fea2fecec06ae68 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Tue, 3 Nov 2026 17:28:46 +0000
+Subject: [PATCH] Enable guarded Multikernel offload without duplicate CPU
+ expert jobs
+
+---
+ src/core/expert_source.cpp    |  1 +
+ src/core/mk_expert_client.hpp | 19 ++++++++++++++++---
+ 2 files changed, 17 insertions(+), 3 deletions(-)
+
+diff --git a/src/core/expert_source.cpp b/src/core/expert_source.cpp
+index 4fe04f5..7b3df41 100644
+--- a/src/core/expert_source.cpp
++++ b/src/core/expert_source.cpp
+@@ -404,6 +404,7 @@ void expert_pool_dispatch_multi(ExpertDispatch& d, const float* x_f, const int32
+                 continue;
+             }
+             ++d.cache_refused;
++            if (mk && mk->replaces_cpu(i)) continue;
+             int16_t& jo = d.job_of[(size_t) e];
+             if (jo < 0) {
+                 const uint8_t* b = d.src->blob(d.layers, e);
+diff --git a/src/core/mk_expert_client.hpp b/src/core/mk_expert_client.hpp
+index cb39d66..cc44c7e 100644
+--- a/src/core/mk_expert_client.hpp
++++ b/src/core/mk_expert_client.hpp
+@@ -29,6 +29,7 @@ class MkExpertClient {
+     std::vector<int> positions_;
+     std::vector<float> results_;
+     bool shadow_=true;
++    bool offload_=false;
+     uint64_t calls_=0,entries_=0;
+     double peak_error_=0;
+     static void append(std::vector<uint8_t>& b,const void* p,size_t n){
+@@ -61,8 +62,10 @@ public:
+         if(sscanf(endpoint,"%u:%u%n",&cid,&port,&used)!=2||endpoint[used]!='\0'||port==0)
+             throw std::runtime_error("STRATA_MK_EXPERT_ENDPOINT must be CID:PORT");
+         const char* mode=getenv("STRATA_MK_EXPERT_MODE");
+-        if(mode&&strcmp(mode,"shadow")&&strcmp(mode,"execute"))throw std::runtime_error("invalid Multikernel expert mode");
+-        shadow_=!mode||strcmp(mode,"execute")!=0;
++        if(mode&&strcmp(mode,"shadow")&&strcmp(mode,"execute")&&strcmp(mode,"offload"))throw std::runtime_error("invalid Multikernel expert mode");
++        shadow_=!mode||strcmp(mode,"shadow")==0;
++        offload_=mode&&strcmp(mode,"offload")==0;
++        if(offload_&&!getenv("STRATA_DIAG_BYPASS_EXPERT_HITS"))throw std::runtime_error("experimental offload requires the validated primary GPU-expert bypass");
+         const char* pairs=getenv("STRATA_MK_EXPERT_PAIRS");
+         if(!pairs)throw std::runtime_error("STRATA_MK_EXPERT_PAIRS is required");
+         std::ifstream in(pairs);int l,e;
+@@ -80,10 +83,15 @@ public:
+             sockaddr_vm a{};a.svm_family=AF_VSOCK;a.svm_cid=cid;a.svm_port=port;
+             if(connect(fd_,(sockaddr*)&a,sizeof(a)))throw std::runtime_error("Multikernel expert connect failed");
+             std::vector<uint8_t> empty;auto info=request(3,empty);
+-            fprintf(stderr,"MK_EXPERT_CONNECTED mode=%s selected=%zu worker=%.*s\n",shadow_?"shadow":"execute",selected_.size(),(int)info.size(),info.data());fflush(stderr);
++            if(offload_&&std::string(info.begin(),info.end()).find("\"math_contract\":\"strata-pool-iq2-v1\"")==std::string::npos)
++                throw std::runtime_error("offload requires the qualified CPU-pool IQ2 math contract");
++            fprintf(stderr,"MK_EXPERT_CONNECTED mode=%s selected=%zu worker=%.*s\n",offload_?"offload":shadow_?"shadow":"execute",selected_.size(),(int)info.size(),info.data());fflush(stderr);
+         }catch(...){close(fd_);fd_=-1;throw;}
+     }
+     ~MkExpertClient(){if(fd_>=0)close(fd_);}
++    bool replaces_cpu(int64_t index) const {
++        return offload_&&std::find(positions_.begin(),positions_.end(),index)!=positions_.end();
++    }
+     void begin(ExpertDispatch& d,const float* x,const int32_t* ids,int rows,int k,const int32_t* kind){
+         positions_.clear();results_.clear();
+         if(rows<1||rows>8||k!=10)throw std::runtime_error("Multikernel expert window unsupported");
+@@ -114,6 +122,11 @@ public:
+         calls_++;entries_+=positions_.size();
+     }
+     void finish(float* out){
++        if(offload_){
++            for(size_t j=0;j<positions_.size();j++)memcpy(out+(size_t)positions_[j]*2560,results_.data()+j*2560,2560*4);
++            if(!positions_.empty()){fprintf(stderr,"MK_EXPERT_ROUND mode=offload calls=%llu entries=%llu resident=%zu reference_checked=0\n",(unsigned long long)calls_,(unsigned long long)entries_,loaded_.size());fflush(stderr);}
++            return;
++        }
+         double error=0,den=0;
+         for(size_t j=0;j<positions_.size();j++){
+             float* dst=out+(size_t)positions_[j]*2560;
+-- 
+2.53.0
+

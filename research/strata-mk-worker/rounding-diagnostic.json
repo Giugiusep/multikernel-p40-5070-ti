@@ -1,0 +1,21 @@
+{
+  "layer": 1,
+  "expert": 0,
+  "M": 4,
+  "GPU_equals_host_emulated_CUDA_GU_plus_CPU_down": true,
+  "GPU_vs_emulation_max_abs": 0.0,
+  "CPU_vs_emulated_hq_changed_byte_indices": [
+    [],
+    [],
+    [
+      491
+    ],
+    []
+  ],
+  "GPU_vs_CPU_per_row_relative_L1": [
+    0.0,
+    0.0,
+    0.0007663233554922044,
+    0.0
+  ]
+}

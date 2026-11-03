@@ -1,0 +1,2 @@
+name, memory.used [MiB], temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz]
+Tesla P40, 599 MiB, 53, 1303 MHz, 3615 MHz

@@ -5,10 +5,16 @@ import shutil
 ROOT = Path(__file__).resolve().parent
 BASE = ROOT.parents[1]
 dest = ROOT / "rootfs"
-shutil.copytree(BASE / "rpc-p40-root", dest, symlinks=True, dirs_exist_ok=True)
+if not dest.exists():
+    shutil.copytree(BASE / "rpc-p40-root", dest, symlinks=True)
+elif not (dest / "sbin/entrypoint").is_file() or not (dest / "lib/modules/7.0.0-mk2-shiba-mk1/nvidia.ko").is_file():
+    raise SystemExit("Existing staged image is incomplete; inspect it before replacing any files")
 worker = dest / "opt/mk-worker"
 worker.mkdir(exist_ok=True)
 shutil.copy2(ROOT / "worker", worker / "worker")
+if (ROOT / "worker-qualified").exists():
+    shutil.copy2(ROOT / "worker-qualified", worker / "worker-qualified")
+    shutil.copy2(ROOT / "run_worker_qualified.sh", worker / "run_worker_qualified.sh")
 shutil.copy2(ROOT.parent / "strata-p40-20261102/vsock_file_pull", worker / "vsock_file_pull")
 runtime = worker / "runtime"
 runtime.mkdir(exist_ok=True)

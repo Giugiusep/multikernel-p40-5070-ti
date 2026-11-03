@@ -1,20 +1,20 @@
 {
-  "source_head": "2e4398b87e957ff07b637c967aec4f0147052602",
+  "source_head": "91e98f5013315f09fc8696e35fea2fecec06ae68",
   "build_method": "replace only expert_source.cpp.o in copied reference static archive; retain reference GPU kernels and driver",
   "reference_objects": {
-    "/home/shiba/multikernel-experiment/research/Strata/build/CMakeFiles/strata.dir/src/program/generate.cpp.o": "850fef911627ee437b558509a5f6ea601f6d87fdd4662849adf552aab2d52255",
-    "/home/shiba/multikernel-experiment/research/Strata/build/libstrata_kernels.a": "d6abc0e260c9a6774a663adee64efbf107ee17f5fd9155dc5b3a23ea85f47815",
     "/home/shiba/multikernel-experiment/research/Strata/build/libstrata_prefill.a": "990af4c12ac7c7b129ce6961a01a05349a8e4e75a26d91d09accc13a55a54c76",
-    "/home/shiba/multikernel-experiment/research/Strata/build/ggml/src/libggml-cpu.a": "97986ba5ec0ce0f7d397b23c2ba2e00eedd39a7c29b1384108b7fed6e9385f54",
+    "/home/shiba/multikernel-experiment/research/Strata/build/libstrata_kernels.a": "d6abc0e260c9a6774a663adee64efbf107ee17f5fd9155dc5b3a23ea85f47815",
     "/home/shiba/multikernel-experiment/research/Strata/build/libstrata_kernels_cpu.a": "7223db483f1ea3e285602bdc896891416c8884539f38e40a6d40a75fa66289a6",
-    "/home/shiba/multikernel-experiment/research/Strata/build/libstrata_spec.a": "f1a1942fb154d2c76b733a1cd5e29800957210c08ceefdc8f43d26aec6d84319",
     "/home/shiba/multikernel-experiment/research/Strata/build/ggml/src/libggml-base.a": "9e554775a759376604ce1eeec06eaa4144827fcf6bf8098f65dfbf5dd14ee305",
+    "/home/shiba/multikernel-experiment/research/Strata/build/CMakeFiles/strata.dir/src/program/generate.cpp.o": "850fef911627ee437b558509a5f6ea601f6d87fdd4662849adf552aab2d52255",
+    "/home/shiba/multikernel-experiment/research/Strata/build/ggml/src/libggml-cpu.a": "97986ba5ec0ce0f7d397b23c2ba2e00eedd39a7c29b1384108b7fed6e9385f54",
+    "/home/shiba/multikernel-experiment/research/Strata/build/libstrata_spec.a": "f1a1942fb154d2c76b733a1cd5e29800957210c08ceefdc8f43d26aec6d84319",
     "/home/shiba/multikernel-experiment/research/Strata/build/libstrata_core.a": "bbbf1c8622deacec18c1f4ffc2652e6c201f52e75446704e4a38b778a147b5c0"
   },
   "original_engine_archive_sha256": "524d75a7ec2d3199772f3d96447de73a492c433e81ba9c94fc10dd62bf04bbaa",
-  "adapter_source_sha256": "73073c39cf4fac4e7c281bfcc0c39aff4e58fd670c7e1eebfa70c7b05c299359",
-  "adapter_header_sha256": "f16f2859deb99f06446018b6fa4f3186e8f96a53ad67b86fc7bbdeabd72ed09f",
-  "binary_sha256": "4ee9b4b9084a740266d01e00224d500474d6d9fae6b7508482466c54ce7cdda3",
+  "adapter_source_sha256": "a09f164849069202b2547155460374c0f90451904e9e3fec179229046f4dc12c",
+  "adapter_header_sha256": "f811e4e8f15a058be6132b0e4790b135bf1179830c5fe5b2c421ab9368fe4933",
+  "binary_sha256": "19a398c69987889641400a6e82ed58bcca52cb597fc492b2b8f373641b858b01",
   "compile": [
     "/usr/bin/g++-13",
     "-O3",

@@ -1,0 +1,28 @@
+{
+  "math_contract": "strata-pool-iq2-v1",
+  "primary_adapter_commit": "91e98f5013315f09fc8696e35fea2fecec06ae68",
+  "reference_source_commit": "8f4f8ba37e291c409ac29cd3877bc5300f677a56",
+  "cuda_decoder_source_commit": "c62d5e3a15b40ea51c96aae9e8d36928965f53ab",
+  "gpu_architecture": "sm_61",
+  "flags": "O2; no --use_fast_math in qualified worker; private CUDA 12.8 toolchain headers",
+  "sha256": {
+    "/home/shiba/multikernel-experiment/research/strata-mk-worker/worker.cpp": "4e377dfca0d96675e74dc637de9c5615a249b254367aab03ccc3164acbd308f2",
+    "/home/shiba/multikernel-experiment/research/strata-mk-worker/compat-kernels.inc": "9edf1b499f13b26a2343e330c7abc97b5d1e66b826112cd8e52ba9024b7f5f7a",
+    "/home/shiba/multikernel-experiment/research/strata-mk-worker/legacy_act.h": "3f5613378d7c93a41e71ec240d8a229f46d7d6c0baf37b1066ecfdc4350f4d5c",
+    "/home/shiba/multikernel-experiment/research/strata-mk-worker/cpu_math.cpp": "59decd9cdfc1f6880135abedb74521a058e871b0a456753742f8b16b07fae370",
+    "/home/shiba/multikernel-experiment/research/strata-mk-worker/cpu_reference.cpp": "7ab11e562e212211ecb94e429d81949975a94f279be4f643895ab2897201a694",
+    "/home/shiba/multikernel-experiment/research/strata-mk-worker/worker-qualified": "1b30b98e600c2f9cf170f819fd76deca6a1687e2b26d06fe2681d5803fefe59e",
+    "/home/shiba/multikernel-experiment/research/strata-mk-worker/cpu_reference_pool": "6ae70a12995509b863c75bca78121c78d4abcea5a84fd6acbc83ffc5f7f5ae24",
+    "/home/shiba/multikernel-experiment/research/strata-mk-worker/build_compat.sh": "c98ffad7a45ec5b33b2d9b425fd8de98f206d9b627aa9da965e0844e465eb821",
+    "/home/shiba/multikernel-experiment/research/strata-mk-worker/build_cpu_oracles.sh": "b299ce40edbe0c99ad92cfa6f27c8d7fde3910e09d612649df68caca07de691e",
+    "/home/shiba/multikernel-experiment/research/strata-mk-worker/run_primary_gate.py": "3a45ce613db871285830cca382a02eb069ff1f6e02735c7a834548323767c43c",
+    "/home/shiba/multikernel-experiment/research/strata-mk-worker/validate.py": "280dba828ad3ff25e61efbc77f3407af970ac23c612b62eac8b3debf89d2dff6",
+    "/home/shiba/multikernel-experiment/research/Strata/build/libstrata_kernels_cpu.a": "7223db483f1ea3e285602bdc896891416c8884539f38e40a6d40a75fa66289a6",
+    "/home/shiba/multikernel-experiment/research/Strata/build/ggml/src/libggml-cpu.a": "97986ba5ec0ce0f7d397b23c2ba2e00eedd39a7c29b1384108b7fed6e9385f54",
+    "/home/shiba/multikernel-experiment/research/Strata/build/ggml/src/libggml-base.a": "9e554775a759376604ce1eeec06eaa4144827fcf6bf8098f65dfbf5dd14ee305",
+    "/home/shiba/multikernel-experiment/research/strata-mk-worker/prepare_root.py": "a93c0f75e62148e94c18225ba2deb8782e88815ab0ae096d42a5530af25150c9",
+    "/home/shiba/multikernel-experiment/research/strata-mk-worker/run_worker_qualified.sh": "35411ff9a97f21e046d85e1b0171bd007f091d8da18e55bcb9413bbdec7740a4",
+    "/home/shiba/multikernel-experiment/research/strata-mk-worker/vsock_file_pull_paced.c": "c6ea36405ac34322a4ba4a571cb5b78e43c0c17e7ebacda8d14b45b64ca995a4",
+    "/home/shiba/multikernel-experiment/research/strata-mk-worker/CURRENT.md": "3639d34f90b130919a87b1f8da8b544becf624a4f76a874c39651d7b862e3f62"
+  }
+}

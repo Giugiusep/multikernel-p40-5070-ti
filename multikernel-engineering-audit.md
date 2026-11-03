@@ -1145,3 +1145,28 @@ Worker v2 sparse routing and primary live shadow/execute tests remain pending af
 |---|---:|---:|---|
 | Worker v1 real Qwen checkpoint experts | 0.789–0.804 ms | unmeasured | 12 CPU-reference cases passed; softirq warning |
 | Primary adapter 2e4398b | pending | unmeasured | default-off token gate passed; live P40 gates await reboot |
+
+
+## 2026-11-03 — Post-reboot Qwen/P40 offload correctness qualified
+
+User reboot recovered P40. Prepared secondary boot succeeded with a 5632 MiB pool and original 1792 MiB instance, no live instance hot-add. Both NVIDIA stacks, primary kernel, GRUB and production API configs remain unchanged. No further kernel restart or NVIDIA module unload occurred this run. Worker binaries were updated through bounded SHA-256-checked transfers. The old FUSE model-filesystem launch remains disabled; its freeze root cause is still unproven.
+
+Re-ran full/sparse native worker validation: all 12 cases passed the independent float oracle and byte-stable repeats. Native GPU replacement nevertheless diverged at bicycle token 6. Investigation found input quantization differences (CPU Q8_K versus GPU Q8_1), then additional rounding sensitivity. A CPU-quantizer/float-GPU variant matched the 34-token short test but diverged at token 88 in the long test. Matching IQ2 GU integer/FMA ordering while retaining generic ggml down math moved divergence to token 112. All failed outputs are retained.
+
+**Oracle correction:** the initial CPU harness used native_down_rows/generic ggml Q8_0, but the actual target pool uses act_quant_any's FP32-scale ActQ and q2_rows_any's AVX512 Q2_0 reduction (pool.cpp phases 5/6). Earlier generic-oracle equality is not actual-pool equality. The new cpu_reference_pool calls the real pool functions. The qualified worker preserves input quantization, CPU SwiGLU/intermediate quantization, IQ2 GU integer contributions and CPU reduction order, and the actual Q2_0 down correction/FMA order on SM61. Packed weights stay in P40 VRAM; no full FP32 weight expansion or Tensor Core path. IQ1_M is explicitly left on the CPU for the qualified profile.
+
+Eight IQ2_S/IQ2_XXS expert cases at M=1/2/4/8 now match actual-pool output bytes, including sparse reordering and ten exact repeats. Full-model checked replacement matched 130 committed greedy tokens (Paris 2 + bicycle 128) with zero live expert error. Then actual offload skipped duplicate CPU jobs and matched the same 130 tokens and draft acceptance statistics. Primary adapter commit 91e98f5 on experiment/shiba-mk-expert-worker; serving still uses the original executable. This is a bounded 32-pair / 64 MiB-cache pilot; the workload used 13 pairs, 143 expert entries and 87 nonempty callbacks. Test context 2048, spec capacity 4; production context unchanged. No long-context, sampling or general-correctness claim.
+
+Timing caution: older cold reference was 18.92 gen tok/s. Same-session original reference was 32.61, checked duplicate-compute path 32.82, real offload 32.24. These single correctness runs establish **no speedup**. Do not promote this pilot based on the cold baseline or enlarge its cache as a performance claim. Correctness-first kernels remain slow (about 5 ms per isolated ten-entry M=1 request). Next optimization must profile and improve the qualified GPU math while retaining the actual-pool oracle.
+
+Transport: first one-shot helper upload produced 47 secondary ring-full reports within 3.273 ms; SHA-256 still matched. Its outer file loop bypassed pacing between all_io calls of exactly 32 KiB. New separate vsock_file_pull_paced.c fixes the helper's inter-call 100 us pacing. No global transport or primary RPC write pacing changed. All saved secondary ring-full timestamps are in that one burst. The known secondary softirq warning recurred. Final saved secondary logs show zero Xid, OOM, soft lockup and RmInitAdapter reports in this boot; primary final log has zero IPI ring-full, Xid, OOM, soft lockup and RmInitAdapter reports. Not a long-run stability guarantee. P40 final snapshot 599 MiB / 53 C / 1303 MHz SM / 3615 MHz memory, idle after workloads.
+
+Conservative RPC 5000 left intact. Restored fast RPC 5002 using the exact existing libggml-rpc.so.0 SHA-256 5c0fb8e5279b4c1270f209e08f4d0a154cf95fcc77bd8300c4e41a4986bb75b5; CUDA enumeration confirms Tesla P40. Qualified worker on 6006, native worker on 6005, neither exposed in the public API. Original Qwen API restored and returned Paris correctly. Prepared restart image includes qualified worker and explicit launch script; its NVIDIA module hash equals the original root. DeepSeek SM61 WMMA incompatibility is separate and unmodified.
+
+| Change | Expert M=1 request | Prompt tok/s | Gen tok/s | Correctness / errors |
+|---|---:|---:|---:|---|
+| Original same-session RTX/RAM | n/a | 59.29 | 32.61 | 130-token reference |
+| Qualified actual-pool checked replacement | ~5 ms / 10 entries | 53.3 | 32.82 | 130 exact tokens; zero live expert difference |
+| Adapter 91e98f5, qualified actual offload | ~5 ms / 10 entries | 54.9 | 32.24 | 130 exact tokens; CPU duplicates skipped |
+
+Full evidence, build fingerprints, failed variants and reproduction: research/strata-mk-worker/CURRENT.md and adjacent JSON/logs.

@@ -1,0 +1,27 @@
+{
+  "health": {
+    "status": "ok",
+    "active_model": "qwen3.8-flash-next-strata"
+  },
+  "response": {
+    "id": "chatcmpl-ea9883e5e005406d932c80bc",
+    "object": "chat.completion",
+    "created": 1793727664,
+    "model": "qwen3.8-flash-next-iq2-xs",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Paris"
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 26,
+      "completion_tokens": 2,
+      "total_tokens": 28
+    }
+  }
+}

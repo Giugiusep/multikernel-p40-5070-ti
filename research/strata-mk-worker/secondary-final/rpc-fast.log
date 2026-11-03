@@ -1,0 +1,9 @@
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+WARNING: Host ('mkvsock') is != '127.0.0.1'
+         Never expose the RPC server to an open network!
+         This is an experimental feature and is not secure!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 24438 MiB):
+  Device 0: Tesla P40, compute capability 6.1, VMM: yes, VRAM: 24438 MiB

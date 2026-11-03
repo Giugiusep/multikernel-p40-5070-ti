@@ -1,0 +1,286 @@
+Script started on 2026-11-03 16:34:58+00:00 [COMMAND="/home/shiba/multikernel-experiment/venv/bin/kerf console rpc-p40" TERM="xterm-kitty" TTY="/dev/pts/2" COLUMNS="80" LINES="24"]
+Connecting to console for instance 'rpc-p40' (ID: 1)...
+Escape sequence: Ctrl+] followed by . to detach
+
+
+mk-rpc-p40# nvidia-smi -L
+GPU 0: Tesla P40 (UUID: GPU-14365074-6246-b2dd-3c34-ef58369ec7f5)
+mk-rpc-p40# [6n/opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-w
+orker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /opt/mk-worker/worker > /tmp/mk-e
+xpert-worker.log 2>&1 &
+leep 1
+catmk-rpc-p40# sleep 1
+p/mk-expert-worker.log
+mk-rpc-p40# cat /tmp/mk-expert-worker.log
+MK_EXPERT_WORKER_READY port=6005 cache_limit=64MiB
+mk-rpc-p40# [6n[   29.384577] ------------[ cut here ]------------
+[   29.384588] WARNING: kernel/softirq.c:429 at __local_bh_enable_ip+0x5a/0x70, CPU#0: swapper/0/0
+[   29.384601] Modules linked in: nvidia_uvm(POE) nvidia(POE) daxfs(OE)
+[   29.384612] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Tainted: P           OE       7.0.0-mk2-shiba-mk1 #9 PREEMPT(lazy) 
+[   29.384621] Tainted: [P]=PROPRIETARY_MODULE, [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
+[   29.384627] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+[   29.384634] RIP: 0010:__local_bh_enable_ip+0x5a/0x70
+[   29.384643] Code: ff 0d 7a 45 63 02 65 8b 05 73 45 63 02 85 c0 74 0a 5d 31 c0 31 f6 c3 cc cc cc cc e8 70 7a f0 ff 5d 31 c0 31 f6 c3 cc cc cc cc <0f> 0b eb b8 65 66 83 3d 51 45 63 02 00 74 c6 e8 e2 f4 ff ff eb bf
+[   29.384650] RSP: 0018:ffffc90000003e68 EFLAGS: 00010006
+[   29.384658] RAX: 0000000000000001 RBX: ffff888c49c6da00 RCX: 0000000000000000
+[   29.384664] RDX: 0000000000000003 RSI: 0000000000000201 RDI: ffffffff824e473f
+[   29.384671] RBP: ffffc90000003e68 R08: 0000000000000000 R09: 0000000000000000
+[   29.384678] R10: 0000000000000000 R11: 0000000000000000 R12: ffffc90000003ee8
+[   29.384684] R13: ffffc90000003ef8 R14: 00000000828cbfbf R15: ffff888c49c6da00
+[   29.384694] FS:  0000000000000000(0000) GS:ffff888d29c60000(0000) knlGS:0000000000000000
+[   29.384702] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   29.384708] CR2: 00007caad4000020 CR3: 0000000c41a44000 CR4: 0000000000f50ef0
+[   29.384718] PKRU: 55555554
+[   29.384725] Call Trace:
+[   29.384732]  <IRQ>
+[   29.384739]  _raw_spin_unlock_bh+0x1d/0x30
+[   29.384758]  vsock_find_connected_socket_net+0x16f/0x210
+[   29.384768]  vsock_find_connected_socket+0x10/0x20
+[   29.384777]  mk_vsock_rx_pkt+0x80/0x650
+[   29.384786]  mk_vsock_ipi_handler+0x10a/0x130
+[   29.384794]  mk_message_type_ipi_callback+0x84/0x170
+[   29.384804]  ? __pfx_mk_message_type_ipi_callback+0x10/0x10
+[   29.384812]  generic_multikernel_interrupt+0x13f/0x1d0
+[   29.384822]  __sysvec_multikernel+0x1a/0x20
+[   29.384834]  sysvec_multikernel+0x9b/0xc0
+[   29.384844]  </IRQ>
+[   29.384851]  <TASK>
+[   29.384859]  asm_sysvec_multikernel+0x1b/0x20
+[   29.384869] RIP: 0010:pv_native_safe_halt+0xb/0x10
+[   29.384878] Code: 22 df 31 ff c3 cc cc cc cc 66 0f 1f 44 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 eb 07 0f 00 2d f9 ac 09 00 fb f4 <c3> cc cc cc cc 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 83
+[   29.384885] RSP: 0018:ffffffff83003de8 EFLAGS: 00000246
+[   29.384891] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
+[   29.384896] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+[   29.384900] RBP: ffffffff83003df0 R08: 0000000000000000 R09: 0000000000000000
+[   29.384905] R10: 0000000000000000 R11: 0000000000000000 R12: ffffffff83013480
+[   29.384909] R13: 0000000000000000 R14: 0000000000000000 R15: 0000000c3f928090
+[   29.384914]  ? default_idle+0x9/0x30
+[   29.384921]  arch_cpu_idle+0x9/0x10
+[   29.384927]  default_idle_call+0x33/0x120
+[   29.384937]  do_idle+0x1ba/0x2d0
+[   29.384945]  cpu_startup_entry+0x29/0x30
+[   29.384951]  rest_init+0xde/0x100
+[   29.384957]  start_kernel+0x899/0xca0
+[   29.384963]  x86_64_start_reservations+0x18/0x30
+[   29.384971]  x86_64_start_kernel+0x10d/0x160
+[   29.384977]  ? soft_restart_cpu+0x14/0x14
+[   29.384984]  multikernel_startup_64+0xfe/0x10c
+[   29.384993]  </TASK>
+[   29.384998] ---[ end trace 0000000000000000 ]---
+/opt/mk-worker/vsock_file_pull client 0 /tmp/compat-transfer.tar
+received 50606080 bytes
+mk-rpc-p40# [6n[  758.637779] multikernel: IPI ring full for instance 0 (head=13, tail=14)
+[  758.637782] Failed to send multikernel message: -28
+[  758.637962] multikernel: IPI ring full for instance 0 (head=23, tail=24)
+[  758.637962] multikernel: IPI ring full for instance 0 (head=23, tail=24)
+[  758.637981] multikernel: IPI ring full for instance 0 (head=31, tail=32)
+[  758.637983] Failed to send multikernel message: -28
+[  758.638041] multikernel: IPI ring full for instance 0 (head=56, tail=57)
+[  758.638042] Failed to send multikernel message: -28
+[  758.638087] multikernel: IPI ring full for instance 0 (head=11, tail=12)
+[  758.638088] Failed to send multikernel message: -28
+[  758.638122] multikernel: IPI ring full for instance 0 (head=25, tail=26)
+[  758.638123] Failed to send multikernel message: -28
+[  758.638171] multikernel: IPI ring full for instance 0 (head=45, tail=46)
+[  758.638172] Failed to send multikernel message: -28
+[  758.638251] multikernel: IPI ring full for instance 0 (head=15, tail=16)
+[  758.638253] Failed to send multikernel message: -28
+[  758.638421] multikernel: IPI ring full for instance 0 (head=21, tail=22)
+[  758.638423] Failed to send multikernel message: -28
+[  758.638429] multikernel: IPI ring full for instance 0 (head=23, tail=24)
+[  758.638431] Failed to send multikernel message: -28
+[  758.638512] multikernel: IPI ring full for instance 0 (head=58, tail=59)
+[  758.638514] Failed to send multikernel message: -28
+[  758.638545] multikernel: IPI ring full for instance 0 (head=7, tail=8)
+[  758.638546] Failed to send multikernel message: -28
+[  758.638650] multikernel: IPI ring full for instance 0 (head=51, tail=52)
+[  758.638651] Failed to send multikernel message: -28
+[  758.638735] multikernel: IPI ring full for instance 0 (head=23, tail=24)
+[  758.638736] Failed to send multikernel message: -28
+[  758.638783] multikernel: IPI ring full for instance 0 (head=42, tail=43)
+[  758.638784] Failed to send multikernel message: -28
+[  758.638827] multikernel: IPI ring full for instance 0 (head=60, tail=61)
+[  758.638828] Failed to send multikernel message: -28
+[  758.638962] multikernel: IPI ring full for instance 0 (head=52, tail=53)
+[  758.638964] Failed to send multikernel message: -28
+[  758.639010] multikernel: IPI ring full for instance 0 (head=7, tail=8)
+[  758.639011] Failed to send multikernel message: -28
+[  758.639092] multikernel: IPI ring full for instance 0 (head=42, tail=43)
+[  758.639094] Failed to send multikernel message: -28
+[  758.639214] multikernel: IPI ring full for instance 0 (head=29, tail=30)
+[  758.639215] Failed to send multikernel message: -28
+[  758.639461] multikernel: IPI ring full for instance 0 (head=5, tail=6)
+[  758.639462] Failed to send multikernel message: -28
+[  758.639575] multikernel: IPI ring full for instance 0 (head=54, tail=55)
+[  758.639576] Failed to send multikernel message: -28
+[  758.639799] multikernel: IPI ring full for instance 0 (head=23, tail=24)
+[  758.639800] multikernel: IPI ring full for instance 0 (head=23, tail=24)
+[  758.639955] multikernel: IPI ring full for instance 0 (head=23, tail=24)
+[  758.639955] multikernel: IPI ring full for instance 0 (head=23, tail=24)
+[  758.640003] multikernel: IPI ring full for instance 0 (head=43, tail=44)
+[  758.640004] Failed to send multikernel message: -28
+[  758.640149] multikernel: IPI ring full for instance 0 (head=42, tail=43)
+[  758.640150] Failed to send multikernel message: -28
+[  758.640220] multikernel: IPI ring full for instance 0 (head=8, tail=9)
+[  758.640222] Failed to send multikernel message: -28
+[  758.640554] multikernel: IPI ring full for instance 0 (head=23, tail=24)
+[  758.640555] Failed to send multikernel message: -28
+[  758.640692] multikernel: IPI ring full for instance 0 (head=19, tail=20)
+[  758.640694] Failed to send multikernel message: -28
+[  758.640709] multikernel: IPI ring full for instance 0 (head=25, tail=26)
+[  758.640710] Failed to send multikernel message: -28
+[  758.640827] multikernel: IPI ring full for instance 0 (head=12, tail=13)
+[  758.640829] Failed to send multikernel message: -28
+[  758.641052] multikernel: IPI ring full for instance 0 (head=43, tail=44)
+[  758.641053] Failed to send multikernel message: -28
+/bin/busybox ls -l /tmp/compat-transfer.tar
+in/busybox sha256sum /tmp/compat-transfer.tar
+-rw-r--r--    1 0        0         50606080 Nov  3 16:47 /tmp/compat-transfer.tar
+mk-rpc-p40# /bin/busybox sha256sum /tmp/compat-transfer.tar
+fea29b880b82e9192fd914fc3afabd1aa63a6835a20f129618bdff108eb4b75e  /tmp/compat-transfer.tar
+mk-rpc-p40# [6n/bin/busybox tar -xf /tmp/compat-transfer.tar -C /tmp
+MK_WORKER_CPU_COMPAT=1 MK_WORKER_PORT=6006 /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-compat > /tmp/mk-expert-compat.log 2>&1 &
+sleep 1
+cat /tmp/mk-expert-compat.log
+mk-rpc-p40# MK_WORKER_CPU_COMPAT=1 MK_WORKER_PORT=6006 /opt/mk-worker/runtime/ld
+-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc
+/lib:/lib /tmp/worker-compat > /tmp/mk-expert-compat.log 2>&1 &
+mk-rpc-p40# sleep 1
+mk-rpc-p40# cat /tmp/mk-expert-compat.log
+MK_EXPERT_WORKER_READY port=6006 cache_limit=64MiB cpu_compat=1
+mk-rpc-p40# [6n/opt/mk-worker/vsock_file_pull client 0 /tmp/exact-transfer.tar
+received 45158400 bytes
+mk-rpc-p40# [6n/bin/busybox sha256sum /tmp/exact-transfer.tar
+in/busybox ps | /bin/busybox grep worker
+96949d0750b1d6c258211658c40e8f9d6f8fa2e9875302e80b36fabab34621d6  /tmp/exact-transfer.tar
+mk-rpc-p40# /bin/busybox ps | /bin/busybox grep worker
+    4 0        [kworker/R-rcu_g]
+    5 0        [kworker/R-sync_]
+    6 0        [kworker/R-kvfre]
+    7 0        [kworker/R-slub_]
+    8 0        [kworker/R-netns]
+    9 0        [kworker/0:0-eve]
+   10 0        [kworker/0:0H]
+   11 0        [kworker/0:1-eve]
+   12 0        [kworker/u16:0-e]
+   13 0        [kworker/R-mm_pe]
+   26 0        [kworker/1:0-eve]
+   27 0        [kworker/1:0H]
+   32 0        [kworker/2:0-eve]
+   33 0        [kworker/2:0H]
+   38 0        [kworker/3:0-eve]
+   39 0        [kworker/3:0H]
+   41 0        [kworker/R-inet_]
+   47 0        [kworker/u16:1-e]
+   48 0        [kworker/u16:2]
+   49 0        [kworker/R-write]
+   50 0        [kworker/2:1-eve]
+   54 0        [kworker/R-kbloc]
+   55 0        [kworker/R-blkcg]
+   56 0        [kworker/R-kinte]
+   57 0        [kworker/R-tpm_d]
+   58 0        [kworker/R-ata_s]
+   59 0        [kworker/R-md_bi]
+   60 0        [kworker/R-md]
+   61 0        [kworker/R-edac-]
+   62 0        [kworker/R-devfr]
+   64 0        [kworker/R-quota]
+   67 0        [kworker/R-kthro]
+   68 0        [kworker/R-acpi_]
+   69 0        [kworker/R-mld]
+   70 0        [kworker/R-ipv6_]
+   71 0        [kworker/R-kstrp]
+   72 0        [kworker/1:1-eve]
+   73 0        [kworker/3:1-eve]
+   75 0        [kworker/u17:0]
+   86 0        [kworker/R-charg]
+  129 0        /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /opt/mk-worker/worker
+  137 0        /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-compat
+  144 0        /bin/busybox grep worker
+mk-rpc-p40# [6n/bin/busybox kill 137
+/busybox tar -xf /tmp/exact-transfer.tar -C /tmk-rpc-p40# /bin/busybox tar -xf /tmp/exact-transfer.tar -C /tmp
+MPAT=1 MK_WORKER_CPU_EXACT_IQ2=1 MK_WORKER_PORT=6006 /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-exact-iq2 > /tmp/mk-expert-exact.log 2>&1 &
+sleep 1
+cat /tmp/mk-expert-exact.log
+mk-rpc-p40# MK_WORKER_CPU_COMPAT=1 MK_WORKER_CPU_EXACT_IQ2=1 MK_WORKER_PORT=6006
+ /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runti
+me:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-exact-iq2 > /tmp/mk-expert-exact
+.log 2>&1 &
+mk-rpc-p40# sleep 1
+[2]-  Terminated                 /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-compat 1>/tmp/mk-expert-compat.log 2>&1
+mk-rpc-p40# cat /tmp/mk-expert-exact.log
+mk-rpc-p40# [6n/bin/busybox rm /tmp/compat-transfer.tar /tmp/worker-compat /tmp/exa
+ct-transfer.tar
+bin/busybox df -m /tmp
+mk-rpc-p40# /bin/busybox df -m /tmp
+Filesystem           1M-blocks      Used Available Use% Mounted on
+tmpfs                      256        43       213  17% /tmp
+mk-rpc-p40# [6n/opt/mk-worker/vsock_file_pull client 0 /tmp/pool-transfer.tar
+received 45168640 bytes
+mk-rpc-p40# [6n/bin/busybox sha256sum /tmp/pool-transfer.tar
+n/busybox ps | /bin/busybox grep '/tmp/worker-exact'
+25199b96f89d322fe1a710c84d4cff33c3bd7cfd599ce3440d95fec2f4cd07a5  /tmp/pool-transfer.tar
+mk-rpc-p40# /bin/busybox ps | /bin/busybox grep '/tmp/worker-exact'
+  147 0        /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-exact-iq2
+  156 0        /bin/busybox grep /tmp/worker-exact
+mk-rpc-p40# [6n/bin/busybox kill 147
+bin/busybox tar -xf /tmp/pool-transfer.tar -C /tmp
+mk-rpc-p40# /bin/busybox tar -xf /tmp/pool-transfer.tar -C /tmp
+1 MK_WORKER_CPU_EXACT_IQ2=1 MK_WORKER_CPU_POOL=1 MK_WORKER_PORT=6006 /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-pool-exact > /tmp/mk-expert-pool.log 2>&1 &
+mk-rpc-p40# MK_WORKER_CPU_COMPAT=1 MK_WORKER_CPU_EXACT_IQ2=1 MK_WORKER_CPU_POOL=
+1 MK_WORKER_PORT=6006 /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path
+ /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-pool-exact 
+> /tmp/mk-expert-pool.log 2>&1 &
+mk-rpc-p40# [6n
+[3]-  Terminated                 /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-exact-iq2 1>/tmp/mk-expert-exact.log 2>&1
+mk-rpc-p40# [6n/opt/mk-worker/vsock_file_pull client 0 /tmp/qualified-transfer.tar
+received 45168640 bytes
+mk-rpc-p40# [6n/bin/busybox sha256sum /tmp/qualified-transfer.tar
+bin/busybox ps | /bin/busybox grep '/tmp/worker-pool-exact'
+9ac2c2fa8c6eb38c0091d3ce5e14aa5abd479a52e62376662ffea550ae077e01  /tmp/qualified-transfer.tar
+mk-rpc-p40# /bin/busybox ps | /bin/busybox grep '/tmp/worker-pool-exact'
+  159 0        /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-pool-exact
+  165 0        /bin/busybox grep /tmp/worker-pool-exact
+mk-rpc-p40# [6n/bin/busybox kill 159
+in/busybox tar -xf /tmp/qualified-transfer.tar -C /tmp
+MK_WORKER_CPU_COMPAT=1 MK_WORKER_CPU_EXACT_IQ2=1 MK_WORKER_CPU_POOL=1 MK_WORKER_PORT=6006 /opt/mk-worker/runtime/ld-linmk-rpc-p40# /bin/busybox tar -xf /tmp/qualified-transfer.tar -C /tmp
+h /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-qualified > /tmp/mk-expert-qualified.log 2>&1 &
+mk-rpc-p40# MK_WORKER_CPU_COMPAT=1 MK_WORKER_CPU_EXACT_IQ2=1 MK_WORKER_CPU_POOL=
+1 MK_WORKER_PORT=6006 /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path
+ /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-qualified >
+ /tmp/mk-expert-qualified.log 2>&1 &
+[2]-  Terminated                 /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-pool-exact 1>/tmp/mk-expert-pool.log 2>&1
+mk-rpc-p40# [6n/opt/mk-worker/vsock_file_pull client 0 /tmp/rpc-fast.tar.gz
+received 81274 bytes
+mk-rpc-p40# [6n/bin/busybox mkdir -p /tmp/rpc-fast
+in/busybox tar -xzf /tmp/rpc-fast.tar.gz -C /tmp/rpc-fast
+/bin/busybox sha256sum /tmp/rpc-fast/libggml-rpc.so.0
+LD_LIBRARY_PATH=/tmp/rpc-mk-rpc-p40# /bin/busybox tar -xzf /tmp/rpc-fast.tar.gz -C /tmp/rpc-fast
+b GGML_MK_VSOCK_NO_READ_SLEEP=1 GGML_MK_VSOCK_NO_WRITE_SLEEP=1 GGML_RPC_NO_RDMA=1 /opt/rpc/ggml-rpc-server --host mkvsock --port 5002 --devimk-rpc-p40# /bin/busybox sha256sum /tmp/rpc-fast/libggml-rpc.so.0
+log 2>&1 &
+5c0fb8e5279b4c1270f209e08f4d0a154cf95fcc77bd8300c4e41a4986bb75b5  /tmp/rpc-fast/libggml-rpc.so.0
+mk-rpc-p40# LD_LIBRARY_PATH=/tmp/rpc-fast:/opt/rpc/lib:/lib GGML_MK_VSOCK_NO_REA
+D_SLEEP=1 GGML_MK_VSOCK_NO_WRITE_SLEEP=1 GGML_RPC_NO_RDMA=1 /opt/rpc/ggml-rpc-se
+rver --host mkvsock --port 5002 --device CUDA0 > /tmp/rpc-fast.log 2>&1 &
+mk-rpc-p40# [6n/bin/busybox dmesg > /tmp/worker-final-dmesg.log
+vidia-smi --query-gpu=name,memory.used,temperature.gpu,clocks.sm,clocks.mem --format=csv > /tmp/womk-rpc-p40# nvidia-smi --query-gpu=name,memory.used,temperature.gpu,clocks.sm,cl
+ocks.mem --format=csv > /tmp/worker-final-gpu.csv
+bin/busybox tail -4 /tmp/rpc-fast.log
+/bin/busybox tar -cf /tmp/worker-final-evidence.tar /tmp/worker-final-dmesg.log /tmp/worker-final-gpu.csv /tmp/mk-expert-worker.log /tmp/mk-expert-compat.log /tmp/mk-expert-exact.log /tmp/mk-expert-pool.log /tmp/mk-expert-qualified.log /tmp/rpc-fast.log
+/opt/mk-worker/vsock_file_pull server /tmp/worker-final-evidence.tar
+mk-rpc-p40# /bin/busybox tail -4 /tmp/rpc-fast.log
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 24438 MiB):
+  Device 0: Tesla P40, compute capability 6.1, VMM: yes, VRAM: 24438 MiB
+mk-rpc-p40# /bin/busybox tar -cf /tmp/worker-final-evidence.tar /tmp/worker-fina
+l-dmesg.log /tmp/worker-final-gpu.csv /tmp/mk-expert-worker.log /tmp/mk-expert-c
+ompat.log /tmp/mk-expert-exact.log /tmp/mk-expert-pool.log /tmp/mk-expert-qualif
+ied.log /tmp/rpc-fast.log
+tar: removing leading '/' from member names
+mk-rpc-p40# /opt/mk-worker/vsock_file_pull server /tmp/worker-final-evidence.tar
+VSOCK_FILE_READY
+mk-rpc-p40# [6n
+Disconnected from console.
+
+Script done on 2026-11-03 17:33:59+00:00 [COMMAND_EXIT_CODE="0"]

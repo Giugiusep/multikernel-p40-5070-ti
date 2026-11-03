@@ -1,0 +1,16 @@
+{
+  "layer": 1,
+  "expert": 0,
+  "CPU_M4_vs_CPU_M1_per_row_relative_L1": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "exact_per_row": [
+    true,
+    true,
+    true,
+    true
+  ]
+}

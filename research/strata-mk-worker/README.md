@@ -1,4 +1,7 @@
-# Bounded Multikernel expert worker
+# Historical initial worker checkpoint
+
+**This snapshot predates the recovery reboot. See [CURRENT.md](CURRENT.md) for
+the working, qualified IQ2 offload path, corrected oracle, results and commands.**
 
 Experimental correctness path, 2026-11-03. Not installed in the API.
 No NVIDIA package, kernel, boot entry or production write-pacing changes.

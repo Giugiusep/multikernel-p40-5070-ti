@@ -1,0 +1,59 @@
+Memory: 512 MB on node 0 (from CPUs 8-11)
+✓ Baseline applied to kernel successfully
+Memory: 3072 MB on node 0 (from the chunks the pool already holds)
+  Memory to pool: 2560 MB on node 0
+✓ Pool updated (transaction 2)
+Memory: 4096 MB on node 0 (from the chunks the pool already holds)
+  Memory to pool: 1024 MB on node 0
+✓ Pool updated (transaction 3)
+Memory: 5632 MB on node 0 (from the chunks the pool already holds)
+  Memory to pool: 1536 MB on node 0
+✓ Pool updated (transaction 4)
+✓ Created instance 'rpc-p40' (transaction 5)
+✓ Kernel loaded successfully
+Booting instance 'rpc-p40' (ID: 1)...
+✓ Boot command executed successfully
+
+================================================================================
+Instance: rpc-p40
+================================================================================
+  ID:              1
+  Status:          active
+
+  Kernel Image:
+    Mk Id           1
+    Type            multikernel
+    Start Address   0x000c3f803000
+    Segments        3
+    Mode            file
+    Cmdline         "rdinit=/init loglevel=7 rootfstype=daxfs rootflags=phys=0xb51801000,size=1216032768 init=/init kerf.entrypoint=/sbin/entrypoint console=mktty0"
+    Image           /boot/vmlinuz-7.0.0-mk2-shiba-mk1
+    Format          bzImage (zstd compressed, vmlinux extracted at load)
+    Version         7.0.0-mk2-shiba-mk1 (shiba@shiba2th) #9 SMP PREEMPT_DYNAMIC Thu Sep 17 16:49:34 UTC 2026
+    Initrd          /home/shiba/multikernel-experiment/artifacts/secondary-daxfs-bootstrap-initramfs.cpio.gz (gzip compressed)
+    Loaded At       2026-11-03T16:34:45+00:00
+
+  Rootfs:
+    Source          /home/shiba/multikernel-experiment/research/strata-mk-worker/rootfs (directory)
+    Entrypoint      /sbin/entrypoint
+    Daxfs           phys=0xb51801000, size=1216032768
+
+  Device Tree:
+    /dts-v1/;
+    /rpc-p40 {
+        compatible = "multikernel-v1";
+        id = <0x1>;
+        resources {
+            memory-base = <0xc 0x3f803000>;
+            memory-bytes = <0x0 0x70000000>;
+            cpus = <0x0 0x8 0x0 0x9 0x0 0xa 0x0 0xb>;
+            devices {
+                pci_0000_00_11_0 {
+                    device-type = "pci";
+                    pci-id = "0000:00:11.0";
+                    vendor-id = <0x10de>;
+                    device-id = <0x1b38>;
+                };
+            };
+        };
+    };

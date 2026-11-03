@@ -1,14 +1,33 @@
 {
-  "source_commit": "2e4398b87e957ff07b637c967aec4f0147052602",
-  "worker_v1_real_checkpoint_gate": "passed: 12 cases / 146 requests",
-  "worker_v2_sparse_gate": "pending; P40 NVIDIA reinitialization failed",
-  "disabled_primary_gate": "34 exact committed tokens matched reference; only default-off behavior checked",
-  "shadow_and_execute_gate": "not run",
-  "full_model_speed": "not measured",
-  "primary_kernel": "7.0.0-mk2-shiba-mk1",
-  "nvidia_packages_and_kernel_sources": "unchanged",
-  "secondary": "stopped after unrecovered RmInitAdapter failure",
-  "pci_reset_exposed": false,
-  "next_recovery": "VM reboot; not performed",
-  "api": "original Qwen restored and Paris response verified"
+  "source_commit": "91e98f5013315f09fc8696e35fea2fecec06ae68",
+  "secondary": "active; P40 CUDA working",
+  "worker_6006": "qualified IQ2 actual CPU-pool arithmetic; bounded experiment",
+  "worker_6005": "native fallback",
+  "ggml_rpc_5000": "conservative fallback unchanged",
+  "ggml_rpc_5002": "restored with unchanged verified library",
+  "qualified_expert_probe_cases": 8,
+  "qualified_expert_output_bytes_equal": true,
+  "full_model_committed_tokens_exact": 130,
+  "duplicate_CPU_jobs_skipped": true,
+  "context_tested": 2048,
+  "production_context_changed": false,
+  "selected_pairs_limit": 32,
+  "resident_pairs_used": 13,
+  "offloaded_entries": 143,
+  "single_run_generation_tok_s": {
+    "RTX_RAM_reference": 32.60648053800693,
+    "P40_offload": 32.24262575883523
+  },
+  "speedup_established": false,
+  "secondary_ring_full_events": 47,
+  "secondary_ring_full_time_span_ms": 3.2729999999219217,
+  "secondary_Xid_OOM_softlockup_RmInitAdapter": {
+    "Xid": 0,
+    "Out of memory": 0,
+    "soft lockup": 0,
+    "RmInitAdapter": 0
+  },
+  "api": "original Qwen restored; Paris response verified",
+  "no_further_reboot_needed": true,
+  "DeepSeek_SM61_port": "not implemented"
 }

@@ -1,0 +1,113 @@
+strata generate: native pack: /home/shiba/multikernel-experiment/research/Strata/packs/iq2_xs experts (largest blob 1.51 MB), token embedding type 23 in mapped host memory (322 MiB)
+strata generate: 1466 MiB of weights loaded from /home/shiba/multikernel-experiment/research/Strata/packs/iq2_xs (302 canonical tensors skipped: served natively)
+strata generate: 300 native projection matrices, 1474.85 MiB of weights
+strata generate: PLE on, table 320001536 rows of /home/shiba/models/qwen3.8-flash-next-gsq-rco/IQ2_XS/Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00002-of-00002.gguf
+strata generate: expert arena: cudaHostRegister PORTABLE ok; MAP_HUGETLB unavailable (no hugetlb pool configured?); using 4 KB pages
+strata generate: loaded 33.02 GiB at 2.04 GiB/s
+strata mtp: draft layer loaded, 792 MiB of VRAM (experts 675, dense 111)
+strata generate: profile /home/shiba/multikernel-experiment/research/Strata/data/expert-profile.bin: 8000 ranked pairs, built for 8000 slots
+strata generate: expert cache 1 slots, 0.00 GiB of VRAM; policy is
+strata generate: *** WARNING: --expert-cache is enabled and the GPU hit path is NOT
+                 CORRECT. The generated tokens diverge from a cache-off run (measured:
+                 first difference at token 40 at 2.97% hits, token 0 at 54.4%). Any
+                 timing from this run is real; any OUTPUT from it is not. ***
+                 PROFILE, ranked by routing frequency, no eviction.
+strata generate: pre-filled 1 of 1 slots from the profile; slot 0 verified
+strata generate: R4 hit path ON - resident experts are computed on the GPU
+strata generate: 7 expert-pool workers + the host thread
+strata generate: session is up; locating the head
+strata generate: experimental native Q5_K head, 337715200 bytes
+strata generate: token graph hit path: 0 resident experts, decided on the device
+strata generate: DIAGNOSTIC: all expert cache hits bypassed in the residency table
+strata serve: the prompt path allocates its own buffers (too few cache slots to borrow)
+strata verify: window up to 6 tokens, 56.4 MiB of device buffers
+strata mtp: draft head over 40525 tokens (52.6 MiB)
+strata serve: 9508 MiB of VRAM free with everything loaded
+strata verify: captured the 6-token window (upload no error, sync no error)
+MK_EXPERT_CONNECTED mode=shadow selected=32 worker={"device":"Tesla P40","sm":61,"experts":0,"resident_bytes":0,"free_bytes":25309085696,"total_bytes":25625886720}
+MK_EXPERT_ROUND mode=shadow calls=1 entries=2 resident=1 relative_L1=0.01651402 peak=0.01651402
+MK_EXPERT_ROUND mode=shadow calls=2 entries=5 resident=2 relative_L1=0.019931998 peak=0.019931998
+MK_EXPERT_ROUND mode=shadow calls=3 entries=6 resident=3 relative_L1=0.01555945 peak=0.019931998
+MK_EXPERT_ROUND mode=shadow calls=4 entries=7 resident=4 relative_L1=0.014230578 peak=0.019931998
+MK_EXPERT_ROUND mode=shadow calls=5 entries=8 resident=5 relative_L1=0.016019462 peak=0.019931998
+MK_EXPERT_ROUND mode=shadow calls=6 entries=10 resident=6 relative_L1=0.01769123 peak=0.019931998
+MK_EXPERT_ROUND mode=shadow calls=7 entries=12 resident=6 relative_L1=0.01573823 peak=0.019931998
+MK_EXPERT_ROUND mode=shadow calls=8 entries=14 resident=6 relative_L1=0.01841759 peak=0.019931998
+MK_EXPERT_ROUND mode=shadow calls=9 entries=16 resident=7 relative_L1=0.01331225 peak=0.019931998
+MK_EXPERT_ROUND mode=shadow calls=10 entries=21 resident=8 relative_L1=0.014159063 peak=0.019931998
+MK_EXPERT_ROUND mode=shadow calls=11 entries=22 resident=8 relative_L1=0.012633017 peak=0.019931998
+MK_EXPERT_ROUND mode=shadow calls=12 entries=23 resident=9 relative_L1=0.015030224 peak=0.019931998
+MK_EXPERT_ROUND mode=shadow calls=13 entries=25 resident=9 relative_L1=0.016910668 peak=0.019931998
+MK_EXPERT_ROUND mode=shadow calls=14 entries=29 resident=9 relative_L1=0.018085468 peak=0.019931998
+MK_EXPERT_ROUND mode=shadow calls=15 entries=33 resident=9 relative_L1=0.018603173 peak=0.019931998
+MK_EXPERT_ROUND mode=shadow calls=16 entries=38 resident=9 relative_L1=0.017649087 peak=0.019931998
+MK_EXPERT_ROUND mode=shadow calls=17 entries=39 resident=10 relative_L1=0.017971038 peak=0.019931998
+strata verify: captured the 1-token window (upload no error, sync no error)
+MK_EXPERT_ROUND mode=shadow calls=18 entries=40 resident=10 relative_L1=0.012037898 peak=0.019931998
+MK_EXPERT_ROUND mode=shadow calls=19 entries=41 resident=10 relative_L1=0.021425032 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=20 entries=42 resident=10 relative_L1=0.020949347 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=21 entries=43 resident=10 relative_L1=0.020480897 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=22 entries=44 resident=10 relative_L1=0.020744188 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=23 entries=45 resident=10 relative_L1=0.012466696 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=24 entries=48 resident=10 relative_L1=0.013824554 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=25 entries=49 resident=11 relative_L1=0.013932125 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=26 entries=50 resident=11 relative_L1=0.013867069 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=27 entries=51 resident=11 relative_L1=0.01709749 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=28 entries=53 resident=11 relative_L1=0.019893093 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=29 entries=54 resident=11 relative_L1=0.019463512 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=30 entries=56 resident=12 relative_L1=0.019816346 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=31 entries=58 resident=12 relative_L1=0.018144618 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=32 entries=59 resident=12 relative_L1=0.012986474 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=33 entries=61 resident=12 relative_L1=0.014494329 peak=0.021425032
+strata verify: captured the 4-token window (upload no error, sync no error)
+MK_EXPERT_ROUND mode=shadow calls=34 entries=62 resident=12 relative_L1=0.01646666 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=35 entries=63 resident=12 relative_L1=0.019131697 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=36 entries=64 resident=12 relative_L1=0.015765448 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=37 entries=65 resident=12 relative_L1=0.018183761 peak=0.021425032
+strata serve: prompt 26 tokens = 0 reused + 26 read in 1627 ms (16.0 tok/s), 2 generated in 161 ms (12.4 tok/s), drafts accepted 3 of 3, 1 checkpoints
+MK_EXPERT_ROUND mode=shadow calls=38 entries=66 resident=12 relative_L1=0.015208519 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=39 entries=67 resident=12 relative_L1=0.018643222 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=40 entries=69 resident=12 relative_L1=0.015134147 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=41 entries=70 resident=12 relative_L1=0.013540394 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=42 entries=73 resident=12 relative_L1=0.012265524 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=43 entries=75 resident=12 relative_L1=0.014097837 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=44 entries=77 resident=12 relative_L1=0.014099747 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=45 entries=78 resident=12 relative_L1=0.019729215 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=46 entries=80 resident=12 relative_L1=0.018775951 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=47 entries=83 resident=12 relative_L1=0.018155027 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=48 entries=84 resident=12 relative_L1=0.021072994 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=49 entries=86 resident=12 relative_L1=0.012011873 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=50 entries=90 resident=12 relative_L1=0.012154582 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=51 entries=91 resident=12 relative_L1=0.014695518 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=52 entries=92 resident=12 relative_L1=0.012755357 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=53 entries=95 resident=12 relative_L1=0.017625532 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=54 entries=98 resident=12 relative_L1=0.018803785 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=55 entries=106 resident=12 relative_L1=0.018061373 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=56 entries=108 resident=12 relative_L1=0.018449168 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=57 entries=109 resident=12 relative_L1=0.014428002 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=58 entries=111 resident=12 relative_L1=0.015095085 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=59 entries=112 resident=12 relative_L1=0.013898683 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=60 entries=113 resident=12 relative_L1=0.013596054 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=61 entries=114 resident=12 relative_L1=0.018244463 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=62 entries=115 resident=12 relative_L1=0.012325855 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=63 entries=116 resident=12 relative_L1=0.011913395 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=64 entries=117 resident=12 relative_L1=0.013101058 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=65 entries=118 resident=12 relative_L1=0.012766545 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=66 entries=120 resident=13 relative_L1=0.012435017 peak=0.021425032
+strata verify: captured the 2-token window (upload no error, sync no error)
+MK_EXPERT_ROUND mode=shadow calls=67 entries=121 resident=13 relative_L1=0.013440663 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=68 entries=123 resident=13 relative_L1=0.014822812 peak=0.021425032
+strata verify: captured the 3-token window (upload no error, sync no error)
+MK_EXPERT_ROUND mode=shadow calls=69 entries=124 resident=13 relative_L1=0.016523611 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=70 entries=125 resident=13 relative_L1=0.018470803 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=71 entries=126 resident=13 relative_L1=0.017413759 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=72 entries=127 resident=13 relative_L1=0.016551441 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=73 entries=128 resident=13 relative_L1=0.019048845 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=74 entries=129 resident=13 relative_L1=0.017427403 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=75 entries=130 resident=13 relative_L1=0.020563234 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=76 entries=131 resident=13 relative_L1=0.017942935 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=77 entries=132 resident=13 relative_L1=0.014465364 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=78 entries=133 resident=13 relative_L1=0.013775742 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=79 entries=134 resident=13 relative_L1=0.012657791 peak=0.021425032
+MK_EXPERT_ROUND mode=shadow calls=80 entries=135 resident=14 relative_L1=0.015385024 peak=0.021425032
+strata serve: prompt 23 tokens = 0 reused + 23 read in 978 ms (23.5 tok/s), 32 generated in 4581 ms (7.0 tok/s), drafts accepted 16 of 27, 1 checkpoints

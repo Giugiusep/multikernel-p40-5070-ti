@@ -15,6 +15,18 @@
 #include <chrono>
 #include <algorithm>
 using namespace strata::kernels;
+#if MK_ENABLE_CPU_COMPAT
+extern "C" int mk_cpu_quantized_x(int,const float*,int,float*);
+extern "C" int mk_cpu_quantized_raw(int,const float*,int,void*);
+extern "C" int mk_cpu_swiglu_hq(int,const float*,const float*,int,void*);
+extern "C" int mk_cpu_pool_hq(int,const float*,const float*,int,void*);
+namespace strata::kernels {
+void mk_compatible_gu_launch(int,NativeExpertLayout,const unsigned long long*,const int32_t*,const float*,int,float*,float*,void*);
+void mk_compatible_down_launch(NativeExpertLayout,const unsigned long long*,const void*,int,float*,void*);
+void mk_exact_iq2_gu_launch(int,NativeExpertLayout,const unsigned long long*,const int32_t*,const int32_t*,const void*,int,float*,float*,void*);
+void mk_cpu_pool_down_launch(NativeExpertLayout,const unsigned long long*,const void*,int,float*,void*);
+}
+#endif
 constexpr uint32_t MAGIC=0x5058454d, VERSION=1, PORT=6005, MAX_BODY=2*1024*1024;
 constexpr int H=2560, FF=640, MAX_ROWS=8, MAX_ENTRIES=80;
 constexpr size_t CACHE_LIMIT=64*1024*1024;
@@ -51,6 +63,11 @@ class Worker {
  Device<uint8_t> scratch{native_expert_scratch_bytes(MAX_ENTRIES,FF)};
  Device<unsigned long long> ptr{MAX_ENTRIES};
  Device<int32_t> starts{MAX_ENTRIES+1}, count{1}, dst{MAX_ENTRIES}, tok{MAX_ENTRIES};
+#if MK_ENABLE_CPU_COMPAT
+ Device<float> compat_gate{MAX_ENTRIES*FF},compat_up{MAX_ENTRIES*FF};
+ Device<uint8_t> compat_hq{MAX_ENTRIES*880};
+ Device<uint8_t> compat_aq{MAX_ROWS*2920};
+#endif
  cudaStream_t stream=nullptr;
 public:
  Worker(){ck(cudaStreamCreate(&stream)); native_expert_set_mode(8,0);}
@@ -64,6 +81,9 @@ public:
    auto L=native_expert_layout(gu,down,H,FF);
    if(!native_expert_supported(gu,down,H,FF)||word(b,6)!=L.bytes||b.size()!=28+L.bytes)throw std::runtime_error("expert byte count");
    if(cache.count({layer,id}))throw std::runtime_error("duplicate expert");
+#if MK_ENABLE_CPU_COMPAT
+   if(getenv("MK_WORKER_CPU_EXACT_IQ2")&&gu==29)throw std::runtime_error("exact IQ2 worker does not offload IQ1_M");
+#endif
    if(resident+L.bytes>CACHE_LIMIT)throw std::runtime_error("64 MiB experimental cache limit");
    auto& e=cache[{layer,id}];e.layout=L;
    ck(cudaMalloc(&e.p,L.bytes));ck(cudaMemcpy(e.p,b.data()+28,L.bytes,cudaMemcpyHostToDevice));resident+=L.bytes;
@@ -90,6 +110,42 @@ public:
    for(int e:experts){hs.push_back(hd.size());hp.push_back((unsigned long long)cache.at({layer,e}).p);
     for(int i=0;i<entries;i++)if(ids[i]==e){hd.push_back(i);ht.push_back(tokens[i]);}}
    hs.push_back(entries);int groups=experts.size();
+#if MK_ENABLE_CPU_COMPAT
+   if(getenv("MK_WORKER_CPU_COMPAT")){
+    std::vector<float> input(rows*H),decoded(rows*H),hg(entries*FF),hu(entries*FF);
+    memcpy(input.data(),b.data()+16+meta_bytes,input.size()*4);
+    if(mk_cpu_quantized_x(L.gu_type,input.data(),rows,decoded.data()))throw std::runtime_error("CPU input quantizer");
+    std::vector<unsigned long long> entry_ptr(entries);
+    for(int i=0;i<entries;i++)entry_ptr[i]=(unsigned long long)cache.at({layer,ids[i]}).p;
+    ck(cudaMemcpyAsync(x.p,decoded.data(),decoded.size()*4,cudaMemcpyHostToDevice,stream));
+    ck(cudaMemcpyAsync(ptr.p,entry_ptr.data(),entries*8,cudaMemcpyHostToDevice,stream));
+    ck(cudaMemcpyAsync(tok.p,tokens.data(),entries*4,cudaMemcpyHostToDevice,stream));
+    if(getenv("MK_WORKER_CPU_EXACT_IQ2")){
+     std::vector<uint8_t> packed(rows*2920);std::vector<int32_t> nt(entries);
+     if(mk_cpu_quantized_raw(L.gu_type,input.data(),rows,packed.data()))throw std::runtime_error("CPU packed input quantizer");
+     for(int i=0;i<entries;i++){bool seen[MAX_ROWS]={};for(int j=0;j<entries;j++)if(ids[j]==ids[i])seen[tokens[j]]=true;for(bool v:seen)nt[i]+=v;}
+     ck(cudaMemcpyAsync(compat_aq.p,packed.data(),packed.size(),cudaMemcpyHostToDevice,stream));
+     ck(cudaMemcpyAsync(starts.p,nt.data(),entries*4,cudaMemcpyHostToDevice,stream));
+     mk_exact_iq2_gu_launch(L.gu_type,L,ptr.p,tok.p,starts.p,compat_aq.p,entries,compat_gate.p,compat_up.p,stream);
+     ck(cudaStreamSynchronize(stream)); // packed/nt host buffers must survive their async copies
+    }else mk_compatible_gu_launch(L.gu_type,L,ptr.p,tok.p,x.p,entries,compat_gate.p,compat_up.p,stream);
+    ck(cudaGetLastError());
+    ck(cudaMemcpyAsync(hg.data(),compat_gate.p,hg.size()*4,cudaMemcpyDeviceToHost,stream));
+    ck(cudaMemcpyAsync(hu.data(),compat_up.p,hu.size()*4,cudaMemcpyDeviceToHost,stream));
+    ck(cudaStreamSynchronize(stream));
+    bool pool=getenv("MK_WORKER_CPU_POOL")!=nullptr;
+    std::vector<uint8_t> hq(entries*(pool?880:680));
+    int quant_status=pool?mk_cpu_pool_hq(L.gu_type,hg.data(),hu.data(),entries,hq.data()):mk_cpu_swiglu_hq(L.gu_type,hg.data(),hu.data(),entries,hq.data());
+    if(quant_status)throw std::runtime_error("CPU hidden quantizer");
+    ck(cudaMemcpyAsync(compat_hq.p,hq.data(),hq.size(),cudaMemcpyHostToDevice,stream));
+    if(pool)mk_cpu_pool_down_launch(L,ptr.p,compat_hq.p,entries,out.p,stream);
+    else mk_compatible_down_launch(L,ptr.p,compat_hq.p,entries,out.p,stream);
+    ck(cudaGetLastError());
+    std::vector<uint8_t> result(entries*H*4);
+    ck(cudaMemcpyAsync(result.data(),out.p,result.size(),cudaMemcpyDeviceToHost,stream));
+    ck(cudaStreamSynchronize(stream));return result;
+   }
+#endif
    ck(cudaMemcpyAsync(x.p,b.data()+16+meta_bytes,rows*H*4,cudaMemcpyHostToDevice,stream));
    ck(cudaMemcpyAsync(ptr.p,hp.data(),hp.size()*8,cudaMemcpyHostToDevice,stream));
    ck(cudaMemcpyAsync(starts.p,hs.data(),hs.size()*4,cudaMemcpyHostToDevice,stream));
@@ -105,6 +161,11 @@ public:
   if(op==3){if(!b.empty())throw std::runtime_error("info payload");
    cudaDeviceProp p{};ck(cudaGetDeviceProperties(&p,0));size_t free,total;ck(cudaMemGetInfo(&free,&total));
    std::string info="{\"device\":\""+std::string(p.name)+"\",\"sm\":"+std::to_string(p.major*10+p.minor)+",\"experts\":"+std::to_string(cache.size())+",\"resident_bytes\":"+std::to_string(resident)+",\"free_bytes\":"+std::to_string(free)+",\"total_bytes\":"+std::to_string(total)+"}";
+   const char* contract="experimental-other";
+#if MK_ENABLE_CPU_COMPAT
+   if(getenv("MK_WORKER_CPU_COMPAT")&&getenv("MK_WORKER_CPU_EXACT_IQ2")&&getenv("MK_WORKER_CPU_POOL"))contract="strata-pool-iq2-v1";
+#endif
+   info.pop_back();info+=",\"math_contract\":\""+std::string(contract)+"\"}";
    return {info.begin(),info.end()};
   }
   if(op==4){if(!b.empty())throw std::runtime_error("clear payload");cache.clear();resident=0;return {};}
@@ -116,9 +177,11 @@ int main(){try{
  if(prop.major!=6||prop.minor!=1)throw std::runtime_error("this build requires SM61");
  int listener=socket(AF_VSOCK,SOCK_STREAM,0),type=1;
  if(listener<0||setsockopt(listener,AF_VSOCK,9,&type,sizeof(type)))throw std::runtime_error("Multikernel socket selection");
- sockaddr_vm addr{};addr.svm_family=AF_VSOCK;addr.svm_cid=VMADDR_CID_ANY;addr.svm_port=PORT;
+ uint32_t port=getenv("MK_WORKER_PORT")?(uint32_t)strtoul(getenv("MK_WORKER_PORT"),nullptr,10):PORT;
+ if(port<6005||port>6006)throw std::runtime_error("experimental worker port must be 6005 or 6006");
+ sockaddr_vm addr{};addr.svm_family=AF_VSOCK;addr.svm_cid=VMADDR_CID_ANY;addr.svm_port=port;
  if(bind(listener,(sockaddr*)&addr,sizeof(addr))||listen(listener,1))throw std::runtime_error("listen");
- puts("MK_EXPERT_WORKER_READY port=6005 cache_limit=64MiB");fflush(stdout);
+ printf("MK_EXPERT_WORKER_READY port=%u cache_limit=64MiB cpu_compat=%d\n",port,getenv("MK_WORKER_CPU_COMPAT")?1:0);fflush(stdout);
  for(;;){int peer=accept(listener,nullptr,nullptr);if(peer<0){if(errno==EINTR)continue;throw std::runtime_error("accept");}
   timeval timeout{10,0};setsockopt(peer,SOL_SOCKET,SO_RCVTIMEO,&timeout,sizeof(timeout));setsockopt(peer,SOL_SOCKET,SO_SNDTIMEO,&timeout,sizeof(timeout));
   try {Worker worker;for(;;){Header h{};io(peer,&h,sizeof(h),false);

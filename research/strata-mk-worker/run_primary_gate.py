@@ -18,8 +18,12 @@ BASE = ROOT.parents[1]
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mode", choices=("reference", "disabled", "shadow", "execute"), required=True)
+    parser.add_argument("--mode", choices=("reference", "disabled", "shadow", "execute", "offload"), required=True)
     parser.add_argument("--tokens", type=int, default=32)
+    parser.add_argument("--endpoint", default="1:6005")
+    parser.add_argument("--tag", default="")
+    parser.add_argument("--reference", type=Path, default=ROOT / "reference-gate.json")
+    parser.add_argument("--pairs", type=Path, default=ROOT / "profile-first32.txt")
     args = parser.parse_args()
     config = json.loads((BASE / "model-api/strata-iq2-xs-safe.json").read_text())
     command = [config["exe"] if args.mode == "reference" else str(ROOT / "primary-build/strata"), *config["args"], "--serve"]
@@ -30,13 +34,14 @@ def main():
     env["STRATA_DIAG_BYPASS_EXPERT_HITS"] = "1"
     for key in ("STRATA_MK_EXPERT_ENDPOINT", "STRATA_MK_EXPERT_PAIRS", "STRATA_MK_EXPERT_MODE"):
         env.pop(key, None)
-    if args.mode in ("shadow", "execute"):
-        env["STRATA_MK_EXPERT_ENDPOINT"] = "1:6005"
-        env["STRATA_MK_EXPERT_PAIRS"] = str(ROOT / "profile-first32.txt")
+    if args.mode in ("shadow", "execute", "offload"):
+        env["STRATA_MK_EXPERT_ENDPOINT"] = args.endpoint
+        env["STRATA_MK_EXPERT_PAIRS"] = str(args.pairs)
         env["STRATA_MK_EXPERT_MODE"] = args.mode
-    log = ROOT / (args.mode + "-engine.log")
+    prefix = (args.tag + "-" if args.tag else "") + args.mode
+    log = ROOT / (prefix + "-engine.log")
     result = {"mode": args.mode, "command": command, "context": 2048, "runs": []}
-    result_path = ROOT / (args.mode + "-gate.json")
+    result_path = ROOT / (prefix + "-gate.json")
     result_path.write_text(json.dumps(result, indent=2) + "\n")
     with log.open("w", buffering=1) as stderr:
         p = subprocess.Popen(command, cwd=config["cwd"], env=env, stdin=subprocess.PIPE,
@@ -94,13 +99,13 @@ def main():
                         print(json.dumps(record), flush=True)
                         break
             if args.mode != "reference":
-                ref = json.loads((ROOT / "reference-gate.json").read_text())
+                ref = json.loads(args.reference.read_text())
                 assert len(ref["runs"]) == len(result["runs"])
                 for a, b in zip(ref["runs"], result["runs"]):
                     assert a["prompt_ids"] == b["prompt_ids"]
                     assert a["tokens"] == b["tokens"], "committed tokens differ from reference"
                 result["exact_committed_agreement"] = True
-            if args.mode in ("shadow", "execute"):
+            if args.mode in ("shadow", "execute", "offload"):
                 assert "MK_EXPERT_ROUND" in log.read_text(), "no P40 expert work observed"
             result["passed"] = True
             result_path.write_text(json.dumps(result, indent=2) + "\n")

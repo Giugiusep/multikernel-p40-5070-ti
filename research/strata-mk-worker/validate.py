@@ -13,6 +13,8 @@ import statistics
 import struct
 import sys
 import time
+import subprocess
+import tempfile
 
 os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
 import numpy as np
@@ -119,13 +121,21 @@ def main():
     parser.add_argument("--port", type=int, default=6005)
     parser.add_argument("--output", type=Path, default=ROOT / "real-expert-results.json")
     parser.add_argument("--prepare-only", action="store_true")
+    parser.add_argument("--cpu-reference", type=Path, help="Compare to deployed ggml CPU quantized arithmetic instead of float oracle")
+    parser.add_argument("--diagnostic", action="store_true", help="Collect all CPU-comparison cases; still fail overall if the strict tolerance is exceeded")
+    parser.add_argument("--layers", default="0,1,8")
+    parser.add_argument("--require-exact", action="store_true")
     args = parser.parse_args()
-    weights = {(l, e): read_expert(l, e) for l in (0, 1, 8) for e in (0, 511)}
+    layers = tuple(int(x) for x in args.layers.split(","))
+    weights = {(l, e): read_expert(l, e) for l in layers for e in (0, 511)}
     manifest = [{"layer": l, "expert": e, "gu_type": v[0], "down_type": 42,
                  "bytes": len(v[1]), "sha256": hashlib.sha256(v[1]).hexdigest()}
                 for (l, e), v in weights.items()]
     result = {"checkpoint": str(SHARD), "weights": manifest,
-              "scope": "real Qwen expert MLP only; not full model or DeepSeek", "runs": []}
+              "scope": "real Qwen expert MLP only; not full model or DeepSeek", "runs": [],
+              "require_exact": args.require_exact,
+              "cpu_reference_executable": str(args.cpu_reference) if args.cpu_reference else None,
+              "cpu_reference_contract": ("actual Strata ActQ pool" if os.environ.get("MK_CPU_POOL_ORACLE") or "cpu_reference_pool" in str(args.cpu_reference) else "generic ggml native") if args.cpu_reference else "independent float dequantization"}
     args.output.write_text(json.dumps(result, indent=2) + "\n")
     if args.prepare_only:
         print(json.dumps({"experts": len(weights), "bytes": sum(len(v[1]) for v in weights.values()), "cpu_dequantization": "finite"}))
@@ -144,21 +154,36 @@ def main():
         client.request(2, struct.pack("<4I", 0, 1, 1, 0) + struct.pack("<i", 123) + bytes(H * 4), expect_error="not resident")
         client.request(99, expect_error="unknown")
         rng = np.random.default_rng(20261103)
-        for layer in (0, 1, 8):
+        for layer in layers:
             for rows in (1, 2, 4, 8):
                 k = 10
                 x = (rng.standard_normal((rows, H)) * 0.02).astype("<f4")
                 ids = np.array([(0, 511)[i % 2] for i in range(rows * k)], dtype="<i4")
                 payload = struct.pack("<4I", layer, rows, k, 0) + ids.tobytes() + x.tobytes()
                 expected = np.stack([reference(x[i // k], weights[(layer, int(e))][2]) for i, e in enumerate(ids)])
+                if args.cpu_reference:
+                    with tempfile.TemporaryDirectory(prefix="cpu-reference-", dir=ROOT) as temp:
+                        d = Path(temp)
+                        (d / "x").write_bytes(x.tobytes())
+                        cpu_outputs = {}
+                        for expert in (0, 511):
+                            gu, blob, _ = weights[(layer, expert)]
+                            (d / "weights").write_bytes(blob)
+                            subprocess.run([str(args.cpu_reference), str(gu), str(rows), str(d / "weights"), str(d / "x"), str(d / "out")], check=True, timeout=30)
+                            cpu_outputs[expert] = np.fromfile(d / "out", dtype="<f4").reshape(rows, H)
+                        expected = np.stack([cpu_outputs[int(e)][i // k] for i, e in enumerate(ids)])
                 raw = client.request(2, payload)
                 got = np.frombuffer(raw, dtype="<f4").reshape(rows * k, H)
                 assert np.isfinite(got).all()
                 rel = float(np.abs(got - expected).sum() / (np.abs(expected).sum() + 1e-30))
                 cosine = float(np.sum(got.astype("f8") * expected) / (np.linalg.norm(got.astype("f8")) * np.linalg.norm(expected.astype("f8"))))
-                assert rel < 0.03 and cosine > 0.999, (layer, rows, rel, cosine)
+                tolerance = 0.0001 if args.cpu_reference else 0.03
                 per_entry_rel = np.abs(got - expected).sum(axis=1) / (np.abs(expected).sum(axis=1) + 1e-30)
-                assert np.max(per_entry_rel) < 0.03, (layer, rows, "per-entry relative error", per_entry_rel.tolist())
+                strict_ok = rel < tolerance and cosine > 0.999 and np.max(per_entry_rel) < tolerance
+                if args.require_exact:
+                    strict_ok = strict_ok and raw == expected.astype("<f4").tobytes()
+                assert strict_ok or args.diagnostic, (layer, rows, "CPU-reference tolerance", rel, per_entry_rel.tolist())
+                assert rel < 0.03 and cosine > 0.999, (layer, rows, "large diagnostic discrepancy", rel, cosine)
                 positions = list(range(rows * k - 1, -1, -3))
                 sparse = struct.pack("<4I", layer, rows, len(positions), 0)
                 sparse += b"".join(struct.pack("<ii", int(ids[i]), i // k) for i in positions)
@@ -177,6 +202,9 @@ def main():
                           "median_roundtrip_ms": statistics.median(timings),
                           "max_roundtrip_ms": max(timings), "exact_repeated_outputs": 10}
                 record["sparse_routing_exact"] = True
+                record["cpu_quantized_reference"] = bool(args.cpu_reference)
+                record["within_strict_tolerance"] = bool(strict_ok)
+                record["reference_bytes_equal"] = raw == expected.astype("<f4").tobytes()
                 result["runs"].append(record)
                 args.output.write_text(json.dumps(result, indent=2) + "\n")
                 print(json.dumps(record), flush=True)
@@ -186,8 +214,9 @@ def main():
         assert result["cleared"]["resident_bytes"] == 0 and result["cleared"]["experts"] == 0
         result["transport"] = {"requests": client.sequence, "sent": client.sent,
                                "received": client.received, "short_writes": client.short_writes}
-        result["passed"] = True
+        result["passed"] = all(r["within_strict_tolerance"] for r in result["runs"])
         args.output.write_text(json.dumps(result, indent=2) + "\n")
+        assert result["passed"], "strict CPU-reference tolerance exceeded; diagnostic results retained"
     finally:
         client.sock.close()
 

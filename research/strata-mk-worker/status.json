@@ -1,0 +1,14 @@
+{
+  "source_commit": "2e4398b87e957ff07b637c967aec4f0147052602",
+  "worker_v1_real_checkpoint_gate": "passed: 12 cases / 146 requests",
+  "worker_v2_sparse_gate": "pending; P40 NVIDIA reinitialization failed",
+  "disabled_primary_gate": "34 exact committed tokens matched reference; only default-off behavior checked",
+  "shadow_and_execute_gate": "not run",
+  "full_model_speed": "not measured",
+  "primary_kernel": "7.0.0-mk2-shiba-mk1",
+  "nvidia_packages_and_kernel_sources": "unchanged",
+  "secondary": "stopped after unrecovered RmInitAdapter failure",
+  "pci_reset_exposed": false,
+  "next_recovery": "VM reboot; not performed",
+  "api": "original Qwen restored and Paris response verified"
+}

@@ -1,0 +1,219 @@
+{
+  "checkpoint": "/home/shiba/models/qwen3.8-flash-next-gsq-rco/IQ2_XS/Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00001-of-00002.gguf",
+  "weights": [
+    {
+      "layer": 0,
+      "expert": 0,
+      "gu_type": 22,
+      "down_type": 42,
+      "bytes": 1510400,
+      "sha256": "79e966e3393d404ba994f9b8aadad7125fc420360106ef48eb2591db5462bcd9"
+    },
+    {
+      "layer": 0,
+      "expert": 511,
+      "gu_type": 22,
+      "down_type": 42,
+      "bytes": 1510400,
+      "sha256": "3b9fd424522d3c5fec1581c761723708482319ddbd2a9a2243cec4fdde676f44"
+    },
+    {
+      "layer": 1,
+      "expert": 0,
+      "gu_type": 16,
+      "down_type": 42,
+      "bytes": 1305600,
+      "sha256": "a990de5c62cfdb63a0c362b593d292f04674b0eec04d8bba74d90c6052bd2baa"
+    },
+    {
+      "layer": 1,
+      "expert": 511,
+      "gu_type": 16,
+      "down_type": 42,
+      "bytes": 1305600,
+      "sha256": "0e1778ad7ac02b7e815464a5852bce82d75e79787e254e2c896696a068f6cae6"
+    },
+    {
+      "layer": 8,
+      "expert": 0,
+      "gu_type": 29,
+      "down_type": 42,
+      "bytes": 1177600,
+      "sha256": "c4aad3ba64a473e6f9761668032c69cd215d4bd3d9c6e9fc3ae46525f5f8dfec"
+    },
+    {
+      "layer": 8,
+      "expert": 511,
+      "gu_type": 29,
+      "down_type": 42,
+      "bytes": 1177600,
+      "sha256": "07be4333527e59b691e213c3764655b42b1e1047deaef457848193d3fcc2cff8"
+    }
+  ],
+  "scope": "real Qwen expert MLP only; not full model or DeepSeek",
+  "runs": [
+    {
+      "layer": 0,
+      "gu_type": 22,
+      "M": 1,
+      "entries": 10,
+      "relative_L1": 0.013254220597445965,
+      "cosine": 0.999918500615759,
+      "median_roundtrip_ms": 0.7891935,
+      "max_roundtrip_ms": 0.875709,
+      "exact_repeated_outputs": 10
+    },
+    {
+      "layer": 0,
+      "gu_type": 22,
+      "M": 2,
+      "entries": 20,
+      "relative_L1": 0.013393186032772064,
+      "cosine": 0.9999171860128608,
+      "median_roundtrip_ms": 1.4975109999999998,
+      "max_roundtrip_ms": 1.537666,
+      "exact_repeated_outputs": 10
+    },
+    {
+      "layer": 0,
+      "gu_type": 22,
+      "M": 4,
+      "entries": 40,
+      "relative_L1": 0.012834165245294571,
+      "cosine": 0.999919352162232,
+      "median_roundtrip_ms": 2.9796709999999997,
+      "max_roundtrip_ms": 3.063643,
+      "exact_repeated_outputs": 10
+    },
+    {
+      "layer": 0,
+      "gu_type": 22,
+      "M": 8,
+      "entries": 80,
+      "relative_L1": 0.012539227493107319,
+      "cosine": 0.9999262515272018,
+      "median_roundtrip_ms": 5.791577,
+      "max_roundtrip_ms": 5.889433,
+      "exact_repeated_outputs": 10
+    },
+    {
+      "layer": 1,
+      "gu_type": 16,
+      "M": 1,
+      "entries": 10,
+      "relative_L1": 0.013920148834586143,
+      "cosine": 0.9999029990070974,
+      "median_roundtrip_ms": 0.8034535,
+      "max_roundtrip_ms": 0.822709,
+      "exact_repeated_outputs": 10
+    },
+    {
+      "layer": 1,
+      "gu_type": 16,
+      "M": 2,
+      "entries": 20,
+      "relative_L1": 0.01253083162009716,
+      "cosine": 0.9999212145187297,
+      "median_roundtrip_ms": 1.492436,
+      "max_roundtrip_ms": 1.520126,
+      "exact_repeated_outputs": 10
+    },
+    {
+      "layer": 1,
+      "gu_type": 16,
+      "M": 4,
+      "entries": 40,
+      "relative_L1": 0.013004220090806484,
+      "cosine": 0.9999159619244097,
+      "median_roundtrip_ms": 2.947897,
+      "max_roundtrip_ms": 2.992242,
+      "exact_repeated_outputs": 10
+    },
+    {
+      "layer": 1,
+      "gu_type": 16,
+      "M": 8,
+      "entries": 80,
+      "relative_L1": 0.012745043262839317,
+      "cosine": 0.9999192887287837,
+      "median_roundtrip_ms": 5.7560215,
+      "max_roundtrip_ms": 5.824512,
+      "exact_repeated_outputs": 10
+    },
+    {
+      "layer": 8,
+      "gu_type": 29,
+      "M": 1,
+      "entries": 10,
+      "relative_L1": 0.013230226933956146,
+      "cosine": 0.9999121443660252,
+      "median_roundtrip_ms": 0.8043335,
+      "max_roundtrip_ms": 0.822208,
+      "exact_repeated_outputs": 10
+    },
+    {
+      "layer": 8,
+      "gu_type": 29,
+      "M": 2,
+      "entries": 20,
+      "relative_L1": 0.012973980978131294,
+      "cosine": 0.9999166557043961,
+      "median_roundtrip_ms": 1.5136105,
+      "max_roundtrip_ms": 1.575987,
+      "exact_repeated_outputs": 10
+    },
+    {
+      "layer": 8,
+      "gu_type": 29,
+      "M": 4,
+      "entries": 40,
+      "relative_L1": 0.013381289318203926,
+      "cosine": 0.999910008769381,
+      "median_roundtrip_ms": 2.999268,
+      "max_roundtrip_ms": 3.080882,
+      "exact_repeated_outputs": 10
+    },
+    {
+      "layer": 8,
+      "gu_type": 29,
+      "M": 8,
+      "entries": 80,
+      "relative_L1": 0.013121065683662891,
+      "cosine": 0.999913528758001,
+      "median_roundtrip_ms": 5.848587,
+      "max_roundtrip_ms": 5.920843,
+      "exact_repeated_outputs": 10
+    }
+  ],
+  "before": {
+    "device": "Tesla P40",
+    "sm": 61,
+    "experts": 0,
+    "resident_bytes": 0,
+    "free_bytes": 25311182848,
+    "total_bytes": 25625886720
+  },
+  "loaded": {
+    "device": "Tesla P40",
+    "sm": 61,
+    "experts": 6,
+    "resident_bytes": 7987200,
+    "free_bytes": 25296502784,
+    "total_bytes": 25625886720
+  },
+  "cleared": {
+    "device": "Tesla P40",
+    "sm": 61,
+    "experts": 0,
+    "resident_bytes": 0,
+    "free_bytes": 25309085696,
+    "total_bytes": 25625886720
+  },
+  "transport": {
+    "requests": 146,
+    "sent": 14602288,
+    "received": 50691912,
+    "short_writes": 3
+  },
+  "passed": true
+}

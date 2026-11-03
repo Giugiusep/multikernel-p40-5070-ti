@@ -1,0 +1,205 @@
+From 2e4398b87e957ff07b637c967aec4f0147052602 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Tue, 3 Nov 2026 16:29:10 +0000
+Subject: [PATCH] Add opt-in Multikernel Qwen expert shadow adapter
+
+---
+ src/core/expert_source.cpp    |  18 +++++
+ src/core/mk_expert_client.hpp | 142 ++++++++++++++++++++++++++++++++++
+ 2 files changed, 160 insertions(+)
+ create mode 100644 src/core/mk_expert_client.hpp
+
+diff --git a/src/core/expert_source.cpp b/src/core/expert_source.cpp
+index 0ab1ce1..4fe04f5 100644
+--- a/src/core/expert_source.cpp
++++ b/src/core/expert_source.cpp
+@@ -6,6 +6,7 @@
+ #include "strata/kernels/elementwise.hpp"
+ #include "strata/kernels/quantize_act.hpp"
+ #include "strata/kernels/s2_expert_grouped.hpp"
++#include "mk_expert_client.hpp"
+ 
+ #include <cuda_runtime.h>
+ 
+@@ -366,6 +367,15 @@ void expert_pool_dispatch_multi(ExpertDispatch& d, const float* x_f, const int32
+                        d.host_res[(size_t) d.layers * (size_t) d.n_expert + (size_t) e] >= 0) ? 0 : -1;
+         }
+     }
++    MkExpertClient* mk = nullptr;
++    if (native) {
++        try { mk = mk_expert_client(); if (mk) mk->begin(d, x_f, ids, (int) n_tok, (int) k, kind); }
++        catch (const std::exception& e) {
++            std::fprintf(stderr, "MK_EXPERT_FAILURE: %s\n", e.what());
++            d.failed = true; d.fail = "Multikernel expert request failed (see stderr)";
++            d.fail_layer = d.layers; return;
++        }
++    }
+     const auto c1 = std::chrono::steady_clock::now();
+     if (native && lay.fmt[(size_t) d.layers].gu_type == 42)   // a native Q2_0 pack: the Q2_0 kernels' activations
+         for (int64_t t = 0; t < n_tok; ++t) act_quant_any(x_f + (size_t) t * H, H, d.act_multi[(size_t) t]);
+@@ -421,6 +431,14 @@ void expert_pool_dispatch_multi(ExpertDispatch& d, const float* x_f, const int32
+     pt("run", njobs);
+     if (native) d.pool->run_split_multi_native(lay.fmt[(size_t) d.layers], d.jobs_multi.data(), njobs);
+     else d.pool->run_split_multi(d.jobs_multi.data(), njobs);
++    if (mk) {
++        try { mk->finish(out); }
++        catch (const std::exception& e) {
++            std::fprintf(stderr, "MK_EXPERT_FAILURE: %s\n", e.what());
++            d.failed = true; d.fail = "Multikernel expert comparison failed (see stderr)";
++            d.fail_layer = d.layers; return;
++        }
++    }
+     const auto c4 = std::chrono::steady_clock::now();
+     pt("ran");
+     auto ms = [](auto a, auto b) { return std::chrono::duration<double, std::milli>(b - a).count(); };
+diff --git a/src/core/mk_expert_client.hpp b/src/core/mk_expert_client.hpp
+new file mode 100644
+index 0000000..cb39d66
+--- /dev/null
++++ b/src/core/mk_expert_client.hpp
+@@ -0,0 +1,142 @@
++// Opt-in bounded Qwen expert offload. Files and model ownership stay on the primary.
++// Experimental Linux-only adapter; the worker protocol is versioned independently.
++#pragma once
++#include <linux/vm_sockets.h>
++#include <sys/socket.h>
++#include <cerrno>
++#include <cmath>
++#include <map>
++#include <set>
++#include <stdexcept>
++#include <string>
++#include <mutex>
++#include <memory>
++#include <fstream>
++#include <vector>
++#include <algorithm>
++#include <cstring>
++#include <cstdio>
++#include <cstdlib>
++#include <unistd.h>
++
++namespace strata::core {
++class MkExpertClient {
++    static constexpr uint32_t magic=0x5058454d;
++    struct Header { uint32_t magic,version,op,status,sequence,bytes; };
++    int fd_=-1;
++    uint32_t seq_=0;
++    std::set<std::pair<int,int>> selected_,loaded_;
++    std::vector<int> positions_;
++    std::vector<float> results_;
++    bool shadow_=true;
++    uint64_t calls_=0,entries_=0;
++    double peak_error_=0;
++    static void append(std::vector<uint8_t>& b,const void* p,size_t n){
++        const auto* v=static_cast<const uint8_t*>(p);b.insert(b.end(),v,v+n);
++    }
++    static void word(std::vector<uint8_t>& b,uint32_t v){append(b,&v,4);}
++    static void io(int fd,void* p,size_t n,bool sending){
++        auto* b=static_cast<uint8_t*>(p);unsigned retries=0;
++        while(n){size_t chunk=std::min(n,size_t(32768));
++            ssize_t got=sending?send(fd,b,chunk,MSG_NOSIGNAL):recv(fd,b,chunk,0);
++            if(got<0&&errno==EINTR)continue;
++            if(got<0&&sending&&(errno==ENOSPC||errno==EAGAIN)&&++retries<=1000){usleep(100);continue;}
++            if(got<=0)throw std::runtime_error("Multikernel expert socket closed/timed out");
++            retries=0;b+=got;n-=got;if(sending&&n)usleep(100);
++        }
++    }
++    std::vector<uint8_t> request(uint32_t op,std::vector<uint8_t>& body){
++        Header h{magic,1,op,0,++seq_,(uint32_t)body.size()};
++        io(fd_,&h,sizeof(h),true);io(fd_,body.data(),body.size(),true);
++        Header reply{};io(fd_,&reply,sizeof(reply),false);
++        if(reply.magic!=magic||reply.version!=1||reply.op!=op||reply.sequence!=seq_||reply.bytes>2*1024*1024)
++            throw std::runtime_error("invalid Multikernel expert reply");
++        std::vector<uint8_t> result(reply.bytes);io(fd_,result.data(),result.size(),false);
++        if(reply.status)throw std::runtime_error("Multikernel expert error: "+std::string(result.begin(),result.end()));
++        return result;
++    }
++public:
++    explicit MkExpertClient(const char* endpoint){
++        unsigned cid=0,port=0;int used=0;
++        if(sscanf(endpoint,"%u:%u%n",&cid,&port,&used)!=2||endpoint[used]!='\0'||port==0)
++            throw std::runtime_error("STRATA_MK_EXPERT_ENDPOINT must be CID:PORT");
++        const char* mode=getenv("STRATA_MK_EXPERT_MODE");
++        if(mode&&strcmp(mode,"shadow")&&strcmp(mode,"execute"))throw std::runtime_error("invalid Multikernel expert mode");
++        shadow_=!mode||strcmp(mode,"execute")!=0;
++        const char* pairs=getenv("STRATA_MK_EXPERT_PAIRS");
++        if(!pairs)throw std::runtime_error("STRATA_MK_EXPERT_PAIRS is required");
++        std::ifstream in(pairs);int l,e;
++        while(in>>l>>e){
++            if(l<0||l>=48||e<0||e>=512||!selected_.insert({l,e}).second||selected_.size()>32)
++                throw std::runtime_error("invalid or oversized Multikernel expert selection");
++        }
++        if(!in.eof()||selected_.empty())throw std::runtime_error("unreadable/empty Multikernel expert selection");
++        fd_=socket(AF_VSOCK,SOCK_STREAM,0);int type=1;
++        if(fd_<0)throw std::runtime_error("Multikernel expert socket creation failed");
++        try{
++            timeval timeout{10,0};setsockopt(fd_,SOL_SOCKET,SO_RCVTIMEO,&timeout,sizeof(timeout));
++            setsockopt(fd_,SOL_SOCKET,SO_SNDTIMEO,&timeout,sizeof(timeout));
++            if(setsockopt(fd_,AF_VSOCK,9,&type,sizeof(type)))throw std::runtime_error("Multikernel expert transport selection failed");
++            sockaddr_vm a{};a.svm_family=AF_VSOCK;a.svm_cid=cid;a.svm_port=port;
++            if(connect(fd_,(sockaddr*)&a,sizeof(a)))throw std::runtime_error("Multikernel expert connect failed");
++            std::vector<uint8_t> empty;auto info=request(3,empty);
++            fprintf(stderr,"MK_EXPERT_CONNECTED mode=%s selected=%zu worker=%.*s\n",shadow_?"shadow":"execute",selected_.size(),(int)info.size(),info.data());fflush(stderr);
++        }catch(...){close(fd_);fd_=-1;throw;}
++    }
++    ~MkExpertClient(){if(fd_>=0)close(fd_);}
++    void begin(ExpertDispatch& d,const float* x,const int32_t* ids,int rows,int k,const int32_t* kind){
++        positions_.clear();results_.clear();
++        if(rows<1||rows>8||k!=10)throw std::runtime_error("Multikernel expert window unsupported");
++        const auto& lay=strata::kernels::cpu::expert_layout();
++        const auto& fmt=lay.fmt.at(d.layers);
++        if(!lay.native||fmt.n_embd!=2560||fmt.n_ff!=640||fmt.d_type!=42||
++           (fmt.gu_type!=16&&fmt.gu_type!=22&&fmt.gu_type!=29))throw std::runtime_error("Multikernel expert model/format unsupported");
++        for(int i=0;i<rows*k;i++){
++            auto key=std::make_pair((int)d.layers,(int)ids[i]);
++            if(kind[i]!=-1||!selected_.count(key))continue;
++            if(!loaded_.count(key)){
++                const uint8_t* blob=d.src->blob(d.layers,ids[i]);
++                if(!blob)throw std::runtime_error("Multikernel expert source blob unavailable");
++                std::vector<uint8_t>b;
++                for(uint32_t v:{(uint32_t)d.layers,(uint32_t)ids[i],(uint32_t)fmt.gu_type,42u,2560u,640u,(uint32_t)lay.blob_bytes(d.layers)})word(b,v);
++                append(b,blob,lay.blob_bytes(d.layers));request(1,b);loaded_.insert(key);
++            }
++            positions_.push_back(i);
++        }
++        if(positions_.empty())return;
++        std::vector<uint8_t>b;
++        word(b,d.layers);word(b,rows);word(b,positions_.size());word(b,0);
++        for(int i:positions_){word(b,ids[i]);word(b,i/k);}
++        append(b,x,(size_t)rows*2560*4);auto result=request(5,b);
++        if(result.size()!=positions_.size()*2560*4)throw std::runtime_error("Multikernel expert result length");
++        results_.resize(result.size()/4);memcpy(results_.data(),result.data(),result.size());
++        for(float v:results_)if(!std::isfinite(v))throw std::runtime_error("nonfinite Multikernel expert output");
++        calls_++;entries_+=positions_.size();
++    }
++    void finish(float* out){
++        double error=0,den=0;
++        for(size_t j=0;j<positions_.size();j++){
++            float* dst=out+(size_t)positions_[j]*2560;
++            const float* src=results_.data()+j*2560;
++            double row_error=0,row_den=0;
++            for(int h=0;h<2560;h++){if(!std::isfinite(dst[h]))throw std::runtime_error("nonfinite CPU expert reference");row_error+=std::abs(double(src[h])-dst[h]);row_den+=std::abs(double(dst[h]));}
++            if(row_error/(row_den+1e-30)>0.03)throw std::runtime_error("Multikernel expert row differs from CPU quantized reference");
++            error+=row_error;den+=row_den;
++            if(!shadow_)memcpy(dst,src,2560*4);
++        }
++        double rel=error/(den+1e-30);peak_error_=std::max(peak_error_,rel);
++        if(rel>0.03)throw std::runtime_error("Multikernel expert differs from CPU quantized reference");
++        if(!positions_.empty()){
++            fprintf(stderr,"MK_EXPERT_ROUND mode=%s calls=%llu entries=%llu resident=%zu relative_L1=%.8g peak=%.8g\n",shadow_?"shadow":"execute",(unsigned long long)calls_,(unsigned long long)entries_,loaded_.size(),rel,peak_error_);fflush(stderr);
++        }
++    }
++};
++// The existing driver serializes its CPU expert callbacks. No CUDA graph or API
++// ownership changes: one client per driver process, enabled explicitly by env.
++inline MkExpertClient* mk_expert_client(){
++    const char* endpoint=getenv("STRATA_MK_EXPERT_ENDPOINT");
++    if(!endpoint||!*endpoint)return nullptr;
++    static MkExpertClient client(endpoint);
++    return &client;
++}
++} // namespace strata::core
+-- 
+2.53.0
+

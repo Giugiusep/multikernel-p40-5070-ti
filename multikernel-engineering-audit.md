@@ -1120,3 +1120,28 @@ The bridge exposed only the selected Qwen pack, two GGUF shards, profile and MTP
 Recovery confirmed unchanged 7.0.0-mk2-shiba-mk1, primary CUDA PASS for 25 exact pinned H2D/kernel/D2H repetitions, 46 GiB available, zero swap usage. API service active, local health ok, authenticated public catalog HTTP200/21 models; no model generation re-test. P40 present/unbound, secondary not restarted, no model bridge/test processes. Reboot cleared live hot-added RAM. Failed model launcher and bridge server are now disabled by default; guard exit checks passed. No repeat of this bulk-loading path is authorized by this recovery step.
 
 Evidence and limitations: research/strata-p40-20261102/HANG-DO-NOT-RETRY.md, hang-previous-kernel.log, hang-findings.json, hang-recovery-api.json, launch guards, read-only bridge sources and RAM-add overlay records. Earlier kernel microbenchmarks remain narrow results, not proof of end-to-end stability. Diagnose memory hot-add and IRQ/RCU/transport separately with persistent secondary logging before another full-model attempt.
+
+
+## 2026-11-02 — RTX offload comparison after hang
+
+Inspected deployed Qwen RTX config/source/logs and DeepSeek DSpark config against the failed secondary launch. Both Qwen launches included PLE shard 2; failed launch used mmap experts but changed the working resident-host-arena/MTP path and added VSOCK/FUSE model reads. Missing n-gram handling is not established as root cause. DeepSeek retains its SSD cache/Engram and optional DSpark configuration; no DeepSeek P40 full-model run was performed. Detailed source-backed comparison and bounded expert-worker boundary: `multikernel-experiment/research/strata-p40-20261102/RTX-OFFLOAD-COMPARISON.md`. No kernel, driver, pacing or API changes; disabled bridge remains disabled. Cross-kernel Strata expert adapter still requires implementation and correctness qualification.
+
+
+## 2026-11-03 — Bounded Strata expert worker and isolated coordinator adapter
+
+Implemented a Linux AF_VSOCK worker on port 6005 with explicit Multikernel type 1, 32 KiB chunks/100 us pacing, partial-I/O loops, 2 MiB frame and 64 MiB resident-cache bounds. The primary keeps all GGUF/PLE disk reads, host expert arena and MTP; no FUSE or remote model filesystem is used. The original API/executable and port-5000 fallback configuration are unchanged.
+
+Worker v1 passed 146 requests on the P40 with six real checkpoint experts (7,987,200 bytes), IQ2_S/IQ2_XXS/IQ1_M GU and Q2_0 down, at M=1/2/4/8. Twelve cases had CPU-float relative L1 0.01253–0.01392 and cosine above 0.99990, with ten exact repeats each. This tolerates activation quantization and is not full-model proof. M=1 whole-request medians 0.789–0.804 ms; M=8 5.756–5.849 ms. Three short writes handled. Cache clear returned resident payload to zero. Secondary VSOCK softirq warning recurred. Saved primary dmesg contains zero ring-full, Xid and soft-lockup reports up to capture, but this does not establish sustained reliability.
+
+Primary host-dispatch adapter committed locally on `experiment/shiba-mk-expert-worker`, Strata commit `2e4398b`. It is isolated in `research/Strata-mk-worker` and relinked against hashed unchanged RTX reference objects. Default-off adapter matched 34 committed tokens exactly (Paris 2 + bicycle 32) against the original engine at 2K test context. Production context was untouched. Initial malformed chat-control-token reference logs are preserved as invalid and excluded. Added conservative per-row CPU-reference error checks for the pending shadow/execute modes; execute deliberately retains duplicate CPU computation during correctness qualification. No speedup is claimed.
+
+Preparation failures: 3 GiB pool insufficient for the old 2.5 GiB test root; contiguous 3 GiB growth failed with -ENOMEM. Prepared a 1.2 GB root using the original RPC image plus worker/private runtime, without the full Strata engine. Smaller pool increments succeeded. The running instance stayed at 1792 MiB; no instance hot-add was used. Daxfs image replacement also needed a fresh contiguous 1.5 GiB pool increment after the reload. Pool ended at 7 GiB.
+
+After stopping/reloading the secondary to install worker v2, P40 initialization failed with `RmInitAdapter failed (0x23:0x65:1587)`. Reloading the same 580.173.02 modules did not recover it; module unload after failed initialization emitted a secondary SLUB remaining-object warning. No P40 reset/reset_method sysfs files are exposed in either kernel. Primary also logged IRQ 11 disabled with USB/HDA handlers. These failures may involve virtualized PCI/reset behavior; their root cause is not established. No shared bus reset, Proxmox modification, driver package change, kernel change or primary reboot was performed. Secondary is stopped.
+
+Worker v2 sparse routing and primary live shadow/execute tests remain pending after VM reboot. DeepSeek's SM61 WMMA compilation failure is separate: the worker is Qwen-only. Original Qwen API was restored and returned Paris successfully. Detailed resume instructions, source, build fingerprints, raw results and persistent console/dmesg evidence are under `research/strata-mk-worker/`.
+
+| Change | Expert request M=1 | Full-model gen tok/s | Status |
+|---|---:|---:|---|
+| Worker v1 real Qwen checkpoint experts | 0.789–0.804 ms | unmeasured | 12 CPU-reference cases passed; softirq warning |
+| Primary adapter 2e4398b | pending | unmeasured | default-off token gate passed; live P40 gates await reboot |

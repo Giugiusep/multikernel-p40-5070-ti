@@ -1,0 +1,7 @@
+Memory: 512 MB on node 0 (from CPUs 8-11)
+✓ Baseline applied to kernel successfully
+Memory: 3072 MB on node 0 (from the chunks the pool already holds)
+  Memory to pool: 2560 MB on node 0
+✓ Pool updated (transaction 2)
+✓ Created instance 'rpc-p40' (transaction 3)
+Error: Daxfs image creation failed: Failed to allocate from DMA heap: [Errno 12] Cannot allocate memory

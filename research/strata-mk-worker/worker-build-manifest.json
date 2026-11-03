@@ -1,0 +1,15 @@
+{
+  "architecture": "sm_61",
+  "kernel_source_commit": "c62d5e3a15b40ea51c96aae9e8d36928965f53ab",
+  "runtime": "private CUDA 12.8; installed NVIDIA stacks unchanged",
+  "sha256": {
+    "/home/shiba/multikernel-experiment/research/strata-mk-worker/worker.cpp": "da2cc92bee548410bf67527422c428a505759d3cf7716e4d5d894009dd8b3b13",
+    "/home/shiba/multikernel-experiment/research/strata-mk-worker/worker": "52db1ff24b01067baccd93d3f976dac3a94945ac7eba6659ddeefa265a7c5ea2",
+    "/home/shiba/multikernel-experiment/research/strata-mk-worker/build.sh": "afba1f7df27acd9b64bbe2cf28151923e66cf6445fdb12304f4c062ec297b13e",
+    "/home/shiba/multikernel-experiment/research/strata-p40-20261102/speed-objects/iq_kernels.o": "6d8f3b46372ecdbfb04ad332af3578184c727f104269be9b6d6b324df06c43f0",
+    "/home/shiba/multikernel-experiment/research/strata-p40-20261102/speed-objects/native_mmvq.o": "b8415ddce7c7e19730eba0b44da8ce7fde1b644d08649b74a6b6a4622f80fd08",
+    "/home/shiba/multikernel-experiment/research/strata-p40-20261102/speed-objects/verify_kernels.o": "395ddbbe21dbd798bf663d70692e3e1fe35338ebbea8bac7e1cb359b0c0766fa"
+  },
+  "v1_full_expert_validation": "real-expert-results.json passed",
+  "sparse_v2_validation": "pending: GPU reinitialization failed after secondary reload"
+}

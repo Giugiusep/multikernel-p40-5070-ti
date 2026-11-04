@@ -1170,3 +1170,26 @@ Conservative RPC 5000 left intact. Restored fast RPC 5002 using the exact existi
 | Adapter 91e98f5, qualified actual offload | ~5 ms / 10 entries | 54.9 | 32.24 | 130 exact tokens; CPU duplicates skipped |
 
 Full evidence, build fingerprints, failed variants and reproduction: research/strata-mk-worker/CURRENT.md and adjacent JSON/logs.
+
+
+## 2026-11-04 — bounded Qwen P40 expert optimization
+
+Production API, NVIDIA stacks, kernels, conservative RPC5000 and existing primary write pacing are unchanged. Original Qwen API was automatically restored after each benchmark unit. This experiment concerns Qwen Flash Next IQ2_XS, not DeepSeek.
+
+An opt-in packed-integer IQ2 GU kernel (`MK_WORKER_PACKED_IQ2=1`, worker6007) removes shared float dequantization and recovers integer coefficients directly from packed weights. It retains the qualified CPU-pool integer contributions, FMA ordering and reduction. IQ2_S/IQ2_XXS, M1/2/4/8, sparse routing and ten repeats passed byte-exact CPU-pool oracle checks. Old GU resources:205 registers,32-byte stack,8192-byte shared; packed16/22:47/48 registers,zero stack/shared/local. Ten-entry M1 roundtrip: IQ2_S5.816→3.215ms; IQ2_XXS about5.02→3.03ms. CUDA GU stage about3.19→1.2ms, down about1.0ms unchanged. Profiling uses opt-in events; full-model runs disable these. This is a microbenchmark improvement, not a production throughput claim.
+
+Five initial full-model arms all matched715 committed tokens, but timing variability prevented a reliable overall kernel-speedup claim. Subsequent overlap test used cgroup MemoryHigh=MemoryMax40GiB,swap0 and per-request memory/CPU counters. All memory high/max/OOM counters stayed zero. Earlier variability is not proven to be memory throttling.
+
+Host inspection found synchronous request/response inside begin(), before CPU remaining-expert execution. New STRATA_MK_EXPERT_ASYNC=1 sends the single request, computes independent CPU expert rows, then receives/validates the P40 reply in finish() before the existing weighted reduction. No new thread, no concurrent requests, no pacing change; synchronous mode remains default. Cold weight registrations remain synchronous.
+
+Same four deterministic greedy prompts,2K context,spec4,192-token cap;715 actual committed tokens per arm all exactly matched original executable. First prompt excluded from timing aggregation as warmup. Remaining547 tokens:
+
+| mode | decode ms | aggregate gen tok/s | correctness |
+|---|---:|---:|---|
+| packed P40 synchronous |15464.5|35.3713|715 exact tokens|
+| packed P40 overlap run1 |15084.5|36.2624|715 exact tokens|
+| packed P40 overlap run2 |15113.1|36.1938|715 exact tokens|
+
+Observed overlap gain about2.3–2.5%; limited repetitions, not a universal gain or production promotion. Adaptive draft schedules can differ despite identical committed tokens. Only20 resident expert pairs were used from the bounded32-pair selection; most model expert work remains CPU-owned. No cache enlargement attempted. Secondary latest dmesg still ends at the previously documented ring-full upload burst at758.641s; no new ring-full tail during these tests. Existing old warnings remain, not a clean-log claim.
+
+Evidence: research/strata-mk-worker/perf-20261104/{*-gate.json,*-profile-validation.json,*-profile.log,overlap-summary.json,api-restoration.json}; opt-in source patches are separate from original reference binaries.

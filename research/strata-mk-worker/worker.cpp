@@ -34,6 +34,14 @@ struct Header {uint32_t magic,version,op,status,request,size;};
 static_assert(sizeof(Header)==24);
 struct CudaFault : std::runtime_error {using std::runtime_error::runtime_error;};
 static void ck(cudaError_t e){if(e!=cudaSuccess)throw CudaFault(cudaGetErrorString(e));}
+struct WorkerProfile {
+ bool enabled=getenv("MK_WORKER_PROFILE")!=nullptr;
+ cudaEvent_t event[8]{};
+ WorkerProfile(){if(enabled)for(auto& e:event)ck(cudaEventCreate(&e));}
+ ~WorkerProfile(){if(enabled)for(auto e:event)cudaEventDestroy(e);}
+ void mark(int n,cudaStream_t s){if(enabled)ck(cudaEventRecord(event[n],s));}
+ double us(int a,int b){float ms=0;if(enabled)ck(cudaEventElapsedTime(&ms,event[a],event[b]));return ms*1000.;}
+};
 template<class T> struct Device {
  T* p=nullptr;
  explicit Device(size_t count){ck(cudaMalloc(&p,count*sizeof(T)));}
@@ -69,6 +77,7 @@ class Worker {
  Device<uint8_t> compat_aq{MAX_ROWS*2920};
 #endif
  cudaStream_t stream=nullptr;
+ WorkerProfile profile;
 public:
  Worker(){ck(cudaStreamCreate(&stream)); native_expert_set_mode(8,0);}
  ~Worker(){cudaStreamDestroy(stream);}
@@ -112,6 +121,8 @@ public:
    hs.push_back(entries);int groups=experts.size();
 #if MK_ENABLE_CPU_COMPAT
    if(getenv("MK_WORKER_CPU_COMPAT")){
+    auto profile_start=std::chrono::steady_clock::now();
+    auto profile_gu_start=profile_start;
     std::vector<float> input(rows*H),decoded(rows*H),hg(entries*FF),hu(entries*FF);
     memcpy(input.data(),b.data()+16+meta_bytes,input.size()*4);
     if(mk_cpu_quantized_x(L.gu_type,input.data(),rows,decoded.data()))throw std::runtime_error("CPU input quantizer");
@@ -126,24 +137,40 @@ public:
      for(int i=0;i<entries;i++){bool seen[MAX_ROWS]={};for(int j=0;j<entries;j++)if(ids[j]==ids[i])seen[tokens[j]]=true;for(bool v:seen)nt[i]+=v;}
      ck(cudaMemcpyAsync(compat_aq.p,packed.data(),packed.size(),cudaMemcpyHostToDevice,stream));
      ck(cudaMemcpyAsync(starts.p,nt.data(),entries*4,cudaMemcpyHostToDevice,stream));
+     profile_gu_start=std::chrono::steady_clock::now();profile.mark(0,stream);
      mk_exact_iq2_gu_launch(L.gu_type,L,ptr.p,tok.p,starts.p,compat_aq.p,entries,compat_gate.p,compat_up.p,stream);
+     profile.mark(1,stream);
      ck(cudaStreamSynchronize(stream)); // packed/nt host buffers must survive their async copies
-    }else mk_compatible_gu_launch(L.gu_type,L,ptr.p,tok.p,x.p,entries,compat_gate.p,compat_up.p,stream);
+    }else {profile_gu_start=std::chrono::steady_clock::now();profile.mark(0,stream);mk_compatible_gu_launch(L.gu_type,L,ptr.p,tok.p,x.p,entries,compat_gate.p,compat_up.p,stream);profile.mark(1,stream);}
+    auto profile_gu_wait_done=std::chrono::steady_clock::now();
     ck(cudaGetLastError());
+    profile.mark(2,stream);
     ck(cudaMemcpyAsync(hg.data(),compat_gate.p,hg.size()*4,cudaMemcpyDeviceToHost,stream));
     ck(cudaMemcpyAsync(hu.data(),compat_up.p,hu.size()*4,cudaMemcpyDeviceToHost,stream));
+    profile.mark(3,stream);
     ck(cudaStreamSynchronize(stream));
+    auto profile_read_done=std::chrono::steady_clock::now();
     bool pool=getenv("MK_WORKER_CPU_POOL")!=nullptr;
     std::vector<uint8_t> hq(entries*(pool?880:680));
     int quant_status=pool?mk_cpu_pool_hq(L.gu_type,hg.data(),hu.data(),entries,hq.data()):mk_cpu_swiglu_hq(L.gu_type,hg.data(),hu.data(),entries,hq.data());
     if(quant_status)throw std::runtime_error("CPU hidden quantizer");
+    auto profile_quant_done=std::chrono::steady_clock::now();profile.mark(4,stream);
     ck(cudaMemcpyAsync(compat_hq.p,hq.data(),hq.size(),cudaMemcpyHostToDevice,stream));
+    profile.mark(5,stream);
     if(pool)mk_cpu_pool_down_launch(L,ptr.p,compat_hq.p,entries,out.p,stream);
     else mk_compatible_down_launch(L,ptr.p,compat_hq.p,entries,out.p,stream);
     ck(cudaGetLastError());
+    profile.mark(6,stream);
     std::vector<uint8_t> result(entries*H*4);
     ck(cudaMemcpyAsync(result.data(),out.p,result.size(),cudaMemcpyDeviceToHost,stream));
-    ck(cudaStreamSynchronize(stream));return result;
+    profile.mark(7,stream);
+    ck(cudaStreamSynchronize(stream));
+    if(profile.enabled){
+     auto now=std::chrono::steady_clock::now();
+     auto wall=[](auto a,auto b){return std::chrono::duration<double,std::micro>(b-a).count();};
+     fprintf(stderr,"PROFILE type=%d M=%d entries=%d prep_wall_us=%.3f gu_gpu_us=%.3f gu_wait_wall_us=%.3f gu_d2h_gpu_us=%.3f gu_read_wall_us=%.3f hidden_cpu_us=%.3f hidden_h2d_gpu_us=%.3f down_gpu_us=%.3f output_d2h_gpu_us=%.3f down_wall_us=%.3f dispatch_wall_us=%.3f\n",L.gu_type,rows,entries,wall(profile_start,profile_gu_start),profile.us(0,1),wall(profile_gu_start,profile_gu_wait_done),profile.us(2,3),wall(profile_gu_wait_done,profile_read_done),wall(profile_read_done,profile_quant_done),profile.us(4,5),profile.us(5,6),profile.us(6,7),wall(profile_quant_done,now),wall(profile_start,now));fflush(stderr);
+    }
+    return result;
    }
 #endif
    ck(cudaMemcpyAsync(x.p,b.data()+16+meta_bytes,rows*H*4,cudaMemcpyHostToDevice,stream));
@@ -178,7 +205,7 @@ int main(){try{
  int listener=socket(AF_VSOCK,SOCK_STREAM,0),type=1;
  if(listener<0||setsockopt(listener,AF_VSOCK,9,&type,sizeof(type)))throw std::runtime_error("Multikernel socket selection");
  uint32_t port=getenv("MK_WORKER_PORT")?(uint32_t)strtoul(getenv("MK_WORKER_PORT"),nullptr,10):PORT;
- if(port<6005||port>6006)throw std::runtime_error("experimental worker port must be 6005 or 6006");
+ if(port<6005||port>6007)throw std::runtime_error("experimental worker port must be 6005..6007");
  sockaddr_vm addr{};addr.svm_family=AF_VSOCK;addr.svm_cid=VMADDR_CID_ANY;addr.svm_port=port;
  if(bind(listener,(sockaddr*)&addr,sizeof(addr))||listen(listener,1))throw std::runtime_error("listen");
  printf("MK_EXPERT_WORKER_READY port=%u cache_limit=64MiB cpu_compat=%d\n",port,getenv("MK_WORKER_CPU_COMPAT")?1:0);fflush(stdout);

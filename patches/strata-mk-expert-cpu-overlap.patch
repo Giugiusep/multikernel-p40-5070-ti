@@ -1,0 +1,96 @@
+From 9e580eacff8be9df7b47ab24a6e4face5dcc01d5 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Wed, 4 Nov 2026 18:21:08 +0000
+Subject: [PATCH] Overlap opt-in Multikernel expert requests with independent
+ CPU jobs
+
+---
+ src/core/mk_expert_client.hpp | 33 +++++++++++++++++++++++++++------
+ 1 file changed, 27 insertions(+), 6 deletions(-)
+
+diff --git a/src/core/mk_expert_client.hpp b/src/core/mk_expert_client.hpp
+index cc44c7e..686e93c 100644
+--- a/src/core/mk_expert_client.hpp
++++ b/src/core/mk_expert_client.hpp
+@@ -30,6 +30,8 @@ class MkExpertClient {
+     std::vector<float> results_;
+     bool shadow_=true;
+     bool offload_=false;
++    bool async_=false, pending_=false;
++    uint32_t pending_op_=0;
+     uint64_t calls_=0,entries_=0;
+     double peak_error_=0;
+     static void append(std::vector<uint8_t>& b,const void* p,size_t n){
+@@ -46,16 +48,32 @@ class MkExpertClient {
+             retries=0;b+=got;n-=got;if(sending&&n)usleep(100);
+         }
+     }
+-    std::vector<uint8_t> request(uint32_t op,std::vector<uint8_t>& body){
++    void send_request(uint32_t op,std::vector<uint8_t>& body){
++        if(pending_)throw std::runtime_error("overlapping Multikernel requests");
+         Header h{magic,1,op,0,++seq_,(uint32_t)body.size()};
+         io(fd_,&h,sizeof(h),true);io(fd_,body.data(),body.size(),true);
++        pending_op_=op;pending_=true;
++    }
++    std::vector<uint8_t> receive_reply(){
++        if(!pending_)throw std::runtime_error("no pending Multikernel request");
+         Header reply{};io(fd_,&reply,sizeof(reply),false);
+-        if(reply.magic!=magic||reply.version!=1||reply.op!=op||reply.sequence!=seq_||reply.bytes>2*1024*1024)
++        if(reply.magic!=magic||reply.version!=1||reply.op!=pending_op_||reply.sequence!=seq_||reply.bytes>2*1024*1024)
+             throw std::runtime_error("invalid Multikernel expert reply");
+         std::vector<uint8_t> result(reply.bytes);io(fd_,result.data(),result.size(),false);
++        pending_=false;
+         if(reply.status)throw std::runtime_error("Multikernel expert error: "+std::string(result.begin(),result.end()));
+         return result;
+     }
++    std::vector<uint8_t> request(uint32_t op,std::vector<uint8_t>& body){
++        send_request(op,body);return receive_reply();
++    }
++    void receive_results(){
++        auto result=receive_reply();
++        if(result.size()!=positions_.size()*2560*4)throw std::runtime_error("Multikernel expert result length");
++        results_.resize(result.size()/4);memcpy(results_.data(),result.data(),result.size());
++        for(float v:results_)if(!std::isfinite(v))throw std::runtime_error("nonfinite Multikernel expert output");
++    }
++
+ public:
+     explicit MkExpertClient(const char* endpoint){
+         unsigned cid=0,port=0;int used=0;
+@@ -63,6 +81,7 @@ public:
+             throw std::runtime_error("STRATA_MK_EXPERT_ENDPOINT must be CID:PORT");
+         const char* mode=getenv("STRATA_MK_EXPERT_MODE");
+         if(mode&&strcmp(mode,"shadow")&&strcmp(mode,"execute")&&strcmp(mode,"offload"))throw std::runtime_error("invalid Multikernel expert mode");
++        async_=getenv("STRATA_MK_EXPERT_ASYNC")&&strcmp(getenv("STRATA_MK_EXPERT_ASYNC"),"1")==0;
+         shadow_=!mode||strcmp(mode,"shadow")==0;
+         offload_=mode&&strcmp(mode,"offload")==0;
+         if(offload_&&!getenv("STRATA_DIAG_BYPASS_EXPERT_HITS"))throw std::runtime_error("experimental offload requires the validated primary GPU-expert bypass");
+@@ -93,6 +112,7 @@ public:
+         return offload_&&std::find(positions_.begin(),positions_.end(),index)!=positions_.end();
+     }
+     void begin(ExpertDispatch& d,const float* x,const int32_t* ids,int rows,int k,const int32_t* kind){
++        if(pending_)throw std::runtime_error("unfinished Multikernel expert round");
+         positions_.clear();results_.clear();
+         if(rows<1||rows>8||k!=10)throw std::runtime_error("Multikernel expert window unsupported");
+         const auto& lay=strata::kernels::cpu::expert_layout();
+@@ -115,13 +135,14 @@ public:
+         std::vector<uint8_t>b;
+         word(b,d.layers);word(b,rows);word(b,positions_.size());word(b,0);
+         for(int i:positions_){word(b,ids[i]);word(b,i/k);}
+-        append(b,x,(size_t)rows*2560*4);auto result=request(5,b);
+-        if(result.size()!=positions_.size()*2560*4)throw std::runtime_error("Multikernel expert result length");
+-        results_.resize(result.size()/4);memcpy(results_.data(),result.data(),result.size());
+-        for(float v:results_)if(!std::isfinite(v))throw std::runtime_error("nonfinite Multikernel expert output");
++        append(b,x,(size_t)rows*2560*4);send_request(5,b);
++        // CPU jobs for other experts own disjoint output rows. Only finish()
++        // publishes remote rows, before the existing weighted reduction.
++        if(!async_)receive_results();
+         calls_++;entries_+=positions_.size();
+     }
+     void finish(float* out){
++        if(pending_)receive_results();
+         if(offload_){
+             for(size_t j=0;j<positions_.size();j++)memcpy(out+(size_t)positions_[j]*2560,results_.data()+j*2560,2560*4);
+             if(!positions_.empty()){fprintf(stderr,"MK_EXPERT_ROUND mode=offload calls=%llu entries=%llu resident=%zu reference_checked=0\n",(unsigned long long)calls_,(unsigned long long)entries_,loaded_.size());fflush(stderr);}
+-- 
+2.53.0
+

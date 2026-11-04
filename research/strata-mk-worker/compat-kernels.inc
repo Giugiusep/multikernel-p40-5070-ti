@@ -3,6 +3,60 @@
 #include "legacy_act.h"
 namespace strata::kernels {
 namespace {
+// Decode four adjacent integer coefficients. Their common factor remains
+// d_fp16 * 1/8, matching the pinned CPU IQ2 dot product exactly.
+template<int TYPE>
+__device__ __forceinline__ int4 mk_iq2_coeff4(const uint8_t* block,int k){
+    int ib=k/32,il=(k%32)/8,j=k%8;
+    uint64_t grid;int factor;uint8_t signs;
+    if constexpr(TYPE==16){
+        const auto* w=(const block_iq2_xxs*)block;
+        const uint16_t* q=w->qs+4*ib;
+        uint32_t aux=(uint32_t)q[2]|((uint32_t)q[3]<<16);
+        grid=iq2xxs_grid[((const uint8_t*)q)[il]];
+        factor=2*(int)(aux>>28)+1;
+        signs=ksigns_iq2xs[(aux>>(7*il))&127];
+    }else{
+        const auto* w=(const block_iq2_s*)block;
+        int code=w->qs[4*ib+il]|((w->qh[ib]<<(8-2*il))&0x300);
+        grid=iq2s_grid[code];
+        factor=2*((w->scales[ib]>>(4*(il/2)))&15)+1;
+        signs=w->qs[32+4*ib+il];
+    }
+    uint32_t four=(uint32_t)(grid>>(8*j));
+    int a=factor*(int)(four&255),b=factor*(int)((four>>8)&255);
+    int c=factor*(int)((four>>16)&255),d=factor*(int)(four>>24);
+    return make_int4((signs&(1<<j))?-a:a,(signs&(2<<j))?-b:b,
+                     (signs&(4<<j))?-c:c,(signs&(8<<j))?-d:d);
+}
+template<int TYPE>
+__global__ void mk_packed_iq2_gu(NativeExpertLayout L,const unsigned long long* ptr,
+                               const int32_t* token,const int32_t* nt,const block_q8_K* x,float* gate,float* up){
+    int lane=threadIdx.x&31,warp=threadIdx.x>>5,row=blockIdx.x*4+warp,entry=blockIdx.y;
+    const auto* blob=(const uint8_t*)ptr[entry];
+    const auto* gr=blob+row*L.gu_row;const auto* ur=blob+L.up_off+row*L.gu_row;
+    const block_q8_K* a=x+(size_t)token[entry]*10;
+    bool wide=nt[entry]>=2;int lanes=wide?16:8;
+    constexpr int bytes=TYPE==16?66:82;float g=0,u=0;
+    if(lane<lanes)for(int b=0;b<10;b++){
+        const auto* gb=gr+b*bytes;const auto* ub=ur+b*bytes;
+        int gi=0,ui=0;
+        for(int chunk=0;chunk<256/(lanes*4);chunk++){
+            int k=chunk*lanes*4+lane*4;
+            int4 gw=mk_iq2_coeff4<TYPE>(gb,k),uw=mk_iq2_coeff4<TYPE>(ub,k);
+            gi+=gw.x*(int)a[b].qs[k];ui+=uw.x*(int)a[b].qs[k];
+            gi+=gw.y*(int)a[b].qs[k+1];ui+=uw.y*(int)a[b].qs[k+1];
+            gi+=gw.z*(int)a[b].qs[k+2];ui+=uw.z*(int)a[b].qs[k+2];
+            gi+=gw.w*(int)a[b].qs[k+3];ui+=uw.w*(int)a[b].qs[k+3];
+        }
+        float gd=__half2float(*(const __half*)gb),ud=__half2float(*(const __half*)ub);
+        float gs=__fmul_rn(wide?__fmul_rn(gd,.125f):gd,a[b].d);
+        float us=__fmul_rn(wide?__fmul_rn(ud,.125f):ud,a[b].d);
+        g=__fmaf_rn(gs,(float)gi,g);u=__fmaf_rn(us,(float)ui,u);
+    }
+    for(int off=lanes/2;off;off>>=1){g=__fadd_rn(g,__shfl_xor_sync(0xffffffff,g,off));u=__fadd_rn(u,__shfl_xor_sync(0xffffffff,u,off));}
+    if(lane==0){gate[entry*L.n_ff+row]=wide?g:__fmul_rn(g,.125f);up[entry*L.n_ff+row]=wide?u:__fmul_rn(u,.125f);}
+}
 __global__ void mk_cpu_pool_down(NativeExpertLayout L,const unsigned long long* ptr,
                                 const MkLegacyAct* hq,float* out){
     int lane=threadIdx.x&31,warp=threadIdx.x>>5,row=blockIdx.x*4+warp,entry=blockIdx.y;
@@ -103,6 +157,12 @@ void mk_compatible_gu_launch(int type,NativeExpertLayout L,const unsigned long l
 }
 void mk_exact_iq2_gu_launch(int type,NativeExpertLayout L,const unsigned long long* ptr,
                           const int32_t* tok,const int32_t* nt,const void* x,int entries,float* gate,float* up,void* stream){
+    if(std::getenv("MK_WORKER_PACKED_IQ2")){
+        dim3 grid((unsigned)(L.n_ff/4),(unsigned)entries);
+        if(type==16)mk_packed_iq2_gu<16><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,nt,(const block_q8_K*)x,gate,up);
+        else mk_packed_iq2_gu<22><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,nt,(const block_q8_K*)x,gate,up);
+        return;
+    }
     mk_exact_iq2_gu<<<dim3((unsigned)(L.n_ff/4),(unsigned)entries),128,0,(cudaStream_t)stream>>>(type,L,ptr,tok,nt,(const block_q8_K*)x,gate,up);
 }
 void mk_cpu_pool_down_launch(NativeExpertLayout L,const unsigned long long* ptr,const void* hq,

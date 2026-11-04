@@ -1,0 +1,11 @@
+{
+  "restore_model": "qwen3.8-flash-next-strata",
+  "phase": "complete; API restoration pending",
+  "completed": [
+    "sync-control",
+    "async1",
+    "async2"
+  ],
+  "running": "async2",
+  "started": 1793816292.740395
+}

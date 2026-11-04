@@ -1,0 +1,206 @@
+MK_EXPERT_WORKER_READY port=6007 cache_limit=64MiB cpu_compat=1
+request=1 op=3 in=0 out=149 status=0 wall_us=102.139
+request=2 op=1 in=1510428 out=0 status=0 wall_us=134.090
+request=3 op=1 in=1510428 out=0 status=0 wall_us=174.799
+request=4 op=1 in=1305628 out=0 status=0 wall_us=170.599
+request=5 op=1 in=1305628 out=0 status=0 wall_us=155.870
+request=6 op=1 in=1510428 out=16 status=1 wall_us=77.780
+request=7 op=2 in=16 out=14 status=1 wall_us=13.780
+request=8 op=2 in=10260 out=19 status=1 wall_us=13.460
+request=9 op=99 in=0 out=17 status=1 wall_us=10.150
+PROFILE type=22 M=1 entries=10 prep_wall_us=669.628 gu_gpu_us=7937.024 gu_wait_wall_us=7955.515 gu_d2h_gpu_us=52.192 gu_read_wall_us=67.730 hidden_cpu_us=44.790 hidden_h2d_gpu_us=9.824 down_gpu_us=1205.248 output_d2h_gpu_us=52.736 down_wall_us=1286.326 dispatch_wall_us=10023.989
+request=10 op=2 in=10296 out=102400 status=0 wall_us=10620.977
+PROFILE type=22 M=1 entries=4 prep_wall_us=22.550 gu_gpu_us=646.144 gu_wait_wall_us=662.498 gu_d2h_gpu_us=31.168 gu_read_wall_us=46.990 hidden_cpu_us=5.700 hidden_h2d_gpu_us=6.176 down_gpu_us=513.024 output_d2h_gpu_us=31.552 down_wall_us=557.858 dispatch_wall_us=1295.596
+request=11 op=5 in=10288 out=40960 status=0 wall_us=1522.486
+PROFILE type=22 M=1 entries=10 prep_wall_us=21.200 gu_gpu_us=1189.888 gu_wait_wall_us=1205.166 gu_d2h_gpu_us=38.624 gu_read_wall_us=55.270 hidden_cpu_us=10.480 hidden_h2d_gpu_us=8.256 down_gpu_us=1186.816 output_d2h_gpu_us=57.824 down_wall_us=1260.166 dispatch_wall_us=2552.282
+request=12 op=2 in=10296 out=102400 status=0 wall_us=3121.910
+PROFILE type=22 M=1 entries=10 prep_wall_us=19.000 gu_gpu_us=1199.104 gu_wait_wall_us=1215.816 gu_d2h_gpu_us=38.240 gu_read_wall_us=54.500 hidden_cpu_us=10.380 hidden_h2d_gpu_us=7.616 down_gpu_us=1191.936 output_d2h_gpu_us=56.896 down_wall_us=1263.906 dispatch_wall_us=2563.602
+request=13 op=2 in=10296 out=102400 status=0 wall_us=3136.380
+PROFILE type=22 M=1 entries=10 prep_wall_us=19.170 gu_gpu_us=1163.264 gu_wait_wall_us=1183.966 gu_d2h_gpu_us=45.536 gu_read_wall_us=59.890 hidden_cpu_us=10.470 hidden_h2d_gpu_us=9.344 down_gpu_us=1174.528 output_d2h_gpu_us=56.672 down_wall_us=1247.886 dispatch_wall_us=2521.382
+request=14 op=2 in=10296 out=102400 status=0 wall_us=3096.050
+PROFILE type=22 M=1 entries=10 prep_wall_us=18.730 gu_gpu_us=1206.272 gu_wait_wall_us=1222.456 gu_d2h_gpu_us=38.368 gu_read_wall_us=54.920 hidden_cpu_us=10.350 hidden_h2d_gpu_us=8.640 down_gpu_us=1184.768 output_d2h_gpu_us=55.584 down_wall_us=1256.356 dispatch_wall_us=2562.812
+request=15 op=2 in=10296 out=102400 status=0 wall_us=3127.560
+PROFILE type=22 M=1 entries=10 prep_wall_us=19.280 gu_gpu_us=1188.864 gu_wait_wall_us=1205.006 gu_d2h_gpu_us=39.552 gu_read_wall_us=55.850 hidden_cpu_us=10.320 hidden_h2d_gpu_us=8.640 down_gpu_us=1181.696 output_d2h_gpu_us=56.128 down_wall_us=1253.636 dispatch_wall_us=2544.092
+request=16 op=2 in=10296 out=102400 status=0 wall_us=3107.350
+PROFILE type=22 M=1 entries=10 prep_wall_us=14.529 gu_gpu_us=1249.280 gu_wait_wall_us=1265.016 gu_d2h_gpu_us=38.240 gu_read_wall_us=54.850 hidden_cpu_us=10.500 hidden_h2d_gpu_us=8.512 down_gpu_us=1182.720 output_d2h_gpu_us=52.544 down_wall_us=1251.296 dispatch_wall_us=2596.191
+request=17 op=2 in=10296 out=102400 status=0 wall_us=3161.390
+PROFILE type=22 M=1 entries=10 prep_wall_us=18.720 gu_gpu_us=1169.408 gu_wait_wall_us=1186.356 gu_d2h_gpu_us=39.616 gu_read_wall_us=56.910 hidden_cpu_us=10.270 hidden_h2d_gpu_us=8.480 down_gpu_us=1184.768 output_d2h_gpu_us=52.672 down_wall_us=1253.206 dispatch_wall_us=2525.462
+request=18 op=2 in=10296 out=102400 status=0 wall_us=3093.530
+PROFILE type=22 M=1 entries=10 prep_wall_us=18.960 gu_gpu_us=1258.496 gu_wait_wall_us=1274.206 gu_d2h_gpu_us=38.688 gu_read_wall_us=55.650 hidden_cpu_us=10.280 hidden_h2d_gpu_us=8.544 down_gpu_us=1182.720 output_d2h_gpu_us=52.352 down_wall_us=1251.056 dispatch_wall_us=2610.152
+request=19 op=2 in=10296 out=102400 status=0 wall_us=3173.910
+PROFILE type=22 M=1 entries=10 prep_wall_us=20.850 gu_gpu_us=1216.512 gu_wait_wall_us=1231.956 gu_d2h_gpu_us=38.848 gu_read_wall_us=55.720 hidden_cpu_us=10.330 hidden_h2d_gpu_us=8.224 down_gpu_us=1183.744 output_d2h_gpu_us=52.864 down_wall_us=1252.026 dispatch_wall_us=2570.882
+request=20 op=2 in=10296 out=102400 status=0 wall_us=3186.450
+PROFILE type=22 M=1 entries=10 prep_wall_us=27.410 gu_gpu_us=1230.848 gu_wait_wall_us=1244.026 gu_d2h_gpu_us=35.776 gu_read_wall_us=48.960 hidden_cpu_us=10.460 hidden_h2d_gpu_us=10.208 down_gpu_us=1177.600 output_d2h_gpu_us=57.664 down_wall_us=1254.076 dispatch_wall_us=2584.932
+request=21 op=2 in=10296 out=102400 status=0 wall_us=3134.910
+PROFILE type=22 M=2 entries=20 prep_wall_us=42.350 gu_gpu_us=1567.744 gu_wait_wall_us=1590.985 gu_d2h_gpu_us=57.568 gu_read_wall_us=83.569 hidden_cpu_us=31.040 hidden_h2d_gpu_us=19.264 down_gpu_us=2304.000 output_d2h_gpu_us=86.592 down_wall_us=2428.063 dispatch_wall_us=4176.007
+request=22 op=2 in=20576 out=204800 status=0 wall_us=5283.143
+PROFILE type=22 M=2 entries=7 prep_wall_us=27.040 gu_gpu_us=638.976 gu_wait_wall_us=662.827 gu_d2h_gpu_us=33.792 gu_read_wall_us=50.290 hidden_cpu_us=8.060 hidden_h2d_gpu_us=7.456 down_gpu_us=814.080 output_d2h_gpu_us=46.496 down_wall_us=875.418 dispatch_wall_us=1623.635
+request=23 op=5 in=20552 out=71680 status=0 wall_us=1970.953
+PROFILE type=22 M=2 entries=20 prep_wall_us=24.200 gu_gpu_us=1530.880 gu_wait_wall_us=1554.635 gu_d2h_gpu_us=56.000 gu_read_wall_us=72.730 hidden_cpu_us=20.590 hidden_h2d_gpu_us=12.608 down_gpu_us=2290.720 output_d2h_gpu_us=87.328 down_wall_us=2398.282 dispatch_wall_us=4070.437
+request=24 op=2 in=20576 out=204800 status=0 wall_us=5199.414
+PROFILE type=22 M=2 entries=20 prep_wall_us=26.200 gu_gpu_us=1471.488 gu_wait_wall_us=1496.705 gu_d2h_gpu_us=63.328 gu_read_wall_us=80.430 hidden_cpu_us=20.530 hidden_h2d_gpu_us=13.792 down_gpu_us=2290.688 output_d2h_gpu_us=86.976 down_wall_us=2399.122 dispatch_wall_us=4022.987
+request=25 op=2 in=20576 out=204800 status=0 wall_us=5135.414
+PROFILE type=22 M=2 entries=20 prep_wall_us=25.740 gu_gpu_us=1549.312 gu_wait_wall_us=1573.605 gu_d2h_gpu_us=56.096 gu_read_wall_us=72.500 hidden_cpu_us=27.310 hidden_h2d_gpu_us=11.968 down_gpu_us=2292.736 output_d2h_gpu_us=91.040 down_wall_us=2414.282 dispatch_wall_us=4113.437
+request=26 op=2 in=20576 out=204800 status=0 wall_us=5237.934
+PROFILE type=22 M=2 entries=20 prep_wall_us=24.139 gu_gpu_us=1511.424 gu_wait_wall_us=1535.346 gu_d2h_gpu_us=56.032 gu_read_wall_us=72.779 hidden_cpu_us=20.190 hidden_h2d_gpu_us=12.864 down_gpu_us=2286.592 output_d2h_gpu_us=91.616 down_wall_us=2398.343 dispatch_wall_us=4050.797
+request=27 op=2 in=20576 out=204800 status=0 wall_us=5232.183
+PROFILE type=22 M=2 entries=20 prep_wall_us=27.279 gu_gpu_us=1443.840 gu_wait_wall_us=1466.336 gu_d2h_gpu_us=55.744 gu_read_wall_us=72.470 hidden_cpu_us=20.379 hidden_h2d_gpu_us=11.712 down_gpu_us=2286.592 output_d2h_gpu_us=90.976 down_wall_us=2396.863 dispatch_wall_us=3983.327
+request=28 op=2 in=20576 out=204800 status=0 wall_us=5101.053
+PROFILE type=22 M=2 entries=20 prep_wall_us=24.290 gu_gpu_us=1552.384 gu_wait_wall_us=1576.805 gu_d2h_gpu_us=56.032 gu_read_wall_us=72.170 hidden_cpu_us=20.030 hidden_h2d_gpu_us=12.192 down_gpu_us=2294.784 output_d2h_gpu_us=97.408 down_wall_us=2411.882 dispatch_wall_us=4105.177
+request=29 op=2 in=20576 out=204800 status=0 wall_us=5219.353
+PROFILE type=22 M=2 entries=20 prep_wall_us=26.370 gu_gpu_us=1499.136 gu_wait_wall_us=1524.635 gu_d2h_gpu_us=57.120 gu_read_wall_us=73.630 hidden_cpu_us=33.510 hidden_h2d_gpu_us=11.392 down_gpu_us=2284.544 output_d2h_gpu_us=90.176 down_wall_us=2404.582 dispatch_wall_us=4062.727
+request=30 op=2 in=20576 out=204800 status=0 wall_us=5249.243
+PROFILE type=22 M=2 entries=20 prep_wall_us=25.390 gu_gpu_us=1495.040 gu_wait_wall_us=1519.515 gu_d2h_gpu_us=56.224 gu_read_wall_us=72.880 hidden_cpu_us=20.340 hidden_h2d_gpu_us=11.680 down_gpu_us=2291.712 output_d2h_gpu_us=93.312 down_wall_us=2403.942 dispatch_wall_us=4042.067
+request=31 op=2 in=20576 out=204800 status=0 wall_us=5162.094
+PROFILE type=22 M=2 entries=20 prep_wall_us=23.660 gu_gpu_us=1527.808 gu_wait_wall_us=1553.205 gu_d2h_gpu_us=56.288 gu_read_wall_us=73.170 hidden_cpu_us=19.990 hidden_h2d_gpu_us=12.832 down_gpu_us=2288.640 output_d2h_gpu_us=89.984 down_wall_us=2399.212 dispatch_wall_us=4069.237
+request=32 op=2 in=20576 out=204800 status=0 wall_us=5204.814
+PROFILE type=22 M=2 entries=20 prep_wall_us=24.940 gu_gpu_us=1544.192 gu_wait_wall_us=1568.475 gu_d2h_gpu_us=55.616 gu_read_wall_us=72.120 hidden_cpu_us=20.580 hidden_h2d_gpu_us=11.744 down_gpu_us=2289.664 output_d2h_gpu_us=89.120 down_wall_us=2397.823 dispatch_wall_us=4083.938
+request=33 op=2 in=20576 out=204800 status=0 wall_us=5199.764
+PROFILE type=22 M=4 entries=40 prep_wall_us=72.729 gu_gpu_us=2836.480 gu_wait_wall_us=2865.871 gu_d2h_gpu_us=108.544 gu_read_wall_us=128.450 hidden_cpu_us=40.930 hidden_h2d_gpu_us=26.176 down_gpu_us=4514.816 output_d2h_gpu_us=157.248 down_wall_us=4715.195 dispatch_wall_us=7823.175
+request=34 op=2 in=41136 out=409600 status=0 wall_us=10071.228
+PROFILE type=22 M=4 entries=14 prep_wall_us=39.240 gu_gpu_us=1129.472 gu_wait_wall_us=1156.086 gu_d2h_gpu_us=45.856 gu_read_wall_us=62.030 hidden_cpu_us=14.930 hidden_h2d_gpu_us=10.016 down_gpu_us=1630.208 output_d2h_gpu_us=65.024 down_wall_us=1712.515 dispatch_wall_us=2984.801
+request=35 op=5 in=41088 out=143360 status=0 wall_us=3767.728
+PROFILE type=22 M=4 entries=40 prep_wall_us=45.050 gu_gpu_us=2905.088 gu_wait_wall_us=2935.631 gu_d2h_gpu_us=88.032 gu_read_wall_us=103.299 hidden_cpu_us=40.900 hidden_h2d_gpu_us=22.208 down_gpu_us=4526.080 output_d2h_gpu_us=156.064 down_wall_us=4721.265 dispatch_wall_us=7846.145
+request=36 op=2 in=41136 out=409600 status=0 wall_us=10049.458
+PROFILE type=22 M=4 entries=40 prep_wall_us=36.420 gu_gpu_us=2907.136 gu_wait_wall_us=2936.751 gu_d2h_gpu_us=89.760 gu_read_wall_us=106.840 hidden_cpu_us=39.300 hidden_h2d_gpu_us=22.176 down_gpu_us=4533.248 output_d2h_gpu_us=163.040 down_wall_us=4735.575 dispatch_wall_us=7854.886
+request=37 op=2 in=41136 out=409600 status=0 wall_us=10042.079
+PROFILE type=22 M=4 entries=40 prep_wall_us=35.050 gu_gpu_us=2784.256 gu_wait_wall_us=2815.181 gu_d2h_gpu_us=90.496 gu_read_wall_us=107.659 hidden_cpu_us=39.390 hidden_h2d_gpu_us=23.488 down_gpu_us=4511.744 output_d2h_gpu_us=163.104 down_wall_us=4715.285 dispatch_wall_us=7712.565
+request=38 op=2 in=41136 out=409600 status=0 wall_us=9948.418
+PROFILE type=22 M=4 entries=40 prep_wall_us=48.250 gu_gpu_us=2812.928 gu_wait_wall_us=2838.231 gu_d2h_gpu_us=97.344 gu_read_wall_us=114.110 hidden_cpu_us=66.079 hidden_h2d_gpu_us=29.728 down_gpu_us=4524.032 output_d2h_gpu_us=159.360 down_wall_us=4729.936 dispatch_wall_us=7796.606
+request=39 op=2 in=41136 out=409600 status=0 wall_us=10032.478
+PROFILE type=22 M=4 entries=40 prep_wall_us=31.320 gu_gpu_us=2956.288 gu_wait_wall_us=2986.431 gu_d2h_gpu_us=90.880 gu_read_wall_us=107.010 hidden_cpu_us=39.439 hidden_h2d_gpu_us=27.360 down_gpu_us=4528.128 output_d2h_gpu_us=154.432 down_wall_us=4726.596 dispatch_wall_us=7890.796
+request=40 op=2 in=41136 out=409600 status=0 wall_us=10177.018
+PROFILE type=22 M=4 entries=40 prep_wall_us=36.810 gu_gpu_us=2972.672 gu_wait_wall_us=3003.131 gu_d2h_gpu_us=94.112 gu_read_wall_us=111.059 hidden_cpu_us=39.240 hidden_h2d_gpu_us=27.104 down_gpu_us=4524.032 output_d2h_gpu_us=162.752 down_wall_us=4730.885 dispatch_wall_us=7921.125
+request=41 op=2 in=41136 out=409600 status=0 wall_us=10160.258
+PROFILE type=22 M=4 entries=40 prep_wall_us=33.620 gu_gpu_us=2854.912 gu_wait_wall_us=2891.521 gu_d2h_gpu_us=90.336 gu_read_wall_us=105.580 hidden_cpu_us=39.479 hidden_h2d_gpu_us=26.464 down_gpu_us=4537.344 output_d2h_gpu_us=157.344 down_wall_us=4739.065 dispatch_wall_us=7809.265
+request=42 op=2 in=41136 out=409600 status=0 wall_us=10034.888
+PROFILE type=22 M=4 entries=40 prep_wall_us=35.000 gu_gpu_us=2861.056 gu_wait_wall_us=2891.021 gu_d2h_gpu_us=89.760 gu_read_wall_us=106.430 hidden_cpu_us=39.210 hidden_h2d_gpu_us=25.664 down_gpu_us=4523.008 output_d2h_gpu_us=158.912 down_wall_us=4724.275 dispatch_wall_us=7795.936
+request=43 op=2 in=41136 out=409600 status=0 wall_us=10041.329
+PROFILE type=22 M=4 entries=40 prep_wall_us=35.080 gu_gpu_us=2905.088 gu_wait_wall_us=2936.370 gu_d2h_gpu_us=86.560 gu_read_wall_us=96.940 hidden_cpu_us=39.310 hidden_h2d_gpu_us=23.744 down_gpu_us=4537.344 output_d2h_gpu_us=161.920 down_wall_us=4739.755 dispatch_wall_us=7847.455
+request=44 op=2 in=41136 out=409600 status=0 wall_us=10084.768
+PROFILE type=22 M=4 entries=40 prep_wall_us=37.280 gu_gpu_us=2598.944 gu_wait_wall_us=2628.581 gu_d2h_gpu_us=102.400 gu_read_wall_us=118.870 hidden_cpu_us=39.270 hidden_h2d_gpu_us=28.128 down_gpu_us=4047.872 output_d2h_gpu_us=158.848 down_wall_us=4251.436 dispatch_wall_us=7075.437
+request=45 op=2 in=41136 out=409600 status=0 wall_us=9258.901
+PROFILE type=22 M=8 entries=80 prep_wall_us=93.670 gu_gpu_us=4651.008 gu_wait_wall_us=4689.395 gu_d2h_gpu_us=156.640 gu_read_wall_us=172.550 hidden_cpu_us=79.520 hidden_h2d_gpu_us=27.680 down_gpu_us=8006.048 output_d2h_gpu_us=311.424 down_wall_us=8362.503 dispatch_wall_us=13397.638
+request=46 op=2 in=82256 out=819200 status=0 wall_us=17832.394
+PROFILE type=22 M=8 entries=27 prep_wall_us=70.260 gu_gpu_us=1884.160 gu_wait_wall_us=1922.994 gu_d2h_gpu_us=68.832 gu_read_wall_us=86.810 hidden_cpu_us=27.870 hidden_h2d_gpu_us=22.720 down_gpu_us=2776.032 output_d2h_gpu_us=113.024 down_wall_us=2928.620 dispatch_wall_us=5036.554
+request=47 op=5 in=82152 out=276480 status=0 wall_us=6549.810
+PROFILE type=22 M=8 entries=80 prep_wall_us=62.090 gu_gpu_us=4633.632 gu_wait_wall_us=4673.075 gu_d2h_gpu_us=167.296 gu_read_wall_us=183.379 hidden_cpu_us=78.970 hidden_h2d_gpu_us=28.192 down_gpu_us=7988.896 output_d2h_gpu_us=302.528 down_wall_us=8337.224 dispatch_wall_us=13334.738
+request=48 op=2 in=82256 out=819200 status=0 wall_us=17752.244
+PROFILE type=22 M=8 entries=80 prep_wall_us=66.830 gu_gpu_us=4645.920 gu_wait_wall_us=4685.865 gu_d2h_gpu_us=162.144 gu_read_wall_us=172.789 hidden_cpu_us=78.570 hidden_h2d_gpu_us=28.448 down_gpu_us=7990.400 output_d2h_gpu_us=301.632 down_wall_us=8337.414 dispatch_wall_us=13341.468
+request=49 op=2 in=82256 out=819200 status=0 wall_us=17738.204
+PROFILE type=22 M=8 entries=80 prep_wall_us=59.650 gu_gpu_us=4573.184 gu_wait_wall_us=4612.095 gu_d2h_gpu_us=159.744 gu_read_wall_us=176.580 hidden_cpu_us=78.049 hidden_h2d_gpu_us=27.808 down_gpu_us=7949.152 output_d2h_gpu_us=303.520 down_wall_us=8297.444 dispatch_wall_us=13223.818
+request=50 op=2 in=82256 out=819200 status=0 wall_us=17671.104
+PROFILE type=22 M=8 entries=80 prep_wall_us=67.480 gu_gpu_us=4622.336 gu_wait_wall_us=4660.715 gu_d2h_gpu_us=169.184 gu_read_wall_us=185.850 hidden_cpu_us=78.239 hidden_h2d_gpu_us=27.680 down_gpu_us=7954.464 output_d2h_gpu_us=320.992 down_wall_us=8320.714 dispatch_wall_us=13312.998
+request=51 op=2 in=82256 out=819200 status=0 wall_us=17760.214
+PROFILE type=22 M=8 entries=80 prep_wall_us=79.130 gu_gpu_us=4617.216 gu_wait_wall_us=4658.345 gu_d2h_gpu_us=164.736 gu_read_wall_us=182.080 hidden_cpu_us=79.809 hidden_h2d_gpu_us=27.712 down_gpu_us=7958.368 output_d2h_gpu_us=311.648 down_wall_us=8314.954 dispatch_wall_us=13314.318
+request=52 op=2 in=82256 out=819200 status=0 wall_us=17734.584
+PROFILE type=22 M=8 entries=80 prep_wall_us=65.740 gu_gpu_us=4601.888 gu_wait_wall_us=4639.455 gu_d2h_gpu_us=160.992 gu_read_wall_us=170.760 hidden_cpu_us=79.770 hidden_h2d_gpu_us=31.456 down_gpu_us=7585.120 output_d2h_gpu_us=306.720 down_wall_us=7930.915 dispatch_wall_us=12886.640
+request=53 op=2 in=82256 out=819200 status=0 wall_us=17293.566
+PROFILE type=22 M=8 entries=80 prep_wall_us=63.949 gu_gpu_us=4420.608 gu_wait_wall_us=4464.096 gu_d2h_gpu_us=157.792 gu_read_wall_us=174.350 hidden_cpu_us=80.670 hidden_h2d_gpu_us=38.784 down_gpu_us=7596.480 output_d2h_gpu_us=307.040 down_wall_us=7959.304 dispatch_wall_us=12742.369
+request=54 op=2 in=82256 out=819200 status=0 wall_us=17280.665
+PROFILE type=22 M=8 entries=80 prep_wall_us=65.550 gu_gpu_us=4384.768 gu_wait_wall_us=4424.276 gu_d2h_gpu_us=163.104 gu_read_wall_us=179.549 hidden_cpu_us=79.410 hidden_h2d_gpu_us=28.256 down_gpu_us=7591.456 output_d2h_gpu_us=306.432 down_wall_us=7943.115 dispatch_wall_us=12691.900
+request=55 op=2 in=82256 out=819200 status=0 wall_us=17215.726
+PROFILE type=22 M=8 entries=80 prep_wall_us=57.940 gu_gpu_us=4335.616 gu_wait_wall_us=4391.266 gu_d2h_gpu_us=157.536 gu_read_wall_us=174.449 hidden_cpu_us=115.360 hidden_h2d_gpu_us=28.128 down_gpu_us=7589.024 output_d2h_gpu_us=300.928 down_wall_us=7935.105 dispatch_wall_us=12674.120
+request=56 op=2 in=82256 out=819200 status=0 wall_us=17097.886
+PROFILE type=22 M=8 entries=80 prep_wall_us=87.340 gu_gpu_us=4418.560 gu_wait_wall_us=4444.216 gu_d2h_gpu_us=160.768 gu_read_wall_us=183.239 hidden_cpu_us=91.960 hidden_h2d_gpu_us=29.728 down_gpu_us=7573.760 output_d2h_gpu_us=313.152 down_wall_us=7936.195 dispatch_wall_us=12742.950
+request=57 op=2 in=82256 out=819200 status=0 wall_us=17228.245
+PROFILE type=16 M=1 entries=10 prep_wall_us=41.880 gu_gpu_us=1287.168 gu_wait_wall_us=1302.076 gu_d2h_gpu_us=46.720 gu_read_wall_us=62.810 hidden_cpu_us=12.330 hidden_h2d_gpu_us=9.248 down_gpu_us=1000.448 output_d2h_gpu_us=50.976 down_wall_us=1068.996 dispatch_wall_us=2488.092
+request=58 op=2 in=10296 out=102400 status=0 wall_us=3090.330
+PROFILE type=16 M=1 entries=4 prep_wall_us=23.650 gu_gpu_us=637.952 gu_wait_wall_us=653.857 gu_d2h_gpu_us=31.264 gu_read_wall_us=47.270 hidden_cpu_us=5.120 hidden_h2d_gpu_us=5.920 down_gpu_us=429.056 output_d2h_gpu_us=29.536 down_wall_us=471.479 dispatch_wall_us=1201.376
+request=59 op=5 in=10288 out=40960 status=0 wall_us=1407.825
+PROFILE type=16 M=1 entries=10 prep_wall_us=15.800 gu_gpu_us=1193.984 gu_wait_wall_us=1207.596 gu_d2h_gpu_us=38.048 gu_read_wall_us=54.550 hidden_cpu_us=11.080 hidden_h2d_gpu_us=7.424 down_gpu_us=1007.616 output_d2h_gpu_us=52.928 down_wall_us=1075.146 dispatch_wall_us=2364.172
+request=60 op=2 in=10296 out=102400 status=0 wall_us=2944.290
+PROFILE type=16 M=1 entries=10 prep_wall_us=23.930 gu_gpu_us=1188.864 gu_wait_wall_us=1204.206 gu_d2h_gpu_us=38.368 gu_read_wall_us=55.030 hidden_cpu_us=10.900 hidden_h2d_gpu_us=8.416 down_gpu_us=1000.448 output_d2h_gpu_us=57.856 down_wall_us=1073.847 dispatch_wall_us=2367.913
+request=61 op=2 in=10296 out=102400 status=0 wall_us=2947.861
+PROFILE type=16 M=1 entries=10 prep_wall_us=19.919 gu_gpu_us=1165.312 gu_wait_wall_us=1180.747 gu_d2h_gpu_us=37.760 gu_read_wall_us=53.790 hidden_cpu_us=11.040 hidden_h2d_gpu_us=7.904 down_gpu_us=1002.496 output_d2h_gpu_us=56.800 down_wall_us=1074.146 dispatch_wall_us=2339.642
+request=62 op=2 in=10296 out=102400 status=0 wall_us=2914.170
+PROFILE type=16 M=1 entries=10 prep_wall_us=18.900 gu_gpu_us=1221.632 gu_wait_wall_us=1237.656 gu_d2h_gpu_us=38.112 gu_read_wall_us=54.280 hidden_cpu_us=10.600 hidden_h2d_gpu_us=7.968 down_gpu_us=1007.616 output_d2h_gpu_us=51.552 down_wall_us=1074.146 dispatch_wall_us=2395.582
+request=63 op=2 in=10296 out=102400 status=0 wall_us=2952.521
+PROFILE type=16 M=1 entries=10 prep_wall_us=19.520 gu_gpu_us=1201.152 gu_wait_wall_us=1216.647 gu_d2h_gpu_us=38.624 gu_read_wall_us=55.719 hidden_cpu_us=10.790 hidden_h2d_gpu_us=7.072 down_gpu_us=1003.520 output_d2h_gpu_us=58.144 down_wall_us=1075.987 dispatch_wall_us=2378.663
+request=64 op=2 in=10296 out=102400 status=0 wall_us=2954.531
+PROFILE type=16 M=1 entries=10 prep_wall_us=16.890 gu_gpu_us=1184.768 gu_wait_wall_us=1199.876 gu_d2h_gpu_us=38.688 gu_read_wall_us=55.480 hidden_cpu_us=10.660 hidden_h2d_gpu_us=8.416 down_gpu_us=1001.472 output_d2h_gpu_us=57.120 down_wall_us=1074.286 dispatch_wall_us=2357.192
+request=65 op=2 in=10296 out=102400 status=0 wall_us=2927.661
+PROFILE type=16 M=1 entries=10 prep_wall_us=19.130 gu_gpu_us=1200.128 gu_wait_wall_us=1215.226 gu_d2h_gpu_us=39.680 gu_read_wall_us=61.450 hidden_cpu_us=15.590 hidden_h2d_gpu_us=8.928 down_gpu_us=997.376 output_d2h_gpu_us=54.656 down_wall_us=1070.217 dispatch_wall_us=2381.613
+request=66 op=2 in=10296 out=102400 status=0 wall_us=3015.121
+PROFILE type=16 M=1 entries=10 prep_wall_us=17.799 gu_gpu_us=1221.632 gu_wait_wall_us=1235.877 gu_d2h_gpu_us=38.752 gu_read_wall_us=54.159 hidden_cpu_us=10.920 hidden_h2d_gpu_us=8.064 down_gpu_us=997.376 output_d2h_gpu_us=54.272 down_wall_us=1066.767 dispatch_wall_us=2385.522
+request=67 op=2 in=10296 out=102400 status=0 wall_us=2942.400
+PROFILE type=16 M=1 entries=10 prep_wall_us=19.210 gu_gpu_us=1232.896 gu_wait_wall_us=1248.366 gu_d2h_gpu_us=38.592 gu_read_wall_us=55.480 hidden_cpu_us=16.720 hidden_h2d_gpu_us=8.736 down_gpu_us=995.328 output_d2h_gpu_us=50.752 down_wall_us=1063.336 dispatch_wall_us=2403.112
+request=68 op=2 in=10296 out=102400 status=0 wall_us=2976.661
+PROFILE type=16 M=1 entries=10 prep_wall_us=19.270 gu_gpu_us=1188.864 gu_wait_wall_us=1205.286 gu_d2h_gpu_us=38.400 gu_read_wall_us=54.950 hidden_cpu_us=10.430 hidden_h2d_gpu_us=7.840 down_gpu_us=1004.544 output_d2h_gpu_us=54.048 down_wall_us=1073.477 dispatch_wall_us=2363.413
+request=69 op=2 in=10296 out=102400 status=0 wall_us=2928.571
+PROFILE type=16 M=2 entries=20 prep_wall_us=49.389 gu_gpu_us=1374.208 gu_wait_wall_us=1397.606 gu_d2h_gpu_us=62.720 gu_read_wall_us=78.960 hidden_cpu_us=22.170 hidden_h2d_gpu_us=11.168 down_gpu_us=1941.504 output_d2h_gpu_us=89.888 down_wall_us=2049.973 dispatch_wall_us=3598.098
+request=70 op=2 in=20576 out=204800 status=0 wall_us=4715.825
+PROFILE type=16 M=2 entries=7 prep_wall_us=23.990 gu_gpu_us=601.088 gu_wait_wall_us=623.818 gu_d2h_gpu_us=33.312 gu_read_wall_us=49.369 hidden_cpu_us=7.920 hidden_h2d_gpu_us=7.008 down_gpu_us=696.320 output_d2h_gpu_us=50.560 down_wall_us=761.098 dispatch_wall_us=1466.195
+request=71 op=5 in=20552 out=71680 status=0 wall_us=1855.954
+PROFILE type=16 M=2 entries=20 prep_wall_us=31.030 gu_gpu_us=1355.776 gu_wait_wall_us=1375.736 gu_d2h_gpu_us=56.288 gu_read_wall_us=71.869 hidden_cpu_us=20.750 hidden_h2d_gpu_us=10.240 down_gpu_us=1932.288 output_d2h_gpu_us=87.328 down_wall_us=2037.044 dispatch_wall_us=3536.429
+request=72 op=2 in=20576 out=204800 status=0 wall_us=4651.785
+PROFILE type=16 M=2 entries=20 prep_wall_us=25.390 gu_gpu_us=1335.296 gu_wait_wall_us=1360.005 gu_d2h_gpu_us=55.328 gu_read_wall_us=72.360 hidden_cpu_us=19.980 hidden_h2d_gpu_us=9.824 down_gpu_us=1938.432 output_d2h_gpu_us=90.848 down_wall_us=2046.114 dispatch_wall_us=3523.849
+request=73 op=2 in=20576 out=204800 status=0 wall_us=4645.235
+PROFILE type=16 M=2 entries=20 prep_wall_us=20.550 gu_gpu_us=1348.608 gu_wait_wall_us=1376.435 gu_d2h_gpu_us=60.704 gu_read_wall_us=77.090 hidden_cpu_us=20.130 hidden_h2d_gpu_us=11.456 down_gpu_us=1943.552 output_d2h_gpu_us=86.048 down_wall_us=2048.224 dispatch_wall_us=3542.429
+request=74 op=2 in=20576 out=204800 status=0 wall_us=4667.005
+PROFILE type=16 M=2 entries=20 prep_wall_us=20.049 gu_gpu_us=1316.864 gu_wait_wall_us=1341.026 gu_d2h_gpu_us=55.200 gu_read_wall_us=71.260 hidden_cpu_us=20.290 hidden_h2d_gpu_us=10.656 down_gpu_us=1952.768 output_d2h_gpu_us=92.160 down_wall_us=2063.013 dispatch_wall_us=3515.638
+request=75 op=2 in=20576 out=204800 status=0 wall_us=4644.415
+PROFILE type=16 M=2 entries=20 prep_wall_us=23.950 gu_gpu_us=1328.128 gu_wait_wall_us=1352.576 gu_d2h_gpu_us=54.752 gu_read_wall_us=70.670 hidden_cpu_us=20.110 hidden_h2d_gpu_us=10.336 down_gpu_us=1936.384 output_d2h_gpu_us=91.936 down_wall_us=2045.783 dispatch_wall_us=3513.089
+request=76 op=2 in=20576 out=204800 status=0 wall_us=4638.226
+PROFILE type=16 M=2 entries=20 prep_wall_us=24.190 gu_gpu_us=1327.104 gu_wait_wall_us=1351.736 gu_d2h_gpu_us=60.544 gu_read_wall_us=76.850 hidden_cpu_us=20.130 hidden_h2d_gpu_us=10.560 down_gpu_us=1938.432 output_d2h_gpu_us=88.640 down_wall_us=2044.973 dispatch_wall_us=3517.879
+request=77 op=2 in=20576 out=204800 status=0 wall_us=4658.036
+PROFILE type=16 M=2 entries=20 prep_wall_us=24.020 gu_gpu_us=1342.464 gu_wait_wall_us=1367.146 gu_d2h_gpu_us=56.352 gu_read_wall_us=72.109 hidden_cpu_us=20.240 hidden_h2d_gpu_us=9.856 down_gpu_us=1945.600 output_d2h_gpu_us=93.440 down_wall_us=2056.234 dispatch_wall_us=3539.749
+request=78 op=2 in=20576 out=204800 status=0 wall_us=4673.675
+PROFILE type=16 M=2 entries=20 prep_wall_us=23.570 gu_gpu_us=1353.728 gu_wait_wall_us=1379.285 gu_d2h_gpu_us=59.616 gu_read_wall_us=76.390 hidden_cpu_us=20.000 hidden_h2d_gpu_us=10.688 down_gpu_us=1946.624 output_d2h_gpu_us=90.304 down_wall_us=2054.704 dispatch_wall_us=3553.949
+request=79 op=2 in=20576 out=204800 status=0 wall_us=4675.075
+PROFILE type=16 M=2 entries=20 prep_wall_us=24.830 gu_gpu_us=1380.352 gu_wait_wall_us=1405.965 gu_d2h_gpu_us=56.128 gu_read_wall_us=72.090 hidden_cpu_us=20.210 hidden_h2d_gpu_us=9.984 down_gpu_us=1938.432 output_d2h_gpu_us=89.696 down_wall_us=2045.223 dispatch_wall_us=3568.318
+request=80 op=2 in=20576 out=204800 status=0 wall_us=4674.685
+PROFILE type=16 M=2 entries=20 prep_wall_us=24.210 gu_gpu_us=1353.728 gu_wait_wall_us=1379.796 gu_d2h_gpu_us=55.552 gu_read_wall_us=71.860 hidden_cpu_us=19.850 hidden_h2d_gpu_us=9.952 down_gpu_us=1932.288 output_d2h_gpu_us=85.536 down_wall_us=2034.873 dispatch_wall_us=3530.589
+request=81 op=2 in=20576 out=204800 status=0 wall_us=4654.906
+PROFILE type=16 M=4 entries=40 prep_wall_us=62.880 gu_gpu_us=2263.040 gu_wait_wall_us=2290.933 gu_d2h_gpu_us=88.096 gu_read_wall_us=103.080 hidden_cpu_us=48.959 hidden_h2d_gpu_us=28.992 down_gpu_us=3845.120 output_d2h_gpu_us=154.816 down_wall_us=4043.638 dispatch_wall_us=6549.490
+request=82 op=2 in=41136 out=409600 status=0 wall_us=8777.183
+PROFILE type=16 M=4 entries=14 prep_wall_us=40.069 gu_gpu_us=928.768 gu_wait_wall_us=953.947 gu_d2h_gpu_us=45.088 gu_read_wall_us=61.230 hidden_cpu_us=23.410 hidden_h2d_gpu_us=11.328 down_gpu_us=1375.232 output_d2h_gpu_us=72.192 down_wall_us=1467.245 dispatch_wall_us=2545.901
+request=83 op=5 in=41088 out=143360 status=0 wall_us=3314.879
+PROFILE type=16 M=4 entries=40 prep_wall_us=35.690 gu_gpu_us=2268.160 gu_wait_wall_us=2299.573 gu_d2h_gpu_us=100.096 gu_read_wall_us=117.279 hidden_cpu_us=39.970 hidden_h2d_gpu_us=27.552 down_gpu_us=3840.000 output_d2h_gpu_us=163.200 down_wall_us=4048.537 dispatch_wall_us=6541.049
+request=84 op=2 in=41136 out=409600 status=0 wall_us=8773.362
+PROFILE type=16 M=4 entries=40 prep_wall_us=40.140 gu_gpu_us=2291.712 gu_wait_wall_us=2321.513 gu_d2h_gpu_us=90.816 gu_read_wall_us=106.549 hidden_cpu_us=40.310 hidden_h2d_gpu_us=25.600 down_gpu_us=3833.856 output_d2h_gpu_us=159.712 down_wall_us=4035.878 dispatch_wall_us=6544.390
+request=85 op=2 in=41136 out=409600 status=0 wall_us=8758.473
+PROFILE type=16 M=4 entries=40 prep_wall_us=38.139 gu_gpu_us=2245.632 gu_wait_wall_us=2275.693 gu_d2h_gpu_us=90.528 gu_read_wall_us=106.410 hidden_cpu_us=39.840 hidden_h2d_gpu_us=23.584 down_gpu_us=3827.712 output_d2h_gpu_us=160.352 down_wall_us=4028.067 dispatch_wall_us=6488.149
+request=86 op=2 in=41136 out=409600 status=0 wall_us=8690.512
+PROFILE type=16 M=4 entries=40 prep_wall_us=34.250 gu_gpu_us=2291.712 gu_wait_wall_us=2322.133 gu_d2h_gpu_us=89.408 gu_read_wall_us=105.339 hidden_cpu_us=39.370 hidden_h2d_gpu_us=17.952 down_gpu_us=3821.568 output_d2h_gpu_us=156.000 down_wall_us=4002.708 dispatch_wall_us=6503.800
+request=87 op=2 in=41136 out=409600 status=0 wall_us=8822.832
+PROFILE type=16 M=4 entries=40 prep_wall_us=38.070 gu_gpu_us=2277.376 gu_wait_wall_us=2307.363 gu_d2h_gpu_us=98.240 gu_read_wall_us=114.499 hidden_cpu_us=39.610 hidden_h2d_gpu_us=26.944 down_gpu_us=3822.592 output_d2h_gpu_us=161.600 down_wall_us=4027.968 dispatch_wall_us=6527.510
+request=88 op=2 in=41136 out=409600 status=0 wall_us=8701.883
+PROFILE type=16 M=4 entries=40 prep_wall_us=43.160 gu_gpu_us=2232.320 gu_wait_wall_us=2251.422 gu_d2h_gpu_us=91.136 gu_read_wall_us=107.500 hidden_cpu_us=39.600 hidden_h2d_gpu_us=25.952 down_gpu_us=3812.352 output_d2h_gpu_us=155.456 down_wall_us=4010.267 dispatch_wall_us=6451.949
+request=89 op=2 in=41136 out=409600 status=0 wall_us=8693.962
+PROFILE type=16 M=4 entries=40 prep_wall_us=44.760 gu_gpu_us=2263.040 gu_wait_wall_us=2284.583 gu_d2h_gpu_us=93.600 gu_read_wall_us=109.929 hidden_cpu_us=39.150 hidden_h2d_gpu_us=23.328 down_gpu_us=3834.880 output_d2h_gpu_us=156.640 down_wall_us=4032.038 dispatch_wall_us=6510.460
+request=90 op=2 in=41136 out=409600 status=0 wall_us=8753.943
+PROFILE type=16 M=4 entries=40 prep_wall_us=36.269 gu_gpu_us=2231.296 gu_wait_wall_us=2259.513 gu_d2h_gpu_us=89.376 gu_read_wall_us=105.780 hidden_cpu_us=38.950 hidden_h2d_gpu_us=23.616 down_gpu_us=3832.832 output_d2h_gpu_us=158.816 down_wall_us=4031.577 dispatch_wall_us=6472.089
+request=91 op=2 in=41136 out=409600 status=0 wall_us=8681.482
+PROFILE type=16 M=4 entries=40 prep_wall_us=35.330 gu_gpu_us=2287.616 gu_wait_wall_us=2316.583 gu_d2h_gpu_us=89.440 gu_read_wall_us=106.109 hidden_cpu_us=39.530 hidden_h2d_gpu_us=22.912 down_gpu_us=3823.616 output_d2h_gpu_us=161.056 down_wall_us=4023.987 dispatch_wall_us=6521.539
+request=92 op=2 in=41136 out=409600 status=0 wall_us=8760.302
+PROFILE type=16 M=4 entries=40 prep_wall_us=37.890 gu_gpu_us=2251.776 gu_wait_wall_us=2281.563 gu_d2h_gpu_us=90.784 gu_read_wall_us=106.470 hidden_cpu_us=39.050 hidden_h2d_gpu_us=25.024 down_gpu_us=3842.048 output_d2h_gpu_us=160.416 down_wall_us=4044.127 dispatch_wall_us=6509.100
+request=93 op=2 in=41136 out=409600 status=0 wall_us=8757.953
+PROFILE type=16 M=8 entries=80 prep_wall_us=102.410 gu_gpu_us=4348.928 gu_wait_wall_us=4385.716 gu_d2h_gpu_us=165.760 gu_read_wall_us=184.140 hidden_cpu_us=102.909 hidden_h2d_gpu_us=41.504 down_gpu_us=7555.648 output_d2h_gpu_us=305.824 down_wall_us=7913.645 dispatch_wall_us=12688.820
+request=94 op=2 in=82256 out=819200 status=0 wall_us=17157.386
+PROFILE type=16 M=8 entries=27 prep_wall_us=63.510 gu_gpu_us=1723.392 gu_wait_wall_us=1763.815 gu_d2h_gpu_us=68.064 gu_read_wall_us=84.319 hidden_cpu_us=27.400 hidden_h2d_gpu_us=20.640 down_gpu_us=2634.752 output_d2h_gpu_us=111.744 down_wall_us=2784.411 dispatch_wall_us=4723.455
+request=95 op=5 in=82152 out=276480 status=0 wall_us=6236.831
+PROFILE type=16 M=8 entries=80 prep_wall_us=57.620 gu_gpu_us=4388.864 gu_wait_wall_us=4427.816 gu_d2h_gpu_us=162.784 gu_read_wall_us=178.939 hidden_cpu_us=77.470 hidden_h2d_gpu_us=27.776 down_gpu_us=7544.928 output_d2h_gpu_us=303.520 down_wall_us=7893.285 dispatch_wall_us=12635.130
+request=96 op=2 in=82256 out=819200 status=0 wall_us=17085.706
+PROFILE type=16 M=8 entries=80 prep_wall_us=61.010 gu_gpu_us=4359.168 gu_wait_wall_us=4398.036 gu_d2h_gpu_us=160.128 gu_read_wall_us=176.529 hidden_cpu_us=78.170 hidden_h2d_gpu_us=27.968 down_gpu_us=7560.224 output_d2h_gpu_us=303.712 down_wall_us=7908.995 dispatch_wall_us=12622.740
+request=97 op=2 in=82256 out=819200 status=0 wall_us=17067.876
+PROFILE type=16 M=8 entries=80 prep_wall_us=63.320 gu_gpu_us=4551.680 gu_wait_wall_us=4591.316 gu_d2h_gpu_us=154.304 gu_read_wall_us=170.239 hidden_cpu_us=78.740 hidden_h2d_gpu_us=27.936 down_gpu_us=7559.072 output_d2h_gpu_us=306.464 down_wall_us=7910.655 dispatch_wall_us=12814.270
+request=98 op=2 in=82256 out=819200 status=0 wall_us=17264.146
+PROFILE type=16 M=8 entries=80 prep_wall_us=61.810 gu_gpu_us=4431.872 gu_wait_wall_us=4472.036 gu_d2h_gpu_us=160.704 gu_read_wall_us=176.979 hidden_cpu_us=78.560 hidden_h2d_gpu_us=28.448 down_gpu_us=7553.600 output_d2h_gpu_us=308.736 down_wall_us=7907.835 dispatch_wall_us=12697.220
+request=99 op=2 in=82256 out=819200 status=0 wall_us=17154.696
+PROFILE type=16 M=8 entries=80 prep_wall_us=57.180 gu_gpu_us=4386.816 gu_wait_wall_us=4425.116 gu_d2h_gpu_us=163.520 gu_read_wall_us=180.739 hidden_cpu_us=90.330 hidden_h2d_gpu_us=28.032 down_gpu_us=7565.696 output_d2h_gpu_us=302.528 down_wall_us=7913.145 dispatch_wall_us=12666.510
+request=100 op=2 in=82256 out=819200 status=0 wall_us=17104.536
+PROFILE type=16 M=8 entries=80 prep_wall_us=57.550 gu_gpu_us=4384.768 gu_wait_wall_us=4423.596 gu_d2h_gpu_us=160.896 gu_read_wall_us=176.279 hidden_cpu_us=78.300 hidden_h2d_gpu_us=27.776 down_gpu_us=7548.448 output_d2h_gpu_us=304.768 down_wall_us=7897.755 dispatch_wall_us=12633.480
+request=101 op=2 in=82256 out=819200 status=0 wall_us=17122.716
+PROFILE type=16 M=8 entries=80 prep_wall_us=55.110 gu_gpu_us=4388.864 gu_wait_wall_us=4428.636 gu_d2h_gpu_us=159.360 gu_read_wall_us=175.919 hidden_cpu_us=77.980 hidden_h2d_gpu_us=27.648 down_gpu_us=7532.800 output_d2h_gpu_us=305.792 down_wall_us=7883.355 dispatch_wall_us=12621.000
+request=102 op=2 in=82256 out=819200 status=0 wall_us=17040.676
+PROFILE type=16 M=8 entries=80 prep_wall_us=56.100 gu_gpu_us=4407.296 gu_wait_wall_us=4453.376 gu_d2h_gpu_us=159.456 gu_read_wall_us=175.619 hidden_cpu_us=77.950 hidden_h2d_gpu_us=27.456 down_gpu_us=7556.704 output_d2h_gpu_us=302.880 down_wall_us=7903.875 dispatch_wall_us=12666.920
+request=103 op=2 in=82256 out=819200 status=0 wall_us=17128.196
+PROFILE type=16 M=8 entries=80 prep_wall_us=60.700 gu_gpu_us=4409.344 gu_wait_wall_us=4448.606 gu_d2h_gpu_us=159.456 gu_read_wall_us=175.389 hidden_cpu_us=84.660 hidden_h2d_gpu_us=29.056 down_gpu_us=7549.376 output_d2h_gpu_us=303.488 down_wall_us=7900.935 dispatch_wall_us=12670.290
+request=104 op=2 in=82256 out=819200 status=0 wall_us=17123.696
+PROFILE type=16 M=8 entries=80 prep_wall_us=68.670 gu_gpu_us=4375.552 gu_wait_wall_us=4409.346 gu_d2h_gpu_us=159.168 gu_read_wall_us=175.589 hidden_cpu_us=77.810 hidden_h2d_gpu_us=28.000 down_gpu_us=7558.176 output_d2h_gpu_us=310.304 down_wall_us=7913.955 dispatch_wall_us=12645.370
+request=105 op=2 in=82256 out=819200 status=0 wall_us=17063.656
+request=106 op=3 in=0 out=155 status=0 wall_us=119.119
+request=107 op=4 in=0 out=0 status=0 wall_us=316.379
+request=108 op=3 in=0 out=149 status=0 wall_us=65.840
+connection closed: socket IO closed or timed out: Numerical result out of range

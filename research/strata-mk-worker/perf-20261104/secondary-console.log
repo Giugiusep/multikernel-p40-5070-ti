@@ -1,0 +1,89 @@
+Script started on 2026-11-04 17:28:12+00:00 [COMMAND="/home/shiba/multikernel-experiment/venv/bin/kerf console rpc-p40" TERM="xterm-kitty" TTY="/dev/pts/2" COLUMNS="80" LINES="24"]
+Connecting to console for instance 'rpc-p40' (ID: 1)...
+Escape sequence: Ctrl+] followed by . to detach
+
+
+/bmk-rpc-p40# /bin/busybox ps | /bin/busybox grep '/tmp/worker'
+/busybox df -m /tmp
+nvidia-smi --query-gpu=name,memory.used,temperature.gpu,clocks.sm,clocks.mem --format=csv
+  168 0        /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-qualified
+  186 0        /bin/busybox grep /tmp/worker
+mk-rpc-p40# /bin/busybox df -m /tmp
+Filesystem           1M-blocks      Used Available Use% Mounted on
+tmpfs                      256       216        40  84% /tmp
+mk-rpc-p40# nvidia-smi --query-gpu=name,memory.used,temperature.gpu,clocks.sm,cl
+ocks.mem --format=csv
+name, memory.used [MiB], temperature.gpu, clocks.current.sm [MHz], clocks.current.memory [MHz]
+Tesla P40, 599 MiB, 53, 1303 MHz, 3615 MHz
+mk-rpc-p40# [6n/bin/busybox rm /tmp/pool-transfer.tar /tmp/qualified-transfer.tar /
+tmp/worker-exact-iq2 /tmp/worker-pool-exact
+bin/busybox df -m /tmp
+mk-rpc-p40# /bin/busybox df -m /tmp
+Filesystem           1M-blocks      Used Available Use% Mounted on
+tmpfs                      256        44       212  17% /tmp
+mk-rpc-p40# [6n/opt/mk-worker/vsock_file_pull client 0 /tmp/profile-transfer.tar
+received 45168640 bytes
+mk-rpc-p40# [6n/bin/busybox sha256sum /tmp/profile-transfer.tar
+/bin/busybox tar -xf /tmp/profile-transfer.tar -C /tmp
+MK_WORKER_PROFILE=1 MK_WORKER_CPU_COMPAT=1 MK_WORKER_CPU_EXACT_IQ2=1 MK_WORKER_CPU_POOL=1 MK_WORKER_PORT=6007 /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-profile-baseline > /tmp/profile-baseline.log 2>&1 &
+4ff043e4ec77b0efd985f76a528491189ade432be2bc63a904e6129b9d77dfb4  /tmp/profile-transfer.tar
+mk-rpc-p40# /bin/busybox tar -xf /tmp/profile-transfer.tar -C /tmp
+mk-rpc-p40# MK_WORKER_PROFILE=1 MK_WORKER_CPU_COMPAT=1 MK_WORKER_CPU_EXACT_IQ2=1
+ MK_WORKER_CPU_POOL=1 MK_WORKER_PORT=6007 /opt/mk-worker/runtime/ld-linux-x86-64
+.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tm
+p/worker-profile-baseline > /tmp/profile-baseline.log 2>&1 &
+mk-rpc-p40# [6n/bin/busybox grep 'M=1 entries=10' /tmp/profile-baseline.log | /bin/
+busybox tail -2
+-worker/vsock_file_pull server /tmp/profile-baseline.log
+PROFILE type=16 M=1 entries=10 prep_wall_us=20.880 gu_gpu_us=3192.832 gu_wait_wall_us=3217.930 gu_d2h_gpu_us=39.040 gu_read_wall_us=54.759 hidden_cpu_us=11.260 hidden_h2d_gpu_us=7.456 down_gpu_us=1001.472 output_d2h_gpu_us=50.752 down_wall_us=1066.937 dispatch_wall_us=4371.766
+PROFILE type=16 M=1 entries=10 prep_wall_us=19.870 gu_gpu_us=3193.856 gu_wait_wall_us=3209.910 gu_d2h_gpu_us=37.920 gu_read_wall_us=54.180 hidden_cpu_us=10.610 hidden_h2d_gpu_us=8.096 down_gpu_us=994.304 output_d2h_gpu_us=56.480 down_wall_us=1066.026 dispatch_wall_us=4360.596
+mk-rpc-p40# /opt/mk-worker/vsock_file_pull server /tmp/profile-baseline.log
+VSOCK_FILE_READY
+mk-rpc-p40# [6n/opt/mk-worker/vsock_file_pull client 0 /tmp/packed-transfer.tar
+received 45178880 bytes
+mk-rpc-p40# [6n/bin/busybox sha256sum /tmp/packed-transfer.tar
+ox grep worker-profile
+40cfddc38a6a0c30bc2ba94177e6ab9334c60125a7dbab6c8491715185f055ff  /tmp/packed-transfer.tar
+mk-rpc-p40# /bin/busybox ps | /bin/busybox grep worker-profile
+  195 0        /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-profile-baseline
+  204 0        /bin/busybox grep worker-profile
+mk-rpc-p40# [6n/bin/busybox kill 195
+bin/busybox tar -xf /tmp/packed-transfer.tar -C /tmp
+MK_WORKER_PROFILE=mk-rpc-p40# /bin/busybox tar -xf /tmp/packed-transfer.tar -C /tmp
+_WORKER_CPU_COMPAT=1 MK_WORKER_CPU_EXACT_IQ2=1 MK_WORKER_CPU_POOL=1 MK_WORKER_PORT=6007 /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-packed-iq2 > /tmp/profile-packed.log 2>&1 &
+mk-rpc-p40# MK_WORKER_PROFILE=1 MK_WORKER_PACKED_IQ2=1 MK_WORKER_CPU_COMPAT=1 MK
+_WORKER_CPU_EXACT_IQ2=1 MK_WORKER_CPU_POOL=1 MK_WORKER_PORT=6007 /opt/mk-worker/
+runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worke
+r:/opt/rpc/lib:/lib /tmp/worker-packed-iq2 > /tmp/profile-packed.log 2>&1 &
+[4]-  Terminated                 /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-profile-baseline 1>/tmp/profile-baseline.log 2>&1
+mk-rpc-p40# [6n/bin/busybox grep 'M=1 entries=10' /tmp/profile-packed.log | /bin/bu
+sybox tail -2
+/mk-worker/vsock_file_pull server /tmp/profile-packed.log
+PROFILE type=16 M=1 entries=10 prep_wall_us=19.210 gu_gpu_us=1232.896 gu_wait_wall_us=1248.366 gu_d2h_gpu_us=38.592 gu_read_wall_us=55.480 hidden_cpu_us=16.720 hidden_h2d_gpu_us=8.736 down_gpu_us=995.328 output_d2h_gpu_us=50.752 down_wall_us=1063.336 dispatch_wall_us=2403.112
+PROFILE type=16 M=1 entries=10 prep_wall_us=19.270 gu_gpu_us=1188.864 gu_wait_wall_us=1205.286 gu_d2h_gpu_us=38.400 gu_read_wall_us=54.950 hidden_cpu_us=10.430 hidden_h2d_gpu_us=7.840 down_gpu_us=1004.544 output_d2h_gpu_us=54.048 down_wall_us=1073.477 dispatch_wall_us=2363.413
+mk-rpc-p40# /opt/mk-worker/vsock_file_pull server /tmp/profile-packed.log
+VSOCK_FILE_READY
+mk-rpc-p40# [6n/bin/busybox ps | /bin/busybox grep worker-packed
+  207 0        /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-packed-iq2
+  214 0        /bin/busybox grep worker-packed
+mk-rpc-p40# [6n/bin/busybox kill 207
+_WORKER_PACKED_IQ2=1 MK_WORKER_CPU_COMPAT=1 MK_WORKER_CPU_EXACT_IQ2=mk-rpc-p40# MK_WORKER_PACKED_IQ2=1 MK_WORKER_CPU_COMPAT=1 MK_WORKER_CPU_EXACT_IQ
+2=1 MK_WORKER_CPU_POOL=1 MK_WORKER_PORT=6007 /opt/mk-worker/runtime/ld-linux-x86
+-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib 
+/tmp/worker-packed-iq2 > /tmp/model-packed.log 2>&1 &
+mk-rpc-p40# [6n
+[5]-  Terminated                 /opt/mk-worker/runtime/ld-linux-x86-64.so.2 --library-path /opt/mk-worker/runtime:/opt/mk-worker:/opt/rpc/lib:/lib /tmp/worker-packed-iq2 1>/tmp/profile-packed.log 2>&1
+mk-rpc-p40# [6ndmesg | /bin/busybox tail -n 12
+[  758.640220] multikernel: IPI ring full for instance 0 (head=8, tail=9)
+[  758.640222] Failed to send multikernel message: -28
+[  758.640554] multikernel: IPI ring full for instance 0 (head=23, tail=24)
+[  758.640555] Failed to send multikernel message: -28
+[  758.640692] multikernel: IPI ring full for instance 0 (head=19, tail=20)
+[  758.640694] Failed to send multikernel message: -28
+[  758.640709] multikernel: IPI ring full for instance 0 (head=25, tail=26)
+[  758.640710] Failed to send multikernel message: -28
+[  758.640827] multikernel: IPI ring full for instance 0 (head=12, tail=13)
+[  758.640829] Failed to send multikernel message: -28
+[  758.641052] multikernel: IPI ring full for instance 0 (head=43, tail=44)
+[  758.641053] Failed to send multikernel message: -28
+mk-rpc-p40# [6n

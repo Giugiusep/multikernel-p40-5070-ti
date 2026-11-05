@@ -125,7 +125,15 @@ def main():
     parser.add_argument("--diagnostic", action="store_true", help="Collect all CPU-comparison cases; still fail overall if the strict tolerance is exceeded")
     parser.add_argument("--layers", default="0,1,8")
     parser.add_argument("--require-exact", action="store_true")
+    parser.add_argument("--q8k-input", action="store_true", help="Exercise packed opcode 6 using the CPU oracle quantizer")
+    parser.add_argument("--rows", default="1,2,4,8")
+    parser.add_argument("--experts-per-row", type=int, choices=(1,2,10), default=10)
     args = parser.parse_args()
+    rows_values=tuple(int(x) for x in args.rows.split(","))
+    if not rows_values or any(x<1 or x>8 for x in rows_values):
+        parser.error("rows must be in 1..8")
+    if args.q8k_input and not args.cpu_reference:
+        parser.error("--q8k-input requires --cpu-reference")
     layers = tuple(int(x) for x in args.layers.split(","))
     weights = {(l, e): read_expert(l, e) for l in layers for e in (0, 511)}
     manifest = [{"layer": l, "expert": e, "gu_type": v[0], "down_type": 42,
@@ -133,7 +141,7 @@ def main():
                 for (l, e), v in weights.items()]
     result = {"checkpoint": str(SHARD), "weights": manifest,
               "scope": "real Qwen expert MLP only; not full model or DeepSeek", "runs": [],
-              "require_exact": args.require_exact,
+              "require_exact": args.require_exact, "input_format": "q8_k" if args.q8k_input else "f32",
               "cpu_reference_executable": str(args.cpu_reference) if args.cpu_reference else None,
               "cpu_reference_contract": ("actual Strata ActQ pool" if os.environ.get("MK_CPU_POOL_ORACLE") or "cpu_reference_pool" in str(args.cpu_reference) else "generic ggml native") if args.cpu_reference else "independent float dequantization"}
     args.output.write_text(json.dumps(result, indent=2) + "\n")
@@ -144,6 +152,9 @@ def main():
     try:
         result["before"] = json.loads(client.request(3))
         assert result["before"]["device"] == "Tesla P40" and result["before"]["sm"] == 61
+        if args.q8k_input:
+            assert result["before"].get("q8_k_input") is True
+            client.request(6, struct.pack("<4I",0,1,1,0)+struct.pack("<ii",0,0)+bytes(2919), expect_error="byte count")
         payloads = []
         for (layer, expert), (gu, blob, _) in weights.items():
             payload = struct.pack("<7I", layer, expert, gu, 42, H, FF, len(blob)) + blob
@@ -155,8 +166,8 @@ def main():
         client.request(99, expect_error="unknown")
         rng = np.random.default_rng(20261103)
         for layer in layers:
-            for rows in (1, 2, 4, 8):
-                k = 10
+            for rows in rows_values:
+                k = args.experts_per_row
                 x = (rng.standard_normal((rows, H)) * 0.02).astype("<f4")
                 ids = np.array([(0, 511)[i % 2] for i in range(rows * k)], dtype="<i4")
                 payload = struct.pack("<4I", layer, rows, k, 0) + ids.tobytes() + x.tobytes()
@@ -169,10 +180,19 @@ def main():
                         for expert in (0, 511):
                             gu, blob, _ = weights[(layer, expert)]
                             (d / "weights").write_bytes(blob)
-                            subprocess.run([str(args.cpu_reference), str(gu), str(rows), str(d / "weights"), str(d / "x"), str(d / "out")], check=True, timeout=30)
+                            subprocess.run([str(args.cpu_reference), str(gu), str(rows), str(d / "weights"), str(d / "x"), str(d / "out")], check=True, timeout=30, env=os.environ | ({"MK_CPU_REF_Q8K":"1"} if args.q8k_input else {}))
+                            if args.q8k_input:
+                                packed_input=(d / "out.q8k").read_bytes()
+                                assert len(packed_input)==rows*2920
                             cpu_outputs[expert] = np.fromfile(d / "out", dtype="<f4").reshape(rows, H)
                         expected = np.stack([cpu_outputs[int(e)][i // k] for i, e in enumerate(ids)])
-                raw = client.request(2, payload)
+                opcode=2
+                if args.q8k_input:
+                    opcode=6
+                    payload=struct.pack("<4I",layer,rows,rows*k,0)
+                    payload+=b"".join(struct.pack("<ii",int(e),i//k) for i,e in enumerate(ids))
+                    payload+=packed_input
+                raw = client.request(opcode, payload)
                 got = np.frombuffer(raw, dtype="<f4").reshape(rows * k, H)
                 assert np.isfinite(got).all()
                 rel = float(np.abs(got - expected).sum() / (np.abs(expected).sum() + 1e-30))
@@ -187,13 +207,29 @@ def main():
                 positions = list(range(rows * k - 1, -1, -3))
                 sparse = struct.pack("<4I", layer, rows, len(positions), 0)
                 sparse += b"".join(struct.pack("<ii", int(ids[i]), i // k) for i in positions)
-                sparse += x.tobytes()
-                sparse_got = np.frombuffer(client.request(5, sparse), dtype="<f4").reshape(len(positions), H)
-                assert np.array_equal(sparse_got, got[positions]), "sparse routing/reordering mismatch"
+                sparse += packed_input if args.q8k_input else x.tobytes()
+                sparse_raw=client.request(6 if args.q8k_input else 5, sparse)
+                sparse_got=np.frombuffer(sparse_raw,dtype="<f4").reshape(len(positions),H)
+                sparse_expected=got[positions]
+                if args.cpu_reference:
+                    # Sparse selection can change nt=2 to nt=1, which selects a
+                    # different CPU reduction. Compare to that actual sparse job.
+                    mapped={}
+                    with tempfile.TemporaryDirectory(prefix="cpu-sparse-",dir=ROOT) as temp:
+                        d=Path(temp)
+                        for expert in dict.fromkeys(int(ids[i]) for i in positions):
+                            ts=list(dict.fromkeys(i//k for i in positions if int(ids[i])==expert))
+                            gu,blob,_=weights[(layer,expert)]
+                            (d/"weights").write_bytes(blob);(d/"x").write_bytes(x[ts].tobytes())
+                            subprocess.run([str(args.cpu_reference),str(gu),str(len(ts)),str(d/"weights"),str(d/"x"),str(d/"out")],check=True,timeout=30)
+                            values=np.fromfile(d/"out",dtype="<f4").reshape(len(ts),H)
+                            for t,value in zip(ts,values):mapped[(expert,t)]=value.copy()
+                    sparse_expected=np.stack([mapped[(int(ids[i]),i//k)] for i in positions])
+                assert sparse_raw==sparse_expected.astype("<f4").tobytes(),"sparse CPU-contract routing mismatch"
                 timings = []
                 for _ in range(10):
                     start = time.monotonic_ns()
-                    again = client.request(2, payload)
+                    again = client.request(opcode, payload)
                     timings.append((time.monotonic_ns() - start) / 1e6)
                     assert again == raw, "repeated output changed"
                 record = {"layer": layer, "gu_type": weights[(layer, 0)][0], "M": rows,

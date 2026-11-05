@@ -4,6 +4,7 @@
 #include <cstdlib>
 extern "C" int mk_cpu_reference(int,const unsigned char*,const float*,int,float*);
 extern "C" int mk_cpu_pool_reference(int,const unsigned char*,const float*,int,float*);
+extern "C" int mk_cpu_quantized_raw(int,const float*,int,void*);
 extern "C" int mk_cpu_quantized_x(int,const float*,int,float*);
 int main(int argc,char**argv){
  if(argc!=6){fprintf(stderr,"usage: cpu_reference GU ROWS BLOB X OUTPUT\n");return 2;}
@@ -15,6 +16,11 @@ int main(int argc,char**argv){
  bool pool=getenv("MK_CPU_POOL_ORACLE")||std::string(argv[0]).find("cpu_reference_pool")!=std::string::npos;
  int code=pool?mk_cpu_pool_reference(gu,w.data(),x.data(),rows,out.data()):mk_cpu_reference(gu,w.data(),x.data(),rows,out.data());
  if(code||mk_cpu_quantized_x(gu,x.data(),rows,decoded.data()))return 1;
+ if(getenv("MK_CPU_REF_Q8K")){
+  std::vector<unsigned char> aq((size_t)rows*2920);
+  if(mk_cpu_quantized_raw(gu,x.data(),rows,aq.data()))return 1;
+  std::ofstream a(std::string(argv[5])+".q8k",std::ios::binary);a.write((char*)aq.data(),aq.size());if(!a)return 1;
+ }
  std::ofstream f(argv[5],std::ios::binary);f.write((char*)out.data(),out.size()*4);
  std::ofstream q(std::string(argv[5])+".qx",std::ios::binary);q.write((char*)decoded.data(),decoded.size()*4);return f&&q?0:1;
 }

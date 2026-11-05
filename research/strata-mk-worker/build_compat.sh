@@ -9,9 +9,10 @@ flags=(-ccbin /usr/bin/g++-13 -O2 -std=c++17 -arch=sm_61 -DSTRATA_EXPERIMENTAL_S
 cat > "$here/compat_iq.cu" <<'EOF'
 #include "/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/kernels/cuda/iq_kernels.cu"
 #include "compat-kernels.inc"
+#include "grouped-kernels.inc"
 EOF
 # No fast-math flag in this correctness experiment.
-if [[ ! -f $here/compat_iq.o || $here/compat-kernels.inc -nt $here/compat_iq.o || $src/src/kernels/cuda/iq_kernels.cu -nt $here/compat_iq.o ]]; then
+if [[ ! -f $here/compat_iq.o || $here/compat-kernels.inc -nt $here/compat_iq.o || $here/grouped-kernels.inc -nt $here/compat_iq.o || $src/src/kernels/cuda/iq_kernels.cu -nt $here/compat_iq.o ]]; then
     /usr/local/cuda-12.8/bin/nvcc "${flags[@]}" -c "$here/compat_iq.cu" -o "$here/compat_iq.o"
 fi
 /usr/bin/g++-13 -O2 -std=c++20 -I"$reference/include" -I"$reference/third_party/llama.cpp/ggml/include" -I"$reference/third_party/llama.cpp/ggml/src" -c "$here/cpu_math.cpp" -o "$here/cpu_math.o"

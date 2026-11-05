@@ -1,0 +1,90 @@
+{
+  "q8shadow1024": {
+    "passed": true,
+    "tokens": 1452,
+    "warm_tps": 14.523456582666675,
+    "timing_totals": {
+      "calls": 17750.0,
+      "entries": 36540.0,
+      "loads": 626.0,
+      "input_bytes": 166011840.0,
+      "prepare_us": 8347149.330000001,
+      "send_us": 372466.57800000004,
+      "cpu_window_us": 30515073.443999995,
+      "join_us": 11004901.318000002
+    },
+    "timing_per_call": {
+      "input_bytes": 9352.77971830986,
+      "prepare_us": 470.2619340845071,
+      "send_us": 20.984032563380286,
+      "cpu_window_us": 1719.1590672676052,
+      "join_us": 619.9944404507044
+    }
+  },
+  "float1024": {
+    "passed": true,
+    "tokens": 1452,
+    "warm_tps": 35.91570198872069,
+    "timing_totals": {
+      "calls": 17750.0,
+      "entries": 36540.0,
+      "loads": 626.0,
+      "input_bytes": 580733760.0,
+      "prepare_us": 8666988.509,
+      "send_us": 2769292.0279999995,
+      "cpu_window_us": 15158170.648,
+      "join_us": 5115419.693999999
+    },
+    "timing_per_call": {
+      "input_bytes": 32717.394929577466,
+      "prepare_us": 488.28104276056337,
+      "send_us": 156.0164522816901,
+      "cpu_window_us": 853.9814449577465,
+      "join_us": 288.19265881690137
+    }
+  },
+  "q8run1024": {
+    "passed": true,
+    "tokens": 1452,
+    "warm_tps": 36.19124530784991,
+    "timing_totals": {
+      "calls": 17750.0,
+      "entries": 36540.0,
+      "loads": 626.0,
+      "input_bytes": 166011840.0,
+      "prepare_us": 7279123.603000001,
+      "send_us": 335584.6000000001,
+      "cpu_window_us": 16998658.687,
+      "join_us": 5186111.153999998
+    },
+    "timing_per_call": {
+      "input_bytes": 9352.77971830986,
+      "prepare_us": 410.09147059154935,
+      "send_us": 18.90617464788733,
+      "cpu_window_us": 957.670911943662,
+      "join_us": 292.17527628169006
+    }
+  },
+  "q8run1024b": {
+    "passed": true,
+    "tokens": 1452,
+    "warm_tps": 37.54712785159058,
+    "timing_totals": {
+      "calls": 17750.0,
+      "entries": 36540.0,
+      "loads": 626.0,
+      "input_bytes": 166011840.0,
+      "prepare_us": 9207248.417,
+      "send_us": 361957.396,
+      "cpu_window_us": 17511814.204,
+      "join_us": 5891080.006
+    },
+    "timing_per_call": {
+      "input_bytes": 9352.77971830986,
+      "prepare_us": 518.7182206760563,
+      "send_us": 20.391965971830988,
+      "cpu_window_us": 986.581081915493,
+      "join_us": 331.8918313239437
+    }
+  }
+}

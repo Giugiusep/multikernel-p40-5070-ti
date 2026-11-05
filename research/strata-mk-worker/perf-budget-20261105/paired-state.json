@@ -1,0 +1,12 @@
+{
+  "restore_model": "qwen3.8-flash-next-strata",
+  "phase": "complete; API restoration pending",
+  "completed": [
+    "control32",
+    "shadow1024",
+    "budget1024",
+    "budget4096"
+  ],
+  "running": "budget4096",
+  "started": 1793898577.3012276
+}

@@ -1,0 +1,26 @@
+{
+  "control32": {
+    "passed": true,
+    "warm_tps": 39.449875292749596,
+    "warm_read_mib": 0.0,
+    "all_tokens": 1452
+  },
+  "shadow1024": {
+    "passed": true,
+    "warm_tps": 33.857360711470925,
+    "warm_read_mib": 0.0,
+    "all_tokens": 1452
+  },
+  "budget1024": {
+    "passed": true,
+    "warm_tps": 34.95409266204785,
+    "warm_read_mib": 0.0,
+    "all_tokens": 1452
+  },
+  "budget4096": {
+    "passed": true,
+    "warm_tps": 18.757024195527766,
+    "warm_read_mib": 0.0,
+    "all_tokens": 1452
+  }
+}

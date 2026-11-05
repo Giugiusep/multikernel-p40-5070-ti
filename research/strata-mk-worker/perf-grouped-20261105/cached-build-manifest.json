@@ -1,0 +1,14 @@
+{
+  "worker_sha256": "d96133d2923147702cd515d544d5e67a935a26af59964904fe20b1eb2e7dbbb8",
+  "archive_sha256": "e320afde4652ae552ec95f701246cf95ff81ffeda20f97c86a5040ae92b74126",
+  "sources": {
+    "worker.cpp": "5461230926d9987d535c12d600b4fa349072f3d61cb5d8c12e241211819973b4",
+    "compat-kernels.inc": "0bc509c774fec0aa5811bbf5651060e7c81d607fdc37159e2039ca305ac13201",
+    "grouped-kernels.inc": "f0f8d56ad3eefa4ad30b53d9a9588c19788ef2d555f8d3c4de48484b238c21c9",
+    "build_compat.sh": "668c04ec4b0552686c693a66cdae00a63eea955199e713f363a0e844c930d4c3",
+    "cpu_math.cpp": "59decd9cdfc1f6880135abedb74521a058e871b0a456753742f8b16b07fae370",
+    "legacy_act.h": "3f5613378d7c93a41e71ec240d8a229f46d7d6c0baf37b1066ecfdc4350f4d5c"
+  },
+  "native_cuda_source_commit": "c62d5e3a15b40ea51c96aae9e8d36928965f53ab",
+  "primary_source_commit": "25751c54fa2f82cd8325744e85355a13d955618e"
+}

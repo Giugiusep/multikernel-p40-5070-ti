@@ -1,0 +1,33 @@
+--- a/worker.cpp
++++ b/worker.cpp
+@@ -24,6 +24,7 @@
+ void mk_compatible_gu_launch(int,NativeExpertLayout,const unsigned long long*,const int32_t*,const float*,int,float*,float*,void*);
+ void mk_compatible_down_launch(NativeExpertLayout,const unsigned long long*,const void*,int,float*,void*);
+ void mk_exact_iq2_gu_launch(int,NativeExpertLayout,const unsigned long long*,const int32_t*,const int32_t*,const void*,int,float*,float*,void*);
++void mk_prepack_iq2_launch(int,NativeExpertLayout,uint8_t*,void*);
+ void mk_cpu_pool_down_launch(NativeExpertLayout,const unsigned long long*,const void*,int,float*,void*);
+ }
+ #endif
+@@ -98,9 +99,20 @@
+ #if MK_ENABLE_CPU_COMPAT
+    if(getenv("MK_WORKER_CPU_EXACT_IQ2")&&gu==29)throw std::runtime_error("exact IQ2 worker does not offload IQ1_M");
+ #endif
+-   if(resident+L.bytes>cache_limit())throw std::runtime_error("experimental cache byte limit");
++   size_t extra=0;
++#if MK_ENABLE_CPU_COMPAT
++   if(getenv("MK_WORKER_PREPACK_IQ2")){
++    if((gu!=16&&gu!=22)||!getenv("MK_WORKER_CPU_EXACT_IQ2")||!getenv("MK_WORKER_PACKED_IQ2"))throw std::runtime_error("prepack requires packed exact IQ2 mode");
++    extra=(size_t)2*FF*(H/4)*5;
++   }
++#endif
++   if(resident+L.bytes+extra>cache_limit())throw std::runtime_error("experimental cache byte limit");
+    auto& e=cache[{layer,id}];e.layout=L;
+-   ck(cudaMalloc(&e.p,L.bytes));ck(cudaMemcpy(e.p,b.data()+28,L.bytes,cudaMemcpyHostToDevice));resident+=L.bytes;
++   ck(cudaMalloc(&e.p,L.bytes+extra));ck(cudaMemcpy(e.p,b.data()+28,L.bytes,cudaMemcpyHostToDevice));
++#if MK_ENABLE_CPU_COMPAT
++   if(extra){mk_prepack_iq2_launch(gu,L,e.p,stream);ck(cudaGetLastError());ck(cudaStreamSynchronize(stream));}
++#endif
++   resident+=L.bytes+extra;
+    return {};
+   }
+   if(op==2||op==5){

@@ -1226,3 +1226,30 @@ These arms do not establish a causal speedup: identical control prompts varied r
 No worker-count change accepted. Primary topology exposes8 separate cores/no SMT siblings. Added per-request /proc PID I/O and global I/O pressure counters. Seven-worker fast vs slow repeat read about14–16MiB/request in both. Global full I/O-stall deltas for first3 prompts:fast75.7/75.1/69.4ms,slow783.5/1047.0/626.4ms; these system-wide counters correlate with slowness but cannot explain the whole3–5s decode difference or attribute all stalls to this model. Memory high/max/OOM counters stayed0, guest steal negligible. Next useful investigation is a joint primary coordinator/CPU-pool/PLE I/O timeline, not another unqualified cache expansion.
 
 Final secondary dmesg still ends at old758.641s upload ring-full burst; no new ring-full tail. Full dmesg grep found0 Xid,RmInitAdapter,Out-of-memory,soft-lockup entries. P40 visible,idle749MiB,53C,1303MHzSM/3615MHzmemory after candidate stopped. Existing old softirq warning not cleared. Evidence and failed gates retained under research/strata-mk-worker/perf-20261105. No new production generation-speed improvement claimed.
+
+
+## 2026-11-05 — exact grouped SM61 expert kernels and frozen end-to-end gate
+
+Production remains unchanged: original Strata executable/config, NVIDIA stacks, Multikernel kernel, primary write pacing and RPC5000/5002. No secondary restart, RAM expansion or full-model filesystem bridge. Experimental worker6008 stopped after validation; fallback6006/6007 retained. API restored healthy with qwen3.8-flash-next-strata. Secondary dmesg still ends at historical758.641s ring-full burst; zero Xid/RmInitAdapter/OOM/soft-lockup matches, no new ring-full tail.
+
+Accepted only as isolated opt-in research: exact Q8_K input wire format (op6), bounded expert-row result admission, and grouped SM61 IQ2 kernels. Primary source commits fc69e98 (limits/profile), b6022b3 (Q8_K wire),25751c5 (singleton policy); entry-budget commit recorded separately below. Worker default legacy contract remains available. Q8_K wire carries the actual CPU quantized activations rather than re-quantizing on secondary; request body fell from32717 to9353 bytes on average and send time from156 to19–20us. Existing32KiB/100us pacing retained. Whole expert groups admitted; no partial-row change to CPU reduction contract. Worker cache bounded6144MiB GPU only, primary owns full expert arena/PLE.
+
+Grouped kernels reuse decoded packed weights across verification rows, with cached per-row pointers and restrict-qualified disjoint buffers. No Tensor Core instructions or materialized FP32 weights. Independent sparse CPU oracle recomputes each expert's actual row count, preserving nt=1 AVX2 versus nt>=2 AVX512 semantics. Widths1–8, both IQ2 types, sparse routing and ten repeats passed byte-exact output checks. Duplicate expert/token entries use qualified legacy fallback. Two-expert round trips: M1 original~0.99–1.04ms to0.44–0.49ms; M4~2.39ms to0.97–0.98ms; M8~3.84–4.32ms to1.73–1.75ms. One-expert M1~0.60ms to0.29–0.31ms. These are probes, not inference speed claims.
+
+Rejected experiments retained as patches/evidence: DP4A ordinary and grouped variants, expanded integer prepacking, primary THP arena and pinned staging. No reliable full-model gain established. Earlier exploratory timings sometimes overlapped compilation and showed large control variance; do not use small differences from those runs as causal evidence. The final matrix freezes binaries, checks for visible compiler processes before each arm and executes no builds or transport-console work during measurement.
+
+Final matched contract: greedy, context2048, native spec4, suffix draft disabled, four prompts replayed twice. Each arm verified1452 committed tokens against original target; second pass726 tokens used for warm aggregate generation (total tokens divided by summed decode time). This diagnostic contract is NOT production262K context or a universally validated default suffix path. Shadow checks additionally compare every remote expert output byte-for-byte. Timing-dependent suffix verification sensitivity remains unresolved; no general correctness claim.
+
+| frozen arm | warm generation tok/s | exact tokens |
+|---|---:|---:|
+| RTX/CPU-only control A |41.002|1452|
+| grouped P40 one expert/layer |39.741|1452|
+| grouped P40 max2 result entries |39.565|1452|
+| grouped P40 max3 result entries |40.040|1452|
+| singleton-only max3 |19.538|1452|
+| RTX/CPU-only control B |41.919|1452|
+| max3 shadow, correctness only |18.733|1452|
+
+Conclusion: substantial isolated P40 kernel improvement, **no end-to-end speedup over RTX/CPU-only**. No promotion to production. Three results occupy30720 bytes, below one32KiB chunk, yet that policy still loses to controls. Current bottleneck cannot be fixed by treating P40 VRAM bandwidth alone as the objective. Next focused hypothesis is duplicate primary Q8_K activation quantization (wire preparation and CPU dispatch), followed by joint CPU-pool/request critical-path measurement; neither optimization implemented or claimed here. Singleton policy regression retained, not selected.
+
+Evidence: research/strata-mk-worker/perf-{dp4a,thp,budget,packed-input,cap,singleton,pinned,grouped,final}-20261105. Frozen summary and API restoration saved under perf-final-20261105. Source/runtime binaries separate; no models, secrets or generated binaries committed.

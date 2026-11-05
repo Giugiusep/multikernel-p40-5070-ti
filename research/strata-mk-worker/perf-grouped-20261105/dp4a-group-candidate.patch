@@ -1,0 +1,109 @@
+--- a/grouped-kernels.inc
++++ b/grouped-kernels.inc
+@@ -1,7 +1,7 @@
+ // Same CPU-pool integer/FMA contract, with weight decoding shared across rows.
+ namespace strata::kernels {
+ namespace {
+-template<int TYPE, int T>
++template<int TYPE, int T, bool DOT>
+ __global__ void mk_group_gu(NativeExpertLayout L,const unsigned long long* ptr,
+  const int32_t* token,const int32_t* starts,const int32_t* dst,
+  const block_q8_K* x,float* gate,float* up){
+@@ -17,14 +17,24 @@
+   if(lane<lanes){
+    for(int chunk=0;chunk<256/(lanes*4);chunk++){
+     int k=chunk*lanes*4+lane*4;
+-    int4 gw=mk_iq2_coeff4<TYPE>(gr+b*bytes,k),uw=mk_iq2_coeff4<TYPE>(ur+b*bytes,k);
++    int gf=1,uf=1;int4 gw,uw;
++    if constexpr(DOT){gw=mk_iq2_coeff4<TYPE,true>(gr+b*bytes,k,&gf);uw=mk_iq2_coeff4<TYPE,true>(ur+b*bytes,k,&uf);}
++    else {gw=mk_iq2_coeff4<TYPE>(gr+b*bytes,k);uw=mk_iq2_coeff4<TYPE>(ur+b*bytes,k);}
++    int gp=0,upack=0;
++    if constexpr(DOT){
++     gp=(uint8_t)gw.x|((uint32_t)(uint8_t)gw.y<<8)|((uint32_t)(uint8_t)gw.z<<16)|((uint32_t)(uint8_t)gw.w<<24);
++     upack=(uint8_t)uw.x|((uint32_t)(uint8_t)uw.y<<8)|((uint32_t)(uint8_t)uw.z<<16)|((uint32_t)(uint8_t)uw.w<<24);
++    }
+     #pragma unroll
+     for(int t=0;t<T;t++)if(t<n){
+      const auto& a=x[(size_t)token[dst[first+t]]*10+b];
++     if constexpr(DOT){int aq;memcpy(&aq,a.qs+k,4);gi[t]+=gf*__dp4a(gp,aq,0);ui[t]+=uf*__dp4a(upack,aq,0);}
++     else{
+      gi[t]+=gw.x*(int)a.qs[k];ui[t]+=uw.x*(int)a.qs[k];
+      gi[t]+=gw.y*(int)a.qs[k+1];ui[t]+=uw.y*(int)a.qs[k+1];
+      gi[t]+=gw.z*(int)a.qs[k+2];ui[t]+=uw.z*(int)a.qs[k+2];
+      gi[t]+=gw.w*(int)a.qs[k+3];ui[t]+=uw.w*(int)a.qs[k+3];
++     }
+     }
+    }
+    float gd=__half2float(*(const __half*)(gr+b*bytes));
+@@ -50,7 +60,7 @@
+   }
+  }
+ }
+-template<int T>
++template<int T,bool DOT>
+ __global__ void mk_group_down(NativeExpertLayout L,const unsigned long long* ptr,
+  const int32_t* starts,const int32_t* dst,const MkLegacyAct* hq,float* out){
+  int lane=threadIdx.x&31,row=blockIdx.x*4+(threadIdx.x>>5),group=blockIdx.y;
+@@ -67,11 +77,14 @@
+   for(int i=0;i<nb;i++)if(lane<16){
+    int b=b0+i,byte=w[b].qs[lane];float d=__half2float(w[b].d);
+    int q0=byte&3,q1=(byte>>2)&3,q2=(byte>>4)&3,q3=(byte>>6)&3;
++   int packed=q0|(q1<<8)|(q2<<16)|(q3<<24);
+    #pragma unroll
+    for(int t=0;t<T;t++)if(t<n){
+     const auto& h=hq[dst[first+t]];
+     int k=b*64+lane*4;
+-    int dot=q0*(int)h.q[k]+q1*(int)h.q[k+1]+q2*(int)h.q[k+2]+q3*(int)h.q[k+3];
++    int dot;
++    if constexpr(DOT){int aq;memcpy(&aq,h.q+k,4);dot=__dp4a(packed,aq,0);}
++    else dot=q0*(int)h.q[k]+q1*(int)h.q[k+1]+q2*(int)h.q[k+2]+q3*(int)h.q[k+3];
+     float scale=__fmul_rn(d,h.scale[2*b+(lane>=8)]);
+     acc[t]=__fmaf_rn(scale,(float)dot,acc[t]);
+    }
+@@ -86,25 +99,37 @@
+   if(lane==0)out[dst[first+t]*L.n_embd+row]=__fsub_rn(acc[t],corr[t]);
+  }
+ }
+-template<int T>
++template<int T,bool DOT>
+ void launch_group_gu(int type,NativeExpertLayout L,const unsigned long long* ptr,const int32_t* tok,
+  const int32_t* starts,const int32_t* dst,const void* x,int groups,float* gate,float* up,void* stream){
+  dim3 grid((unsigned)(L.n_ff/4),(unsigned)groups);
+- if(type==16)mk_group_gu<16,T><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,starts,dst,(const block_q8_K*)x,gate,up);
+- else mk_group_gu<22,T><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,starts,dst,(const block_q8_K*)x,gate,up);
++ if(type==16)mk_group_gu<16,T,DOT><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,starts,dst,(const block_q8_K*)x,gate,up);
++ else mk_group_gu<22,T,DOT><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,starts,dst,(const block_q8_K*)x,gate,up);
+ }
+ }
+ void mk_group_gu_launch(int type,NativeExpertLayout L,const unsigned long long* ptr,const int32_t* tok,
+  const int32_t* starts,const int32_t* dst,const void* x,int groups,int max_rows,float* gate,float* up,void* stream){
+- if(max_rows<=2)launch_group_gu<2>(type,L,ptr,tok,starts,dst,x,groups,gate,up,stream);
+- else if(max_rows<=4)launch_group_gu<4>(type,L,ptr,tok,starts,dst,x,groups,gate,up,stream);
+- else launch_group_gu<8>(type,L,ptr,tok,starts,dst,x,groups,gate,up,stream);
++ if(std::getenv("MK_WORKER_GROUPED_DP4A")){
++  if(max_rows<=2)launch_group_gu<2,true>(type,L,ptr,tok,starts,dst,x,groups,gate,up,stream);
++  else if(max_rows<=4)launch_group_gu<4,true>(type,L,ptr,tok,starts,dst,x,groups,gate,up,stream);
++  else launch_group_gu<8,true>(type,L,ptr,tok,starts,dst,x,groups,gate,up,stream);
++ }else{
++  if(max_rows<=2)launch_group_gu<2,false>(type,L,ptr,tok,starts,dst,x,groups,gate,up,stream);
++  else if(max_rows<=4)launch_group_gu<4,false>(type,L,ptr,tok,starts,dst,x,groups,gate,up,stream);
++  else launch_group_gu<8,false>(type,L,ptr,tok,starts,dst,x,groups,gate,up,stream);
++ }
+ }
+ void mk_group_down_launch(NativeExpertLayout L,const unsigned long long* ptr,const int32_t* starts,
+  const int32_t* dst,const void* hq,int groups,int max_rows,float* out,void* stream){
+  dim3 grid((unsigned)(L.n_embd/4),(unsigned)groups);
+- if(max_rows<=2)mk_group_down<2><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,starts,dst,(const MkLegacyAct*)hq,out);
+- else if(max_rows<=4)mk_group_down<4><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,starts,dst,(const MkLegacyAct*)hq,out);
+- else mk_group_down<8><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,starts,dst,(const MkLegacyAct*)hq,out);
++ if(std::getenv("MK_WORKER_GROUPED_DP4A")){
++  if(max_rows<=2)mk_group_down<2,true><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,starts,dst,(const MkLegacyAct*)hq,out);
++  else if(max_rows<=4)mk_group_down<4,true><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,starts,dst,(const MkLegacyAct*)hq,out);
++  else mk_group_down<8,true><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,starts,dst,(const MkLegacyAct*)hq,out);
++ }else{
++  if(max_rows<=2)mk_group_down<2,false><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,starts,dst,(const MkLegacyAct*)hq,out);
++  else if(max_rows<=4)mk_group_down<4,false><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,starts,dst,(const MkLegacyAct*)hq,out);
++  else mk_group_down<8,false><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,starts,dst,(const MkLegacyAct*)hq,out);
++ }
+ }
+ }

@@ -1,0 +1,57 @@
+From 52b3090c39a6297f57dc8d5554f1c84f1a83ea78 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Thu, 5 Nov 2026 18:37:32 +0000
+Subject: [PATCH] Bound opt-in remote expert results without splitting expert
+ rows
+
+---
+ src/core/mk_expert_client.hpp | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/src/core/mk_expert_client.hpp b/src/core/mk_expert_client.hpp
+index 12ff33c..58cb6a6 100644
+--- a/src/core/mk_expert_client.hpp
++++ b/src/core/mk_expert_client.hpp
+@@ -29,6 +29,7 @@ class MkExpertClient {
+     std::set<std::pair<int,int>> selected_,loaded_;
+     std::vector<int> positions_;
+     std::vector<float> results_;
++    unsigned entry_limit_=80;
+     bool singleton_wide_=getenv("STRATA_MK_EXPERT_SINGLETON_WIDE")&&strcmp(getenv("STRATA_MK_EXPERT_SINGLETON_WIDE"),"1")==0;
+     bool packed_input_=getenv("STRATA_MK_EXPERT_Q8K_INPUT")&&strcmp(getenv("STRATA_MK_EXPERT_Q8K_INPUT"),"1")==0;
+     bool shadow_=true;
+@@ -105,6 +106,11 @@ public:
+             if(!*v||*end||n<1||n>4096)throw std::runtime_error("expert pair limit must be 1..4096");
+             pair_limit=n;
+         }
++        if(const char* v=getenv("STRATA_MK_EXPERT_MAX_ENTRIES")){
++            char* end=nullptr;unsigned long n=strtoul(v,&end,10);
++            if(!*v||*end||n<1||n>80)throw std::runtime_error("remote result entry limit must be 1..80");
++            entry_limit_=(unsigned)n;
++        }
+         std::ifstream in(pairs);int l,e;
+         while(in>>l>>e){
+             if(l<0||l>=48||e<0||e>=512||!selected_.insert({l,e}).second||selected_.size()>pair_limit)
+@@ -159,10 +165,17 @@ public:
+             if(!*v||*end||n<1||n>10)throw std::runtime_error("per-layer expert limit must be 1..10");
+             limit=(unsigned)n;
+         }
++        uint8_t row_counts[512]={};
++        if(entry_limit_<80)for(int i=0;i<rows*k;i++)
++            if(kind[i]==-1&&selected_.count({(int)d.layers,(int)ids[i]}))++row_counts[ids[i]];
++        unsigned admitted_entries=0;
+         std::set<int> admitted;
+         for(int i=0;i<rows*k;i++){
+-            if(kind[i]==-1&&selected_.count({(int)d.layers,(int)ids[i]})&&admitted.size()<limit
+-               &&(!singleton_wide_||__builtin_popcount((unsigned)row_masks[ids[i]])==1))admitted.insert(ids[i]);
++            if(kind[i]==-1&&selected_.count({(int)d.layers,(int)ids[i]})&&admitted.size()<limit&&!admitted.count(ids[i])
++               &&admitted_entries+row_counts[ids[i]]<=entry_limit_
++               &&(!singleton_wide_||__builtin_popcount((unsigned)row_masks[ids[i]])==1)){
++                admitted.insert(ids[i]);admitted_entries+=row_counts[ids[i]];
++            }
+         }
+         for(int i=0;i<rows*k;i++){
+             if(!admitted.count(ids[i]))continue;
+-- 
+2.53.0
+

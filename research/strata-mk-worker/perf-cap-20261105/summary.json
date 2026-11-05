@@ -1,0 +1,82 @@
+{
+  "cap2-control": {
+    "passed": true,
+    "warm_tps": 36.19395172145614,
+    "timing_totals": {
+      "calls": 17750.0,
+      "entries": 36540.0,
+      "loads": 626.0,
+      "input_bytes": 166011840.0,
+      "prepare_us": 8180130.262000001,
+      "send_us": 393228.4500000001,
+      "cpu_window_us": 17168889.702,
+      "join_us": 5788462.8500000015
+    },
+    "timing_per_call": {
+      "prepare_us": 460.8524091267606,
+      "send_us": 22.153715492957755,
+      "cpu_window_us": 967.2613916619719,
+      "join_us": 326.11058309859163
+    }
+  },
+  "cap1": {
+    "passed": true,
+    "warm_tps": 38.62400646925508,
+    "timing_totals": {
+      "calls": 17750.0,
+      "entries": 24828.0,
+      "loads": 533.0,
+      "input_bytes": 165918144.0,
+      "prepare_us": 6938273.447999999,
+      "send_us": 333871.40200000006,
+      "cpu_window_us": 17609010.314,
+      "join_us": 2658612.397
+    },
+    "timing_per_call": {
+      "prepare_us": 390.8886449577464,
+      "send_us": 18.809656450704228,
+      "cpu_window_us": 992.0569190985915,
+      "join_us": 149.78098011267605
+    }
+  },
+  "cap1b": {
+    "passed": true,
+    "warm_tps": 38.20931970569351,
+    "timing_totals": {
+      "calls": 17750.0,
+      "entries": 24828.0,
+      "loads": 533.0,
+      "input_bytes": 165918144.0,
+      "prepare_us": 8429595.483000001,
+      "send_us": 348835.235,
+      "cpu_window_us": 19059725.478,
+      "join_us": 3124805.777
+    },
+    "timing_per_call": {
+      "prepare_us": 474.90678777464797,
+      "send_us": 19.652689295774646,
+      "cpu_window_us": 1073.7873508732393,
+      "join_us": 176.04539588732393
+    }
+  },
+  "cap2-controlb": {
+    "passed": true,
+    "warm_tps": 37.069753429973396,
+    "timing_totals": {
+      "calls": 17750.0,
+      "entries": 36540.0,
+      "loads": 626.0,
+      "input_bytes": 166011840.0,
+      "prepare_us": 8174067.669,
+      "send_us": 342717.9,
+      "cpu_window_us": 17186571.273,
+      "join_us": 5768393.003999999
+    },
+    "timing_per_call": {
+      "prepare_us": 460.5108545915493,
+      "send_us": 19.308050704225355,
+      "cpu_window_us": 968.2575365070421,
+      "join_us": 324.9798875492957
+    }
+  }
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "case": "baseline-rtx-disabled-gate",
+    "tokens_verified": 1452,
+    "warm_tokens": 726,
+    "warm_generation_tps": 41.00189196057945
+  },
+  {
+    "case": "baseline-rtxb-disabled-gate",
+    "tokens_verified": 1452,
+    "warm_tokens": 726,
+    "warm_generation_tps": 41.91927940412264
+  },
+  {
+    "case": "group-all1-offload-gate",
+    "tokens_verified": 1452,
+    "warm_tokens": 726,
+    "warm_generation_tps": 39.740754526942695
+  },
+  {
+    "case": "group-budget2-offload-gate",
+    "tokens_verified": 1452,
+    "warm_tokens": 726,
+    "warm_generation_tps": 39.56532638669384
+  },
+  {
+    "case": "group-budget3-offload-gate",
+    "tokens_verified": 1452,
+    "warm_tokens": 726,
+    "warm_generation_tps": 40.04037128344281
+  },
+  {
+    "case": "group-singleton3-offload-gate",
+    "tokens_verified": 1452,
+    "warm_tokens": 726,
+    "warm_generation_tps": 19.538293440408204
+  },
+  {
+    "case": "shadow-budget3-shadow-gate",
+    "tokens_verified": 1452,
+    "warm_tokens": 726,
+    "warm_generation_tps": 18.732873354422868
+  }
+]

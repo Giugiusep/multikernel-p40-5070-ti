@@ -1,0 +1,116 @@
+{
+  "checkpoint": "/home/shiba/models/qwen3.8-flash-next-gsq-rco/IQ2_XS/Qwen3.8-Flash-Next-GSQ-RCO-IQ2_XS-00001-of-00002.gguf",
+  "weights": [
+    {
+      "layer": 0,
+      "expert": 0,
+      "gu_type": 22,
+      "down_type": 42,
+      "bytes": 1510400,
+      "sha256": "79e966e3393d404ba994f9b8aadad7125fc420360106ef48eb2591db5462bcd9"
+    },
+    {
+      "layer": 0,
+      "expert": 511,
+      "gu_type": 22,
+      "down_type": 42,
+      "bytes": 1510400,
+      "sha256": "3b9fd424522d3c5fec1581c761723708482319ddbd2a9a2243cec4fdde676f44"
+    },
+    {
+      "layer": 1,
+      "expert": 0,
+      "gu_type": 16,
+      "down_type": 42,
+      "bytes": 1305600,
+      "sha256": "a990de5c62cfdb63a0c362b593d292f04674b0eec04d8bba74d90c6052bd2baa"
+    },
+    {
+      "layer": 1,
+      "expert": 511,
+      "gu_type": 16,
+      "down_type": 42,
+      "bytes": 1305600,
+      "sha256": "0e1778ad7ac02b7e815464a5852bce82d75e79787e254e2c896696a068f6cae6"
+    }
+  ],
+  "scope": "real Qwen expert MLP only; not full model or DeepSeek",
+  "runs": [
+    {
+      "layer": 0,
+      "gu_type": 22,
+      "M": 1,
+      "entries": 1,
+      "relative_L1": 0.0,
+      "cosine": 1.0000000000000007,
+      "max_entry_relative_L1": 0.0,
+      "median_roundtrip_ms": 0.5828365,
+      "max_roundtrip_ms": 0.595637,
+      "exact_repeated_outputs": 10,
+      "sparse_routing_exact": true,
+      "cpu_quantized_reference": true,
+      "within_strict_tolerance": true,
+      "reference_bytes_equal": true
+    },
+    {
+      "layer": 1,
+      "gu_type": 16,
+      "M": 1,
+      "entries": 1,
+      "relative_L1": 0.0,
+      "cosine": 1.0,
+      "max_entry_relative_L1": 0.0,
+      "median_roundtrip_ms": 0.560046,
+      "max_roundtrip_ms": 0.572677,
+      "exact_repeated_outputs": 10,
+      "sparse_routing_exact": true,
+      "cpu_quantized_reference": true,
+      "within_strict_tolerance": true,
+      "reference_bytes_equal": true
+    }
+  ],
+  "require_exact": true,
+  "input_format": "q8_k",
+  "cpu_reference_executable": "/home/shiba/multikernel-experiment/research/strata-mk-worker/cpu_reference_pool",
+  "cpu_reference_contract": "actual Strata ActQ pool",
+  "before": {
+    "device": "Tesla P40",
+    "sm": 61,
+    "experts": 0,
+    "resident_bytes": 0,
+    "free_bytes": 24682037248,
+    "total_bytes": 25625886720,
+    "pinned_staging": true,
+    "q8_k_input": true,
+    "math_contract": "strata-pool-iq2-v1"
+  },
+  "loaded": {
+    "device": "Tesla P40",
+    "sm": 61,
+    "experts": 4,
+    "resident_bytes": 5632000,
+    "free_bytes": 24673648640,
+    "total_bytes": 25625886720,
+    "pinned_staging": true,
+    "q8_k_input": true,
+    "math_contract": "strata-pool-iq2-v1"
+  },
+  "cleared": {
+    "device": "Tesla P40",
+    "sm": 61,
+    "experts": 0,
+    "resident_bytes": 0,
+    "free_bytes": 24679940096,
+    "total_bytes": 25625886720,
+    "pinned_staging": true,
+    "q8_k_input": true,
+    "math_contract": "strata-pool-iq2-v1"
+  },
+  "transport": {
+    "requests": 37,
+    "sent": 7227303,
+    "received": 247301,
+    "short_writes": 2
+  },
+  "passed": true
+}

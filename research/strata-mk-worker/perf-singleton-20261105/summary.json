@@ -1,0 +1,63 @@
+{
+  "shadow-singleton": {
+    "passed": true,
+    "warm_tps": 37.81584827823297,
+    "timing_totals": {
+      "calls": 13184.0,
+      "entries": 19478.0,
+      "loads": 641.0,
+      "input_bytes": 134937888.0,
+      "prepare_us": 5990689.866,
+      "send_us": 251349.08399999992,
+      "cpu_window_us": 13560936.514000002,
+      "join_us": 1073574.796
+    }
+  },
+  "baseline-rtx": {
+    "passed": true,
+    "warm_tps": 42.26286805369596,
+    "timing_totals": {}
+  },
+  "singleton2": {
+    "passed": true,
+    "warm_tps": 39.557349984471294,
+    "timing_totals": {
+      "calls": 13184.0,
+      "entries": 19478.0,
+      "loads": 641.0,
+      "input_bytes": 134937888.0,
+      "prepare_us": 6041086.575999999,
+      "send_us": 285572.89900000003,
+      "cpu_window_us": 12605498.871000001,
+      "join_us": 1488798.788
+    }
+  },
+  "singleton1": {
+    "passed": true,
+    "warm_tps": 40.18932159760857,
+    "timing_totals": {
+      "calls": 13184.0,
+      "entries": 13184.0,
+      "loads": 576.0,
+      "input_bytes": 134887536.0,
+      "prepare_us": 5544258.694999998,
+      "send_us": 280201.02800000005,
+      "cpu_window_us": 12875503.036999999,
+      "join_us": 348082.58300000004
+    }
+  },
+  "all1-control": {
+    "passed": true,
+    "warm_tps": 37.51588999472917,
+    "timing_totals": {
+      "calls": 17750.0,
+      "entries": 24828.0,
+      "loads": 533.0,
+      "input_bytes": 165918144.0,
+      "prepare_us": 5173426.744000001,
+      "send_us": 323098.075,
+      "cpu_window_us": 15919045.584000006,
+      "join_us": 1725340.183
+    }
+  }
+}

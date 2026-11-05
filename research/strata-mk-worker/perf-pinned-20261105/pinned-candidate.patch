@@ -1,0 +1,115 @@
+--- a/worker.cpp
++++ b/worker.cpp
+@@ -53,6 +53,12 @@
+  ~Device(){cudaFree(p);}
+  Device(const Device&)=delete; Device& operator=(const Device&)=delete;
+ };
++template<class T> struct HostPinned {
++ T* p=nullptr;
++ explicit HostPinned(size_t count){if(count)ck(cudaHostAlloc((void**)&p,count*sizeof(T),cudaHostAllocDefault));}
++ ~HostPinned(){if(p)cudaFreeHost(p);}
++ HostPinned(const HostPinned&)=delete;HostPinned& operator=(const HostPinned&)=delete;
++};
+ struct Expert {
+  uint8_t* p=nullptr; NativeExpertLayout layout{};
+  ~Expert(){if(p)cudaFree(p);}
+@@ -77,6 +83,9 @@
+  Device<unsigned long long> ptr{MAX_ENTRIES};
+  Device<int32_t> starts{MAX_ENTRIES+1}, count{1}, dst{MAX_ENTRIES}, tok{MAX_ENTRIES};
+ #if MK_ENABLE_CPU_COMPAT
++ bool pinned_enabled=getenv("MK_WORKER_PINNED_STAGING")!=nullptr;
++ HostPinned<uint8_t> pin_aq{pinned_enabled?(size_t)MAX_ROWS*2920:0},pin_meta{pinned_enabled?(size_t)MAX_ENTRIES*16:0},pin_hq{pinned_enabled?(size_t)MAX_ENTRIES*880:0};
++ HostPinned<float> pin_gu{pinned_enabled?(size_t)2*MAX_ENTRIES*FF:0},pin_out{pinned_enabled?(size_t)MAX_ENTRIES*H:0};
+  Device<float> compat_gate{MAX_ENTRIES*FF},compat_up{MAX_ENTRIES*FF};
+  Device<uint8_t> compat_hq{MAX_ENTRIES*880};
+  Device<uint8_t> compat_aq{MAX_ROWS*2920};
+@@ -135,7 +144,10 @@
+    if(getenv("MK_WORKER_CPU_COMPAT")){
+     auto profile_start=std::chrono::steady_clock::now();
+     auto profile_gu_start=profile_start;
+-    std::vector<float> input(rows*H),decoded(rows*H),hg(entries*FF),hu(entries*FF);
++    bool pinned=op==6&&pinned_enabled;
++    std::vector<float> input(rows*H),decoded(rows*H),hg(pinned?0:entries*FF),hu(pinned?0:entries*FF);
++    float* gate_host=pinned?pin_gu.p:hg.data();
++    float* up_host=pinned?pin_gu.p+MAX_ENTRIES*FF:hu.data();
+     if(op!=6){
+      memcpy(input.data(),b.data()+16+meta_bytes,input.size()*4);
+      if(mk_cpu_quantized_x(L.gu_type,input.data(),rows,decoded.data()))throw std::runtime_error("CPU input quantizer");
+@@ -143,47 +155,52 @@
+     std::vector<unsigned long long> entry_ptr(entries);
+     for(int i=0;i<entries;i++)entry_ptr[i]=(unsigned long long)cache.at({layer,ids[i]}).p;
+     if(op!=6)ck(cudaMemcpyAsync(x.p,decoded.data(),decoded.size()*4,cudaMemcpyHostToDevice,stream));
+-    ck(cudaMemcpyAsync(ptr.p,entry_ptr.data(),entries*8,cudaMemcpyHostToDevice,stream));
+-    ck(cudaMemcpyAsync(tok.p,tokens.data(),entries*4,cudaMemcpyHostToDevice,stream));
++    if(pinned){memcpy(pin_meta.p,entry_ptr.data(),entries*8);memcpy(pin_meta.p+MAX_ENTRIES*8,tokens.data(),entries*4);}
++    ck(cudaMemcpyAsync(ptr.p,pinned?pin_meta.p:(void*)entry_ptr.data(),entries*8,cudaMemcpyHostToDevice,stream));
++    ck(cudaMemcpyAsync(tok.p,pinned?pin_meta.p+MAX_ENTRIES*8:(void*)tokens.data(),entries*4,cudaMemcpyHostToDevice,stream));
+     if(getenv("MK_WORKER_CPU_EXACT_IQ2")){
+-     std::vector<uint8_t> packed(rows*2920);std::vector<int32_t> nt(entries);
+-     if(op==6)memcpy(packed.data(),b.data()+16+meta_bytes,packed.size());
+-     else if(mk_cpu_quantized_raw(L.gu_type,input.data(),rows,packed.data()))throw std::runtime_error("CPU packed input quantizer");
++     std::vector<uint8_t> packed(pinned?0:rows*2920);std::vector<int32_t> nt(entries);
++     uint8_t* aq_host=pinned?pin_aq.p:packed.data();
++     if(op==6)memcpy(aq_host,b.data()+16+meta_bytes,(size_t)rows*2920);
++     else if(mk_cpu_quantized_raw(L.gu_type,input.data(),rows,aq_host))throw std::runtime_error("CPU packed input quantizer");
+      for(int i=0;i<entries;i++){bool seen[MAX_ROWS]={};for(int j=0;j<entries;j++)if(ids[j]==ids[i])seen[tokens[j]]=true;for(bool v:seen)nt[i]+=v;}
+-     ck(cudaMemcpyAsync(compat_aq.p,packed.data(),packed.size(),cudaMemcpyHostToDevice,stream));
+-     ck(cudaMemcpyAsync(starts.p,nt.data(),entries*4,cudaMemcpyHostToDevice,stream));
++     if(pinned)memcpy(pin_meta.p+MAX_ENTRIES*12,nt.data(),entries*4);
++     ck(cudaMemcpyAsync(compat_aq.p,aq_host,(size_t)rows*2920,cudaMemcpyHostToDevice,stream));
++     ck(cudaMemcpyAsync(starts.p,pinned?pin_meta.p+MAX_ENTRIES*12:(void*)nt.data(),entries*4,cudaMemcpyHostToDevice,stream));
+      profile_gu_start=std::chrono::steady_clock::now();profile.mark(0,stream);
+      mk_exact_iq2_gu_launch(L.gu_type,L,ptr.p,tok.p,starts.p,compat_aq.p,entries,compat_gate.p,compat_up.p,stream);
+      profile.mark(1,stream);
+-     ck(cudaStreamSynchronize(stream)); // packed/nt host buffers must survive their async copies
++     if(!pinned)ck(cudaStreamSynchronize(stream)); // persistent pinned inputs survive until the GU-read fence below
+     }else {profile_gu_start=std::chrono::steady_clock::now();profile.mark(0,stream);mk_compatible_gu_launch(L.gu_type,L,ptr.p,tok.p,x.p,entries,compat_gate.p,compat_up.p,stream);profile.mark(1,stream);}
+     auto profile_gu_wait_done=std::chrono::steady_clock::now();
+     ck(cudaGetLastError());
+     profile.mark(2,stream);
+-    ck(cudaMemcpyAsync(hg.data(),compat_gate.p,hg.size()*4,cudaMemcpyDeviceToHost,stream));
+-    ck(cudaMemcpyAsync(hu.data(),compat_up.p,hu.size()*4,cudaMemcpyDeviceToHost,stream));
++    ck(cudaMemcpyAsync(gate_host,compat_gate.p,(size_t)entries*FF*4,cudaMemcpyDeviceToHost,stream));
++    ck(cudaMemcpyAsync(up_host,compat_up.p,(size_t)entries*FF*4,cudaMemcpyDeviceToHost,stream));
+     profile.mark(3,stream);
+     ck(cudaStreamSynchronize(stream));
+     auto profile_read_done=std::chrono::steady_clock::now();
+     bool pool=getenv("MK_WORKER_CPU_POOL")!=nullptr;
+-    std::vector<uint8_t> hq(entries*(pool?880:680));
+-    int quant_status=pool?mk_cpu_pool_hq(L.gu_type,hg.data(),hu.data(),entries,hq.data()):mk_cpu_swiglu_hq(L.gu_type,hg.data(),hu.data(),entries,hq.data());
++    size_t hq_bytes=(size_t)entries*(pool?880:680);
++    std::vector<uint8_t> hq(pinned?0:hq_bytes);uint8_t* hq_host=pinned?pin_hq.p:hq.data();
++    int quant_status=pool?mk_cpu_pool_hq(L.gu_type,gate_host,up_host,entries,hq_host):mk_cpu_swiglu_hq(L.gu_type,gate_host,up_host,entries,hq_host);
+     if(quant_status)throw std::runtime_error("CPU hidden quantizer");
+     auto profile_quant_done=std::chrono::steady_clock::now();profile.mark(4,stream);
+-    ck(cudaMemcpyAsync(compat_hq.p,hq.data(),hq.size(),cudaMemcpyHostToDevice,stream));
++    ck(cudaMemcpyAsync(compat_hq.p,hq_host,hq_bytes,cudaMemcpyHostToDevice,stream));
+     profile.mark(5,stream);
+     if(pool)mk_cpu_pool_down_launch(L,ptr.p,compat_hq.p,entries,out.p,stream);
+     else mk_compatible_down_launch(L,ptr.p,compat_hq.p,entries,out.p,stream);
+     ck(cudaGetLastError());
+     profile.mark(6,stream);
+     std::vector<uint8_t> result(entries*H*4);
+-    ck(cudaMemcpyAsync(result.data(),out.p,result.size(),cudaMemcpyDeviceToHost,stream));
++    ck(cudaMemcpyAsync(pinned?(void*)pin_out.p:(void*)result.data(),out.p,result.size(),cudaMemcpyDeviceToHost,stream));
+     profile.mark(7,stream);
+     ck(cudaStreamSynchronize(stream));
++    if(pinned)memcpy(result.data(),pin_out.p,result.size());
+     if(profile.enabled){
+      auto now=std::chrono::steady_clock::now();
+      auto wall=[](auto a,auto b){return std::chrono::duration<double,std::micro>(b-a).count();};
+-     fprintf(stderr,"PROFILE type=%d M=%d entries=%d prep_wall_us=%.3f gu_gpu_us=%.3f gu_wait_wall_us=%.3f gu_d2h_gpu_us=%.3f gu_read_wall_us=%.3f hidden_cpu_us=%.3f hidden_h2d_gpu_us=%.3f down_gpu_us=%.3f output_d2h_gpu_us=%.3f down_wall_us=%.3f dispatch_wall_us=%.3f\n",L.gu_type,rows,entries,wall(profile_start,profile_gu_start),profile.us(0,1),wall(profile_gu_start,profile_gu_wait_done),profile.us(2,3),wall(profile_gu_wait_done,profile_read_done),wall(profile_read_done,profile_quant_done),profile.us(4,5),profile.us(5,6),profile.us(6,7),wall(profile_quant_done,now),wall(profile_start,now));fflush(stderr);
++     fprintf(stderr,"PROFILE type=%d M=%d entries=%d pinned=%d prep_wall_us=%.3f gu_gpu_us=%.3f gu_submit_fence_wall_us=%.3f gu_d2h_gpu_us=%.3f gu_read_wall_us=%.3f hidden_cpu_us=%.3f hidden_h2d_gpu_us=%.3f down_gpu_us=%.3f output_d2h_gpu_us=%.3f down_wall_us=%.3f dispatch_wall_us=%.3f\n",L.gu_type,rows,entries,pinned?1:0,wall(profile_start,profile_gu_start),profile.us(0,1),wall(profile_gu_start,profile_gu_wait_done),profile.us(2,3),wall(profile_gu_wait_done,profile_read_done),wall(profile_read_done,profile_quant_done),profile.us(4,5),profile.us(5,6),profile.us(6,7),wall(profile_quant_done,now),wall(profile_start,now));fflush(stderr);
+     }
+     return result;
+    }
+@@ -206,6 +223,9 @@
+    const char* contract="experimental-other";
+ #if MK_ENABLE_CPU_COMPAT
+    if(getenv("MK_WORKER_CPU_COMPAT")&&getenv("MK_WORKER_CPU_EXACT_IQ2")&&getenv("MK_WORKER_CPU_POOL"))contract="strata-pool-iq2-v1";
++#endif
++#if MK_ENABLE_CPU_COMPAT
++   info.pop_back();info+=",\"pinned_staging\":"+std::string(pinned_enabled?"true":"false")+"}";
+ #endif
+    info.pop_back();info+=",\"q8_k_input\":"+std::string(std::string(contract)=="strata-pool-iq2-v1"?"true":"false");info+=",\"math_contract\":\""+std::string(contract)+"\"}";
+    return {info.begin(),info.end()};

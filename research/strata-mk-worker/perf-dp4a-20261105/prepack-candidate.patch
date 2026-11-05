@@ -1,0 +1,86 @@
+--- a/compat-kernels.inc
++++ b/compat-kernels.inc
+@@ -5,8 +5,8 @@
+ namespace {
+ // Decode four adjacent integer coefficients. Their common factor remains
+ // d_fp16 * 1/8, matching the pinned CPU IQ2 dot product exactly.
+-template<int TYPE>
+-__device__ __forceinline__ int4 mk_iq2_coeff4(const uint8_t* block,int k){
++template<int TYPE, bool RAW=false>
++__device__ __forceinline__ int4 mk_iq2_coeff4(const uint8_t* block,int k,int* common=nullptr){
+     int ib=k/32,il=(k%32)/8,j=k%8;
+     uint64_t grid;int factor;uint8_t signs;
+     if constexpr(TYPE==16){
+@@ -23,6 +23,7 @@
+         factor=2*((w->scales[ib]>>(4*(il/2)))&15)+1;
+         signs=w->qs[32+4*ib+il];
+     }
++    if constexpr(RAW){*common=factor;factor=1;}
+     uint32_t four=(uint32_t)(grid>>(8*j));
+     int a=factor*(int)(four&255),b=factor*(int)((four>>8)&255);
+     int c=factor*(int)((four>>16)&255),d=factor*(int)(four>>24);
+@@ -30,6 +31,20 @@
+                      (signs&(4<<j))?-c:c,(signs&(8<<j))?-d:d);
+ }
+ template<int TYPE>
++__global__ void mk_prepack_iq2(NativeExpertLayout L,uint8_t* blob){
++    int i=blockIdx.x*blockDim.x+threadIdx.x;
++    int groups=L.n_ff*L.n_embd/4;if(i>=groups)return;
++    int row=i/(L.n_embd/4),k=(i%(L.n_embd/4))*4;
++    constexpr int bytes=TYPE==16?66:82;
++    auto* codes=(uint32_t*)(blob+L.bytes);auto* factors=(uint8_t*)(codes+2*groups);
++    for(int role=0;role<2;role++){
++        const auto* block=blob+(role?L.up_off:0)+row*L.gu_row+(k/256)*bytes;
++        int factor;int4 w=mk_iq2_coeff4<TYPE,true>(block,k%256,&factor);
++        uint32_t packed=(uint8_t)w.x|((uint32_t)(uint8_t)w.y<<8)|((uint32_t)(uint8_t)w.z<<16)|((uint32_t)(uint8_t)w.w<<24);
++        codes[role*groups+i]=packed;factors[role*groups+i]=(uint8_t)factor;
++    }
++}
++template<int TYPE, bool PREPACK=false>
+ __global__ void mk_packed_iq2_gu(NativeExpertLayout L,const unsigned long long* ptr,
+                                const int32_t* token,const int32_t* nt,const block_q8_K* x,float* gate,float* up){
+     int lane=threadIdx.x&31,warp=threadIdx.x>>5,row=blockIdx.x*4+warp,entry=blockIdx.y;
+@@ -43,11 +58,19 @@
+         int gi=0,ui=0;
+         for(int chunk=0;chunk<256/(lanes*4);chunk++){
+             int k=chunk*lanes*4+lane*4;
++            if constexpr(PREPACK){
++                int n=L.n_ff*L.n_embd/4,index=row*(L.n_embd/4)+b*64+k/4;
++                const auto* codes=(const int*)(blob+L.bytes);const auto* factors=(const uint8_t*)(codes+2*n);
++                int aq;memcpy(&aq,a[b].qs+k,4);
++                gi+=(int)factors[index]*__dp4a(codes[index],aq,0);
++                ui+=(int)factors[n+index]*__dp4a(codes[n+index],aq,0);
++            }else{
+             int4 gw=mk_iq2_coeff4<TYPE>(gb,k),uw=mk_iq2_coeff4<TYPE>(ub,k);
+             gi+=gw.x*(int)a[b].qs[k];ui+=uw.x*(int)a[b].qs[k];
+             gi+=gw.y*(int)a[b].qs[k+1];ui+=uw.y*(int)a[b].qs[k+1];
+             gi+=gw.z*(int)a[b].qs[k+2];ui+=uw.z*(int)a[b].qs[k+2];
+             gi+=gw.w*(int)a[b].qs[k+3];ui+=uw.w*(int)a[b].qs[k+3];
++            }
+         }
+         float gd=__half2float(*(const __half*)gb),ud=__half2float(*(const __half*)ub);
+         float gs=__fmul_rn(wide?__fmul_rn(gd,.125f):gd,a[b].d);
+@@ -151,6 +174,11 @@
+     if(lane==0)out[entry*L.n_embd+row]=sum;
+ }
+ }
++void mk_prepack_iq2_launch(int type,NativeExpertLayout L,uint8_t* blob,void* stream){
++    int groups=L.n_ff*L.n_embd/4;
++    if(type==16)mk_prepack_iq2<16><<<(groups+255)/256,256,0,(cudaStream_t)stream>>>(L,blob);
++    else mk_prepack_iq2<22><<<(groups+255)/256,256,0,(cudaStream_t)stream>>>(L,blob);
++}
+ void mk_compatible_gu_launch(int type,NativeExpertLayout L,const unsigned long long* ptr,
+                              const int32_t* tok,const float* x,int entries,float* gate,float* up,void* stream){
+     mk_compatible_gu<<<dim3((unsigned)(L.n_ff/4),(unsigned)entries),128,0,(cudaStream_t)stream>>>(type,L,ptr,tok,x,gate,up);
+@@ -159,6 +187,11 @@
+                           const int32_t* tok,const int32_t* nt,const void* x,int entries,float* gate,float* up,void* stream){
+     if(std::getenv("MK_WORKER_PACKED_IQ2")){
+         dim3 grid((unsigned)(L.n_ff/4),(unsigned)entries);
++        if(std::getenv("MK_WORKER_PREPACK_IQ2")){
++            if(type==16)mk_packed_iq2_gu<16,true><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,nt,(const block_q8_K*)x,gate,up);
++            else mk_packed_iq2_gu<22,true><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,nt,(const block_q8_K*)x,gate,up);
++            return;
++        }
+         if(type==16)mk_packed_iq2_gu<16><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,nt,(const block_q8_K*)x,gate,up);
+         else mk_packed_iq2_gu<22><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,nt,(const block_q8_K*)x,gate,up);
+         return;

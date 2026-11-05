@@ -1,0 +1,12 @@
+{
+  "restore_model": "qwen3.8-flash-next-strata",
+  "phase": "complete; API restoration pending",
+  "completed": [
+    "q8shadow1024",
+    "float1024",
+    "q8run1024",
+    "q8run1024b"
+  ],
+  "running": "q8run1024b",
+  "started": 1793899217.173038
+}

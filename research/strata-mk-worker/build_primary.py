@@ -1,5 +1,6 @@
 """Relink isolated adapter against unchanged, fingerprinted RTX reference objects."""
 from pathlib import Path
+import os
 import hashlib
 import json
 import shutil
@@ -8,7 +9,7 @@ import subprocess
 ROOT = Path(__file__).resolve().parent
 SOURCE = ROOT.parent / "Strata-mk-worker"
 REFERENCE = ROOT.parent / "Strata/build"
-OUT = ROOT / "primary-build"
+OUT = Path(os.environ.get("STRATA_MK_BUILD_DIR", str(ROOT / "primary-build")))
 OUT.mkdir(exist_ok=True)
 source = SOURCE / "src/core/expert_source.cpp"
 obj = OUT / "expert_source.cpp.o"

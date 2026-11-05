@@ -1,0 +1,95 @@
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/kernels/cuda/iq_kernels.cu(3755): warning #3288-D: explicit lambda template parameters are a C++20 feature
+              auto group = [&]<int G0, int... J>(std::integer_sequence<int, J...>) {
+                              ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/kernels/cuda/iq_kernels.cu(3823): warning #20199-D: unrecognized #pragma in device code
+  #pragma clang fp contract(off)
+          ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/kernels/cuda/iq_kernels.cu(3695): warning #128-D: loop is not reachable
+          for (int q = 0; q < RPW; ++q)
+          ^
+          detected during:
+            instantiation of "void strata::kernels::<unnamed>::s26_gu_l_kernel<LT,LX,RPW,SL,TS>(const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, strata::kernels::NativeExpertLayout, float *, float *) [with LT=true, LX=true, RPW=4, SL=true, TS=true]" at line 3846
+            instantiation of "void strata::kernels::<unnamed>::s26_launch_l<LT,LX,RG,RD,SL,FQ,TS,BD>(const strata::kernels::NativeExpertLayout &, int64_t, cudaStream_t, const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, float *, float *, float *, block_q8_1 *, float *, long long) [with LT=true, LX=true, RG=4, RD=4, SL=true, FQ=true, TS=true, BD=1]" at line 6273
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/kernels/cuda/iq_kernels.cu(3755): warning #3288-D: explicit lambda template parameters are a C++20 feature
+              auto group = [&]<int G0, int... J>(std::integer_sequence<int, J...>) {
+                              ^
+          detected during instantiation of "void strata::kernels::<unnamed>::s26_launch_l<LT,LX,RG,RD,SL,FQ,TS,BD>(const strata::kernels::NativeExpertLayout &, int64_t, cudaStream_t, const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, float *, float *, float *, block_q8_1 *, float *, long long) [with LT=true, LX=true, RG=4, RD=4, SL=true, FQ=true, TS=true, BD=1]" at line 6273
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/kernels/cuda/iq_kernels.cu(3806): warning #128-D: loop is not reachable
+          for (int q = 0; q < RPW; ++q)
+          ^
+          detected during:
+            instantiation of "void strata::kernels::<unnamed>::s26_down_l_kernel<LX,RPW,SL,TS,BAL>(const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, strata::kernels::NativeExpertLayout, float *) [with LX=true, RPW=4, SL=true, TS=true, BAL=1]" at line 3854
+            instantiation of "void strata::kernels::<unnamed>::s26_launch_l<LT,LX,RG,RD,SL,FQ,TS,BD>(const strata::kernels::NativeExpertLayout &, int64_t, cudaStream_t, const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, float *, float *, float *, block_q8_1 *, float *, long long) [with LT=true, LX=true, RG=4, RD=4, SL=true, FQ=true, TS=true, BD=1]" at line 6273
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/kernels/cuda/iq_kernels.cu(3943): warning #128-D: loop is not reachable
+          for (int q = 0; q < RPW; ++q)
+          ^
+          detected during:
+            instantiation of "void strata::kernels::<unnamed>::s27_gu_kernel<TG,LX,RPW,TS>(const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, strata::kernels::NativeExpertLayout, float *, float *) [with TG=12, LX=true, RPW=4, TS=true]" at line 4041
+            instantiation of "void strata::kernels::<unnamed>::s27_launch<TG,TD,LX,RG,RD,TS>(const strata::kernels::NativeExpertLayout &, int64_t, cudaStream_t, const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, float *, float *, float *, block_q8_1 *, float *, long long) [with TG=12, TD=7, LX=true, RG=4, RD=4, TS=true]" at line 4051
+            instantiation of "void strata::kernels::<unnamed>::s27_launch_ts<TG,TD>(__nv_bool, const strata::kernels::NativeExpertLayout &, int64_t, cudaStream_t, const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, float *, float *, float *, block_q8_1 *, float *, long long) [with TG=12, TD=7]" at line 6315
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/kernels/cuda/iq_kernels.cu(4024): warning #128-D: loop is not reachable
+          for (int q = 0; q < RPW; ++q)
+          ^
+          detected during:
+            instantiation of "void strata::kernels::<unnamed>::s27_down_kernel<TD,LX,RPW,TS>(const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, strata::kernels::NativeExpertLayout, float *) [with TD=7, LX=true, RPW=4, TS=true]" at line 4044
+            instantiation of "void strata::kernels::<unnamed>::s27_launch<TG,TD,LX,RG,RD,TS>(const strata::kernels::NativeExpertLayout &, int64_t, cudaStream_t, const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, float *, float *, float *, block_q8_1 *, float *, long long) [with TG=12, TD=7, LX=true, RG=4, RD=4, TS=true]" at line 4051
+            instantiation of "void strata::kernels::<unnamed>::s27_launch_ts<TG,TD>(__nv_bool, const strata::kernels::NativeExpertLayout &, int64_t, cudaStream_t, const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, float *, float *, float *, block_q8_1 *, float *, long long) [with TG=12, TD=7]" at line 6315
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/kernels/cuda/iq_kernels.cu(4024): warning #128-D: loop is not reachable
+          for (int q = 0; q < RPW; ++q)
+          ^
+          detected during:
+            instantiation of "void strata::kernels::<unnamed>::s27_down_kernel<TD,LX,RPW,TS>(const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, strata::kernels::NativeExpertLayout, float *) [with TD=8, LX=true, RPW=4, TS=true]" at line 4044
+            instantiation of "void strata::kernels::<unnamed>::s27_launch<TG,TD,LX,RG,RD,TS>(const strata::kernels::NativeExpertLayout &, int64_t, cudaStream_t, const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, float *, float *, float *, block_q8_1 *, float *, long long) [with TG=12, TD=8, LX=true, RG=4, RD=4, TS=true]" at line 4051
+            instantiation of "void strata::kernels::<unnamed>::s27_launch_ts<TG,TD>(__nv_bool, const strata::kernels::NativeExpertLayout &, int64_t, cudaStream_t, const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, float *, float *, float *, block_q8_1 *, float *, long long) [with TG=12, TD=8]" at line 6316
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/kernels/cuda/iq_kernels.cu(3943): warning #128-D: loop is not reachable
+          for (int q = 0; q < RPW; ++q)
+          ^
+          detected during:
+            instantiation of "void strata::kernels::<unnamed>::s27_gu_kernel<TG,LX,RPW,TS>(const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, strata::kernels::NativeExpertLayout, float *, float *) [with TG=13, LX=true, RPW=4, TS=true]" at line 4041
+            instantiation of "void strata::kernels::<unnamed>::s27_launch<TG,TD,LX,RG,RD,TS>(const strata::kernels::NativeExpertLayout &, int64_t, cudaStream_t, const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, float *, float *, float *, block_q8_1 *, float *, long long) [with TG=13, TD=7, LX=true, RG=4, RD=4, TS=true]" at line 4051
+            instantiation of "void strata::kernels::<unnamed>::s27_launch_ts<TG,TD>(__nv_bool, const strata::kernels::NativeExpertLayout &, int64_t, cudaStream_t, const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, float *, float *, float *, block_q8_1 *, float *, long long) [with TG=13, TD=7]" at line 6317
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/kernels/cuda/iq_kernels.cu(5950): warning #128-D: loop is not reachable
+              for (int j = 0; j < cn; ++j) {
+              ^
+          detected during instantiation of "void strata::kernels::native_gu_lds_kernel<TG,SG,TI>(const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, strata::kernels::NativeExpertLayout, float *, float *) [with TG=16, SG=1, TI=true]" at line 6380
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/kernels/cuda/iq_kernels.cu(5950): warning #128-D: loop is not reachable
+              for (int j = 0; j < cn; ++j) {
+              ^
+          detected during instantiation of "void strata::kernels::native_gu_lds_kernel<TG,SG,TI>(const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, strata::kernels::NativeExpertLayout, float *, float *) [with TG=18, SG=1, TI=true]" at line 6381
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/kernels/cuda/iq_kernels.cu(5950): warning #128-D: loop is not reachable
+              for (int j = 0; j < cn; ++j) {
+              ^
+          detected during instantiation of "void strata::kernels::native_gu_lds_kernel<TG,SG,TI>(const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, strata::kernels::NativeExpertLayout, float *, float *) [with TG=21, SG=1, TI=true]" at line 6382
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/kernels/cuda/iq_kernels.cu(5950): warning #128-D: loop is not reachable
+              for (int j = 0; j < cn; ++j) {
+              ^
+          detected during instantiation of "void strata::kernels::native_gu_lds_kernel<TG,SG,TI>(const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, strata::kernels::NativeExpertLayout, float *, float *) [with TG=23, SG=1, TI=true]" at line 6383
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/kernels/cuda/iq_kernels.cu(5950): warning #128-D: loop is not reachable
+              for (int j = 0; j < cn; ++j) {
+              ^
+          detected during instantiation of "void strata::kernels::native_gu_lds_kernel<TG,SG,TI>(const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, strata::kernels::NativeExpertLayout, float *, float *) [with TG=22, SG=1, TI=true]" at line 6384
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/kernels/cuda/iq_kernels.cu(5565): warning #20058-D: the #pragma unroll must precede a loop
+  #pragma unroll
+          ^
+          detected during instantiation of "void strata::kernels::native_gu_amd_kernel<TG,MODE>(const unsigned long long *, const int32_t *, const int32_t *, const int32_t *, const block_q8_1 *, strata::kernels::NativeExpertLayout, float *, float *) [with TG=16, MODE=1]" at line 6398
+
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).

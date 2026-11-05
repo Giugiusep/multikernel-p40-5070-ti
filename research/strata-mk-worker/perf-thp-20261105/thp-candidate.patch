@@ -1,0 +1,17 @@
+--- a/src/core/pinned.cu
++++ b/src/core/pinned.cu
+@@ -60,6 +60,14 @@
+     note = "MAP_HUGETLB unavailable (no hugetlb pool configured?); using 4 KB pages";
+     p = mmap(nullptr, bytes, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+     got = PageBacking::NormalPages;
++    // Opt-in THP hint before CUDA pins/faults the arena. No global VM setting,
++    // reserved hugetlb pages, or extra model allocation is required.
++    const char* thp = std::getenv("STRATA_ARENA_THP");
++    if(p != MAP_FAILED && thp && std::strcmp(thp,"1")==0){
++        if(madvise(p,bytes,MADV_HUGEPAGE)==0)
++            note="MADV_HUGEPAGE accepted; actual backing must be checked in smaps";
++        else note="MADV_HUGEPAGE refused; using normal anonymous pages";
++    }
+     return p == MAP_FAILED ? nullptr : p;
+ #endif
+ }

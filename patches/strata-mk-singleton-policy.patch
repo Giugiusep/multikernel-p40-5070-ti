@@ -1,0 +1,46 @@
+From 25751c54fa2f82cd8325744e85355a13d955618e Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Thu, 5 Nov 2026 18:09:33 +0000
+Subject: [PATCH] Add opt-in singleton expert admission for wide verification
+ windows
+
+---
+ src/core/mk_expert_client.hpp | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/src/core/mk_expert_client.hpp b/src/core/mk_expert_client.hpp
+index 8aa85df..12ff33c 100644
+--- a/src/core/mk_expert_client.hpp
++++ b/src/core/mk_expert_client.hpp
+@@ -29,6 +29,7 @@ class MkExpertClient {
+     std::set<std::pair<int,int>> selected_,loaded_;
+     std::vector<int> positions_;
+     std::vector<float> results_;
++    bool singleton_wide_=getenv("STRATA_MK_EXPERT_SINGLETON_WIDE")&&strcmp(getenv("STRATA_MK_EXPERT_SINGLETON_WIDE"),"1")==0;
+     bool packed_input_=getenv("STRATA_MK_EXPERT_Q8K_INPUT")&&strcmp(getenv("STRATA_MK_EXPERT_Q8K_INPUT"),"1")==0;
+     bool shadow_=true;
+     bool offload_=false;
+@@ -146,6 +147,10 @@ public:
+         const auto& fmt=lay.fmt.at(d.layers);
+         if(!lay.native||fmt.n_embd!=2560||fmt.n_ff!=640||fmt.d_type!=42||
+            (fmt.gu_type!=16&&fmt.gu_type!=22&&fmt.gu_type!=29))throw std::runtime_error("Multikernel expert model/format unsupported");
++        if(singleton_wide_&&rows<2)return;
++        uint8_t row_masks[512]={};
++        if(singleton_wide_)for(int i=0;i<rows*k;i++)
++            if(kind[i]==-1&&selected_.count({(int)d.layers,(int)ids[i]}))row_masks[ids[i]]|=(uint8_t)(1u<<(i/k));
+         // Admit whole experts, including every row that routes to each chosen
+         // expert. Partial-row admission would change the CPU nt math contract.
+         unsigned limit=80;
+@@ -156,7 +161,8 @@ public:
+         }
+         std::set<int> admitted;
+         for(int i=0;i<rows*k;i++){
+-            if(kind[i]==-1&&selected_.count({(int)d.layers,(int)ids[i]})&&admitted.size()<limit)admitted.insert(ids[i]);
++            if(kind[i]==-1&&selected_.count({(int)d.layers,(int)ids[i]})&&admitted.size()<limit
++               &&(!singleton_wide_||__builtin_popcount((unsigned)row_masks[ids[i]])==1))admitted.insert(ids[i]);
+         }
+         for(int i=0;i<rows*k;i++){
+             if(!admitted.count(ids[i]))continue;
+-- 
+2.53.0
+

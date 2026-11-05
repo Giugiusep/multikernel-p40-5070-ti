@@ -1,0 +1,16 @@
+{
+  "restore_model": "qwen3.8-flash-next-strata",
+  "phase": "complete; API restoration pending",
+  "completed": [
+    "shadow-budget3",
+    "baseline-rtx",
+    "group-all1",
+    "group-budget2",
+    "group-budget3",
+    "group-singleton3",
+    "baseline-rtxb"
+  ],
+  "compiler_guard": "no visible compilers",
+  "running": "baseline-rtxb",
+  "started": 1793903470.8083923
+}

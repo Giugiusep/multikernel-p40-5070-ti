@@ -1,0 +1,12 @@
+{
+  "restore_model": "qwen3.8-flash-next-strata",
+  "phase": "complete; API restoration pending",
+  "completed": [
+    "cap2-control",
+    "cap1",
+    "cap1b",
+    "cap2-controlb"
+  ],
+  "running": "cap2-controlb",
+  "started": 1793899616.6072824
+}

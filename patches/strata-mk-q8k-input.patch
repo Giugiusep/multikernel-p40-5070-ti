@@ -1,0 +1,52 @@
+From b6022b3be32ce4135173e9e3ecced90e291b1b8c Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Thu, 5 Nov 2026 17:24:07 +0000
+Subject: [PATCH] Send exact CPU Q8_K activations through an opt-in expert
+ request format
+
+---
+ src/core/mk_expert_client.hpp | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/src/core/mk_expert_client.hpp b/src/core/mk_expert_client.hpp
+index 6d57857..8aa85df 100644
+--- a/src/core/mk_expert_client.hpp
++++ b/src/core/mk_expert_client.hpp
+@@ -29,6 +29,7 @@ class MkExpertClient {
+     std::set<std::pair<int,int>> selected_,loaded_;
+     std::vector<int> positions_;
+     std::vector<float> results_;
++    bool packed_input_=getenv("STRATA_MK_EXPERT_Q8K_INPUT")&&strcmp(getenv("STRATA_MK_EXPERT_Q8K_INPUT"),"1")==0;
+     bool shadow_=true;
+     bool offload_=false;
+     bool async_=false, pending_=false;
+@@ -120,6 +121,8 @@ public:
+             std::vector<uint8_t> empty;auto info=request(3,empty);
+             if(offload_&&std::string(info.begin(),info.end()).find("\"math_contract\":\"strata-pool-iq2-v1\"")==std::string::npos)
+                 throw std::runtime_error("offload requires the qualified CPU-pool IQ2 math contract");
++            if(packed_input_&&std::string(info.begin(),info.end()).find("\"q8_k_input\":true")==std::string::npos)
++                throw std::runtime_error("worker does not support Q8_K expert inputs");
+             fprintf(stderr,"MK_EXPERT_CONNECTED mode=%s selected=%zu worker=%.*s\n",offload_?"offload":shadow_?"shadow":"execute",selected_.size(),(int)info.size(),info.data());fflush(stderr);
+         }catch(...){close(fd_);fd_=-1;throw;}
+     }
+@@ -172,9 +175,15 @@ public:
+         std::vector<uint8_t>b;
+         word(b,d.layers);word(b,rows);word(b,positions_.size());word(b,0);
+         for(int i:positions_){word(b,ids[i]);word(b,i/k);}
+-        append(b,x,(size_t)rows*2560*4);
++        if(packed_input_){
++            if(fmt.act_bytes!=2920)throw std::runtime_error("Q8_K activation size mismatch");
++            std::vector<uint8_t> aq((size_t)rows*2920);
++            for(int t=0;t<rows;t++)
++                strata::kernels::cpu::native_quant_act(fmt,x+(size_t)t*2560,aq.data()+(size_t)t*2920);
++            append(b,aq.data(),aq.size());
++        }else append(b,x,(size_t)rows*2560*4);
+         if(profile_){last_input_bytes_=b.size();send_at_=Clock::now();}
+-        send_request(5,b);
++        send_request(packed_input_?6:5,b);
+         if(profile_)sent_at_=Clock::now();
+         // CPU jobs for other experts own disjoint output rows. Only finish()
+         // publishes remote rows, before the existing weighted reduction.
+-- 
+2.53.0
+

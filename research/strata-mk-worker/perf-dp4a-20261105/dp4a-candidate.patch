@@ -1,0 +1,93 @@
+--- a/compat-kernels.inc
++++ b/compat-kernels.inc
+@@ -5,8 +5,8 @@
+ namespace {
+ // Decode four adjacent integer coefficients. Their common factor remains
+ // d_fp16 * 1/8, matching the pinned CPU IQ2 dot product exactly.
+-template<int TYPE>
+-__device__ __forceinline__ int4 mk_iq2_coeff4(const uint8_t* block,int k){
++template<int TYPE, bool RAW=false>
++__device__ __forceinline__ int4 mk_iq2_coeff4(const uint8_t* block,int k,int* common=nullptr){
+     int ib=k/32,il=(k%32)/8,j=k%8;
+     uint64_t grid;int factor;uint8_t signs;
+     if constexpr(TYPE==16){
+@@ -23,6 +23,7 @@
+         factor=2*((w->scales[ib]>>(4*(il/2)))&15)+1;
+         signs=w->qs[32+4*ib+il];
+     }
++    if constexpr(RAW){*common=factor;factor=1;}
+     uint32_t four=(uint32_t)(grid>>(8*j));
+     int a=factor*(int)(four&255),b=factor*(int)((four>>8)&255);
+     int c=factor*(int)((four>>16)&255),d=factor*(int)(four>>24);
+@@ -30,6 +31,13 @@
+                      (signs&(4<<j))?-c:c,(signs&(8<<j))?-d:d);
+ }
+ template<int TYPE>
++__device__ __forceinline__ int mk_iq2_dp4a(const uint8_t* block,int k,const int8_t* activation){
++    int factor;int4 w=mk_iq2_coeff4<TYPE,true>(block,k,&factor);
++    unsigned packed=(unsigned)(uint8_t)w.x|((unsigned)(uint8_t)w.y<<8)|((unsigned)(uint8_t)w.z<<16)|((unsigned)(uint8_t)w.w<<24);
++    int aq;memcpy(&aq,activation+k,4);
++    return factor*__dp4a((int)packed,aq,0);
++}
++template<int TYPE, bool DOT=false>
+ __global__ void mk_packed_iq2_gu(NativeExpertLayout L,const unsigned long long* ptr,
+                                const int32_t* token,const int32_t* nt,const block_q8_K* x,float* gate,float* up){
+     int lane=threadIdx.x&31,warp=threadIdx.x>>5,row=blockIdx.x*4+warp,entry=blockIdx.y;
+@@ -43,11 +51,15 @@
+         int gi=0,ui=0;
+         for(int chunk=0;chunk<256/(lanes*4);chunk++){
+             int k=chunk*lanes*4+lane*4;
++            if constexpr(DOT){
++                gi+=mk_iq2_dp4a<TYPE>(gb,k,a[b].qs);ui+=mk_iq2_dp4a<TYPE>(ub,k,a[b].qs);
++            }else{
+             int4 gw=mk_iq2_coeff4<TYPE>(gb,k),uw=mk_iq2_coeff4<TYPE>(ub,k);
+             gi+=gw.x*(int)a[b].qs[k];ui+=uw.x*(int)a[b].qs[k];
+             gi+=gw.y*(int)a[b].qs[k+1];ui+=uw.y*(int)a[b].qs[k+1];
+             gi+=gw.z*(int)a[b].qs[k+2];ui+=uw.z*(int)a[b].qs[k+2];
+             gi+=gw.w*(int)a[b].qs[k+3];ui+=uw.w*(int)a[b].qs[k+3];
++            }
+         }
+         float gd=__half2float(*(const __half*)gb),ud=__half2float(*(const __half*)ub);
+         float gs=__fmul_rn(wide?__fmul_rn(gd,.125f):gd,a[b].d);
+@@ -57,6 +69,7 @@
+     for(int off=lanes/2;off;off>>=1){g=__fadd_rn(g,__shfl_xor_sync(0xffffffff,g,off));u=__fadd_rn(u,__shfl_xor_sync(0xffffffff,u,off));}
+     if(lane==0){gate[entry*L.n_ff+row]=wide?g:__fmul_rn(g,.125f);up[entry*L.n_ff+row]=wide?u:__fmul_rn(u,.125f);}
+ }
++template<bool DOT=false>
+ __global__ void mk_cpu_pool_down(NativeExpertLayout L,const unsigned long long* ptr,
+                                 const MkLegacyAct* hq,float* out){
+     int lane=threadIdx.x&31,warp=threadIdx.x>>5,row=blockIdx.x*4+warp,entry=blockIdx.y;
+@@ -67,7 +80,10 @@
+         if(lane<2*nb){float d=__half2float(w[b0+lane/2].d);corr=__fmaf_rn(d,h.hx[2*b0+lane],corr);}
+         for(int i=0;i<nb;i++)if(lane<16){
+             int b=b0+i,byte=w[b].qs[lane],dot=0;
+-            for(int j=0;j<4;j++)dot+=((byte>>(2*j))&3)*(int)h.q[b*64+lane*4+j];
++            if constexpr(DOT){
++                int packed=(byte&3)|(((byte>>2)&3)<<8)|(((byte>>4)&3)<<16)|(((byte>>6)&3)<<24);
++                int aq;memcpy(&aq,h.q+b*64+lane*4,4);dot=__dp4a(packed,aq,0);
++            }else for(int j=0;j<4;j++)dot+=((byte>>(2*j))&3)*(int)h.q[b*64+lane*4+j];
+             float scale=__fmul_rn(__half2float(w[b].d),h.scale[2*b+(lane>=8)]);
+             acc=__fmaf_rn(scale,(float)dot,acc);
+         }
+@@ -159,6 +175,11 @@
+                           const int32_t* tok,const int32_t* nt,const void* x,int entries,float* gate,float* up,void* stream){
+     if(std::getenv("MK_WORKER_PACKED_IQ2")){
+         dim3 grid((unsigned)(L.n_ff/4),(unsigned)entries);
++        if(std::getenv("MK_WORKER_DP4A")){
++            if(type==16)mk_packed_iq2_gu<16,true><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,nt,(const block_q8_K*)x,gate,up);
++            else mk_packed_iq2_gu<22,true><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,nt,(const block_q8_K*)x,gate,up);
++            return;
++        }
+         if(type==16)mk_packed_iq2_gu<16><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,nt,(const block_q8_K*)x,gate,up);
+         else mk_packed_iq2_gu<22><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,nt,(const block_q8_K*)x,gate,up);
+         return;
+@@ -167,7 +188,8 @@
+ }
+ void mk_cpu_pool_down_launch(NativeExpertLayout L,const unsigned long long* ptr,const void* hq,
+                             int entries,float* out,void* stream){
+-    mk_cpu_pool_down<<<dim3((unsigned)(L.n_embd/4),(unsigned)entries),128,0,(cudaStream_t)stream>>>(L,ptr,(const MkLegacyAct*)hq,out);
++    if(std::getenv("MK_WORKER_DP4A"))mk_cpu_pool_down<true><<<dim3((unsigned)(L.n_embd/4),(unsigned)entries),128,0,(cudaStream_t)stream>>>(L,ptr,(const MkLegacyAct*)hq,out);
++    else mk_cpu_pool_down<false><<<dim3((unsigned)(L.n_embd/4),(unsigned)entries),128,0,(cudaStream_t)stream>>>(L,ptr,(const MkLegacyAct*)hq,out);
+ }
+ void mk_compatible_down_launch(NativeExpertLayout L,const unsigned long long* ptr,const void* hq,
+                               int entries,float* out,void* stream){

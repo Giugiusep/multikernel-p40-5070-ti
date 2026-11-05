@@ -31,6 +31,7 @@ def resource_snapshot(pid):
         stat = Path(f"/proc/{pid}/stat").read_text().rsplit(")", 1)[1].split()
         result["process_io"] = {k.rstrip(":"): int(v) for k,v in (line.split() for line in Path(f"/proc/{pid}/io").read_text().splitlines())}
         result["io_pressure"] = Path("/proc/pressure/io").read_text().strip()
+        result["smaps_rollup"] = {line.split()[0].rstrip(":"): int(line.split()[1]) for line in Path(f"/proc/{pid}/smaps_rollup").read_text().splitlines() if line.startswith(("AnonHugePages:", "Rss:", "Pss_Anon:"))}
         result["process_minor_faults"] = int(stat[7])
         result["process_major_faults"] = int(stat[9])
         result["process_cpu_ticks"] = int(stat[11]) + int(stat[12])
@@ -53,9 +54,14 @@ def main():
     parser.add_argument("--prompts", type=Path, help="JSON list of fixed prompts for paired comparisons")
     parser.add_argument("--no-suffix-draft", action="store_true", help="diagnostic: remove timing-dependent lookup proposal selection")
     parser.add_argument("--pool-workers", type=int, choices=range(1,8), help="diagnostic CPU expert worker count")
+    parser.add_argument("--experimental-exe", type=Path, help="isolated candidate executable; never replaces reference")
     args = parser.parse_args()
     config = json.loads((BASE / "model-api/strata-iq2-xs-safe.json").read_text())
     command = [config["exe"] if args.mode == "reference" else str(ROOT / "primary-build/strata"), *config["args"], "--serve"]
+    if args.experimental_exe:
+        if args.mode == "reference":
+            raise ValueError("reference executable cannot be overridden")
+        command[0] = str(args.experimental_exe.resolve(strict=True))
     # Same test context in all arms; production context remains unchanged.
     command[command.index("--max-context") + 1] = "2048"
     if args.no_suffix_draft:

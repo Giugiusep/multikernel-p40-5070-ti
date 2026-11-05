@@ -1,0 +1,12 @@
+{
+  "restore_model": "qwen3.8-flash-next-strata",
+  "phase": "complete; API restoration pending",
+  "completed": [
+    "control32",
+    "prepack32",
+    "prepack128",
+    "control32b"
+  ],
+  "running": "control32b",
+  "started": 1793897686.79021
+}

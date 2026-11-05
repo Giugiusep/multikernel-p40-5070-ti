@@ -1,0 +1,114 @@
+From fc69e98494d195bc050e5ae55c212307882f1784 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Thu, 5 Nov 2026 17:14:25 +0000
+Subject: [PATCH] Bound per-layer remote expert work and profile CPU overlap
+ versus join waits
+
+---
+ src/core/mk_expert_client.hpp | 43 ++++++++++++++++++++++++++++++++---
+ 1 file changed, 40 insertions(+), 3 deletions(-)
+
+diff --git a/src/core/mk_expert_client.hpp b/src/core/mk_expert_client.hpp
+index de6611f..6d57857 100644
+--- a/src/core/mk_expert_client.hpp
++++ b/src/core/mk_expert_client.hpp
+@@ -1,6 +1,7 @@
+ // Opt-in bounded Qwen expert offload. Files and model ownership stay on the primary.
+ // Experimental Linux-only adapter; the worker protocol is versioned independently.
+ #pragma once
++#include <chrono>
+ #include <linux/vm_sockets.h>
+ #include <sys/socket.h>
+ #include <cerrno>
+@@ -32,6 +33,13 @@ class MkExpertClient {
+     bool offload_=false;
+     bool async_=false, pending_=false;
+     uint32_t pending_op_=0;
++    using Clock=std::chrono::steady_clock;
++    struct Timing {uint64_t calls=0,entries=0,loads=0,input_bytes=0;double prepare_us=0,send_us=0,cpu_window_us=0,join_us=0;};
++    Timing timing_[48]{};
++    bool profile_=getenv("STRATA_MK_EXPERT_PROFILE")!=nullptr;
++    Clock::time_point begin_at_{},send_at_{},sent_at_{};
++    size_t loaded_before_=0,last_input_bytes_=0;
++    static double elapsed_us(Clock::time_point a,Clock::time_point b){return std::chrono::duration<double,std::micro>(b-a).count();}
+     int layer_=0;
+     std::vector<int32_t> routed_ids_;
+     uint64_t calls_=0,entries_=0;
+@@ -92,7 +100,7 @@ public:
+         size_t pair_limit=32;
+         if(const char* v=getenv("STRATA_MK_EXPERT_MAX_PAIRS")){
+             char* end=nullptr;unsigned long n=strtoul(v,&end,10);
+-            if(!*v||*end||n<1||n>256)throw std::runtime_error("expert pair limit must be 1..256");
++            if(!*v||*end||n<1||n>4096)throw std::runtime_error("expert pair limit must be 1..4096");
+             pair_limit=n;
+         }
+         std::ifstream in(pairs);int l,e;
+@@ -115,11 +123,18 @@ public:
+             fprintf(stderr,"MK_EXPERT_CONNECTED mode=%s selected=%zu worker=%.*s\n",offload_?"offload":shadow_?"shadow":"execute",selected_.size(),(int)info.size(),info.data());fflush(stderr);
+         }catch(...){close(fd_);fd_=-1;throw;}
+     }
+-    ~MkExpertClient(){if(fd_>=0)close(fd_);}
++    ~MkExpertClient(){
++        if(profile_)for(int layer=0;layer<48;layer++){
++            const auto& t=timing_[layer];if(!t.calls)continue;
++            fprintf(stderr,"MK_EXPERT_TIMING layer=%d calls=%llu entries=%llu loads=%llu input_bytes=%llu prepare_us=%.3f send_us=%.3f cpu_window_us=%.3f join_us=%.3f\n",layer,(unsigned long long)t.calls,(unsigned long long)t.entries,(unsigned long long)t.loads,(unsigned long long)t.input_bytes,t.prepare_us,t.send_us,t.cpu_window_us,t.join_us);
++        }
++        if(fd_>=0)close(fd_);
++    }
+     bool replaces_cpu(int64_t index) const {
+         return offload_&&std::find(positions_.begin(),positions_.end(),index)!=positions_.end();
+     }
+     void begin(ExpertDispatch& d,const float* x,const int32_t* ids,int rows,int k,const int32_t* kind){
++        if(profile_){begin_at_=Clock::now();loaded_before_=loaded_.size();}
+         if(pending_)throw std::runtime_error("unfinished Multikernel expert round");
+         positions_.clear();results_.clear();
+         layer_=d.layers;routed_ids_.assign(ids,ids+rows*k);
+@@ -128,7 +143,20 @@ public:
+         const auto& fmt=lay.fmt.at(d.layers);
+         if(!lay.native||fmt.n_embd!=2560||fmt.n_ff!=640||fmt.d_type!=42||
+            (fmt.gu_type!=16&&fmt.gu_type!=22&&fmt.gu_type!=29))throw std::runtime_error("Multikernel expert model/format unsupported");
++        // Admit whole experts, including every row that routes to each chosen
++        // expert. Partial-row admission would change the CPU nt math contract.
++        unsigned limit=80;
++        if(const char* v=getenv("STRATA_MK_EXPERT_PER_LAYER")){
++            char* end=nullptr;unsigned long n=strtoul(v,&end,10);
++            if(!*v||*end||n<1||n>10)throw std::runtime_error("per-layer expert limit must be 1..10");
++            limit=(unsigned)n;
++        }
++        std::set<int> admitted;
+         for(int i=0;i<rows*k;i++){
++            if(kind[i]==-1&&selected_.count({(int)d.layers,(int)ids[i]})&&admitted.size()<limit)admitted.insert(ids[i]);
++        }
++        for(int i=0;i<rows*k;i++){
++            if(!admitted.count(ids[i]))continue;
+             auto key=std::make_pair((int)d.layers,(int)ids[i]);
+             if(kind[i]!=-1||!selected_.count(key))continue;
+             if(!loaded_.count(key)){
+@@ -144,14 +172,23 @@ public:
+         std::vector<uint8_t>b;
+         word(b,d.layers);word(b,rows);word(b,positions_.size());word(b,0);
+         for(int i:positions_){word(b,ids[i]);word(b,i/k);}
+-        append(b,x,(size_t)rows*2560*4);send_request(5,b);
++        append(b,x,(size_t)rows*2560*4);
++        if(profile_){last_input_bytes_=b.size();send_at_=Clock::now();}
++        send_request(5,b);
++        if(profile_)sent_at_=Clock::now();
+         // CPU jobs for other experts own disjoint output rows. Only finish()
+         // publishes remote rows, before the existing weighted reduction.
+         if(!async_)receive_results();
+         calls_++;entries_+=positions_.size();
+     }
+     void finish(float* out){
++        const auto arrived=profile_?Clock::now():Clock::time_point{};
+         if(pending_)receive_results();
++        if(profile_&&!positions_.empty()){
++            auto& t=timing_[layer_];t.calls++;t.entries+=positions_.size();t.input_bytes+=last_input_bytes_;t.loads+=loaded_.size()-loaded_before_;
++            t.prepare_us+=elapsed_us(begin_at_,send_at_);t.send_us+=elapsed_us(send_at_,sent_at_);
++            t.cpu_window_us+=elapsed_us(sent_at_,arrived);t.join_us+=elapsed_us(arrived,Clock::now());
++        }
+         if(offload_){
+             for(size_t j=0;j<positions_.size();j++)memcpy(out+(size_t)positions_[j]*2560,results_.data()+j*2560,2560*4);
+             if(!positions_.empty()){fprintf(stderr,"MK_EXPERT_ROUND mode=offload calls=%llu entries=%llu resident=%zu reference_checked=0\n",(unsigned long long)calls_,(unsigned long long)entries_,loaded_.size());fflush(stderr);}
+-- 
+2.53.0
+

@@ -1,0 +1,13 @@
+{
+  "restore_model": "qwen3.8-flash-next-strata",
+  "phase": "complete; API restoration pending",
+  "completed": [
+    "shadow-singleton",
+    "baseline-rtx",
+    "singleton2",
+    "singleton1",
+    "all1-control"
+  ],
+  "running": "all1-control",
+  "started": 1793900090.0755622
+}

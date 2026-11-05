@@ -1,0 +1,63 @@
+From e56bd0f4d501ac8eea55627aa17088047071c2b7 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Thu, 5 Nov 2026 16:39:24 +0000
+Subject: [PATCH] Add bounded expert selection and strict live CPU output
+ diagnostics
+
+---
+ src/core/mk_expert_client.hpp | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/src/core/mk_expert_client.hpp b/src/core/mk_expert_client.hpp
+index 686e93c..de6611f 100644
+--- a/src/core/mk_expert_client.hpp
++++ b/src/core/mk_expert_client.hpp
+@@ -32,6 +32,8 @@ class MkExpertClient {
+     bool offload_=false;
+     bool async_=false, pending_=false;
+     uint32_t pending_op_=0;
++    int layer_=0;
++    std::vector<int32_t> routed_ids_;
+     uint64_t calls_=0,entries_=0;
+     double peak_error_=0;
+     static void append(std::vector<uint8_t>& b,const void* p,size_t n){
+@@ -87,9 +89,15 @@ public:
+         if(offload_&&!getenv("STRATA_DIAG_BYPASS_EXPERT_HITS"))throw std::runtime_error("experimental offload requires the validated primary GPU-expert bypass");
+         const char* pairs=getenv("STRATA_MK_EXPERT_PAIRS");
+         if(!pairs)throw std::runtime_error("STRATA_MK_EXPERT_PAIRS is required");
++        size_t pair_limit=32;
++        if(const char* v=getenv("STRATA_MK_EXPERT_MAX_PAIRS")){
++            char* end=nullptr;unsigned long n=strtoul(v,&end,10);
++            if(!*v||*end||n<1||n>256)throw std::runtime_error("expert pair limit must be 1..256");
++            pair_limit=n;
++        }
+         std::ifstream in(pairs);int l,e;
+         while(in>>l>>e){
+-            if(l<0||l>=48||e<0||e>=512||!selected_.insert({l,e}).second||selected_.size()>32)
++            if(l<0||l>=48||e<0||e>=512||!selected_.insert({l,e}).second||selected_.size()>pair_limit)
+                 throw std::runtime_error("invalid or oversized Multikernel expert selection");
+         }
+         if(!in.eof()||selected_.empty())throw std::runtime_error("unreadable/empty Multikernel expert selection");
+@@ -114,6 +122,7 @@ public:
+     void begin(ExpertDispatch& d,const float* x,const int32_t* ids,int rows,int k,const int32_t* kind){
+         if(pending_)throw std::runtime_error("unfinished Multikernel expert round");
+         positions_.clear();results_.clear();
++        layer_=d.layers;routed_ids_.assign(ids,ids+rows*k);
+         if(rows<1||rows>8||k!=10)throw std::runtime_error("Multikernel expert window unsupported");
+         const auto& lay=strata::kernels::cpu::expert_layout();
+         const auto& fmt=lay.fmt.at(d.layers);
+@@ -152,6 +161,11 @@ public:
+         for(size_t j=0;j<positions_.size();j++){
+             float* dst=out+(size_t)positions_[j]*2560;
+             const float* src=results_.data()+j*2560;
++            if(getenv("STRATA_MK_EXPERT_EXACT_CHECK")&&memcmp(dst,src,2560*4)){
++                int first=0;while(first<2560&&memcmp(dst+first,src+first,4)==0)++first;
++                fprintf(stderr,"MK_EXPERT_EXACT_MISMATCH layer=%d expert=%d position=%d channel=%d cpu=%.9g remote=%.9g\n",layer_,routed_ids_[positions_[j]],positions_[j],first,dst[first],src[first]);fflush(stderr);
++                throw std::runtime_error("byte-exact live expert comparison failed");
++            }
+             double row_error=0,row_den=0;
+             for(int h=0;h<2560;h++){if(!std::isfinite(dst[h]))throw std::runtime_error("nonfinite CPU expert reference");row_error+=std::abs(double(src[h])-dst[h]);row_den+=std::abs(double(dst[h]));}
+             if(row_error/(row_den+1e-30)>0.03)throw std::runtime_error("Multikernel expert row differs from CPU quantized reference");
+-- 
+2.53.0
+

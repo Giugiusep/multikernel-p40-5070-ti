@@ -1,0 +1,122 @@
+{
+  "control32-offload": {
+    "passed": true,
+    "warm_decode_tps": 35.66026911442578,
+    "per_prompt_tps": [
+      29.148448886112845,
+      36.30656354594104,
+      35.97122302158273,
+      34.58298856427556
+    ],
+    "tokens": 715,
+    "suffix_disabled": false
+  },
+  "cache128-offload": {
+    "passed": false,
+    "warm_decode_tps": 25.571382490849,
+    "per_prompt_tps": [
+      25.949152018782243,
+      36.08547747476836,
+      36.98566805362922,
+      14.982719317596882
+    ],
+    "tokens": 715,
+    "suffix_disabled": false
+  },
+  "exact128-shadow": {
+    "passed": false,
+    "warm_decode_tps": 23.733387713307618,
+    "per_prompt_tps": [
+      29.657875225082087,
+      36.50467716176135,
+      27.998950039373526,
+      14.912128226005652
+    ],
+    "tokens": 715,
+    "suffix_disabled": false
+  },
+  "fixedref-reference": {
+    "passed": true,
+    "warm_decode_tps": 26.238688621866196,
+    "per_prompt_tps": [
+      23.389419211484206,
+      17.939901330542682,
+      33.075505176661096,
+      35.940678133454455
+    ],
+    "tokens": 726,
+    "suffix_disabled": true
+  },
+  "fixed-shadow128-shadow": {
+    "passed": true,
+    "warm_decode_tps": 34.290768755414724,
+    "per_prompt_tps": [
+      31.0776163468262,
+      34.73981327350366,
+      34.25390708627703,
+      33.86739611827537
+    ],
+    "tokens": 726,
+    "suffix_disabled": true
+  },
+  "fixed-offload128-offload": {
+    "passed": true,
+    "warm_decode_tps": 25.452043583252014,
+    "per_prompt_tps": [
+      30.54251135799641,
+      36.21616523625389,
+      35.31878885986535,
+      15.825811725013477
+    ],
+    "tokens": 726,
+    "suffix_disabled": true
+  },
+  "packed32-offload": {
+    "passed": true,
+    "warm_decode_tps": 27.212061770418664,
+    "per_prompt_tps": [
+      14.74056603773585,
+      19.092509173354017,
+      33.53184652194415,
+      36.27376728983139
+    ],
+    "tokens": 726,
+    "suffix_disabled": true
+  },
+  "subwarp32-offload": {
+    "passed": true,
+    "warm_decode_tps": 21.85598220629576,
+    "per_prompt_tps": [
+      14.70277422971247,
+      19.4394945731411,
+      18.066677331024813,
+      33.74932779498211
+    ],
+    "tokens": 726,
+    "suffix_disabled": true
+  },
+  "subwarp128-offload": {
+    "passed": true,
+    "warm_decode_tps": 33.70612546301259,
+    "per_prompt_tps": [
+      31.136279603790843,
+      35.45706371191136,
+      33.79448727426339,
+      31.953369149197652
+    ],
+    "tokens": 726,
+    "suffix_disabled": true
+  },
+  "packed32b-offload": {
+    "passed": true,
+    "warm_decode_tps": 26.43254097977864,
+    "per_prompt_tps": [
+      31.628054083972483,
+      35.85434173669468,
+      37.580004306042156,
+      16.62267442391473
+    ],
+    "tokens": 726,
+    "suffix_disabled": true
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "restore_model": "qwen3.8-flash-next-strata",
+  "phase": "complete; API restoration pending",
+  "completed": [
+    "workers7",
+    "workers6",
+    "workers5",
+    "workers7b"
+  ],
+  "running": "workers7b",
+  "started": 1793896614.9855616
+}

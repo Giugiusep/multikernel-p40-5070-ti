@@ -1,0 +1,42 @@
+--- a/compat-kernels.inc
++++ b/compat-kernels.inc
+@@ -29,14 +29,17 @@
+     return make_int4((signs&(1<<j))?-a:a,(signs&(2<<j))?-b:b,
+                      (signs&(4<<j))?-c:c,(signs&(8<<j))?-d:d);
+ }
+-template<int TYPE>
++template<int TYPE, bool PACK_ROWS=false>
+ __global__ void mk_packed_iq2_gu(NativeExpertLayout L,const unsigned long long* ptr,
+                                const int32_t* token,const int32_t* nt,const block_q8_K* x,float* gate,float* up){
+-    int lane=threadIdx.x&31,warp=threadIdx.x>>5,row=blockIdx.x*4+warp,entry=blockIdx.y;
++    int entry=blockIdx.y;
++    bool wide=nt[entry]>=2;int lanes=wide?16:8;
++    int lane=PACK_ROWS?threadIdx.x%lanes:threadIdx.x&31;
++    int row=PACK_ROWS?blockIdx.x*(128/lanes)+threadIdx.x/lanes:blockIdx.x*4+(threadIdx.x>>5);
++    if(row>=L.n_ff)return;
+     const auto* blob=(const uint8_t*)ptr[entry];
+     const auto* gr=blob+row*L.gu_row;const auto* ur=blob+L.up_off+row*L.gu_row;
+     const block_q8_K* a=x+(size_t)token[entry]*10;
+-    bool wide=nt[entry]>=2;int lanes=wide?16:8;
+     constexpr int bytes=TYPE==16?66:82;float g=0,u=0;
+     if(lane<lanes)for(int b=0;b<10;b++){
+         const auto* gb=gr+b*bytes;const auto* ub=ur+b*bytes;
+@@ -158,9 +161,15 @@
+ void mk_exact_iq2_gu_launch(int type,NativeExpertLayout L,const unsigned long long* ptr,
+                           const int32_t* tok,const int32_t* nt,const void* x,int entries,float* gate,float* up,void* stream){
+     if(std::getenv("MK_WORKER_PACKED_IQ2")){
+-        dim3 grid((unsigned)(L.n_ff/4),(unsigned)entries);
+-        if(type==16)mk_packed_iq2_gu<16><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,nt,(const block_q8_K*)x,gate,up);
+-        else mk_packed_iq2_gu<22><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,nt,(const block_q8_K*)x,gate,up);
++        bool packed_rows=std::getenv("MK_WORKER_SUBWARP")!=nullptr;
++        dim3 grid((unsigned)(L.n_ff/(packed_rows?8:4)),(unsigned)entries);
++        if(packed_rows){
++            if(type==16)mk_packed_iq2_gu<16,true><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,nt,(const block_q8_K*)x,gate,up);
++            else mk_packed_iq2_gu<22,true><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,nt,(const block_q8_K*)x,gate,up);
++        }else{
++            if(type==16)mk_packed_iq2_gu<16><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,nt,(const block_q8_K*)x,gate,up);
++            else mk_packed_iq2_gu<22><<<grid,128,0,(cudaStream_t)stream>>>(L,ptr,tok,nt,(const block_q8_K*)x,gate,up);
++        }
+         return;
+     }
+     mk_exact_iq2_gu<<<dim3((unsigned)(L.n_ff/4),(unsigned)entries),128,0,(cudaStream_t)stream>>>(type,L,ptr,tok,nt,(const block_q8_K*)x,gate,up);

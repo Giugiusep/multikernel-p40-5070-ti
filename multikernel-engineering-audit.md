@@ -1193,3 +1193,36 @@ Same four deterministic greedy prompts,2K context,spec4,192-token cap;715 actual
 Observed overlap gain about2.3–2.5%; limited repetitions, not a universal gain or production promotion. Adaptive draft schedules can differ despite identical committed tokens. Only20 resident expert pairs were used from the bounded32-pair selection; most model expert work remains CPU-owned. No cache enlargement attempted. Secondary latest dmesg still ends at the previously documented ring-full upload burst at758.641s; no new ring-full tail during these tests. Existing old warnings remain, not a clean-log claim.
 
 Evidence: research/strata-mk-worker/perf-20261104/{*-gate.json,*-profile-validation.json,*-profile.log,overlap-summary.json,api-restoration.json}; opt-in source patches are separate from original reference binaries.
+
+
+## 2026-11-05 — broader expert offload, numerical isolation, rejected speed candidates
+
+No production model/API configuration, driver, kernel, RPC pacing or fallback worker changed. Existing workers6006/6007 remain available. Private6008 worker was stopped after testing. API restoration confirms original qwen3.8-flash-next-strata active.
+
+Added opt-in bounded primary pair count (default32,maximum256) and worker VRAM cache (default64MiB,maximum512MiB). Existing ranked profile, filtered to supported IQ2 types:32/128/256 pairs require at most44.53125/179.1015625/360.546875MiB. Original32 selection reproduced exactly. No model-filesystem bridge, RAM hotadd or secondary reboot. Paced/hash-checked executable transfer only.128 selection actually used84 resident pairs and about1700 expert entries versus20 pairs/about537 entries for32.256 test was stopped before execution when the correctness gate failed.
+
+**Important correctness limitation:** default adaptive suffix-enabled128 offload diverged at suspension-bridge token118. A strict byte-comparison shadow run, which retained original CPU results, had zero live expert differences yet diverged at token92. This rules out a P40 output discrepancy as the sole explanation of the shadow divergence. Source DraftPolicy uses measured round timing to select suffix verification width. A matched diagnostic with --suffix-draft0 retained native MTP/spec4 and yielded726 exact committed tokens across original reference,128 shadow and128 offload; every shadow expert output was byte-identical. These observations implicate timing-dependent verification selection/numerical sensitivity, but do not locate the first differing target logit or prove a complete root cause. Default suffix-enabled broader offload remains unqualified; no production promotion. Added opt-in STRATA_MK_EXPERT_EXACT_CHECK diagnostics. Do not compare tokens or throughput across suffix-enabled and suffix-disabled contracts.
+
+**Rejected GPU geometry candidate:** opt-in subwarp packing uses8 or16 threads per output row rather than wasting warp lanes; unchanged integer/FMA/reduction order. Eight IQ2_S/IQ2_XXS M1/2/4/8 cases, sparse routing and10 repeated outputs matched CPU-pool bytes. Same-session M1 ten-entry roundtrips IQ2_S3.30682→2.81830ms,IQ2_XXS2.80967→2.31027ms. Full matched tests all726 exact tokens, but no reliable end-to-end generation gain. Active compat-kernels.inc reverted to known-good packed kernel; isolated candidate saved as perf-20261105/subwarp-candidate.patch, test worker stopped. No accepted optimization based on microbenchmark alone.
+
+Warm aggregate generation excludes first prompt; all timing rows retained, including slow controls. All following use suffix0,context2048,spec4,greedy,192-token cap:
+
+| arm | warm gen tok/s | correctness |
+|---|---:|---|
+| packed32 controlA |27.2121|726 exact|
+| subwarp32 |21.8560|726 exact|
+| subwarp128 |33.7061|726 exact|
+| packed32 controlB |26.4325|726 exact|
+
+These arms do not establish a causal speedup: identical control prompts varied roughly17–38tok/s. CPU-only pool-size control, same diagnostic contract, also varied:
+
+| CPU pool workers (plus participating host) | warm gen tok/s | correctness |
+|---|---:|---|
+|7 initial|36.0294|726 exact|
+|6|35.4721|726 exact|
+|5|34.6502|726 exact|
+|7 repeat|23.5311|726 exact|
+
+No worker-count change accepted. Primary topology exposes8 separate cores/no SMT siblings. Added per-request /proc PID I/O and global I/O pressure counters. Seven-worker fast vs slow repeat read about14–16MiB/request in both. Global full I/O-stall deltas for first3 prompts:fast75.7/75.1/69.4ms,slow783.5/1047.0/626.4ms; these system-wide counters correlate with slowness but cannot explain the whole3–5s decode difference or attribute all stalls to this model. Memory high/max/OOM counters stayed0, guest steal negligible. Next useful investigation is a joint primary coordinator/CPU-pool/PLE I/O timeline, not another unqualified cache expansion.
+
+Final secondary dmesg still ends at old758.641s upload ring-full burst; no new ring-full tail. Full dmesg grep found0 Xid,RmInitAdapter,Out-of-memory,soft-lockup entries. P40 visible,idle749MiB,53C,1303MHzSM/3615MHzmemory after candidate stopped. Existing old softirq warning not cleared. Evidence and failed gates retained under research/strata-mk-worker/perf-20261105. No new production generation-speed improvement claimed.

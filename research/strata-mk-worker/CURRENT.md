@@ -148,3 +148,10 @@ MemoryHigh=38G, MemorySwapMax=0 and RuntimeMaxSec=1200. Select
 `--mode offload --endpoint 1:6006 --pairs profile-first32-iq2.txt`, and compare
 against a same-prompt, same-token-count reference via `--reference`.
 Use `--tag` to retain each result. Do not infer a speedup from one cold/warm pair.
+
+
+## 2026-11-05 checkpoint
+
+Production stays unchanged. Default32-pair packed/async experiment remains available on6007; conservative qualified6006 intact. Broader128-pair offload passed726 exact tokens only in matched --suffix-draft0 tests; default adaptive suffix runs diverged even in byte-exact shadow mode. See audit: timing-dependent verification selection/numerical sensitivity is implicated, not fully traced. Do not promote broader offload.
+
+Row-packing candidate passed exact probes (M1 request about15–18% faster), but no reliable full-model gain; active kernel source reverted and6008 candidate stopped. Candidate patch and all failed/successful evidence kept in perf-20261105. Six/five CPU workers did not beat the first seven-worker control. Identical controls show large timing swings correlated partly with system-wide I/O stalls; no new generation-speed claim. API restored to original Qwen.

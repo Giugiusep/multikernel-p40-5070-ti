@@ -29,6 +29,8 @@ def resource_snapshot(pid):
     try:
         result["guest_cpu_ticks"] = [int(x) for x in Path("/proc/stat").read_text().splitlines()[0].split()[1:]]
         stat = Path(f"/proc/{pid}/stat").read_text().rsplit(")", 1)[1].split()
+        result["process_io"] = {k.rstrip(":"): int(v) for k,v in (line.split() for line in Path(f"/proc/{pid}/io").read_text().splitlines())}
+        result["io_pressure"] = Path("/proc/pressure/io").read_text().strip()
         result["process_minor_faults"] = int(stat[7])
         result["process_major_faults"] = int(stat[9])
         result["process_cpu_ticks"] = int(stat[11]) + int(stat[12])
@@ -49,11 +51,17 @@ def main():
     parser.add_argument("--reference", type=Path, default=ROOT / "reference-gate.json")
     parser.add_argument("--pairs", type=Path, default=ROOT / "profile-first32.txt")
     parser.add_argument("--prompts", type=Path, help="JSON list of fixed prompts for paired comparisons")
+    parser.add_argument("--no-suffix-draft", action="store_true", help="diagnostic: remove timing-dependent lookup proposal selection")
+    parser.add_argument("--pool-workers", type=int, choices=range(1,8), help="diagnostic CPU expert worker count")
     args = parser.parse_args()
     config = json.loads((BASE / "model-api/strata-iq2-xs-safe.json").read_text())
     command = [config["exe"] if args.mode == "reference" else str(ROOT / "primary-build/strata"), *config["args"], "--serve"]
     # Same test context in all arms; production context remains unchanged.
     command[command.index("--max-context") + 1] = "2048"
+    if args.no_suffix_draft:
+        command.extend(["--suffix-draft", "0"])
+    if args.pool_workers:
+        command.extend(["--pool-workers", str(args.pool_workers)])
     env = os.environ.copy()
     env["LD_LIBRARY_PATH"] = ":".join(config["lib_dirs"])
     env["STRATA_DIAG_BYPASS_EXPERT_HITS"] = "1"

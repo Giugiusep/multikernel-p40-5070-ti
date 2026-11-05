@@ -29,7 +29,12 @@ void mk_cpu_pool_down_launch(NativeExpertLayout,const unsigned long long*,const 
 #endif
 constexpr uint32_t MAGIC=0x5058454d, VERSION=1, PORT=6005, MAX_BODY=2*1024*1024;
 constexpr int H=2560, FF=640, MAX_ROWS=8, MAX_ENTRIES=80;
-constexpr size_t CACHE_LIMIT=64*1024*1024;
+static size_t cache_limit(){
+ const char* env=getenv("MK_WORKER_CACHE_MIB");if(!env)return 64*1024*1024;
+ char* end=nullptr;unsigned long value=strtoul(env,&end,10);
+ if(!*env||*end||value<64||value>512)throw std::runtime_error("cache limit must be 64..512 MiB");
+ return size_t(value)*1024*1024;
+}
 struct Header {uint32_t magic,version,op,status,request,size;};
 static_assert(sizeof(Header)==24);
 struct CudaFault : std::runtime_error {using std::runtime_error::runtime_error;};
@@ -93,7 +98,7 @@ public:
 #if MK_ENABLE_CPU_COMPAT
    if(getenv("MK_WORKER_CPU_EXACT_IQ2")&&gu==29)throw std::runtime_error("exact IQ2 worker does not offload IQ1_M");
 #endif
-   if(resident+L.bytes>CACHE_LIMIT)throw std::runtime_error("64 MiB experimental cache limit");
+   if(resident+L.bytes>cache_limit())throw std::runtime_error("experimental cache byte limit");
    auto& e=cache[{layer,id}];e.layout=L;
    ck(cudaMalloc(&e.p,L.bytes));ck(cudaMemcpy(e.p,b.data()+28,L.bytes,cudaMemcpyHostToDevice));resident+=L.bytes;
    return {};
@@ -205,10 +210,10 @@ int main(){try{
  int listener=socket(AF_VSOCK,SOCK_STREAM,0),type=1;
  if(listener<0||setsockopt(listener,AF_VSOCK,9,&type,sizeof(type)))throw std::runtime_error("Multikernel socket selection");
  uint32_t port=getenv("MK_WORKER_PORT")?(uint32_t)strtoul(getenv("MK_WORKER_PORT"),nullptr,10):PORT;
- if(port<6005||port>6007)throw std::runtime_error("experimental worker port must be 6005..6007");
+ if(port<6005||port>6008)throw std::runtime_error("experimental worker port must be 6005..6008");
  sockaddr_vm addr{};addr.svm_family=AF_VSOCK;addr.svm_cid=VMADDR_CID_ANY;addr.svm_port=port;
  if(bind(listener,(sockaddr*)&addr,sizeof(addr))||listen(listener,1))throw std::runtime_error("listen");
- printf("MK_EXPERT_WORKER_READY port=%u cache_limit=64MiB cpu_compat=%d\n",port,getenv("MK_WORKER_CPU_COMPAT")?1:0);fflush(stdout);
+ printf("MK_EXPERT_WORKER_READY port=%u cache_limit=%zuMiB cpu_compat=%d\n",port,cache_limit()/1024/1024,getenv("MK_WORKER_CPU_COMPAT")?1:0);fflush(stdout);
  for(;;){int peer=accept(listener,nullptr,nullptr);if(peer<0){if(errno==EINTR)continue;throw std::runtime_error("accept");}
   timeval timeout{10,0};setsockopt(peer,SOL_SOCKET,SO_RCVTIMEO,&timeout,sizeof(timeout));setsockopt(peer,SOL_SOCKET,SO_SNDTIMEO,&timeout,sizeof(timeout));
   try {Worker worker;for(;;){Header h{};io(peer,&h,sizeof(h),false);

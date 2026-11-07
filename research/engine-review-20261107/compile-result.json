@@ -1,0 +1,15 @@
+{
+  "object_sha256": "c66219aba0958aea73c7878e98de114343e4b52f1158c5a5dc14f222aa4ddb01",
+  "sm61_elf": "ELF file    1: ds4_iq-sm61.1.sm_61.cubin",
+  "dp4a_instructions": 21768,
+  "hmma_instructions": 0,
+  "imma_instructions": 0,
+  "runtime_correctness": {
+    "device": "Tesla P40 / existing secondary",
+    "test": "upstream iq_expert_test --type 16,17,22,18",
+    "exit_code": 0,
+    "result": "ALL OK",
+    "scope": "homogeneous-format token and set paths vs ggml/double reference; not mixed-role full-model validation",
+    "test_binary_sha256": "83ae980e24893cb5afe161844954bf26d18ec06d15b6672a849aa7beb90dbf91"
+  }
+}

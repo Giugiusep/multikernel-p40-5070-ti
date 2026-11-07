@@ -1,0 +1,17 @@
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_tq.cu(175): warning #177-D: variable "have" was declared but never referenced
+      const bool have = r < ne;
+                 ^
+          detected during instantiation of "void strata::ds4::gguf::iq::tq::<unnamed>::gate_up_kernel<K,COMPUTED,WORDS>(strata::ds4::gguf::iq::Args) [with K=6, COMPUTED=false, WORDS=true]" at line 491
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_tq.cu(404): warning #177-D: variable "kg" was declared but never referenced
+      const int lane = threadIdx.x & 31, r = lane & 15, kg = lane >> 4, wave = threadIdx.x >> 5;
+                                                        ^
+
+/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/src/dsv41/ds4_tq.cu(44): warning #177-D: function "strata::ds4::gguf::iq::tq::<unnamed>::computed_code" was declared but never referenced
+  constexpr bool computed_code(int type) { return type == kTQK5X || type == kTQK4X; }
+                 ^
+
+nvcc warning : Support for offline compilation for architectures prior to '<compute/sm/lto>_75' will be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).

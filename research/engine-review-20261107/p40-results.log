@@ -1,0 +1,33 @@
+IQ2_XXS token gate_up          worst 5.21e-08 (tol 1e-05) ok
+IQ2_XXS token down             worst 3.59e-08 (tol 1e-06) ok
+IQ2_XXS set gate_up (f16)      worst 7.02e-03 (tol 1e-02) ok
+IQ2_XXS set down               worst 4.19e-04 (tol 3e-03) ok
+IQ2_XXS cpu gate_up vs ref     worst 5.59e-08 (tol 1e-05) ok
+IQ2_XXS cpu down vs ref        worst 3.35e-08 (tol 1e-05) ok
+IQ2_XXS cpu rows: ggml-cpu
+IQ2_XS  token gate_up          worst 4.63e-08 (tol 1e-05) ok
+IQ2_XS  token down             worst 4.60e-08 (tol 1e-06) ok
+IQ2_XS  set gate_up (f16)      worst 8.87e-03 (tol 1e-02) ok
+IQ2_XS  set down               worst 3.73e-04 (tol 3e-03) ok
+IQ2_XS  cpu gate_up vs ref     worst 3.54e-08 (tol 1e-05) ok
+IQ2_XS  cpu down vs ref        worst 6.41e-08 (tol 1e-05) ok
+IQ2_XS  cpu rows: ggml-cpu
+IQ2_S   token gate_up          worst 3.76e-08 (tol 1e-05) ok
+IQ2_S   token down             worst 2.95e-08 (tol 1e-06) ok
+IQ2_S   set gate_up (f16)      worst 7.23e-03 (tol 1e-02) ok
+IQ2_S   set down               worst 4.55e-04 (tol 3e-03) ok
+IQ2_S   cpu gate_up vs ref     worst 2.25e-08 (tol 1e-05) ok
+IQ2_S   cpu down vs ref        worst 3.01e-08 (tol 1e-05) ok
+IQ2_S   cpu rows: ggml-cpu
+IQ3_XXS token gate_up          worst 1.72e-08 (tol 1e-05) ok
+IQ3_XXS token down             worst 3.99e-08 (tol 1e-06) ok
+IQ3_XXS set gate_up (f16)      worst 5.11e-03 (tol 1e-02) ok
+IQ3_XXS set down               worst 1.86e-04 (tol 3e-03) ok
+IQ3_XXS cpu gate_up vs ref     worst 3.22e-08 (tol 1e-05) ok
+IQ3_XXS cpu down vs ref        worst 3.92e-08 (tol 1e-05) ok
+IQ3_XXS cpu rows: ggml-cpu
+ALL OK
+bench IQ2_XXS 6 experts x 40 layers: gate/up 639 us, down 586 us, layer 1225 us -> 45 GB/s, 0.17 Tw/s, 40 layers 49.0 ms/token
+bench IQ2_XS  6 experts x 40 layers: gate/up 859 us, down 514 us, layer 1374 us -> 45 GB/s, 0.15 Tw/s, 40 layers 55.0 ms/token
+bench IQ2_S   6 experts x 40 layers: gate/up 556 us, down 403 us, layer 959 us -> 71 GB/s, 0.22 Tw/s, 40 layers 38.3 ms/token
+bench IQ3_XXS 6 experts x 40 layers: gate/up 673 us, down 546 us, layer 1218 us -> 67 GB/s, 0.17 Tw/s, 40 layers 48.7 ms/token

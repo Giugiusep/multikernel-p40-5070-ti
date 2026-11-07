@@ -1,0 +1,11 @@
+{
+  "base_sha256": "fc2eecbe95a382faa02f25328332afa2b9ab2733da28e840f566969e05f44055",
+  "base_commit": "c62d5e3a15b40ea51c96aae9e8d36928965f53ab",
+  "candidate_sha256": "b6365626ad4523c01f87782b58a0cbaf98425df38c7cd9f7943e1914f9038a84",
+  "scope": "isolated ds4_iq compilation; no runtime or full-model qualification",
+  "probe_source_sha256": {
+    "tests/dsv41/iq_expert_test.cpp": "6c80aa1d2fd3d98accf59bd90fe899db609567fa175954a22b403d0aab057532",
+    "src/dsv41/ds4_iq.cuh": "d8f6b2953404e400c72db49a8ee9df7c0f67512b8bb510a41a90d9a1f2ddb9fe",
+    "src/dsv41/ds4_tq.cu": "46d762e2b530557c705dc83312388b57efebd675921683b41f5553fd2634cd55"
+  }
+}

@@ -1,0 +1,18 @@
+ds4: tensor parallel 2 -> 1: the experts' 256-value blocks split n_ff 2304 no other way (each GPU its own layers)
+ds4: experts per word: 6 (full quality)
+ds4: the experts VRAM leaves over (~150.8 GB) are read in place from the model's files (--mmap-experts off copies them into RAM) (43.4 GB of RAM free to keep them: the most-routed 0.0 GB read ahead; prompts in chunks of 4096)
+ds4: RAM store: up to 2812 slots of 11.4 MB (32.0 GB), policy 0, 8 reader threads, unbuffered reads
+ds4: RAM store: 2812 of the profile's hottest experts read in (25.7 GB) in 10.9 s
+ds4: prompt path: the chunked pass from 96 tokens, windows of 16 below
+ds4: CUDA0 layers [0, 42] + head: weights 6.58 GB, experts 5.86 GB (312 of 15744 in VRAM), caches 0.01 GB, 1028 MiB free
+ds4: 15432 routed experts on the CPU lane (150.8 GB, in place in the model's files), 8 threads
+prompt: 21 tokens in 5214 ms (4.03 tok/s, windows of 8192)
+prompt's Engram rows: 1008, 0.0% without a read (repeats and the row cache), 1008 read
+dspark: 33 rounds, 109 drafts offered, 94 accepted (3.88 tokens a round); drafting 8.69 ms a round, verifying 26366.6 ms in all (0 windows)
+dspark per position (kept / reached): 1: 27/29 93% 2: 24/25 96% 3: 18/19 95% 4: 14/15 93% 5: 11/12 92%
+token latency ms: p50 0 p95 1215 p99 1507 max 1700 mean 219 (127 tokens)
+decode: 128 tokens in 27818 ms (4.57 tok/s); CPU lane: 34367 of 35475 experts; the cache moved 0 (0 in all)
+decode per token: layers 70.21 ms (of it: routing waits 0.00, CPU lane 185.99, the rest host launches), head wait 123.73, Engram reads 21.20
+Engram per token: 48 rows, 18.8% without a read (the row cache holds 6544 of 1016800), 39.0 read, the reads 29.41 ms from asking to the last one (left to wait: 21.20)
+decode reads from the disk: 370.2 MB a token
+store: 76.2% of the CPU lane's experts were in RAM (122.6 hits, 38.2 misses a token); read 369.6 MB a token (demand and guesses), the CPU lane waited 115.7 ms a token for them; 0 prefetched, 0 used, 0 given up unused; slots 2812 of 2812, 5428 evictions, 0 failed reads; the GPU computed 0.0 experts a token from the store (0 slots visible)

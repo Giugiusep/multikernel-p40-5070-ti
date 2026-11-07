@@ -1,0 +1,8 @@
+core8-code-a exit 0 tps 4.57 exact True
+core6-code-a exit 0 tps 4.98 exact True
+core6-code-b exit 0 tps 4.0 exact True
+core8-code-b exit 0 tps 3.52 exact True
+core8-prose-a exit 0 tps 4.75 exact True
+core6-prose-a exit 0 tps 5.59 exact True
+core6-prose-b exit 0 tps 4.83 exact True
+core8-prose-b exit 0 tps 4.99 exact True

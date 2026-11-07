@@ -1,0 +1,42 @@
+[
+  {
+    "nt": 1,
+    "iq512": "0",
+    "output": "expert gate/up 16 down 17 nt 1 threads 8: 26 experts, 0.25 GB | mode ggml  0.007 s = 35.8 GB/s (x1.00) bit-identical\nexpert gate/up 16 down 17 nt 1 threads 8: 26 experts, 0.25 GB | mode auto  0.007 s = 34.6 GB/s (x0.97) bit-identical\nexpert gate/up 16 down 17 nt 1 threads 8: 26 experts, 0.25 GB | mode own   0.006 s = 38.6 GB/s (x1.08) bit-identical\n"
+  },
+  {
+    "nt": 1,
+    "iq512": "1",
+    "output": "expert gate/up 16 down 17 nt 1 threads 8: 26 experts, 0.25 GB | mode ggml  0.007 s = 34.8 GB/s (x1.00) bit-identical\nexpert gate/up 16 down 17 nt 1 threads 8: 26 experts, 0.25 GB | mode auto  0.007 s = 36.0 GB/s (x1.04) bit-identical\nexpert gate/up 16 down 17 nt 1 threads 8: 26 experts, 0.25 GB | mode own   0.007 s = 37.4 GB/s (x1.08) bit-identical\n"
+  },
+  {
+    "nt": 2,
+    "iq512": "0",
+    "output": "expert gate/up 16 down 17 nt 2 threads 8: 26 experts, 0.25 GB | mode ggml  0.012 s = 19.9 GB/s (x1.00) bit-identical\nexpert gate/up 16 down 17 nt 2 threads 8: 26 experts, 0.25 GB | mode auto  0.008 s = 29.3 GB/s (x1.47) bit-identical\nexpert gate/up 16 down 17 nt 2 threads 8: 26 experts, 0.25 GB | mode own   0.008 s = 30.4 GB/s (x1.52) bit-identical\n"
+  },
+  {
+    "nt": 2,
+    "iq512": "1",
+    "output": "expert gate/up 16 down 17 nt 2 threads 8: 26 experts, 0.25 GB | mode ggml  0.013 s = 18.6 GB/s (x1.00) bit-identical\nexpert gate/up 16 down 17 nt 2 threads 8: 26 experts, 0.25 GB | mode auto  0.008 s = 31.8 GB/s (x1.71) bit-identical\nexpert gate/up 16 down 17 nt 2 threads 8: 26 experts, 0.25 GB | mode own   0.009 s = 28.7 GB/s (x1.54) bit-identical\n"
+  },
+  {
+    "nt": 4,
+    "iq512": "0",
+    "output": "expert gate/up 16 down 17 nt 4 threads 8: 26 experts, 0.25 GB | mode ggml  0.025 s = 10.0 GB/s (x1.00) bit-identical\nexpert gate/up 16 down 17 nt 4 threads 8: 26 experts, 0.25 GB | mode auto  0.011 s = 21.9 GB/s (x2.19) bit-identical\nexpert gate/up 16 down 17 nt 4 threads 8: 26 experts, 0.25 GB | mode own   0.011 s = 21.8 GB/s (x2.18) bit-identical\n"
+  },
+  {
+    "nt": 4,
+    "iq512": "1",
+    "output": "expert gate/up 16 down 17 nt 4 threads 8: 26 experts, 0.25 GB | mode ggml  0.025 s = 10.1 GB/s (x1.00) bit-identical\nexpert gate/up 16 down 17 nt 4 threads 8: 26 experts, 0.25 GB | mode auto  0.010 s = 23.8 GB/s (x2.37) bit-identical\nexpert gate/up 16 down 17 nt 4 threads 8: 26 experts, 0.25 GB | mode own   0.010 s = 24.5 GB/s (x2.44) bit-identical\n"
+  },
+  {
+    "nt": 8,
+    "iq512": "0",
+    "output": "expert gate/up 16 down 17 nt 8 threads 8: 26 experts, 0.25 GB | mode ggml  0.050 s = 4.9 GB/s (x1.00) bit-identical\nexpert gate/up 16 down 17 nt 8 threads 8: 26 experts, 0.25 GB | mode auto  0.021 s = 11.5 GB/s (x2.35) bit-identical\nexpert gate/up 16 down 17 nt 8 threads 8: 26 experts, 0.25 GB | mode own   0.021 s = 11.6 GB/s (x2.37) bit-identical\n"
+  },
+  {
+    "nt": 8,
+    "iq512": "1",
+    "output": "expert gate/up 16 down 17 nt 8 threads 8: 26 experts, 0.25 GB | mode ggml  0.051 s = 4.9 GB/s (x1.00) bit-identical\nexpert gate/up 16 down 17 nt 8 threads 8: 26 experts, 0.25 GB | mode auto  0.017 s = 14.2 GB/s (x2.90) bit-identical\nexpert gate/up 16 down 17 nt 8 threads 8: 26 experts, 0.25 GB | mode own   0.017 s = 14.3 GB/s (x2.93) bit-identical\n"
+  }
+]

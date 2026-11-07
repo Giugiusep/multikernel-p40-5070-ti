@@ -1,0 +1,6 @@
+ds4: Engram random-read advice file=0 status=0
+ds4: Engram random-read advice file=1 status=0
+ds4: Engram random-read advice file=0 status=0
+ds4: Engram random-read advice file=1 status=0
+hint=0:2560 concurrent rows exact
+hint=1:2560 concurrent rows exact

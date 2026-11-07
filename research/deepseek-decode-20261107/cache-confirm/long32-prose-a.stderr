@@ -1,0 +1,18 @@
+ds4: tensor parallel 2 -> 1: the experts' 256-value blocks split n_ff 2304 no other way (each GPU its own layers)
+ds4: experts per word: 6 (full quality)
+ds4: the experts VRAM leaves over (~150.8 GB) are read in place from the model's files (--mmap-experts off copies them into RAM) (42.5 GB of RAM free to keep them: the most-routed 0.0 GB read ahead; prompts in chunks of 4096)
+ds4: RAM store: up to 2812 slots of 11.4 MB (32.0 GB), policy 0, 8 reader threads, unbuffered reads
+ds4: RAM store: 2812 of the profile's hottest experts read in (25.7 GB) in 9.6 s
+ds4: prompt path: the chunked pass from 96 tokens, windows of 16 below
+ds4: CUDA0 layers [0, 42] + head: weights 6.58 GB, experts 5.86 GB (312 of 15744 in VRAM), caches 0.01 GB, 1028 MiB free
+ds4: 15432 routed experts on the CPU lane (150.8 GB, in place in the model's files), 8 threads
+prompt: 14 tokens in 4900 ms (2.86 tok/s, windows of 8192)
+prompt's Engram rows: 672, 0.0% without a read (repeats and the row cache), 672 read
+dspark: 87 rounds, 47 drafts offered, 40 accepted (1.47 tokens a round); drafting 10.22 ms a round, verifying 13881.2 ms in all (0 windows)
+dspark per position (kept / reached): 1: 28/32 88% 2: 12/12 100% 3: 0/1 0%
+token latency ms: p50 215 p95 579 p99 731 max 815 mean 214 (127 tokens)
+decode: 128 tokens in 27176 ms (4.67 tok/s); CPU lane: 32516 of 34815 experts; the cache moved 0 (0 in all)
+decode per token: layers 67.37 ms (of it: routing waits 0.00, CPU lane 184.69, the rest host launches), head wait 130.50, Engram reads 14.05
+Engram per token: 48 rows, 4.5% without a read (the row cache holds 6816 of 1016800), 45.9 read, the reads 21.35 ms from asking to the last one (left to wait: 14.05)
+decode reads from the disk: 270.5 MB a token
+store: 86.5% of the CPU lane's experts were in RAM (178.6 hits, 27.9 misses a token); read 269.0 MB a token (demand and guesses), the CPU lane waited 86.5 ms a token for them; 0 prefetched, 0 used, 0 given up unused; slots 2812 of 2812, 3739 evictions, 0 failed reads; the GPU computed 0.0 experts a token from the store (0 slots visible)

@@ -1,0 +1,47 @@
+{
+  "exe": "/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment/engine-dsv41/0.1.55-linux-x86_64-cuda-cuda13/strata-dsv41",
+  "cwd": "/home/shiba/multikernel-experiment/research/Strata-dsv41-experiment",
+  "tokenizer": "/home/shiba/models/deepseek-v4.1-flash-1017-iq2-xs/strata-pack/tokenizer",
+  "model_name": "deepseek-v4.1-flash-1017-uncensored-iq2-xs-dspark-cache38",
+  "arch": "deepseek41",
+  "engine_ready_s": 3600,
+  "log": "/home/shiba/multikernel-experiment/logs/deepseek-v41-dspark-cache38-engine.log",
+  "args": [
+    "--pack",
+    "/home/shiba/models/deepseek-v4.1-flash-1017-iq2-xs/strata-pack",
+    "--gpus",
+    "0",
+    "--max-context",
+    "8192",
+    "--cpu-threads",
+    "8",
+    "--reserve-mib",
+    "1024",
+    "--ssd-cache",
+    "38",
+    "--experts",
+    "6",
+    "--dspark",
+    "on",
+    "--vision",
+    "off",
+    "--expert-profile",
+    "/home/shiba/models/deepseek-v4.1-flash-1017-iq2-xs/strata-pack/expert-profile.bin",
+    "--profile-readonly",
+    "--no-expert-cache",
+    "--dspark-conf",
+    "0.65",
+    "--dspark-block",
+    "5"
+  ],
+  "sampling": {
+    "temperature": 0.0,
+    "top_p": 1.0
+  },
+  "env": {
+    "STRATA_DS4_REUSE": "0",
+    "STRATA_DS4_SLOT_KEEP": "0",
+    "STRATA_DS4_AUTO_PIN": "0",
+    "STRATA_DS4_DISK_SKIP_W": "0"
+  }
+}

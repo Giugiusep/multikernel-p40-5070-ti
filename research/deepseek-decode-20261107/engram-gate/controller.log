@@ -1,0 +1,8 @@
+normal-code-a exit 0 tps 3.69 exact True
+normal-prose-a exit 0 tps 2.41 exact True
+random-code-a exit 0 tps 3.99 exact True
+random-prose-a exit 0 tps 3.4 exact True
+random-code-b exit 0 tps 3.06 exact True
+random-prose-b exit 0 tps 5.21 exact True
+normal-code-b exit 0 tps 4.12 exact True
+normal-prose-b exit 0 tps 3.27 exact True

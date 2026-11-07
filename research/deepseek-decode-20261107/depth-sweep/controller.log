@@ -1,0 +1,8 @@
+cap5-code-a exit 0 tokens 64 tps 4.71 exact True
+cap5-prose-a exit 0 tokens 64 tps 4.55 exact True
+cap3-code-a exit 0 tokens 64 tps 5.26 exact True
+cap3-prose-a exit 0 tokens 64 tps 3.44 exact True
+cap3-code-b exit 0 tokens 64 tps 5.09 exact True
+cap3-prose-b exit 0 tokens 64 tps 4.58 exact True
+cap5-code-b exit 0 tokens 64 tps 5.43 exact True
+cap5-prose-b exit 0 tokens 64 tps 3.45 exact True

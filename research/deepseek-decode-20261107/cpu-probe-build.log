@@ -1,0 +1,4 @@
+ninja: Entering directory `/home/shiba/multikernel-experiment/research/deepseek-decode-build'
+[1/3] Building CXX object CMakeFiles/ds4_gg_bench.dir/src/dsv41/ds4_gg_cpu.cpp.o
+[2/3] Building CXX object CMakeFiles/ds4_gg_bench.dir/tests/dsv41/gg_dot_bench.cpp.o
+[3/3] Linking CXX executable ds4_gg_bench

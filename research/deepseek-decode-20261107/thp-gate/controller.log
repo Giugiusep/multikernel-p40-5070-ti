@@ -1,0 +1,8 @@
+normal-code-a exit 0 tps 5.15 exact True
+normal-prose-a exit 0 tps 4.39 exact True
+thp-code-a exit 0 tps 4.87 exact True
+thp-prose-a exit 0 tps 4.69 exact True
+thp-code-b exit 0 tps 5.63 exact True
+thp-prose-b exit 0 tps 3.77 exact True
+normal-code-b exit 0 tps 5.02 exact True
+normal-prose-b exit 0 tps 4.59 exact True

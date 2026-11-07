@@ -1,0 +1,8 @@
+cache32-code-a exit 0 tps 5.26 exact True
+cache32-prose-a exit 0 tps 4.52 exact True
+cache38-code-a exit 0 tps 6.02 exact True
+cache38-prose-a exit 0 tps 4.9 exact True
+cache38-code-b exit 0 tps 6.06 exact True
+cache38-prose-b exit 0 tps 4.78 exact True
+cache32-code-b exit 0 tps 5.09 exact True
+cache32-prose-b exit 0 tps 4.53 exact True

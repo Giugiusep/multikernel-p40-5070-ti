@@ -1,0 +1,20 @@
+diff --git a/src/dsv41/ds4_store.hpp b/src/dsv41/ds4_store.hpp
+index 1fb50b4..516e9e2 100644
+--- a/src/dsv41/ds4_store.hpp
++++ b/src/dsv41/ds4_store.hpp
+@@ -532,6 +532,15 @@ private:
+         if (avail != ~uint64_t{0} && avail < bytes + cfg_.floor_bytes) return false;
+         void* p = arena_ + nalloc_ * slot_bytes_;
+         if (!os::range_commit(p, bytes)) return false;
++#if defined(__linux__)
++        // Opt-in CPU-only store hint. No global THP or GPU registration changes.
++        const char* thp = std::getenv("DS4_STORE_THP");
++        if (thp && std::strcmp(thp, "1") == 0 && !cfg_.map_chunk) {
++            const int rc = ::madvise(p, bytes, MADV_HUGEPAGE);
++            if (nalloc_ == 0 || rc != 0)
++                std::fprintf(stderr, "ds4: CPU expert store THP advice %s (backing must be measured)\n", rc == 0 ? "accepted" : "failed");
++        }
++#endif
+         chunks_.push_back({p, bytes});
+         void* dev = cfg_.map_chunk ? cfg_.map_chunk(p, bytes) : nullptr;
+         chunk_dev_.push_back(dev);

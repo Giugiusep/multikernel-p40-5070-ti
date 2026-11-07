@@ -1,0 +1,16 @@
+{
+  "base_commit": "c62d5e3a15b40ea51c96aae9e8d36928965f53ab",
+  "files": {
+    "worker.cu": "d29001881b5971398ce45f19cead422db3628f32ed847b942ea027c2f7f6cebc",
+    "decode.cpp": "047eb7720a2d3af78abf78f0d35d8318836cb57cad214a4d1c681712251e81d1",
+    "build.sh": "b28f602c36a238bf1641ec4b5572e1453e9b558fd8b61225a01a241885854d5a",
+    "validate.py": "b92dd89ccc32f1249d56d64e77880e011df9b40b70f77ef78d992bb18ebf1440",
+    "worker": "9927aeeee15ba3f6258a0d02048d5b469b997c75105cbbb58cb5872ab8ffa71d",
+    "decode": "e4019daac5ff67af132e03f00bdb5e76c5eff1b9ee3fa326127208e39d1e48cc"
+  },
+  "linked_kernel_objects": {
+    "/home/shiba/multikernel-experiment/research/engine-review-20261107/ds4_iq-sm61.o": "c66219aba0958aea73c7878e98de114343e4b52f1158c5a5dc14f222aa4ddb01",
+    "/home/shiba/multikernel-experiment/research/engine-review-20261107/ds4_tq.o": "39e7a5ce3bbfebac85327308428d0e1173ee4ba1ef012ae8323c2773ad3956c3"
+  },
+  "pack_index_sha256": "71b93e97f286170e753cea2633f77a09b09c1de53c7fdd0c754dc1dc7fd50674"
+}

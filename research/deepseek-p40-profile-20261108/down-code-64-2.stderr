@@ -1,0 +1,77 @@
+ds4: tensor parallel 2 -> 1: the experts' 256-value blocks split n_ff 2304 no other way (each GPU its own layers)
+ds4: experts per word: 6 (full quality)
+ds4: the experts VRAM leaves over (~150.8 GB) are read in place from the model's files (--mmap-experts off copies them into RAM) (43.7 GB of RAM free to keep them: the most-routed 0.0 GB read ahead; prompts in chunks of 4096)
+ds4: RAM store: up to 2812 slots of 11.4 MB (32.0 GB), policy 0, 8 reader threads, unbuffered reads
+ds4: RAM store: 2812 of the profile's hottest experts read in (25.7 GB) in 11.7 s
+ds4: prompt path: the chunked pass from 96 tokens, windows of 16 below
+ds4: CUDA0 layers [0, 42] + head: weights 6.58 GB, experts 5.86 GB (312 of 15744 in VRAM), caches 0.01 GB, 1028 MiB free
+ds4: 15432 routed experts on the CPU lane (150.8 GB, in place in the model's files), 8 threads
+mk expert load layer=0 expert=28 bytes=9123840 resident=9123840
+mk expert load layer=0 expert=29 bytes=9123840 resident=18247680
+mk expert load layer=0 expert=30 bytes=9123840 resident=27371520
+mk expert load layer=0 expert=48 bytes=9123840 resident=36495360
+mk expert load layer=0 expert=55 bytes=9123840 resident=45619200
+mk expert load layer=0 expert=69 bytes=9123840 resident=54743040
+mk expert load layer=0 expert=86 bytes=9123840 resident=63866880
+mk expert load layer=0 expert=112 bytes=9123840 resident=72990720
+mk expert load layer=0 expert=128 bytes=9123840 resident=82114560
+mk expert load layer=0 expert=162 bytes=9123840 resident=91238400
+mk expert load layer=0 expert=196 bytes=9123840 resident=100362240
+mk expert load layer=0 expert=197 bytes=9123840 resident=109486080
+mk expert load layer=0 expert=198 bytes=9123840 resident=118609920
+mk expert load layer=0 expert=203 bytes=9123840 resident=127733760
+mk expert load layer=0 expert=209 bytes=9123840 resident=136857600
+mk expert load layer=0 expert=237 bytes=9123840 resident=145981440
+mk expert load layer=0 expert=238 bytes=9123840 resident=155105280
+mk expert load layer=0 expert=250 bytes=9123840 resident=164229120
+mk expert load layer=0 expert=256 bytes=9123840 resident=173352960
+mk expert load layer=0 expert=260 bytes=9123840 resident=182476800
+mk expert load layer=0 expert=269 bytes=9123840 resident=191600640
+mk expert load layer=0 expert=274 bytes=9123840 resident=200724480
+mk expert load layer=0 expert=286 bytes=9123840 resident=209848320
+mk expert load layer=0 expert=296 bytes=9123840 resident=218972160
+mk expert load layer=0 expert=302 bytes=9123840 resident=228096000
+mk expert load layer=0 expert=304 bytes=9123840 resident=237219840
+mk expert load layer=0 expert=307 bytes=9123840 resident=246343680
+mk expert load layer=0 expert=338 bytes=9123840 resident=255467520
+mk expert load layer=0 expert=347 bytes=9123840 resident=264591360
+mk expert load layer=0 expert=368 bytes=9123840 resident=273715200
+mk expert load layer=0 expert=369 bytes=9123840 resident=282839040
+mk expert load layer=0 expert=379 bytes=9123840 resident=291962880
+mk expert load layer=0 expert=10 bytes=9123840 resident=301086720
+mk expert load layer=0 expert=65 bytes=9123840 resident=310210560
+mk expert load layer=0 expert=84 bytes=9123840 resident=319334400
+mk expert load layer=0 expert=94 bytes=9123840 resident=328458240
+mk expert load layer=0 expert=95 bytes=9123840 resident=337582080
+mk expert load layer=0 expert=104 bytes=9123840 resident=346705920
+mk expert load layer=0 expert=114 bytes=9123840 resident=355829760
+mk expert load layer=0 expert=131 bytes=9123840 resident=364953600
+mk expert load layer=0 expert=144 bytes=9123840 resident=374077440
+mk expert load layer=0 expert=152 bytes=9123840 resident=383201280
+mk expert load layer=0 expert=161 bytes=9123840 resident=392325120
+mk expert load layer=0 expert=200 bytes=9123840 resident=401448960
+mk expert load layer=0 expert=204 bytes=9123840 resident=410572800
+mk expert load layer=0 expert=207 bytes=9123840 resident=419696640
+mk expert load layer=0 expert=215 bytes=9123840 resident=428820480
+mk expert load layer=0 expert=218 bytes=9123840 resident=437944320
+mk expert load layer=0 expert=222 bytes=9123840 resident=447068160
+mk expert load layer=0 expert=224 bytes=9123840 resident=456192000
+mk expert load layer=0 expert=235 bytes=9123840 resident=465315840
+mk expert load layer=0 expert=236 bytes=9123840 resident=474439680
+mk expert load layer=0 expert=255 bytes=9123840 resident=483563520
+mk expert load layer=0 expert=275 bytes=9123840 resident=492687360
+mk expert load layer=0 expert=312 bytes=9123840 resident=501811200
+mk expert load layer=0 expert=340 bytes=9123840 resident=510935040
+mk expert load layer=0 expert=363 bytes=9123840 resident=520058880
+mk expert load layer=0 expert=373 bytes=9123840 resident=529182720
+prompt: 21 tokens in 8623 ms (2.44 tok/s, windows of 8192)
+prompt's Engram rows: 1008, 0.0% without a read (repeats and the row cache), 1008 read
+dspark: 19 rounds, 46 drafts offered, 44 accepted (3.37 tokens a round); drafting 11.12 ms a round, verifying 12765.5 ms in all (0 windows)
+dspark per position (kept / reached): 1: 15/15 100% 2: 13/13 100% 3: 9/9 100% 4: 5/6 83% 5: 2/3 67%
+token latency ms: p50 0 p95 1149 p99 1575 max 1575 mean 226 (63 tokens)
+decode: 64 tokens in 14260 ms (4.42 tok/s); CPU lane: 15746 of 16365 experts; the cache moved 0 (0 in all)
+decode per token: layers 76.51 ms (of it: routing waits 0.00, CPU lane 210.06, the rest host launches), head wait 139.88, Engram reads 12.86
+Engram per token: 48 rows, 21.0% without a read (the row cache holds 3472 of 1016800), 37.9 read, the reads 19.12 ms from asking to the last one (left to wait: 12.86)
+decode reads from the disk: 394.5 MB a token
+store: 75.2% of the CPU lane's experts were in RAM (123.9 hits, 40.8 misses a token); read 393.8 MB a token (demand and guesses), the CPU lane waited 101.7 ms a token for them; 0 prefetched, 0 used, 0 given up unused; slots 2812 of 2812, 2651 evictions, 0 failed reads; the GPU computed 0.0 experts a token from the store (0 slots visible)
+mk summary completed_requests=228 down_requests=170 protocol_bytes=534532632 resident=529182720 failed=0

@@ -1,0 +1,625 @@
+ds4: tensor parallel 2 -> 1: the experts' 256-value blocks split n_ff 2304 no other way (each GPU its own layers)
+ds4: experts per word: 6 (full quality)
+ds4: the experts VRAM leaves over (~150.8 GB) are read in place from the model's files (--mmap-experts off copies them into RAM) (43.6 GB of RAM free to keep them: the most-routed 0.0 GB read ahead; prompts in chunks of 4096)
+ds4: RAM store: up to 2812 slots of 11.4 MB (32.0 GB), policy 0, 8 reader threads, unbuffered reads
+ds4: RAM store: 2812 of the profile's hottest experts read in (25.7 GB) in 11.1 s
+ds4: prompt path: the chunked pass from 96 tokens, windows of 16 below
+ds4: CUDA0 layers [0, 42] + head: weights 6.58 GB, experts 5.86 GB (312 of 15744 in VRAM), caches 0.01 GB, 1028 MiB free
+ds4: 15432 routed experts on the CPU lane (150.8 GB, in place in the model's files), 8 threads
+mk expert load layer=0 expert=28 bytes=3041280 resident=3041280
+mk expert load layer=0 expert=29 bytes=3041280 resident=6082560
+mk expert load layer=0 expert=30 bytes=3041280 resident=9123840
+mk expert load layer=0 expert=48 bytes=3041280 resident=12165120
+mk expert load layer=0 expert=55 bytes=3041280 resident=15206400
+mk expert load layer=0 expert=69 bytes=3041280 resident=18247680
+mk expert load layer=0 expert=86 bytes=3041280 resident=21288960
+mk expert load layer=0 expert=112 bytes=3041280 resident=24330240
+mk expert load layer=0 expert=128 bytes=3041280 resident=27371520
+mk expert load layer=0 expert=162 bytes=3041280 resident=30412800
+mk expert load layer=0 expert=196 bytes=3041280 resident=33454080
+mk expert load layer=0 expert=197 bytes=3041280 resident=36495360
+mk expert load layer=0 expert=198 bytes=3041280 resident=39536640
+mk expert load layer=0 expert=203 bytes=3041280 resident=42577920
+mk expert load layer=0 expert=209 bytes=3041280 resident=45619200
+mk expert load layer=0 expert=237 bytes=3041280 resident=48660480
+mk expert load layer=0 expert=238 bytes=3041280 resident=51701760
+mk expert load layer=0 expert=250 bytes=3041280 resident=54743040
+mk expert load layer=0 expert=256 bytes=3041280 resident=57784320
+mk expert load layer=0 expert=260 bytes=3041280 resident=60825600
+mk expert load layer=0 expert=269 bytes=3041280 resident=63866880
+mk expert load layer=0 expert=274 bytes=3041280 resident=66908160
+mk expert load layer=0 expert=286 bytes=3041280 resident=69949440
+mk expert load layer=0 expert=296 bytes=3041280 resident=72990720
+mk expert load layer=0 expert=302 bytes=3041280 resident=76032000
+mk expert load layer=0 expert=304 bytes=3041280 resident=79073280
+mk expert load layer=0 expert=307 bytes=3041280 resident=82114560
+mk expert load layer=0 expert=338 bytes=3041280 resident=85155840
+mk expert load layer=0 expert=347 bytes=3041280 resident=88197120
+mk expert load layer=0 expert=368 bytes=3041280 resident=91238400
+mk expert load layer=0 expert=369 bytes=3041280 resident=94279680
+mk expert load layer=0 expert=379 bytes=3041280 resident=97320960
+mk down shadow layer=0 expert=28 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=29 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=30 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=48 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=55 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=69 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=86 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=112 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=128 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=162 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=196 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=197 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=198 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=203 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=209 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=237 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=238 rows=5 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=250 rows=4 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=256 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=260 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=269 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=274 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=286 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=296 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=302 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=304 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=307 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=338 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=347 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=368 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=369 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=379 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=10 bytes=3041280 resident=100362240
+mk down shadow layer=0 expert=10 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=65 bytes=3041280 resident=103403520
+mk down shadow layer=0 expert=65 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=84 bytes=3041280 resident=106444800
+mk down shadow layer=0 expert=84 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=94 bytes=3041280 resident=109486080
+mk down shadow layer=0 expert=94 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=95 bytes=3041280 resident=112527360
+mk down shadow layer=0 expert=95 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=104 bytes=3041280 resident=115568640
+mk down shadow layer=0 expert=104 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=114 bytes=3041280 resident=118609920
+mk down shadow layer=0 expert=114 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=131 bytes=3041280 resident=121651200
+mk down shadow layer=0 expert=131 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=144 bytes=3041280 resident=124692480
+mk down shadow layer=0 expert=144 rows=2 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=152 bytes=3041280 resident=127733760
+mk down shadow layer=0 expert=152 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=161 bytes=3041280 resident=130775040
+mk down shadow layer=0 expert=161 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=200 bytes=3041280 resident=133816320
+mk down shadow layer=0 expert=200 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=204 bytes=3041280 resident=136857600
+mk down shadow layer=0 expert=204 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=207 bytes=3041280 resident=139898880
+mk down shadow layer=0 expert=207 rows=2 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=215 bytes=3041280 resident=142940160
+mk down shadow layer=0 expert=215 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=218 bytes=3041280 resident=145981440
+mk down shadow layer=0 expert=218 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=222 bytes=3041280 resident=149022720
+mk down shadow layer=0 expert=222 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=224 bytes=3041280 resident=152064000
+mk down shadow layer=0 expert=224 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=235 bytes=3041280 resident=155105280
+mk down shadow layer=0 expert=235 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=236 bytes=3041280 resident=158146560
+mk down shadow layer=0 expert=236 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=255 bytes=3041280 resident=161187840
+mk down shadow layer=0 expert=255 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=275 bytes=3041280 resident=164229120
+mk down shadow layer=0 expert=275 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=312 bytes=3041280 resident=167270400
+mk down shadow layer=0 expert=312 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=340 bytes=3041280 resident=170311680
+mk down shadow layer=0 expert=340 rows=2 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=363 bytes=3041280 resident=173352960
+mk down shadow layer=0 expert=363 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=0 expert=373 bytes=3041280 resident=176394240
+mk down shadow layer=0 expert=373 rows=6 mismatched_values=0 max_abs=0
+mk expert load layer=1 expert=5 bytes=3041280 resident=179435520
+mk expert load layer=1 expert=16 bytes=3041280 resident=182476800
+mk expert load layer=1 expert=22 bytes=3041280 resident=185518080
+mk expert load layer=1 expert=24 bytes=3041280 resident=188559360
+mk expert load layer=1 expert=30 bytes=3041280 resident=191600640
+mk expert load layer=1 expert=67 bytes=3041280 resident=194641920
+mk expert load layer=1 expert=68 bytes=3041280 resident=197683200
+mk expert load layer=1 expert=85 bytes=3041280 resident=200724480
+mk expert load layer=1 expert=101 bytes=3041280 resident=203765760
+mk expert load layer=1 expert=114 bytes=3041280 resident=206807040
+mk expert load layer=1 expert=120 bytes=3041280 resident=209848320
+mk expert load layer=1 expert=164 bytes=3041280 resident=212889600
+mk expert load layer=1 expert=168 bytes=3041280 resident=215930880
+mk expert load layer=1 expert=184 bytes=3041280 resident=218972160
+mk expert load layer=1 expert=217 bytes=3041280 resident=222013440
+mk expert load layer=1 expert=218 bytes=3041280 resident=225054720
+mk expert load layer=1 expert=227 bytes=3041280 resident=228096000
+mk expert load layer=1 expert=254 bytes=3041280 resident=231137280
+mk expert load layer=1 expert=300 bytes=3041280 resident=234178560
+mk expert load layer=1 expert=308 bytes=3041280 resident=237219840
+mk expert load layer=1 expert=319 bytes=3041280 resident=240261120
+mk expert load layer=1 expert=329 bytes=3041280 resident=243302400
+mk expert load layer=1 expert=349 bytes=3041280 resident=246343680
+mk expert load layer=1 expert=372 bytes=3041280 resident=249384960
+mk expert load layer=1 expert=379 bytes=3041280 resident=252426240
+mk expert load layer=1 expert=381 bytes=3041280 resident=255467520
+mk down shadow layer=1 expert=5 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=16 rows=8 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=22 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=24 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=30 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=67 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=68 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=85 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=101 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=114 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=120 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=164 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=168 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=184 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=217 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=218 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=227 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=254 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=300 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=308 rows=6 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=319 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=329 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=349 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=372 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=379 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=381 rows=3 mismatched_values=0 max_abs=0
+mk expert load layer=1 expert=48 bytes=3041280 resident=258508800
+mk down shadow layer=1 expert=48 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=1 expert=49 bytes=3041280 resident=261550080
+mk down shadow layer=1 expert=49 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=1 expert=78 bytes=3041280 resident=264591360
+mk down shadow layer=1 expert=78 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=1 expert=86 bytes=3041280 resident=267632640
+mk down shadow layer=1 expert=86 rows=2 mismatched_values=0 max_abs=0
+mk expert load layer=1 expert=125 bytes=3041280 resident=270673920
+mk down shadow layer=1 expert=125 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=1 expert=126 bytes=3041280 resident=273715200
+mk down shadow layer=1 expert=126 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=1 expert=135 bytes=3041280 resident=276756480
+mk down shadow layer=1 expert=135 rows=2 mismatched_values=0 max_abs=0
+mk expert load layer=1 expert=249 bytes=3041280 resident=279797760
+mk down shadow layer=1 expert=249 rows=2 mismatched_values=0 max_abs=0
+mk expert load layer=1 expert=250 bytes=3041280 resident=282839040
+mk down shadow layer=1 expert=250 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=1 expert=270 bytes=3041280 resident=285880320
+mk down shadow layer=1 expert=270 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=1 expert=279 bytes=3041280 resident=288921600
+mk down shadow layer=1 expert=279 rows=2 mismatched_values=0 max_abs=0
+mk expert load layer=1 expert=289 bytes=3041280 resident=291962880
+mk down shadow layer=1 expert=289 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=1 expert=317 bytes=3041280 resident=295004160
+mk down shadow layer=1 expert=317 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=1 expert=348 bytes=3041280 resident=298045440
+mk down shadow layer=1 expert=348 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=1 expert=357 bytes=3041280 resident=301086720
+mk down shadow layer=1 expert=357 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=1 expert=382 bytes=3041280 resident=304128000
+mk down shadow layer=1 expert=382 rows=8 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=11 bytes=3041280 resident=307169280
+mk expert load layer=2 expert=53 bytes=3041280 resident=310210560
+mk expert load layer=2 expert=131 bytes=3041280 resident=313251840
+mk expert load layer=2 expert=170 bytes=3041280 resident=316293120
+mk expert load layer=2 expert=174 bytes=3041280 resident=319334400
+mk expert load layer=2 expert=214 bytes=3041280 resident=322375680
+mk expert load layer=2 expert=217 bytes=3041280 resident=325416960
+mk expert load layer=2 expert=228 bytes=3041280 resident=328458240
+mk expert load layer=2 expert=246 bytes=3041280 resident=331499520
+mk expert load layer=2 expert=249 bytes=3041280 resident=334540800
+mk expert load layer=2 expert=250 bytes=3041280 resident=337582080
+mk expert load layer=2 expert=285 bytes=3041280 resident=340623360
+mk expert load layer=2 expert=293 bytes=3041280 resident=343664640
+mk expert load layer=2 expert=296 bytes=3041280 resident=346705920
+mk expert load layer=2 expert=304 bytes=3041280 resident=349747200
+mk expert load layer=2 expert=305 bytes=3041280 resident=352788480
+mk expert load layer=2 expert=316 bytes=3041280 resident=355829760
+mk expert load layer=2 expert=323 bytes=3041280 resident=358871040
+mk expert load layer=2 expert=337 bytes=3041280 resident=361912320
+mk expert load layer=2 expert=353 bytes=3041280 resident=364953600
+mk down shadow layer=2 expert=11 rows=6 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=53 rows=5 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=131 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=170 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=174 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=214 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=217 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=228 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=246 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=249 rows=5 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=250 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=285 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=293 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=296 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=304 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=305 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=316 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=323 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=337 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=353 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=20 bytes=3041280 resident=367994880
+mk down shadow layer=2 expert=20 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=25 bytes=3041280 resident=371036160
+mk down shadow layer=2 expert=25 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=36 bytes=3041280 resident=374077440
+mk down shadow layer=2 expert=36 rows=3 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=44 bytes=3041280 resident=377118720
+mk down shadow layer=2 expert=44 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=85 bytes=3041280 resident=380160000
+mk down shadow layer=2 expert=85 rows=2 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=91 bytes=3041280 resident=383201280
+mk down shadow layer=2 expert=91 rows=2 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=98 bytes=3041280 resident=386242560
+mk down shadow layer=2 expert=98 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=115 bytes=3041280 resident=389283840
+mk down shadow layer=2 expert=115 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=133 bytes=3041280 resident=392325120
+mk down shadow layer=2 expert=133 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=153 bytes=3041280 resident=395366400
+mk down shadow layer=2 expert=153 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=179 bytes=3041280 resident=398407680
+mk down shadow layer=2 expert=179 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=187 bytes=3041280 resident=401448960
+mk down shadow layer=2 expert=187 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=199 bytes=3041280 resident=404490240
+mk down shadow layer=2 expert=199 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=201 bytes=3041280 resident=407531520
+mk down shadow layer=2 expert=201 rows=2 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=244 bytes=3041280 resident=410572800
+mk down shadow layer=2 expert=244 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=247 bytes=3041280 resident=413614080
+mk down shadow layer=2 expert=247 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=248 bytes=3041280 resident=416655360
+mk down shadow layer=2 expert=248 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=265 bytes=3041280 resident=419696640
+mk down shadow layer=2 expert=265 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=272 bytes=3041280 resident=422737920
+mk down shadow layer=2 expert=272 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=288 bytes=3041280 resident=425779200
+mk down shadow layer=2 expert=288 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=292 bytes=3041280 resident=428820480
+mk down shadow layer=2 expert=292 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=326 bytes=3041280 resident=431861760
+mk down shadow layer=2 expert=326 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=328 bytes=3041280 resident=434903040
+mk down shadow layer=2 expert=328 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=333 bytes=3041280 resident=437944320
+mk down shadow layer=2 expert=333 rows=2 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=344 bytes=3041280 resident=440985600
+mk down shadow layer=2 expert=344 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=348 bytes=3041280 resident=444026880
+mk down shadow layer=2 expert=348 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=2 expert=359 bytes=3041280 resident=447068160
+mk down shadow layer=2 expert=359 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=3 expert=11 bytes=3041280 resident=450109440
+mk expert load layer=3 expert=15 bytes=3041280 resident=453150720
+mk expert load layer=3 expert=27 bytes=3041280 resident=456192000
+mk expert load layer=3 expert=33 bytes=3041280 resident=459233280
+mk expert load layer=3 expert=56 bytes=3041280 resident=462274560
+mk expert load layer=3 expert=61 bytes=3041280 resident=465315840
+mk expert load layer=3 expert=92 bytes=3041280 resident=468357120
+mk expert load layer=3 expert=107 bytes=3041280 resident=471398400
+mk expert load layer=3 expert=122 bytes=3041280 resident=474439680
+mk expert load layer=3 expert=123 bytes=3041280 resident=477480960
+mk expert load layer=3 expert=131 bytes=3041280 resident=480522240
+mk expert load layer=3 expert=148 bytes=3041280 resident=483563520
+mk expert load layer=3 expert=150 bytes=3041280 resident=486604800
+mk expert load layer=3 expert=153 bytes=3041280 resident=489646080
+mk expert load layer=3 expert=184 bytes=3041280 resident=492687360
+mk expert load layer=3 expert=196 bytes=3041280 resident=495728640
+mk expert load layer=3 expert=205 bytes=3041280 resident=498769920
+mk expert load layer=3 expert=228 bytes=3041280 resident=501811200
+mk expert load layer=3 expert=233 bytes=3041280 resident=504852480
+mk expert load layer=3 expert=254 bytes=3041280 resident=507893760
+mk expert load layer=3 expert=266 bytes=3041280 resident=510935040
+mk expert load layer=3 expert=270 bytes=3041280 resident=513976320
+mk expert load layer=3 expert=305 bytes=3041280 resident=517017600
+mk expert load layer=3 expert=326 bytes=3041280 resident=520058880
+mk expert load layer=3 expert=330 bytes=3041280 resident=523100160
+mk expert load layer=3 expert=333 bytes=3041280 resident=526141440
+mk expert load layer=3 expert=337 bytes=3041280 resident=529182720
+mk down shadow layer=3 expert=11 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=15 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=27 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=33 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=56 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=61 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=92 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=107 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=122 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=123 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=131 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=148 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=150 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=153 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=184 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=196 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=205 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=228 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=233 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=254 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=266 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=270 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=305 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=326 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=330 rows=8 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=333 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=337 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=3 expert=22 bytes=3041280 resident=532224000
+mk down shadow layer=3 expert=22 rows=1 mismatched_values=0 max_abs=0
+mk expert load layer=3 expert=34 bytes=3041280 resident=535265280
+mk down shadow layer=3 expert=34 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=10 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=69 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=86 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=94 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=152 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=197 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=198 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=235 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=238 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=250 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=269 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=338 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=340 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=369 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=373 rows=4 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=16 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=86 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=120 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=270 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=300 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=308 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=317 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=381 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=53 rows=4 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=91 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=98 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=249 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=272 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=305 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=337 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=61 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=107 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=123 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=131 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=153 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=205 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=330 rows=1 mismatched_values=0 max_abs=0
+prompt: 21 tokens in 9028 ms (2.33 tok/s, windows of 8192)
+mk checkpoint requests=389 down_requests=213 protocol_bytes=543235724 rpc_ms=3644.866114 down_rpc_ms=259.608900 load_rpc_ms=3385.257214 gpu_ms=77.453247 prepare_ms=1.431683
+mk store down_deferred_bytes=0 down_refill_bytes=0 total_reads=39991818240
+prompt's Engram rows: 1008, 0.0% without a read (repeats and the row cache), 1008 read
+mk down shadow layer=0 expert=236 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=317 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=333 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=131 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=153 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=95 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=209 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=286 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=338 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=373 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=114 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=381 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=91 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=305 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=333 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=56 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=153 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=28 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=84 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=197 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=207 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=222 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=238 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=340 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=373 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=5 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=67 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=217 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=218 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=249 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=289 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=381 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=44 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=131 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=187 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=214 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=285 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=288 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=304 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=333 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=15 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=22 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=33 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=56 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=61 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=148 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=233 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=337 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=30 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=104 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=373 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=85 rows=4 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=86 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=101 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=126 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=217 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=317 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=319 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=20 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=91 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=217 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=305 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=323 rows=4 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=333 rows=4 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=131 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=148 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=153 rows=4 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=330 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=30 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=209 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=250 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=286 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=338 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=101 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=217 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=319 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=382 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=115 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=199 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=214 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=288 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=304 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=323 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=333 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=56 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=61 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=148 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=153 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=330 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=29 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=197 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=207 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=275 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=5 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=16 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=135 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=11 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=131 rows=4 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=214 rows=5 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=250 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=328 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=344 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=359 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=22 rows=4 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=33 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=61 rows=4 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=148 rows=4 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=153 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=233 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=330 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=337 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=69 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=197 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=112 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=131 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=114 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=319 rows=4 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=381 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=91 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=250 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=305 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=323 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=359 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=107 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=153 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=330 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=266 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=29 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=95 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=131 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=197 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=207 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=209 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=235 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=238 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=286 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=338 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=128 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=161 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=162 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=196 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=237 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=274 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=304 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=347 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=368 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=379 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=5 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=16 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=67 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=114 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=120 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=308 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=381 rows=6 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=22 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=279 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=11 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=53 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=131 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=214 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=250 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=288 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=304 rows=6 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=323 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=337 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=170 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=246 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=296 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=22 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=56 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=61 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=107 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=148 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=233 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=337 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=11 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=150 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=305 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=28 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=196 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=197 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=207 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=238 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=340 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=0 expert=55 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=5 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=16 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=85 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=218 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=249 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=270 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=289 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=308 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=381 rows=3 mismatched_values=0 max_abs=0
+mk down shadow layer=1 expert=379 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=20 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=91 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=131 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=214 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=250 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=288 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=305 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=323 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=2 expert=248 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=15 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=61 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=107 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=148 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=153 rows=2 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=205 rows=1 mismatched_values=0 max_abs=0
+mk down shadow layer=3 expert=196 rows=1 mismatched_values=0 max_abs=0
+mk checkpoint requests=600 down_requests=424 protocol_bytes=550522816 rpc_ms=3967.782435 down_rpc_ms=582.525221 load_rpc_ms=3385.257214 gpu_ms=152.077183 prepare_ms=2.744260
+mk store down_deferred_bytes=0 down_refill_bytes=0 total_reads=54321039360
+dspark: 9 rounds, 22 drafts offered, 22 accepted (3.56 tokens a round); drafting 12.38 ms a round, verifying 8083.5 ms in all (0 windows)
+dspark per position (kept / reached): 1: 7/7 100% 2: 6/6 100% 3: 5/5 100% 4: 2/2 100% 5: 2/2 100%
+token latency ms: p50 0 p95 1555 p99 1707 max 1707 mean 301 (31 tokens)
+mk checkpoint requests=600 down_requests=424 protocol_bytes=550522816 rpc_ms=3967.782435 down_rpc_ms=582.525221 load_rpc_ms=3385.257214 gpu_ms=152.077183 prepare_ms=2.744260
+mk store down_deferred_bytes=0 down_refill_bytes=0 total_reads=54321039360
+decode: 32 tokens in 9328 ms (3.32 tok/s); CPU lane: 7512 of 7800 experts; the cache moved 0 (0 in all)
+decode per token: layers 106.90 ms (of it: routing waits 0.00, CPU lane 288.94, the rest host launches), head wait 190.64, Engram reads 15.08
+Engram per token: 48 rows, 19.4% without a read (the row cache holds 2208 of 1016800), 38.7 read, the reads 24.08 ms from asking to the last one (left to wait: 15.08)
+decode reads from the disk: 463.0 MB a token
+store: 70.5% of the CPU lane's experts were in RAM (114.4 hits, 47.9 misses a token); read 462.2 MB a token (demand and guesses), the CPU lane waited 77.6 ms a token for them; 0 prefetched, 0 used, 0 given up unused; slots 2812 of 2812, 1486 evictions, 0 failed reads; the GPU computed 0.0 experts a token from the store (0 slots visible)
+mk summary completed_requests=600 down_requests=424 protocol_bytes=550522816 resident=535265280 failed=0

@@ -1,0 +1,11 @@
+Nov 08 16:08:13 shiba2th systemd[1661]: Started mk-vsock-rxsafe-compile-20261108.service - [systemd-run] /usr/bin/make -C /home/shiba/multikernel-experiment/build M=/home/shiba/multikernel-experiment/research/mk-vsock-rxsafe-20261108 -j1 modules.
+Nov 08 16:08:13 shiba2th make[98114]: make: Entering directory '/home/shiba/multikernel-experiment/build'
+Nov 08 16:08:13 shiba2th make[98117]: make[1]: Entering directory '/home/shiba/multikernel-experiment/research/mk-vsock-rxsafe-20261108'
+Nov 08 16:08:13 shiba2th make[98283]:   CC [M]  mk_transport.o
+Nov 08 16:08:13 shiba2th make[98313]:   MODPOST Module.symvers
+Nov 08 16:08:13 shiba2th make[98316]:   CC [M]  mk_transport.mod.o
+Nov 08 16:08:14 shiba2th make[98324]:   CC [M]  .module-common.o
+Nov 08 16:08:14 shiba2th make[98332]:   LD [M]  mk_transport.ko
+Nov 08 16:08:14 shiba2th make[98117]: make[1]: Leaving directory '/home/shiba/multikernel-experiment/research/mk-vsock-rxsafe-20261108'
+Nov 08 16:08:14 shiba2th make[98114]: make: Leaving directory '/home/shiba/multikernel-experiment/build'
+Nov 08 16:08:14 shiba2th systemd[1661]: mk-vsock-rxsafe-compile-20261108.service: Consumed 794ms CPU time over 1.096s wall clock time, 161.4M memory peak.

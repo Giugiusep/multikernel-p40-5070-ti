@@ -1,0 +1,16 @@
+off-code-32-0 {'mode': 'off', 'profile': True, 'prompt': 'code', 'n': 32, 'exit': 0, 'exact_agreement': True, 'wall_s': 28.181087704000674, 'loads': 0, 'shadow_count': 0, 'max_shadow_rel_l1': None, 'exact_down_checks': 0, 'worker_failed': False, 'tps': 4.83}
+down-compact-shadow-code-32-1 {'mode': 'down-compact-shadow', 'profile': True, 'prompt': 'code', 'n': 32, 'exit': 0, 'exact_agreement': True, 'wall_s': 35.04242272999909, 'loads': 176, 'shadow_count': 0, 'max_shadow_rel_l1': None, 'exact_down_checks': 424, 'worker_failed': False, 'tps': 3.32}
+down-compact-code-32-2 {'mode': 'down-compact', 'profile': True, 'prompt': 'code', 'n': 32, 'exit': 0, 'exact_agreement': True, 'wall_s': 31.542893571000604, 'loads': 176, 'shadow_count': 0, 'max_shadow_rel_l1': None, 'exact_down_checks': 0, 'worker_failed': False, 'tps': 4.43}
+off-prose-32-0 {'mode': 'off', 'profile': True, 'prompt': 'prose', 'n': 32, 'exit': 0, 'exact_agreement': True, 'wall_s': 29.6886973460023, 'loads': 0, 'shadow_count': 0, 'max_shadow_rel_l1': None, 'exact_down_checks': 0, 'worker_failed': False, 'tps': 3.67}
+down-compact-shadow-prose-32-1 {'mode': 'down-compact-shadow', 'profile': True, 'prompt': 'prose', 'n': 32, 'exit': 0, 'exact_agreement': True, 'wall_s': 49.2707343209986, 'loads': 176, 'shadow_count': 0, 'max_shadow_rel_l1': None, 'exact_down_checks': 252, 'worker_failed': True, 'tps': 1.25}
+Traceback (most recent call last):
+  File "/home/shiba/multikernel-experiment/research/deepseek-p40-compact-20261108/run-gate.py", line 41, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/shiba/multikernel-experiment/research/deepseek-p40-compact-20261108/run-gate.py", line 39, in main
+    for repeat,mode in enumerate(['off','down-compact-shadow','down-compact']):run(mode,prompt,32,repeat,True)
+                                                                               ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shiba/multikernel-experiment/research/deepseek-p40-compact-20261108/run-gate.py", line 28, in run
+    if p.returncode or not m or not row['exact_agreement'] or row['worker_failed']:raise RuntimeError('gate failed: '+tag)
+                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: gate failed: down-compact-shadow-prose-32-1

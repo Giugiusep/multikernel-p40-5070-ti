@@ -1,0 +1,15 @@
+{
+  "source_commit": "0a34805",
+  "production_deployed": false,
+  "files": {
+    "restore_api.py": "aed87f8794f734d586a1a1b47e103bb628d4a97989d42b565472c6603e59fefd",
+    "validate-compact.py": "ae937ca4bbc8717ce73c1f44b1d20850a3307aa963a6d52c345a29dd6f04b52e",
+    "run-gate.py": "79a1ef2f165a5b5c579ef647eb5279d6a053c4891497fe0e0886999158407fe9",
+    "build.sh": "142deaa8c56b40dde9431bbb9338ddd2d04c2d5df43a826cf072ed3a15eeb484",
+    "store-role-test.cpp": "5010a07f79678195b4986bbb26fbe6c94308d89b05970bc92e4e1a3ae02dca9e",
+    "worker-compact.cu": "a5b0b2735a4bc8073a1e1a00cd6803971c3c814fcd3b2927b61134841b2859e6"
+  },
+  "worker_sha256": "932aa86bc95f1cb6cc75562f73b7dd4964f53aa552a708f7abe2cf54a01eaf16",
+  "primary_sha256": "e3e4e048b87649462b6a74ef4ec18a600b436141877af158b3555535765b9622",
+  "builds": "CUDA sm120/SM61 passed; host role tests ASAN/UBSAN passed with leak detection off because sandbox ptrace prevents LSAN; HIP/Metal not built"
+}

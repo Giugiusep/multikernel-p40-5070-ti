@@ -1,0 +1,23 @@
+{
+  "decode_delta": {
+    "requests": 97.0,
+    "down_requests": 97.0,
+    "protocol_bytes": 2869852.0,
+    "rpc_ms": 63.50100100000009,
+    "down_rpc_ms": 63.50100099999999,
+    "load_rpc_ms": 0.0,
+    "gpu_ms": 29.658079999999998,
+    "prepare_ms": 0.520354
+  },
+  "per_generated_interval": {
+    "requests": 1.5396825396825398,
+    "down_requests": 1.5396825396825398,
+    "protocol_bytes": 45553.206349206346,
+    "rpc_ms": 1.0079523968253983,
+    "down_rpc_ms": 1.0079523968253967,
+    "load_rpc_ms": 0.0,
+    "gpu_ms": 0.4707631746031746,
+    "prepare_ms": 0.0082595873015873
+  },
+  "note": "reported GPU event times exclude H2D/D2H; call wall time includes transport and worker staging. Small aggregate timing alone does not locate CPU/I/O variability."
+}

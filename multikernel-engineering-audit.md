@@ -1378,3 +1378,48 @@ No consistent full-model improvement; do not deploy either candidate as a speedu
 Secondary dmesg WARNING at126.081857s:__local_bh_enable_ip in hardirq,stack vsock_find_connected_socket_net→mk_vsock_rx_pkt→mk_vsock_ipi_handler. Static source confirms RW packets are handled inside IPI;socket table uses spin_lock_bh,not IRQ disabling. That is an interrupt-context locking hazard and explains the warning condition. It is NOT proof of the previous complete secondary stall's exact cause, and no new kernel patch was installed. After all tests dmesg still ends at126.082222s, no newer ring-full/Xid/reset lines in the captured tail;P40memory301MiBbeforefastRPCrestoration. Kernel warning is real and must not be hidden under a claim of clean dmesg. Running inside KVM may affect timing/PCI behavior, but no evidence identifies outer KVM as this warning's cause.
 
 Saved diagnostic worker6011 stays available, original5000andrestored5002unchanged. No secondary kill/reset/module reload. Source builds CUDA sm120/sm61 passed;HIP/Metal not built. Source patch,both reference kernels,oracle,resource output,all raw token sequences and benchmark JSON included;executables,objectfiles,weights and logit arrays excluded from backup.
+
+## 2026-11-08 — decode accounting, compact down residency and repeated transport stall
+
+# Decode RPC accounting
+
+Debug source commit e92544d, default off. DS4_MK_PROFILE records cumulative request wall time, CUDA event times already returned by the worker, and host preparation time. Model::stats checkpoints separate prompt registration from decode. No new CUDA synchronizations or per-chunk logging.
+
+64-token code run, 512 MiB original three-role cache:
+
+- Decode: 97 down requests, 2,869,852 application-protocol bytes, 63.501001 ms request wall time, 29.658080 ms worker GPU events, 0.520354 ms host preparation. No registration during decode.
+- Per 63 generated-token intervals: 1.008 ms RPC, 0.471 ms GPU events, 0.0083 ms preparation. GPU events exclude H2D/D2H, and RPC wall time includes transport/worker staging; these categories overlap and must not be added.
+- Controls 4.49 / 5.13 tok/s; profiled offload 5.26, unprofiled offload 4.42. Outputs exact. Variation prevents a precise overhead or speedup claim. Timers do not explain the much larger CPU/I/O variation.
+
+The measurement motivates avoiding redundant primary weight reads, rather than further ordinary GEMV or socket tuning. Production unchanged. Benchmark caps and automatic API restoration match preceding experiments.
+
+# Compact P40 down weights and deferred primary reads — experimental
+
+Source commit 0a34805 follows debug commit e92544d. Nothing deployed to the API. Kernel, NVIDIA stacks, primary upload pacing and conservative/fast RPC configurations remain unchanged.
+
+The private worker adds op5 LOAD_DOWN to the existing version2 protocol on6011. It stores only checkpoint-native down weights, leaving the worker's1GiB hard GPU cap and16MiB frame cap unchanged. Modes down-compact-shadow and down-compact use512MiB admission. The same cache now holds176experts /535265280bytes instead of58whole expert blobs. Packed CPU-compatible down arithmetic is unchanged; all24format/width oracle cases remain byte-exact.
+
+ExpertStore gains an optional defer_down callback and per-slot role-validity mask. Only a down role already resident remotely can be omitted from a primary fill. Accessing a missing role loads it lazily before exposing its bytes. Full-blob access repairs all missing roles, and incomplete slots cannot be published as GPU-visible. Remote membership is exposed through atomic flags, avoiding a client/store mutex inversion. Worker failure invalidates remote residency; existing partial slots remain repairable for CPU fallback. Slot allocation/primary RAM capacity is unchanged.
+
+Host deterministic test covers exact bytes, unaligned role offsets, twelve concurrent fallback readers with only one repair read, unchanged gate/up data, full-blob repair, GPU visibility and slot eviction. ASAN/UBSAN pass with detect_leaks0; LSAN cannot run under this sandbox's ptrace. CUDA sm120 engine and SM61 worker compile. HIP/Metal not built. An actual worker-failure test with live partial slots has NOT yet run.
+
+32-token code: baseline4.83, compact shadow3.32, actual compact offload4.43tok/s. All tokens exact;424live shadow comparisons have zero differing bits. Baseline attempted primary read bytes54,321,039,360; compact54,245,007,360. Difference exactly76,032,000bytes, matching deferred-down counter, with zero repair reads. Original store misses/evictions unchanged. This establishes actual avoided I/O, but no speedup at this small cache size.
+
+Prose baseline3.67tok/s. Compact shadow completed252byte-exact comparisons and still matched all32tokens, but a subsequent request hit socket EAGAIN after its15s timeout. CPU fallback completed the run at1.25tok/s; this is a FAILED transport gate, not a qualified benchmark. No actual compact prose offload or cache expansion followed. The controller stops at this failure and preserves every row.
+
+Afterward5000,5002and6011all timed out; console stopped responding, while sysfs still reported active. Primary API restoration succeeded, health ok, active_model null (same pre-test state). P40-dependent services are currently unavailable. No secondary reset, module unload or physical-host action attempted. Post-failure secondary dmesg could not be obtained.
+
+Next gate is reliable transport recovery, then actual fallback-with-partial-slots testing and longer exact-token runs. Cache expansion is on hold. See ../mk-vsock-rxsafe-20261108 for a separately prepared receive-context patch; it has NOT been installed.
+
+# Proposed Multikernel VSOCK receive-context fix — NOT installed
+
+The current kernel's IPI callback directly invokes mk_vsock_rx_pkt for RW packets. That reaches vsock_find_connected_socket_net and vsock_table_lock under spin_lock_bh. A hard IPI can interrupt a local task holding that lock and attempt to take it again. The matching __local_bh_enable_ip hardirq WARNING is captured in ../deepseek-p40-postboot-20261108/secondary-posttest.log at126.081857s. Current compact-cache testing reproduced a secondary-wide transport stall, but no post-stall stack is available: the warning's source is identified; the stall's exact cause remains unproven.
+
+The concrete patch defer-all-rx.patch removes only the direct RW dispatch. All received packets go through the existing receive work item, which already handles socket creation/control packets. This preserves receive ordering and avoids calling generic VSOCK socket-table helpers in hardirq. No ring-size changes, send-pacing changes, NVIDIA changes, transport/CID changes or generic AF_VSOCK lock changes.
+
+Current code already reserves transmit credits across writers (commit f7e14fd, after direct-RX commit2c15844), using a64KiB per-stream window. A deterministic modulo32 credit model transferred13,958,478,365bytes across wraps and never exceeded65536unconsumed bytes. This checks the unchanged model, NOT live queue memory, control-packet flooding, latency, throughput or proof that every stall is fixed.
+
+Compile-check passed CC/MODPOST/LD against the existing kernel build, producing a local research-only mk_transport.ko. The running configuration has CONFIG_MULTIKERNEL_VSOCKETS=y: this artifact is NOT a hot-swap replacement and must not be installed or inserted. Neither kernel source tree nor boot image was changed. Deployment requires a separately built boot-test image for both primary and secondary, preserving the current boot entry and both NVIDIA stacks. Verify configuration/release/module ABI before reuse of existing modules.
+
+Runtime testing is pending approval to lift the user's earlier no-kernel-change constraint for this focused transport fix. No reboot requested or performed in this step. Once approved, preserve the current kernel, build a separate candidate, prepare boot configuration and stop before reboot. After boot: verify both GPUs and original services, socket/connect lifecycle stress, exact512KiB/1MiB/16MiB traffic, then compact cache correctness/fallback and inference. Workqueue latency or throughput regression is possible; do not promote based on compile success.
+

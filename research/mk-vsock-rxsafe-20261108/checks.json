@@ -1,0 +1,8 @@
+{
+  "static_hardirq_callback_queue_only": true,
+  "model_iterations": 1200000,
+  "model_payload_bytes": 13958478365,
+  "max_unconsumed_payload_bytes": 65536,
+  "per_stream_credit_bytes": 65536,
+  "limits": "model checks an unchanged credit algorithm, not live queue memory, control floods, lockup root cause or throughput"
+}

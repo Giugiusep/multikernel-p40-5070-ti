@@ -1,0 +1,83 @@
+From e92544d78a0db0d2192d9e9dff86ff5a555d9f58 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Sun, 8 Nov 2026 15:54:11 +0000
+Subject: [PATCH] debug: measure DeepSeek P40 request time at decode boundaries
+
+---
+ src/dsv41/ds4_mk_expert.hpp | 12 ++++++++++--
+ src/dsv41/ds4_model.cu      |  3 +++
+ 2 files changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/src/dsv41/ds4_mk_expert.hpp b/src/dsv41/ds4_mk_expert.hpp
+index 165daa5..6342e01 100644
+--- a/src/dsv41/ds4_mk_expert.hpp
++++ b/src/dsv41/ds4_mk_expert.hpp
+@@ -1,6 +1,7 @@
+ #pragma once
+ // Experimental primary-only adapter. Default off. No model I/O in the secondary.
+ #include <algorithm>
++#include <chrono>
+ #include <cmath>
+ #include <cstdio>
+ #include <cstdlib>
+@@ -23,6 +24,10 @@ struct Client {
+     int fd=-1; unsigned seq=0; size_t resident=0,requests=0,down_requests=0,protocol_bytes=0; bool failed=false;
+     std::map<std::pair<int,int>,size_t> cache;
+     std::mutex mu;
++    double rpc_ms=0,down_rpc_ms=0,load_rpc_ms=0,gpu_ms=0,prepare_ms=0;
++    static double clock_ms(){return std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now().time_since_epoch()).count();}
++    static bool profile(){return getenv("DS4_MK_PROFILE")!=nullptr;}
++    void checkpoint(){if(!profile())return;std::lock_guard<std::mutex> lock(mu);fprintf(stderr,"mk checkpoint requests=%zu down_requests=%zu protocol_bytes=%zu rpc_ms=%.6f down_rpc_ms=%.6f load_rpc_ms=%.6f gpu_ms=%.6f prepare_ms=%.6f\n",requests,down_requests,protocol_bytes,rpc_ms,down_rpc_ms,load_rpc_ms,gpu_ms,prepare_ms);}
+     ~Client(){if(requests)fprintf(stderr,"mk summary completed_requests=%zu down_requests=%zu protocol_bytes=%zu resident=%zu failed=%d\n",requests,down_requests,protocol_bytes,resident,int(failed));if(fd>=0)close(fd);}
+     static int mode(){if(suspended)return 0;const char*p=getenv("DS4_MK_EXPERT");return p&&strcmp(p,"shadow")==0?1:p&&strcmp(p,"replace")==0?2:p&&strcmp(p,"checked-replace")==0?3:p&&strcmp(p,"down")==0?4:p&&strcmp(p,"down-shadow")==0?5:0;}
+     static size_t limit(){const char*p=getenv("DS4_MK_CACHE_MIB");long v=p?std::strtol(p,nullptr,10):1024;if(v<16||v>1024)throw std::runtime_error("invalid DS4_MK_CACHE_MIB");return size_t(v)*1024*1024;}
+@@ -33,12 +38,13 @@ struct Client {
+             if(fd<0||setsockopt(fd,AF_VSOCK,9,&t,sizeof(t)))throw std::runtime_error("Multikernel transport selection");
+             timeval timeout{15,0};setsockopt(fd,SOL_SOCKET,SO_RCVTIMEO,&timeout,sizeof(timeout));setsockopt(fd,SOL_SOCKET,SO_SNDTIMEO,&timeout,sizeof(timeout));
+             if(connect(fd,(sockaddr*)&a,sizeof(a)))throw std::runtime_error("Multikernel expert connect");}
++        double start=profile()?clock_ms():0;
+         Header h{0x4458454d,2,op,0,++seq,(unsigned)b.size()};
+         const bool trace=getenv("DS4_MK_TRACE")!=nullptr;
+         if(trace)fprintf(stderr,"mk tx seq=%u op=%u bytes=%u\n",seq,op,h.bytes);
+         io(fd,&h,sizeof(h),true);io(fd,b.data(),b.size(),true);Header r{};io(fd,&r,sizeof(r),false);
+         if(r.magic!=h.magic||r.version!=2||r.op!=op||r.seq!=seq||r.bytes>16*1024*1024)throw std::runtime_error("Multikernel expert framing");
+-        std::vector<unsigned char> out(r.bytes);io(fd,out.data(),out.size(),false);if(r.status)throw std::runtime_error(std::string("Multikernel worker rejected: ")+std::string(out.begin(),out.end()));++requests;down_requests+=op==4;protocol_bytes+=48+b.size()+out.size();if(trace)fprintf(stderr,"mk rx seq=%u op=%u bytes=%u\n",seq,op,r.bytes);return out;
++        std::vector<unsigned char> out(r.bytes);io(fd,out.data(),out.size(),false);if(r.status)throw std::runtime_error(std::string("Multikernel worker rejected: ")+std::string(out.begin(),out.end()));if(profile()){double elapsed=clock_ms()-start;rpc_ms+=elapsed;if(op==4)down_rpc_ms+=elapsed;if(op==1)load_rpc_ms+=elapsed;}++requests;down_requests+=op==4;protocol_bytes+=48+b.size()+out.size();if(trace)fprintf(stderr,"mk rx seq=%u op=%u bytes=%u\n",seq,op,r.bytes);return out;
+     }
+     template<class Loader> bool run(int l,int e,int tg,int td,int rows,const float*x,size_t stride,Loader load,std::vector<float>&out,bool down_only=false){
+         std::lock_guard<std::mutex> lock(mu);if(failed||rows<1||rows>8||!(tg==16||tg==17||tg==22)||!(td==16||td==17||td==22||td==18))return false;
+@@ -52,6 +58,7 @@ struct Client {
+                 meta[6]=(unsigned)gu;meta[7]=(unsigned)dn;memcpy(b.data(),meta,32);auto reply=call(1,b);if(!reply.empty())throw std::runtime_error("LOAD reply");cache[key]=b.size()-32;resident+=b.size()-32;
+                 fprintf(stderr,"mk expert load layer=%d expert=%d bytes=%zu resident=%zu\n",l,e,b.size()-32,resident);
+             }
++            double prep_start=profile()?clock_ms():0;
+             int dim=down_only?2304:5120;
+             std::vector<signed char>q(rows*dim);std::vector<float>d(rows*dim/32);
+             std::vector<unsigned char> packed((dim/256)*292);
+@@ -60,7 +67,8 @@ struct Client {
+                 strata::ds4::gguf::iq_cpu_quant(15,x+r*stride,dim,packed.data());
+                 for(int b=0;b<dim/256;b++){float sc;memcpy(&sc,packed.data()+b*292,4);memcpy(q.data()+r*dim+b*256,packed.data()+b*292+4,256);for(int j=0;j<8;j++)d[r*(dim/32)+b*8+j]=sc;}
+             }
+-            unsigned meta[4]={(unsigned)l,(unsigned)e,(unsigned)rows,0};std::vector<unsigned char>b;append(b,meta,16);append(b,q.data(),q.size());append(b,d.data(),d.size()*4);auto reply=call(down_only?4:2,b);
++            unsigned meta[4]={(unsigned)l,(unsigned)e,(unsigned)rows,0};std::vector<unsigned char>b;append(b,meta,16);append(b,q.data(),q.size());append(b,d.data(),d.size()*4);if(profile())prepare_ms+=clock_ms()-prep_start;auto reply=call(down_only?4:2,b);
++            if(profile()&&down_only&&reply.size()>=28){float us[3];memcpy(us,reply.data()+16,12);gpu_ms+=(us[0]+us[1]+us[2])/1000.0;}
+             unsigned hdr[4];if(reply.size()!=28+size_t(rows)*5120*4)throw std::runtime_error("RUN reply size");memcpy(hdr,reply.data(),16);if(hdr[0]!=(unsigned)rows||hdr[1]||hdr[2]!=5120||hdr[3]!=2304)throw std::runtime_error("RUN metadata");out.resize(rows*5120);memcpy(out.data(),reply.data()+28,out.size()*4);for(float v:out)if(!std::isfinite(v))throw std::runtime_error("nonfinite output");return true;
+         }catch(const std::exception&e){fprintf(stderr,"mk expert disabled: %s (CPU fallback)\n",e.what());failed=true;if(fd>=0){close(fd);fd=-1;}return false;}
+     }
+diff --git a/src/dsv41/ds4_model.cu b/src/dsv41/ds4_model.cu
+index a05a97d..b840189 100644
+--- a/src/dsv41/ds4_model.cu
++++ b/src/dsv41/ds4_model.cu
+@@ -10850,6 +10850,9 @@ std::string Model::slot_identity() const { return p_->slot_identity(); }
+ void Model::settle_idle(const std::atomic<bool>& cancel) { p_->cache_settle_idle(cancel); }
+ void Model::save_profile() const { p_->save_profile(); }
+ const Stats& Model::stats() const {
++#if defined(__linux__) && !defined(STRATA_USE_HIP)
++    strata_mk::client().checkpoint();
++#endif
+     Stats& st = p_->st;
+     if (p_->store) {   // (the store keeps its own counters: copied in when asked)
+         const ExpertStore& x = *p_->store;
+-- 
+2.53.0
+

@@ -1,0 +1,8 @@
+[1/2] Building CUDA object CMakeFiles/strata-dsv41.dir/src/dsv41/ds4_model.cu.o
+/home/shiba/multikernel-experiment/research/Strata-deepseek-decode/src/dsv41/ds4_model.cu(95): warning #177-D: variable "strata::ds4::<unnamed>::kHipBuild" was declared but never referenced
+  constexpr bool kHipBuild = false;
+                 ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+[2/2] Linking CXX executable strata-dsv41

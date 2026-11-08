@@ -1,0 +1,10 @@
+{
+  "compile_check": "passed, CC/MODPOST/LD against existing build headers",
+  "installed": false,
+  "kernel_transport_builtin": true,
+  "base_kernel_commit": "df0139d5edbd5169ad63cb6f51df57071a13e45b",
+  "proposed_source_sha256": "35366aa310c20ac6f41d3729fb7d2ebd0215a2cb1922698e52060398a8278111",
+  "compile_check_module_sha256": "3be039259325212760964cef70a119ac0443ee7969e682323f5ed7e6955f8384",
+  "not_a_hot_swap_module": true,
+  "runtime_test": "not run; requires separate boot image and approval to lift no-kernel-change constraint"
+}

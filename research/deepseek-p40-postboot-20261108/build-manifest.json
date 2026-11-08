@@ -1,0 +1,22 @@
+{
+  "source_commit": "4465dadc1666df74653d41e79e3c06211a28a0c7",
+  "base_commit": "6c125cf",
+  "worker_contract": "deepseek-iq-q8k-v2 with private op4 extension",
+  "port": 6011,
+  "worker_hard_GPU_cache_bytes": 1073741824,
+  "client_test_cache_bytes": 536870912,
+  "status": "experimental; no consistent generation gain; production unchanged",
+  "files": {
+    "exact-down.cu": "818d5de36f9e5e1ed2c530dbfcf9b9eee3698e75cf8784295de23b0982489532",
+    "exact-down-baseline.cu": "547994fb75b73a62f5f725d55ccd4f055ca7a3bb407ce40c0b3f8b7be4b8b320",
+    "exact-down-packed4.cu": "490fc3e76f4ded90c116b0893c6836b2228f9cf8498cd544301044cc8423afc9",
+    "worker-down.cu": "bcb60e702401ceda2118953dd82d0846be51d5d8dcfa8701795e8ff816b771e0",
+    "worker-down": "5cd2c25782d3fa0a7300f7c2958f7c8ead42a83dc277211ce9dc5f20e87dd708",
+    "build-down.sh": "b8a3e653e6097c0bac1e0f224249905744e938f273f9897097e15a88e0947363",
+    "validate-down.py": "343c10f8d7232812c2be4d93d2fdb4356944b0e54e0c15fc3352488d6710aae3",
+    "time-down.py": "16b1b62480d694d3c5a9ad704aa0ba18108027d82a4be1c9adb751bd1020dc11",
+    "down-reference.cpp": "3ce80bfa35e5666f214a5324f0229dae200e5ae031efefa3734c21f3c0e510a9"
+  },
+  "primary_executable_sha256": "fe2418df8c43321a210ad9c73952e3cf3f9baa52d3fac5f9398b003363b70e67",
+  "builds": "CUDA12.8/GCC13 sm120 primary, sm61 worker; HIP/Metal not tested"
+}

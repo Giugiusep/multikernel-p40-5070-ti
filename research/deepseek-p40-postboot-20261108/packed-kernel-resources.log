@@ -1,0 +1,22 @@
+
+Fatbin elf code:
+================
+arch = sm_61
+code version = [1,7]
+host = linux
+compile_size = 64bit
+
+Resource usage:
+ Common:
+  GLOBAL:26792 CONSTANT[4]:88
+ Function _ZN46_GLOBAL__N__1f95114b_13_exact_down_cu_b44d8ce210exact_downEiPKhiiPKaPKfPf:
+  REG:47 STACK:0 SHARED:0 LOCAL:0 CONSTANT[0]:368 TEXTURE:0 SURFACE:0 SAMPLER:0
+
+Fatbin ptx code:
+================
+arch = sm_61
+code version = [8,7]
+host = linux
+compile_size = 64bit
+compressed
+ptxasOptions = 

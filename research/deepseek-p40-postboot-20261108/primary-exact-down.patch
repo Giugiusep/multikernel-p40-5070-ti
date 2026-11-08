@@ -1,0 +1,148 @@
+From 4465dadc1666df74653d41e79e3c06211a28a0c7 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Sun, 8 Nov 2026 12:01:08 +0000
+Subject: [PATCH] Add byte-exact CPU-compatible P40 down-projection experiment
+
+---
+ src/dsv41/ds4_mk_expert.hpp | 33 +++++++++++++++++++--------------
+ src/dsv41/ds4_model.cu      | 35 +++++++++++++++++++++++++++++++++--
+ 2 files changed, 52 insertions(+), 16 deletions(-)
+
+diff --git a/src/dsv41/ds4_mk_expert.hpp b/src/dsv41/ds4_mk_expert.hpp
+index be32fbb..165daa5 100644
+--- a/src/dsv41/ds4_mk_expert.hpp
++++ b/src/dsv41/ds4_mk_expert.hpp
+@@ -20,42 +20,47 @@ inline thread_local bool suspended=false;
+ struct Pause {bool prior;Pause():prior(suspended){suspended=true;}~Pause(){suspended=prior;}};
+ struct Client {
+     struct Header { unsigned magic,version,op,status,seq,bytes; };
+-    int fd=-1; unsigned seq=0; size_t resident=0; bool failed=false;
++    int fd=-1; unsigned seq=0; size_t resident=0,requests=0,down_requests=0,protocol_bytes=0; bool failed=false;
+     std::map<std::pair<int,int>,size_t> cache;
+     std::mutex mu;
+-    ~Client(){if(fd>=0)close(fd);}
+-    static int mode(){if(suspended)return 0;const char*p=getenv("DS4_MK_EXPERT");return p&&strcmp(p,"shadow")==0?1:p&&strcmp(p,"replace")==0?2:0;}
++    ~Client(){if(requests)fprintf(stderr,"mk summary completed_requests=%zu down_requests=%zu protocol_bytes=%zu resident=%zu failed=%d\n",requests,down_requests,protocol_bytes,resident,int(failed));if(fd>=0)close(fd);}
++    static int mode(){if(suspended)return 0;const char*p=getenv("DS4_MK_EXPERT");return p&&strcmp(p,"shadow")==0?1:p&&strcmp(p,"replace")==0?2:p&&strcmp(p,"checked-replace")==0?3:p&&strcmp(p,"down")==0?4:p&&strcmp(p,"down-shadow")==0?5:0;}
++    static size_t limit(){const char*p=getenv("DS4_MK_CACHE_MIB");long v=p?std::strtol(p,nullptr,10):1024;if(v<16||v>1024)throw std::runtime_error("invalid DS4_MK_CACHE_MIB");return size_t(v)*1024*1024;}
+     static void append(std::vector<unsigned char>&b,const void*p,size_t n){const auto*q=(const unsigned char*)p;b.insert(b.end(),q,q+n);}
+-    static void io(int fd,void*p,size_t n,bool tx){auto*q=(char*)p;unsigned retries=0;while(n){size_t want=std::min(n,size_t(32768));ssize_t k=tx?send(fd,q,want,MSG_NOSIGNAL):recv(fd,q,want,0);if(k<0&&errno==EINTR)continue;if(k<0&&tx&&(errno==ENOSPC||errno==EAGAIN)&&++retries<1000){usleep(100);continue;}if(k<=0)throw std::runtime_error("Multikernel expert socket I/O");q+=k;n-=k;retries=0;if(tx&&n)usleep(100);}}
++    static void io(int fd,void*p,size_t n,bool tx){auto*q=(char*)p;unsigned retries=0;while(n){size_t want=std::min(n,size_t(32768));ssize_t k=tx?send(fd,q,want,MSG_NOSIGNAL):recv(fd,q,want,0);if(k<0&&errno==EINTR)continue;if(k<0&&tx&&(errno==ENOSPC||errno==EAGAIN)&&++retries<1000){usleep(100);continue;}if(k<=0)throw std::runtime_error(std::string("Multikernel expert socket I/O: ")+strerror(errno));q+=k;n-=k;retries=0;if(tx&&n)usleep(100);}}
+     std::vector<unsigned char> call(unsigned op,std::vector<unsigned char>&b){
+         if(fd<0){fd=socket(AF_VSOCK,SOCK_STREAM,0);int t=1;sockaddr_vm a{};a.svm_family=AF_VSOCK;a.svm_cid=1;a.svm_port=6011;
+             if(fd<0||setsockopt(fd,AF_VSOCK,9,&t,sizeof(t)))throw std::runtime_error("Multikernel transport selection");
+             timeval timeout{15,0};setsockopt(fd,SOL_SOCKET,SO_RCVTIMEO,&timeout,sizeof(timeout));setsockopt(fd,SOL_SOCKET,SO_SNDTIMEO,&timeout,sizeof(timeout));
+             if(connect(fd,(sockaddr*)&a,sizeof(a)))throw std::runtime_error("Multikernel expert connect");}
+-        Header h{0x4458454d,2,op,0,++seq,(unsigned)b.size()};io(fd,&h,sizeof(h),true);io(fd,b.data(),b.size(),true);Header r{};io(fd,&r,sizeof(r),false);
++        Header h{0x4458454d,2,op,0,++seq,(unsigned)b.size()};
++        const bool trace=getenv("DS4_MK_TRACE")!=nullptr;
++        if(trace)fprintf(stderr,"mk tx seq=%u op=%u bytes=%u\n",seq,op,h.bytes);
++        io(fd,&h,sizeof(h),true);io(fd,b.data(),b.size(),true);Header r{};io(fd,&r,sizeof(r),false);
+         if(r.magic!=h.magic||r.version!=2||r.op!=op||r.seq!=seq||r.bytes>16*1024*1024)throw std::runtime_error("Multikernel expert framing");
+-        std::vector<unsigned char> out(r.bytes);io(fd,out.data(),out.size(),false);if(r.status)throw std::runtime_error(std::string("Multikernel worker rejected: ")+std::string(out.begin(),out.end()));return out;
++        std::vector<unsigned char> out(r.bytes);io(fd,out.data(),out.size(),false);if(r.status)throw std::runtime_error(std::string("Multikernel worker rejected: ")+std::string(out.begin(),out.end()));++requests;down_requests+=op==4;protocol_bytes+=48+b.size()+out.size();if(trace)fprintf(stderr,"mk rx seq=%u op=%u bytes=%u\n",seq,op,r.bytes);return out;
+     }
+-    template<class Loader> bool run(int l,int e,int tg,int td,int rows,const float*x,size_t stride,Loader load,std::vector<float>&out){
++    template<class Loader> bool run(int l,int e,int tg,int td,int rows,const float*x,size_t stride,Loader load,std::vector<float>&out,bool down_only=false){
+         std::lock_guard<std::mutex> lock(mu);if(failed||rows<1||rows>8||!(tg==16||tg==17||tg==22)||!(td==16||td==17||td==22||td==18))return false;
+         try{
+             const auto key=std::make_pair(l,e);
+             if(!cache.count(key)){
+                 // Fixed bounded cache; admission stops at 1GiB. No eviction/upload churn.
+-                if(resident+12*1024*1024>1024ull*1024*1024)return false;
++                if(resident+12*1024*1024>limit())return false;
+                 std::vector<unsigned char>b;unsigned meta[8]={(unsigned)l,(unsigned)e,(unsigned)tg,(unsigned)td,5120,2304,0,0};append(b,meta,32);
+-                size_t gu=0,dn=0;load(b,gu,dn);if(b.size()!=32+2*gu+dn||b.size()>16*1024*1024||resident+b.size()-32>1024ull*1024*1024)return false;
++                size_t gu=0,dn=0;load(b,gu,dn);if(b.size()!=32+2*gu+dn||b.size()>16*1024*1024||resident+b.size()-32>limit())return false;
+                 meta[6]=(unsigned)gu;meta[7]=(unsigned)dn;memcpy(b.data(),meta,32);auto reply=call(1,b);if(!reply.empty())throw std::runtime_error("LOAD reply");cache[key]=b.size()-32;resident+=b.size()-32;
+                 fprintf(stderr,"mk expert load layer=%d expert=%d bytes=%zu resident=%zu\n",l,e,b.size()-32,resident);
+             }
+-            std::vector<signed char>q(rows*5120);std::vector<float>d(rows*160);
+-            std::vector<unsigned char> packed(20*292);
++            int dim=down_only?2304:5120;
++            std::vector<signed char>q(rows*dim);std::vector<float>d(rows*dim/32);
++            std::vector<unsigned char> packed((dim/256)*292);
+             for(int r=0;r<rows;r++){
+                 // GGML_TYPE_Q8_K=15, block: float d; int8 qs[256]; int16 bsums[16].
+-                strata::ds4::gguf::iq_cpu_quant(15,x+r*stride,5120,packed.data());
+-                for(int b=0;b<20;b++){float sc;memcpy(&sc,packed.data()+b*292,4);memcpy(q.data()+r*5120+b*256,packed.data()+b*292+4,256);for(int j=0;j<8;j++)d[r*160+b*8+j]=sc;}
++                strata::ds4::gguf::iq_cpu_quant(15,x+r*stride,dim,packed.data());
++                for(int b=0;b<dim/256;b++){float sc;memcpy(&sc,packed.data()+b*292,4);memcpy(q.data()+r*dim+b*256,packed.data()+b*292+4,256);for(int j=0;j<8;j++)d[r*(dim/32)+b*8+j]=sc;}
+             }
+-            unsigned meta[4]={(unsigned)l,(unsigned)e,(unsigned)rows,0};std::vector<unsigned char>b;append(b,meta,16);append(b,q.data(),q.size());append(b,d.data(),d.size()*4);auto reply=call(2,b);
++            unsigned meta[4]={(unsigned)l,(unsigned)e,(unsigned)rows,0};std::vector<unsigned char>b;append(b,meta,16);append(b,q.data(),q.size());append(b,d.data(),d.size()*4);auto reply=call(down_only?4:2,b);
+             unsigned hdr[4];if(reply.size()!=28+size_t(rows)*5120*4)throw std::runtime_error("RUN reply size");memcpy(hdr,reply.data(),16);if(hdr[0]!=(unsigned)rows||hdr[1]||hdr[2]!=5120||hdr[3]!=2304)throw std::runtime_error("RUN metadata");out.resize(rows*5120);memcpy(out.data(),reply.data()+28,out.size()*4);for(float v:out)if(!std::isfinite(v))throw std::runtime_error("nonfinite output");return true;
+         }catch(const std::exception&e){fprintf(stderr,"mk expert disabled: %s (CPU fallback)\n",e.what());failed=true;if(fd>=0){close(fd);fd=-1;}return false;}
+     }
+diff --git a/src/dsv41/ds4_model.cu b/src/dsv41/ds4_model.cu
+index ac781bd..a05a97d 100644
+--- a/src/dsv41/ds4_model.cu
++++ b/src/dsv41/ds4_model.cu
+@@ -6630,7 +6630,7 @@ struct Model::Impl {
+         // Shadow compares real CPU-lane contributions without changing them.
+         std::vector<std::pair<Ent,std::vector<float>>> mk_results;
+         const int mk_mode = strata_mk::Client::mode();
+-        if (mk_mode && NH == 1 && g.dim == 5120 && g.ff == 2304 && g.lim == 10.f) {
++        if (mk_mode >= 1 && mk_mode <= 3 && NH == 1 && g.dim == 5120 && g.ff == 2304 && g.lim == 10.f) {
+             for (const Ent& en : ents) {
+                 std::vector<float> input((size_t)en.n * g.dim), output;
+                 for (int i=0;i<en.n;i++) std::memcpy(input.data()+(size_t)i*g.dim,x+(size_t)en.tok[i]*ldx,g.dim*4);
+@@ -6662,6 +6662,10 @@ struct Model::Impl {
+             const float* cpu=c_yd.data()+(size_t)en.slot0*g.dim;
+             for(size_t j=0;j<item.second.size();j++){double d=std::abs(double(cpu[j])-item.second[j]);err+=d;ref+=std::abs(cpu[j]);mx=std::max(mx,d);}
+             std::fprintf(stderr,"mk expert shadow layer=%d expert=%d rows=%d rel_l1=%.9g max_abs=%.9g\n",l.il,en.e,en.n,err/std::max(ref,1e-30),mx);
++            if(mk_mode==3) {
++                if(err/std::max(ref,1e-30)>.001)throw std::runtime_error("checked replacement numerical gate failed");
++                std::memcpy(c_yd.data()+(size_t)en.slot0*g.dim,item.second.data(),item.second.size()*4);
++            }
+         }
+ #endif
+     }
+@@ -6764,9 +6768,28 @@ struct Model::Impl {
+                 gg::iq_cpu_quant(fm.d_act, c_xhd.data() + (size_t) (en.slot0 + i) * FF, FF,
+                                  aq + (size_t) (kWin + en.slot0 + i) * E * 4);
+         double tq2 = now_ms(); if (cpulog) t_q2 += tq2 - tr1;
++        std::vector<char> mk_down_ready;
++        std::vector<std::vector<float>> mk_down_output;
++#if defined(__linux__) && !defined(STRATA_USE_HIP)
++        const int down_mode=strata_mk::Client::mode();
++        if(down_mode==4||down_mode==5){mk_down_ready.assign(ne,0);mk_down_output.resize(ne);}
++        if ((down_mode==4||down_mode==5) && NH==1 && E==5120 && FF==2304 && (fm.td==16||fm.td==17||fm.td==22)) {
++            for(int j=0;j<ne;j++) {const Ent& en=ents[j];
++                auto load=[&](std::vector<unsigned char>&b,size_t&gu,size_t&dn){gu=mx_part_bytes(l,0);dn=mx_part_bytes(l,2);if(mx_part_bytes(l,1)!=gu)throw std::runtime_error("gate/up dimensions");for(int r=0;r<3;r++)strata_mk::Client::append(b,mx_part_ptr(l,en.e,r,0),mx_part_bytes(l,r));};
++                if(strata_mk::client().run(l.il,en.e,fm.tg,fm.td,en.n,c_xhd.data()+(size_t)en.slot0*FF,FF,load,mk_down_output[j],true)) {
++                    mk_down_ready[j]=1;
++                    if(down_mode==4)std::memcpy(c_yd.data()+(size_t)en.slot0*E,mk_down_output[j].data(),mk_down_output[j].size()*4);
++                }
++            }
++        }
++#endif
+         for (int X = 0; X < NH; ++X)
+             f[X] = [&, X](int j) {
+-                const Ent& en = ents[(size_t) (ord != nullptr ? ord[j / DB] : j / DB)];
++                const int ei=ord != nullptr ? ord[j / DB] : j / DB;
++                const Ent& en = ents[(size_t) ei];
++#if defined(__linux__) && !defined(STRATA_USE_HIP)
++                if(down_mode==4 && mk_down_ready[ei])return;
++#endif
+                 const int r0 = X * Eh + (j % DB) * RB, r1 = std::min(X * Eh + Eh, r0 + RB);
+                 const void* hp[kEntMax];
+                 float* yp[kEntMax];
+@@ -6777,6 +6800,14 @@ struct Model::Impl {
+                 gg::iq_cpu_down(fm, mx_part_ptr(l, en.e, 2, X), hp, en.n, yp, r0 - X * Eh, r1 - X * Eh);
+             };
+         run_nodes(ne * DB, f);
++#if defined(__linux__) && !defined(STRATA_USE_HIP)
++        if(down_mode==5)for(int j=0;j<ne;j++)if(mk_down_ready[j]) {
++            const float* ref=c_yd.data()+(size_t)ents[j].slot0*E;size_t mismatches=0;float maxerr=0;
++            for(size_t i=0;i<mk_down_output[j].size();i++){mismatches+=std::memcmp(ref+i,mk_down_output[j].data()+i,4)!=0;maxerr=std::max(maxerr,std::abs(ref[i]-mk_down_output[j][i]));}
++            std::fprintf(stderr,"mk down shadow layer=%d expert=%d rows=%d mismatched_values=%zu max_abs=%.9g\n",l.il,ents[j].e,ents[j].n,mismatches,maxerr);
++            if(mismatches)throw std::runtime_error("GPU down does not match CPU output bytes");
++        }
++#endif
+         if (cpulog) t_r2 += now_ms() - tq2;
+         {   // DS4_PROF: where the CPU lane's time goes (act prep + prefetch, gate/up, h quant, down), summed
+             static const bool on = std::getenv("DS4_PROF") != nullptr;
+-- 
+2.53.0
+

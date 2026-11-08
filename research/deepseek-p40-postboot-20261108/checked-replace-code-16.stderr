@@ -1,0 +1,132 @@
+ds4: tensor parallel 2 -> 1: the experts' 256-value blocks split n_ff 2304 no other way (each GPU its own layers)
+ds4: experts per word: 6 (full quality)
+ds4: the experts VRAM leaves over (~150.8 GB) are read in place from the model's files (--mmap-experts off copies them into RAM) (43.7 GB of RAM free to keep them: the most-routed 0.0 GB read ahead; prompts in chunks of 4096)
+ds4: RAM store: up to 2812 slots of 11.4 MB (32.0 GB), policy 0, 8 reader threads, unbuffered reads
+ds4: RAM store: 2812 of the profile's hottest experts read in (25.7 GB) in 13.9 s
+ds4: prompt path: the chunked pass from 96 tokens, windows of 16 below
+ds4: CUDA0 layers [0, 42] + head: weights 6.58 GB, experts 5.86 GB (312 of 15744 in VRAM), caches 0.01 GB, 1028 MiB free
+ds4: 15432 routed experts on the CPU lane (150.8 GB, in place in the model's files), 8 threads
+mk tx seq=1 op=1 bytes=9123872
+mk rx seq=1 op=1 bytes=0
+mk expert load layer=0 expert=28 bytes=9123840 resident=9123840
+mk tx seq=2 op=2 bytes=5776
+mk rx seq=2 op=2 bytes=20508
+mk tx seq=3 op=1 bytes=9123872
+mk rx seq=3 op=1 bytes=0
+mk expert load layer=0 expert=29 bytes=9123840 resident=18247680
+mk tx seq=4 op=2 bytes=11536
+mk rx seq=4 op=2 bytes=40988
+mk tx seq=5 op=1 bytes=9123872
+mk rx seq=5 op=1 bytes=0
+mk expert load layer=0 expert=30 bytes=9123840 resident=27371520
+mk tx seq=6 op=2 bytes=5776
+mk rx seq=6 op=2 bytes=20508
+mk tx seq=7 op=1 bytes=9123872
+mk rx seq=7 op=1 bytes=0
+mk expert load layer=0 expert=48 bytes=9123840 resident=36495360
+mk tx seq=8 op=2 bytes=5776
+mk rx seq=8 op=2 bytes=20508
+mk tx seq=9 op=1 bytes=9123872
+mk rx seq=9 op=1 bytes=0
+mk expert load layer=0 expert=55 bytes=9123840 resident=45619200
+mk tx seq=10 op=2 bytes=5776
+mk rx seq=10 op=2 bytes=20508
+mk tx seq=11 op=1 bytes=9123872
+mk rx seq=11 op=1 bytes=0
+mk expert load layer=0 expert=69 bytes=9123840 resident=54743040
+mk tx seq=12 op=2 bytes=11536
+mk rx seq=12 op=2 bytes=40988
+mk tx seq=13 op=1 bytes=9123872
+mk rx seq=13 op=1 bytes=0
+mk expert load layer=0 expert=86 bytes=9123840 resident=63866880
+mk tx seq=14 op=2 bytes=5776
+mk rx seq=14 op=2 bytes=20508
+mk tx seq=15 op=1 bytes=9123872
+mk rx seq=15 op=1 bytes=0
+mk expert load layer=0 expert=112 bytes=9123840 resident=72990720
+mk tx seq=16 op=2 bytes=17296
+mk rx seq=16 op=2 bytes=61468
+mk tx seq=17 op=1 bytes=9123872
+mk rx seq=17 op=1 bytes=0
+mk expert load layer=0 expert=128 bytes=9123840 resident=82114560
+mk tx seq=18 op=2 bytes=5776
+mk rx seq=18 op=2 bytes=20508
+mk tx seq=19 op=1 bytes=9123872
+mk rx seq=19 op=1 bytes=0
+mk expert load layer=0 expert=162 bytes=9123840 resident=91238400
+mk tx seq=20 op=2 bytes=11536
+mk rx seq=20 op=2 bytes=40988
+mk tx seq=21 op=1 bytes=9123872
+mk rx seq=21 op=1 bytes=0
+mk expert load layer=0 expert=196 bytes=9123840 resident=100362240
+mk tx seq=22 op=2 bytes=5776
+mk rx seq=22 op=2 bytes=20508
+mk tx seq=23 op=1 bytes=9123872
+mk rx seq=23 op=1 bytes=0
+mk expert load layer=0 expert=197 bytes=9123840 resident=109486080
+mk tx seq=24 op=2 bytes=17296
+mk rx seq=24 op=2 bytes=61468
+mk tx seq=25 op=1 bytes=9123872
+mk rx seq=25 op=1 bytes=0
+mk expert load layer=0 expert=198 bytes=9123840 resident=118609920
+mk tx seq=26 op=2 bytes=5776
+mk rx seq=26 op=2 bytes=20508
+mk tx seq=27 op=1 bytes=9123872
+mk rx seq=27 op=1 bytes=0
+mk expert load layer=0 expert=203 bytes=9123840 resident=127733760
+mk tx seq=28 op=2 bytes=5776
+mk rx seq=28 op=2 bytes=20508
+mk expert shadow layer=0 expert=28 rows=1 rel_l1=1.2392874e-07 max_abs=1.49011612e-08
+mk expert shadow layer=0 expert=29 rows=2 rel_l1=1.52073496e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=30 rows=1 rel_l1=2.11635558e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=48 rows=1 rel_l1=1.73882767e-07 max_abs=8.94069672e-08
+mk expert shadow layer=0 expert=55 rows=1 rel_l1=1.1295341e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=69 rows=2 rel_l1=1.32269746e-07 max_abs=8.94069672e-08
+mk expert shadow layer=0 expert=86 rows=1 rel_l1=1.59076754e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=112 rows=3 rel_l1=1.18138791e-07 max_abs=4.47034836e-08
+mk expert shadow layer=0 expert=128 rows=1 rel_l1=2.06531675e-07 max_abs=5.21540642e-08
+mk expert shadow layer=0 expert=162 rows=2 rel_l1=1.18606743e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=196 rows=1 rel_l1=1.87121734e-07 max_abs=3.16649675e-08
+mk expert shadow layer=0 expert=197 rows=3 rel_l1=1.39350618e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=198 rows=1 rel_l1=1.17918361e-07 max_abs=1.1920929e-07
+mk expert shadow layer=0 expert=203 rows=1 rel_l1=1.28784737e-07 max_abs=5.96046448e-08
+mk tx seq=29 op=2 bytes=5776
+mk rx seq=29 op=2 bytes=20508
+mk tx seq=30 op=2 bytes=5776
+mk rx seq=30 op=2 bytes=20508
+mk tx seq=31 op=2 bytes=5776
+mk rx seq=31 op=2 bytes=20508
+mk tx seq=32 op=2 bytes=5776
+mk rx seq=32 op=2 bytes=20508
+mk expert shadow layer=0 expert=69 rows=1 rel_l1=1.51706532e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=86 rows=1 rel_l1=1.0414781e-07 max_abs=2.23517418e-08
+mk expert shadow layer=0 expert=197 rows=1 rel_l1=1.47087418e-07 max_abs=4.47034836e-08
+mk expert shadow layer=0 expert=198 rows=1 rel_l1=1.26742504e-07 max_abs=5.96046448e-08
+prompt: 21 tokens in 6963 ms (3.02 tok/s, windows of 8192)
+prompt's Engram rows: 1008, 0.0% without a read (repeats and the row cache), 1008 read
+mk tx seq=33 op=2 bytes=5776
+mk rx seq=33 op=2 bytes=20508
+mk tx seq=34 op=2 bytes=11536
+mk rx seq=34 op=2 bytes=40988
+mk expert shadow layer=0 expert=28 rows=1 rel_l1=1.16903326e-07 max_abs=2.23517418e-08
+mk expert shadow layer=0 expert=197 rows=2 rel_l1=1.52798436e-07 max_abs=4.47034836e-08
+mk tx seq=35 op=2 bytes=11536
+mk rx seq=35 op=2 bytes=40988
+mk expert shadow layer=0 expert=30 rows=2 rel_l1=1.39134729e-07 max_abs=1.49011612e-07
+mk tx seq=36 op=2 bytes=11536
+mk rx seq=36 op=2 bytes=40988
+mk expert shadow layer=0 expert=30 rows=2 rel_l1=1.21417447e-07 max_abs=2.98023224e-08
+mk tx seq=37 op=2 bytes=5776
+mk rx seq=37 op=2 bytes=20508
+mk tx seq=38 op=2 bytes=11536
+mk rx seq=38 op=2 bytes=40988
+mk expert shadow layer=0 expert=29 rows=1 rel_l1=1.20562894e-07 max_abs=2.23517418e-08
+mk expert shadow layer=0 expert=197 rows=2 rel_l1=1.54013754e-07 max_abs=2.98023224e-08
+dspark: 6 rounds, 9 drafts offered, 9 accepted (2.67 tokens a round); drafting 6.91 ms a round, verifying 3731.1 ms in all (0 windows)
+dspark per position (kept / reached): 1: 4/4 100% 2: 3/3 100% 3: 2/2 100%
+token latency ms: p50 0 p95 1129 p99 1129 max 1129 mean 313 (15 tokens)
+decode: 16 tokens in 4694 ms (3.20 tok/s); CPU lane: 3647 of 3825 experts; the cache moved 0 (0 in all)
+decode per token: layers 99.78 ms (of it: routing waits 0.00, CPU lane 303.43, the rest host launches), head wait 210.48, Engram reads 0.28
+Engram per token: 48 rows, 13.3% without a read (the row cache holds 1632 of 1016800), 41.6 read, the reads 0.07 ms from asking to the last one (left to wait: 0.28)
+decode reads from the disk: 490.7 MB a token
+store: 71.2% of the CPU lane's experts were in RAM (125.4 hits, 50.6 misses a token); read 490.1 MB a token (demand and guesses), the CPU lane waited 250.9 ms a token for them; 0 prefetched, 0 used, 0 given up unused; slots 2812 of 2812, 759 evictions, 0 failed reads; the GPU computed 0.0 experts a token from the store (0 slots visible)

@@ -1,0 +1,18 @@
+off-code-16 {'mode': 'off', 'prompt': 'code', 'n': 16, 'exit': 0, 'exact_agreement': True, 'wall_s': 33.9676427600001, 'loads': 0, 'shadow_count': 0, 'max_shadow_rel_l1': None, 'worker_failed': False, 'tps': 2.58}
+shadow-code-16 {'mode': 'shadow', 'prompt': 'code', 'n': 16, 'exit': 0, 'exact_agreement': True, 'wall_s': 32.34585109599993, 'loads': 14, 'shadow_count': 24, 'max_shadow_rel_l1': 2.11635558e-07, 'worker_failed': False, 'tps': 3.3}
+checked-replace-code-16 {'mode': 'checked-replace', 'prompt': 'code', 'n': 16, 'exit': 0, 'exact_agreement': True, 'wall_s': 31.43067704000009, 'loads': 14, 'shadow_count': 24, 'max_shadow_rel_l1': 2.11635558e-07, 'worker_failed': False, 'tps': 3.2}
+replace-code-16 {'mode': 'replace', 'prompt': 'code', 'n': 16, 'exit': 0, 'exact_agreement': True, 'wall_s': 27.253203592999853, 'loads': 14, 'shadow_count': 0, 'max_shadow_rel_l1': None, 'worker_failed': False, 'tps': 3.14}
+off-prose-16 {'mode': 'off', 'prompt': 'prose', 'n': 16, 'exit': 0, 'exact_agreement': True, 'wall_s': 26.27610519200016, 'loads': 0, 'shadow_count': 0, 'max_shadow_rel_l1': None, 'worker_failed': False, 'tps': 2.51}
+shadow-prose-16 {'mode': 'shadow', 'prompt': 'prose', 'n': 16, 'exit': 0, 'exact_agreement': True, 'wall_s': 27.687784195000177, 'loads': 14, 'shadow_count': 21, 'max_shadow_rel_l1': 0.000409286889, 'worker_failed': False, 'tps': 3.07}
+checked-replace-prose-16 {'mode': 'checked-replace', 'prompt': 'prose', 'n': 16, 'exit': 0, 'exact_agreement': False, 'wall_s': 29.715643626999963, 'loads': 14, 'shadow_count': 19, 'max_shadow_rel_l1': 0.000409286889, 'worker_failed': False, 'tps': 2.16, 'first_mismatch': 8}
+Traceback (most recent call last):
+  File "/home/shiba/multikernel-experiment/research/deepseek-p40-postboot-20261108/run.py", line 37, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/shiba/multikernel-experiment/research/deepseek-p40-postboot-20261108/run.py", line 35, in main
+    for mode in ['off','shadow','checked-replace','replace']:run(mode,prompt,16)
+                                                             ~~~^^^^^^^^^^^^^^^^
+  File "/home/shiba/multikernel-experiment/research/deepseek-p40-postboot-20261108/run.py", line 27, in run
+    if p.returncode or not m or not row['exact_agreement'] or row['worker_failed']:raise RuntimeError('gate failed: '+tag)
+                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: gate failed: checked-replace-prose-16

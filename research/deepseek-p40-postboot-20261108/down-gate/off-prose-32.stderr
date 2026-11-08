@@ -1,0 +1,18 @@
+ds4: tensor parallel 2 -> 1: the experts' 256-value blocks split n_ff 2304 no other way (each GPU its own layers)
+ds4: experts per word: 6 (full quality)
+ds4: the experts VRAM leaves over (~150.8 GB) are read in place from the model's files (--mmap-experts off copies them into RAM) (43.8 GB of RAM free to keep them: the most-routed 0.0 GB read ahead; prompts in chunks of 4096)
+ds4: RAM store: up to 2812 slots of 11.4 MB (32.0 GB), policy 0, 8 reader threads, unbuffered reads
+ds4: RAM store: 2812 of the profile's hottest experts read in (25.7 GB) in 10.1 s
+ds4: prompt path: the chunked pass from 96 tokens, windows of 16 below
+ds4: CUDA0 layers [0, 42] + head: weights 6.58 GB, experts 5.86 GB (312 of 15744 in VRAM), caches 0.01 GB, 1028 MiB free
+ds4: 15432 routed experts on the CPU lane (150.8 GB, in place in the model's files), 8 threads
+prompt: 14 tokens in 4741 ms (2.95 tok/s, windows of 8192)
+prompt's Engram rows: 672, 0.0% without a read (repeats and the row cache), 672 read
+dspark: 21 rounds, 13 drafts offered, 10 accepted (1.52 tokens a round); drafting 8.86 ms a round, verifying 5128.7 ms in all (0 windows)
+dspark per position (kept / reached): 1: 7/9 78% 2: 3/3 100%
+token latency ms: p50 202 p95 678 p99 808 max 808 mean 262 (31 tokens)
+decode: 32 tokens in 8137 ms (3.81 tok/s); CPU lane: 8252 of 8835 experts; the cache moved 0 (0 in all)
+decode per token: layers 79.37 ms (of it: routing waits 0.00, CPU lane 224.83, the rest host launches), head wait 155.86, Engram reads 17.13
+Engram per token: 48 rows, 3.9% without a read (the row cache holds 2240 of 1016800), 46.1 read, the reads 27.00 ms from asking to the last one (left to wait: 17.13)
+decode reads from the disk: 447.1 MB a token
+store: 77.6% of the CPU lane's experts were in RAM (159.4 hits, 46.0 misses a token); read 444.4 MB a token (demand and guesses), the CPU lane waited 155.9 ms a token for them; 0 prefetched, 0 used, 0 given up unused; slots 2812 of 2812, 1564 evictions, 0 failed reads; the GPU computed 0.0 experts a token from the store (0 slots visible)

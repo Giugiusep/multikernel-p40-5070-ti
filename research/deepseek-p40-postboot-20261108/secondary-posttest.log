@@ -1,0 +1,82 @@
+DEEPSEEK_WORKER_READY port=6011 GPU=Tesla P40 cache=1GiB
+mk-rpc-p40# dmesg | tail -n 75; /bin/nvidia-smi --query-gpu=name,driver_version,
+memory.used,memory.total --format=csv,noheader; ps w | grep worker-down
+[    0.083373]     TERM=linux
+[    0.085028] daxfs: loading out-of-tree module taints kernel.
+[    0.085034] daxfs: module verification failed: signature and/or required key missing - tainting kernel
+[    0.086971] daxfs: coherence backend = coherent
+[    0.086983] daxfs: overlay initialized (65536 buckets, 67108864 pool bytes)
+[    0.086995] daxfs: mounted read-write (overlay)
+[    0.087794] kerf-init: 
+[    0.087796] entrypoint: '/sbin/entrypoint'
+[    0.087801] 
+[    0.087815] kerf-init: 
+[    0.087816] console: /dev/mktty0
+[    0.087821] 
+[    0.087831] kerf-init: 
+[    0.087832] executing: /sbin/entrypoint
+[    0.087837] 
+[    0.109167] nvidia: module license 'NVIDIA' taints kernel.
+[    0.109175] Disabling lock debugging due to kernel taint
+[    0.109181] nvidia: module license taints kernel.
+[    0.172165] nvidia-nvlink: Nvlink Core is being initialized, major device number 237
+[    0.172186] NVRM: loading NVIDIA UNIX x86_64 Kernel Module  580.173.02  Tue Jun 23 08:38:17 UTC 2026
+[    0.376153] nvidia_uvm: module uses symbols nvUvmInterfaceDisableAccessCntr from proprietary module nvidia, inheriting taint.
+[  126.081838] ------------[ cut here ]------------
+[  126.081857] WARNING: kernel/softirq.c:429 at __local_bh_enable_ip+0x5a/0x70, CPU#0: swapper/0/0
+[  126.081867] Modules linked in: nvidia_uvm(POE) nvidia(POE) daxfs(OE)
+[  126.081874] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Tainted: P           OE       7.0.0-mk2-shiba-mk1 #9 PREEMPT(lazy) 
+[  126.081880] Tainted: [P]=PROPRIETARY_MODULE, [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
+[  126.081884] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+[  126.081889] RIP: 0010:__local_bh_enable_ip+0x5a/0x70
+[  126.081896] Code: ff 0d 7a 45 63 02 65 8b 05 73 45 63 02 85 c0 74 0a 5d 31 c0 31 f6 c3 cc cc cc cc e8 70 7a f0 ff 5d 31 c0 31 f6 c3 cc cc cc cc <0f> 0b eb b8 65 66 83 3d 51 45 63 02 00 74 c6 e8 e2 f4 ff ff eb bf
+[  126.081901] RSP: 0018:ffffc90000003e68 EFLAGS: 00010006
+[  126.081908] RAX: 0000000000000001 RBX: 0000000000000000 RCX: 0000000000000000
+[  126.081913] RDX: 00000000828cbfbf RSI: 0000000000000201 RDI: ffffffff824e473f
+[  126.081918] RBP: ffffc90000003e68 R08: 0000000000000000 R09: 0000000000000000
+[  126.081923] R10: 0000000000000000 R11: 0000000000000000 R12: ffffc90000003ee8
+[  126.081927] R13: ffffc90000003ef8 R14: 00000000828cbfbf R15: ffffffff83c11928
+[  126.081935] FS:  0000000000000000(0000) GS:ffff888d29c60000(0000) knlGS:0000000000000000
+[  126.081941] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  126.081946] CR2: 00000000004474b0 CR3: 0000000c41a44000 CR4: 0000000000f50ef0
+[  126.081955] PKRU: 55555554
+[  126.081960] Call Trace:
+[  126.081966]  <IRQ>
+[  126.081972]  _raw_spin_unlock_bh+0x1d/0x30
+[  126.081987]  vsock_find_connected_socket_net+0x16f/0x210
+[  126.081995]  vsock_find_connected_socket+0x10/0x20
+[  126.082003]  mk_vsock_rx_pkt+0x80/0x650
+[  126.082010]  mk_vsock_ipi_handler+0x10a/0x130
+[  126.082017]  mk_message_type_ipi_callback+0x84/0x170
+[  126.082025]  ? __pfx_mk_message_type_ipi_callback+0x10/0x10
+[  126.082050]  generic_multikernel_interrupt+0x13f/0x1d0
+[  126.082061]  __sysvec_multikernel+0x1a/0x20
+[  126.082068]  sysvec_multikernel+0x9b/0xc0
+[  126.082075]  </IRQ>
+[  126.082079]  <TASK>
+[  126.082083]  asm_sysvec_multikernel+0x1b/0x20
+[  126.082089] RIP: 0010:pv_native_safe_halt+0xb/0x10
+[  126.082095] Code: 22 df 31 ff c3 cc cc cc cc 66 0f 1f 44 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 eb 07 0f 00 2d f9 ac 09 00 fb f4 <c3> cc cc cc cc 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 83
+[  126.082101] RSP: 0018:ffffffff83003de8 EFLAGS: 00000246
+[  126.082107] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
+[  126.082113] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+[  126.082118] RBP: ffffffff83003df0 R08: 0000000000000000 R09: 0000000000000000
+[  126.082123] R10: 0000000000000000 R11: 0000000000000000 R12: ffffffff83013480
+[  126.082128] R13: 0000000000000000 R14: 0000000000000000 R15: 0000000c3f930090
+[  126.082134]  ? default_idle+0x9/0x30
+[  126.082142]  arch_cpu_idle+0x9/0x10
+[  126.082149]  default_idle_call+0x33/0x120
+[  126.082156]  do_idle+0x1ba/0x2d0
+[  126.082164]  cpu_startup_entry+0x29/0x30
+[  126.082172]  rest_init+0xde/0x100
+[  126.082178]  start_kernel+0x899/0xca0
+[  126.082185]  x86_64_start_reservations+0x18/0x30
+[  126.082192]  x86_64_start_kernel+0x10d/0x160
+[  126.082198]  ? soft_restart_cpu+0x14/0x14
+[  126.082207]  multikernel_startup_64+0xfe/0x10c
+[  126.082216]  </TASK>
+[  126.082222] ---[ end trace 0000000000000000 ]---
+Tesla P40, 580.173.02, 301 MiB, 24576 MiB
+  189 0        /tmp/exact-runtime/runtime/ld-linux-x86-64.so.2 --library-path /tmp/exact-runtime/runtime:/lib:/opt/rpc/lib /tmp/worker-down
+  198 0        grep worker-down
+mk-rpc-p40# 

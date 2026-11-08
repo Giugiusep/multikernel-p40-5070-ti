@@ -1,0 +1,18 @@
+ds4: tensor parallel 2 -> 1: the experts' 256-value blocks split n_ff 2304 no other way (each GPU its own layers)
+ds4: experts per word: 6 (full quality)
+ds4: the experts VRAM leaves over (~150.8 GB) are read in place from the model's files (--mmap-experts off copies them into RAM) (43.7 GB of RAM free to keep them: the most-routed 0.0 GB read ahead; prompts in chunks of 4096)
+ds4: RAM store: up to 2812 slots of 11.4 MB (32.0 GB), policy 0, 8 reader threads, unbuffered reads
+ds4: RAM store: 2812 of the profile's hottest experts read in (25.7 GB) in 10.6 s
+ds4: prompt path: the chunked pass from 96 tokens, windows of 16 below
+ds4: CUDA0 layers [0, 42] + head: weights 6.58 GB, experts 5.86 GB (312 of 15744 in VRAM), caches 0.01 GB, 1028 MiB free
+ds4: 15432 routed experts on the CPU lane (150.8 GB, in place in the model's files), 8 threads
+prompt: 14 tokens in 4873 ms (2.87 tok/s, windows of 8192)
+prompt's Engram rows: 672, 0.0% without a read (repeats and the row cache), 672 read
+dspark: 11 rounds, 6 drafts offered, 4 accepted (1.45 tokens a round); drafting 16.26 ms a round, verifying 3694.5 ms in all (0 windows)
+dspark per position (kept / reached): 1: 4/5 80%
+token latency ms: p50 338 p95 1092 p99 1092 max 1092 mean 399 (15 tokens)
+decode: 16 tokens in 5983 ms (2.51 tok/s); CPU lane: 4132 of 4440 experts; the cache moved 0 (0 in all)
+decode per token: layers 109.53 ms (of it: routing waits 0.00, CPU lane 334.17, the rest host launches), head wait 234.57, Engram reads 14.74
+Engram per token: 48 rows, 5.9% without a read (the row cache holds 1440 of 1016800), 45.2 read, the reads 23.79 ms from asking to the last one (left to wait: 14.74)
+decode reads from the disk: 524.3 MB a token
+store: 74.8% of the CPU lane's experts were in RAM (158.0 hits, 53.2 misses a token); read 515.2 MB a token (demand and guesses), the CPU lane waited 191.2 ms a token for them; 0 prefetched, 0 used, 0 given up unused; slots 2812 of 2812, 904 evictions, 0 failed reads; the GPU computed 0.0 experts a token from the store (0 slots visible)

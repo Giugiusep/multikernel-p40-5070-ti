@@ -1,0 +1,18 @@
+ds4: tensor parallel 2 -> 1: the experts' 256-value blocks split n_ff 2304 no other way (each GPU its own layers)
+ds4: experts per word: 6 (full quality)
+ds4: the experts VRAM leaves over (~150.8 GB) are read in place from the model's files (--mmap-experts off copies them into RAM) (43.8 GB of RAM free to keep them: the most-routed 0.0 GB read ahead; prompts in chunks of 4096)
+ds4: RAM store: up to 2812 slots of 11.4 MB (32.0 GB), policy 0, 8 reader threads, unbuffered reads
+ds4: RAM store: 2812 of the profile's hottest experts read in (25.7 GB) in 10.6 s
+ds4: prompt path: the chunked pass from 96 tokens, windows of 16 below
+ds4: CUDA0 layers [0, 42] + head: weights 6.58 GB, experts 5.86 GB (312 of 15744 in VRAM), caches 0.01 GB, 1028 MiB free
+ds4: 15432 routed experts on the CPU lane (150.8 GB, in place in the model's files), 8 threads
+prompt: 14 tokens in 4953 ms (2.83 tok/s, windows of 8192)
+prompt's Engram rows: 672, 0.0% without a read (repeats and the row cache), 672 read
+dspark: 45 rounds, 23 drafts offered, 18 accepted (1.42 tokens a round); drafting 6.27 ms a round, verifying 7749.7 ms in all (0 windows)
+dspark per position (kept / reached): 1: 13/16 81% 2: 5/5 100%
+token latency ms: p50 193 p95 598 p99 825 max 825 mean 223 (63 tokens)
+decode: 64 tokens in 14050 ms (4.48 tok/s); CPU lane: 16499 of 17670 experts; the cache moved 0 (0 in all)
+decode per token: layers 69.00 ms (of it: routing waits 0.00, CPU lane 191.73, the rest host launches), head wait 134.58, Engram reads 13.70
+Engram per token: 48 rows, 3.9% without a read (the row cache holds 3808 of 1016800), 46.1 read, the reads 22.25 ms from asking to the last one (left to wait: 13.70)
+decode reads from the disk: 343.8 MB a token
+store: 82.9% of the CPU lane's experts were in RAM (172.7 hits, 35.6 misses a token); read 343.2 MB a token (demand and guesses), the CPU lane waited 118.8 ms a token for them; 0 prefetched, 0 used, 0 given up unused; slots 2812 of 2812, 2420 evictions, 0 failed reads; the GPU computed 0.0 experts a token from the store (0 slots visible)

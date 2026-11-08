@@ -1467,3 +1467,21 @@ The candidate's compiled IPI handler queues receive work and has no direct socke
 4. Test compact-cache correctness and fallback with partial primary slots before expanding GPU residency or benchmarking models.
 
 Runtime correctness, latency and bandwidth of the patched kernel are still unvalidated. Workqueue latency regression is possible. Keep the original boot entry and upload pacing intact until tests establish a reliable improvement. No physical Proxmox host changes are involved.
+
+
+## 2026-11-08 — RX-safe candidate runtime validation
+
+
+
+Both candidate banners verified. Primary CUDA enumerates RTX 5070 Ti; secondary NVIDIA 580.173.02 enumerates P40. Conservative RPC5000 passed allocation, transfer, and remote computation through 16 MiB. Fast RPC5002 and compact worker6011 were restored from preserved binaries. All 24 compact-worker format/width cases were bit-exact against CPU reference.
+
+Native ordered echo payloads through 16 MiB passed. Sequential connection churn passed 2,500 connections. Ten download trials per size yielded median 0.7115415 ms for 512 KiB (702.70 MiB/s), 1.4271885 ms for 1 MiB (700.68 MiB/s), and 26.0476835 ms for 16 MiB (614.26 MiB/s). These are synthetic socket results, not inference throughput; primary write pacing remains enabled.
+
+IMPORTANT: five concurrent clients produced ECONNRESET and left the test listener rejecting further connections, though its process remained in vsock_accept and the secondary console remained responsive without new kernel warnings. Recreating only that test listener restored operation. The exact connection-accounting cause is unresolved; sequential testing does not establish concurrent reliability or prove all transport bugs fixed. No kernel/default-boot promotion follows from these results.
+
+Full-model compact-cache correctness campaign is in progress in sibling `deepseek-p40-rxsafe-20261108`; worker-loss/lazy-slot fallback remains an outstanding gate.
+
+
+### Full-model postboot gate completed
+
+All six 32-token DeepSeek runs passed exact token agreement, without worker disable/timeouts. Code CPU/off 3.30, compact-shadow 4.83, compact-P40 4.17 tok/s; prose CPU/off 3.41, compact-shadow 3.68, compact-P40 2.69 tok/s. Shadow comparisons:424 code and414 prose, all exact. These single sequential trials have storage/cache confounding and do NOT establish a P40 performance win. Keep production settings unchanged. Peak cgroup memory35.8GiB; API restored with health ok and no active model. Both kernels remained responsive. Post-test primary kernel search and secondary dmesg found no new ring-full, RCU stalls or Xids. Outstanding: concurrent-listener reset and live worker-loss/lazy-slot fallback. Persistent GRUB default remains old #9, candidate was one-shot only.

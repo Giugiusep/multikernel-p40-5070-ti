@@ -1,0 +1,10 @@
+{
+  "passed": false,
+  "clients": 5,
+  "exception": "ConnectionResetError: [Errno 104] Connection reset by peer",
+  "stage": "connect CID1 port6000",
+  "followup": "Sequential test also reset until only test listener was recreated",
+  "secondary_responsive": true,
+  "new_kernel_warnings_observed": false,
+  "exact_root_cause": "unresolved"
+}

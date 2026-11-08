@@ -1,0 +1,7 @@
+device=RPC0 description=mkvsock:1:5000 free=25468469248 total=25625886720
+bytes=1024 write_us=105.4 compute_us=70.0 read_us=1619.5 result=ok
+bytes=8192 write_us=118.7 compute_us=60.2 read_us=712.2 result=ok
+bytes=65536 write_us=4019.7 compute_us=64.0 read_us=2433.6 result=ok
+bytes=1048576 write_us=91553.0 compute_us=74.9 read_us=8712.5 result=ok
+bytes=16777216 write_us=1510794.2 compute_us=78.3 read_us=107187.2 result=ok
+RPC validation passed

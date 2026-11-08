@@ -23,13 +23,13 @@ KVM VM — Shiba
 
 The two drivers run in separate kernels. The experiment does not require changes to the physical Proxmox host. NVIDIA versions above describe the tested pre-upgrade configuration, not a compatibility claim for arbitrary newer packages.
 
-## Current status
+## Current status (2026-11-08)
 
-The VM has upgraded to **Ubuntu 26.04.1 LTS** and successfully rebooted into **7.0.0-mk2-shiba-mk1**. Primary NVIDIA-open modules now match userspace **595.91.07**; the P40 secondary remains on **580.173.02**. Kerf was repaired for Python3.14 (330 tests passed). Both RPC listeners passed exact CUDA tensor tests through16MiB.
+The primary API is healthy, but the P40 secondary is currently stalled by a confirmed Multikernel VSOCK hard-IPI/socket-table-lock deadlock. The NMI backtrace identifies same-CPU lock re-entrancy. This is not an identified NVIDIA failure.
 
-A post-upgrade50/50 Nemotron CLI test reached **70.3 prompt /76.0 generation tokens/s**, with exact visible-output agreement against the pre-upgrade reference. This is one16-token short-context run, not a replacement for the repeated72.0tokens/s reference or evidence of long-context/API throughput. The model-switching API is enabled and healthy with15 entries and no resident model.
+An approved [RX-safe boot candidate](research/mk-vsock-rxsafe-20261108) has been built and installed separately. GRUB selects it for one boot; the original kernel remains the persistent fallback. It retains release `7.0.0-mk2-shiba-mk1` and existing NVIDIA modules, with build marker `#12-rxsafe1`. Module ABI checks passed with zero mismatches. The candidate has **not yet booted**; runtime transport and inference validation remain pending.
 
-Recovery is functional but not warning-free: the primary emitted one softirq WARN in the Multikernel VSOCK hard-IRQ receive/socket-lookup path before benchmarking. No kernel changes were made; the call stack is documented in the audit for separate investigation.
+Both NVIDIA stacks and the API configuration are unchanged. The [engineering audit](multikernel-engineering-audit.md) retains the earlier post-upgrade RPC/CUDA and Nemotron results; they do not establish that the new candidate is validated. The model API currently has no resident model, and P40-backed requests await recovery.
 
 ## Measured results
 

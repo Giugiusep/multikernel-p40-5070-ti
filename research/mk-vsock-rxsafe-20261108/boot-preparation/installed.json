@@ -1,0 +1,31 @@
+{
+  "installed_boot_files": {
+    "/boot/vmlinuz-7.0.0-mk2-shiba-mk1-rxsafe1": {
+      "sha256": "30d49b99409d5ab0e4e38b97dc6938c65d54c431915b6bd88404f192c33f559a",
+      "size": 14377472
+    },
+    "/boot/initrd.img-7.0.0-mk2-shiba-mk1-rxsafe1": {
+      "sha256": "9f2874968fbd66a48774a09562be949fd8149317e636824bc03fd1ccac1705e5",
+      "size": 138426304
+    },
+    "/boot/config-7.0.0-mk2-shiba-mk1-rxsafe1": {
+      "sha256": "79bdcdd67bf0e76e68b77f517c501687e85d24ff13a3c2412b8de1bc9791c65a",
+      "size": 205004
+    },
+    "/boot/System.map-7.0.0-mk2-shiba-mk1-rxsafe1": {
+      "sha256": "a57775b8b4eb40d040aab724064e5ade29f0accf7fe80511e2e87636562860d0",
+      "size": 9536405
+    }
+  },
+  "one_time_next_entry": "gnulinux-advanced-a30d6b3f-539b-47bf-98e2-0f1a87f7ce24>gnulinux-7.0.0-mk2-shiba-mk1-rxsafe1-advanced-a30d6b3f-539b-47bf-98e2-0f1a87f7ce24",
+  "persistent_default_unchanged": true,
+  "preserved_file_count": 130,
+  "all_baseline_hashes_unchanged": true,
+  "boot_release": "7.0.0-mk2-shiba-mk1",
+  "build_marker": "#12-rxsafe1",
+  "secondary_kernel": "/boot/vmlinuz-7.0.0-mk2-shiba-mk1-rxsafe1",
+  "reboot_executed": false,
+  "grub_environment": [
+    "next_entry=gnulinux-advanced-a30d6b3f-539b-47bf-98e2-0f1a87f7ce24>gnulinux-7.0.0-mk2-shiba-mk1-rxsafe1-advanced-a30d6b3f-539b-47bf-98e2-0f1a87f7ce24"
+  ]
+}

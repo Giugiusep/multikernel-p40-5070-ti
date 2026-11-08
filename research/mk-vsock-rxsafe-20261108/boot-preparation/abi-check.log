@@ -1,0 +1,79 @@
+{
+  "release": "7.0.0-mk2-shiba-mk1",
+  "candidate_vermagic": "7.0.0-mk2-shiba-mk1 SMP preempt mod_unload modversions",
+  "config_changes": {
+    "CONFIG_LD_VERSION": [
+      "24200",
+      "24600"
+    ],
+    "CONFIG_RUSTC_HAS_SPAN_FILE": [
+      "y",
+      null
+    ],
+    "CONFIG_RUSTC_HAS_FILE_AS_C_STR": [
+      "y",
+      null
+    ],
+    "CONFIG_RUSTC_VERSION": [
+      "109600",
+      "0"
+    ],
+    "CONFIG_PAHOLE_VERSION": [
+      "125",
+      "131"
+    ],
+    "CONFIG_AS_VERSION": [
+      "24200",
+      "24600"
+    ],
+    "CONFIG_MODULE_SIG_KEY_TYPE_MLDSA_87": [
+      null,
+      "n"
+    ],
+    "CONFIG_RUSTC_HAS_SLICE_AS_FLATTENED": [
+      "y",
+      null
+    ],
+    "CONFIG_GCC_VERSION": [
+      "130300",
+      "130400"
+    ],
+    "CONFIG_MODULE_SIG_KEY_TYPE_MLDSA_65": [
+      null,
+      "n"
+    ],
+    "CONFIG_RUSTC_HAS_COERCE_POINTEE": [
+      "y",
+      null
+    ],
+    "CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES": [
+      "y",
+      null
+    ],
+    "CONFIG_OPENSSL_SUPPORTS_ML_DSA": [
+      null,
+      "y"
+    ],
+    "CONFIG_MODULE_SIG_KEY_TYPE_MLDSA_44": [
+      null,
+      "n"
+    ],
+    "CONFIG_RUSTC_HAS_FILE_WITH_NUL": [
+      "y",
+      null
+    ],
+    "CONFIG_RUSTC_LLVM_VERSION": [
+      "220102",
+      "0"
+    ],
+    "CONFIG_CC_VERSION_TEXT": [
+      "\"gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\"",
+      "\"gcc-13 (Ubuntu 13.4.0-10ubuntu1) 13.4.0\""
+    ]
+  },
+  "passed": true,
+  "candidate_image_sha256": "30d49b99409d5ab0e4e38b97dc6938c65d54c431915b6bd88404f192c33f559a",
+  "preserved_module_files_verified": 130
+}
+primary modules 124 imports 11401 mismatches 0
+secondary modules 3 imports 697 mismatches 0

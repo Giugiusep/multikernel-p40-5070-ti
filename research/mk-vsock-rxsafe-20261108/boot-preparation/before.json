@@ -1,0 +1,529 @@
+{
+  "running_release": "7.0.0-mk2-shiba-mk1",
+  "running_version": "Linux version 7.0.0-mk2-shiba-mk1 (shiba@shiba2th) (gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, GNU ld (GNU Binutils for Ubuntu) 2.42) #9 SMP PREEMPT_DYNAMIC Thu Sep 17 16:49:34 UTC 2026",
+  "running_cmdline": "BOOT_IMAGE=/vmlinuz-7.0.0-mk2-shiba-mk1 root=/dev/mapper/ubuntu--vg-ubuntu--lv ro",
+  "candidate_source_commit": "b435af155d1b36dba5d485880735c17ee1963362",
+  "base_source_commit": "54b0135",
+  "preserved_files": {
+    "/boot/vmlinuz-7.0.0-mk2-shiba-mk1": {
+      "sha256": "826ebf102ddab904c427e4769412babf32c36e9868f360961bcfacf01f820f6e",
+      "size": 14393856
+    },
+    "/boot/initrd.img-7.0.0-mk2-shiba-mk1": {
+      "sha256": "9f2874968fbd66a48774a09562be949fd8149317e636824bc03fd1ccac1705e5",
+      "size": 138426304
+    },
+    "/boot/config-7.0.0-mk2-shiba-mk1": {
+      "sha256": "4c470bf5949e3676a28a3f8ab943187e19b5ce3a9d7e260053f0852eccddab8b",
+      "size": 205047
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/extra/lazy_cma.ko": {
+      "sha256": "5abbd89916918096b4ad01f2f28dd094f8fbc16cac743372f8ad2abda6cbc0c9",
+      "size": 24200
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/fs/binfmt_misc.ko": {
+      "sha256": "05d1909371569a2f799413dd6d95154ac60b348109827d56681a454ed87d8c2e",
+      "size": 41536
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/crypto/ecdh_generic.ko": {
+      "sha256": "46118ca55afa2a73b2d94b6d3d270b14a5f361d9a20eea8e583a9a7151df26b6",
+      "size": 17776
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/crypto/ecc.ko": {
+      "sha256": "38579e69eb278367c5a22299f50694794a17ef8c33ce344a8485545b618cde2b",
+      "size": 65768
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/crypto/xor.ko": {
+      "sha256": "671ba3584787a97cc6bfa66c58f38eab71059166e91011ae404a735656477942",
+      "size": 26184
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/crypto/cryptd.ko": {
+      "sha256": "3a224b5c6366617baee62c040252ecdca00644148d4c076309df27f79876f38a",
+      "size": 50320
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/sound/soundcore.ko": {
+      "sha256": "2a9a8d6f4bf20e1a9804947321101f5c05b0759263a027dcf58bc7ff48ff6326",
+      "size": 25208
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/kernel/configs.ko": {
+      "sha256": "f596707fc91f7822a5badbbc52f0dcb16b0da9045e54929c91c6b39de77fd2f6",
+      "size": 48888
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/virt/lib/irqbypass.ko": {
+      "sha256": "9c3fa8d3a985c3f1257b0c47cbcb9b91462a4b18aff679c80375eac835c8f8c6",
+      "size": 14880
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/sound/core/snd-hwdep.ko": {
+      "sha256": "f6f5ca69ee7c9b821f78df89f5b85f3f6211045a27e51c14efe58e2e0fed54b3",
+      "size": 31744
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/sound/core/snd-timer.ko": {
+      "sha256": "70a986bfbda3b769b5223bbd3ecc6d29707f2553a8c2bb452b704b5c9929b102",
+      "size": 84944
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/sound/core/snd-pcm.ko": {
+      "sha256": "a3f0802be5de2414a488d0f332b906cb3f5751be417015c6b94392fdbe57605e",
+      "size": 377544
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/sound/core/snd.ko": {
+      "sha256": "bc4e57e3dfd4591b4cf2aaf60473111622e319f8c13b9b9ff20d49ae5f7f8b92",
+      "size": 258368
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/sound/hda/controllers/snd-hda-intel.ko": {
+      "sha256": "d4b0daba2e486ae75eab6038994e40f41abd5e6d715ed97c6a35e738c7923913",
+      "size": 130736
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/sound/hda/common/snd-hda-codec.ko": {
+      "sha256": "7c5795ef5bcd254b68e4634c641b24d301be9d0eec14f3eb449e3749c60eba16",
+      "size": 374640
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/sound/hda/core/snd-intel-dspcfg.ko": {
+      "sha256": "cd827e8e2a5e2c8dfdad2065fd60ed159cd8faadf70e2463d9ddf3e5c4d3e677",
+      "size": 34056
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/sound/hda/core/snd-intel-sdw-acpi.ko": {
+      "sha256": "1935fc8783626948a03316cd1dd2ccabe9fa7b29e3f67a56141103e8bf2e2bd0",
+      "size": 14720
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/sound/hda/core/snd-hda-core.ko": {
+      "sha256": "0c30d7b2049fd7f55e02391d3d3a1a5ea32ae2ecc8c851c27b4185ba49c26698",
+      "size": 244024
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/sound/hda/codecs/hdmi/snd-hda-codec-hdmi.ko": {
+      "sha256": "01e0082acb3d9043462a82a78e1059659ff85154bc43981b763376a2185fefb7",
+      "size": 112912
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/arch/x86/crypto/aesni-intel.ko": {
+      "sha256": "5d3680469fdd50fc6db8a396c265ca7c61282e31f7d3229ac3fb7f7dfa882828",
+      "size": 141352
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/arch/x86/crypto/ghash-clmulni-intel.ko": {
+      "sha256": "e710252600196a1b971e738020a709191594ca8202ed1fb96be3d38a651d5e00",
+      "size": 11424
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/arch/x86/kvm/kvm-intel.ko": {
+      "sha256": "4d4733f0a387199634dff3c28c6101b63aaac09a760c157ab7c7fa248b844a2e",
+      "size": 820416
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/arch/x86/kvm/kvm.ko": {
+      "sha256": "d49a69648a94902c27c9dcbb10be17627be30412bfb2d2a24d22cf39602bdbb5",
+      "size": 2759032
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/arch/x86/kvm/kvm-amd.ko": {
+      "sha256": "b6c781a926aaf2b94a2f0d62287ea7eabaa20368faf9690ee337e43dc5ad5f14",
+      "size": 555808
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/block/floppy.ko": {
+      "sha256": "c23d8845df153a9e86f3b9fd5786b65ef49fe9cd92a6ae175fa1ea7e486c14d6",
+      "size": 315168
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/vhost/vhost_vsock.ko": {
+      "sha256": "30074cb830528aa54e03faae74be6e5a4d58bf9213de5fd0c2b3de789a368f19",
+      "size": 49600
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/vhost/vhost_net.ko": {
+      "sha256": "89767e5d542106dbaf15500a2d7ae5a1d5322565dccd786dac3322579dd705fe",
+      "size": 70208
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/vhost/vhost.ko": {
+      "sha256": "8315d576d6c710b6aff39a027a0353e478a0f219bc6919f5bffbe305133d2c7c",
+      "size": 127152
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/vhost/vhost_iotlb.ko": {
+      "sha256": "51250622a82e9048fae0f1d49490507b99e622c3910ddfd34f3c4d928a020bc3",
+      "size": 16280
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/hid/hid.ko": {
+      "sha256": "ad73916f0319bcc2e53e3913b93fd138f17edcfc25918b5107ac20d0980ad7e7",
+      "size": 469496
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/hid/hid-generic.ko": {
+      "sha256": "c694ce657efe548a21a7e61255a6dc2bbb9ba8bf715356624cf7af4c5329d124",
+      "size": 10312
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/macintosh/mac_hid.ko": {
+      "sha256": "70841c27ea0a5078afee40d584f9fd82ed99652782ef17995a710806d738c368",
+      "size": 15304
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/net/tap.ko": {
+      "sha256": "9a1561959d7d56f353313e821a6c50b81fc348f792325c82ed9f0f79a8fefee7",
+      "size": 54648
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/net/veth.ko": {
+      "sha256": "5fe4d93737815dedf87bb2394cdeec6463c4794f04c77f4ec8794712bfb23a6e",
+      "size": 74008
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/net/macvtap.ko": {
+      "sha256": "3bc4cbe7be88d5f9b6716c476f9167783fa50f49d9fed604ed3458dfa962da0d",
+      "size": 16472
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/net/macvlan.ko": {
+      "sha256": "526eab681fefa13712805783d7a0c465fc36d6b28a864f565446fca518da833c",
+      "size": 60208
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/ata/pata_acpi.ko": {
+      "sha256": "07abd18a6853df4e696460df82dc465e83da955456ccf280469c4b0d97d503fb",
+      "size": 18976
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/i2c/i2c-smbus.ko": {
+      "sha256": "64f5de90d48b0c39c959db6bf4286843f66c280ce36f95fa09ec7f51299b5a48",
+      "size": 21024
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/acpi/video.ko": {
+      "sha256": "5f964b93322b7cbdf6a3b2c9ce1dc596375774ece3adb716e8aa304fc1b25d77",
+      "size": 115000
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/firmware/dmi-sysfs.ko": {
+      "sha256": "ca6973f9b32f338530b9b2001f331d86e62c51b5ad848b7983ed9e1d01a9fb59",
+      "size": 37448
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/firmware/qemu_fw_cfg.ko": {
+      "sha256": "4bb0042352aa867645698fb0778856887dede8f90b863961ff87aedbe8fcb8e2",
+      "size": 36704
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/md/raid0.ko": {
+      "sha256": "2e30ec80b9b8776a7ff2a2f26dcd86d16f978826365fb2262c515528c7d34c06",
+      "size": 40992
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/md/raid10.ko": {
+      "sha256": "a06c7401084f00fe4ba4928f96a29096267959f87ba11e8cce4db916bb30ef85",
+      "size": 140840
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/md/raid1.ko": {
+      "sha256": "2e6ca9e494ea7d60f880e2f618974c5951b84f3c113c57c493806bb308c03f7b",
+      "size": 107440
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/md/raid456.ko": {
+      "sha256": "87672de3b59e057da972cc60ac1094ca604ff71cb66a47f5d1b16a9aa877ca60",
+      "size": 392472
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/md/dm-multipath.ko": {
+      "sha256": "6df9aca52b4734f308bfa851ad8ede7a85a8e0996fb9811c59ea2851e59d4989",
+      "size": 85864
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/md/dm-round-robin.ko": {
+      "sha256": "04f8cbe0750235478e69ca87ba5a75f72466cd7a6804a207895dba1ee755cc5d",
+      "size": 14272
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/powercap/intel_rapl_common.ko": {
+      "sha256": "0e04ae8d09f62a9289f0a86bcdbb20dd3f1b44bc40eba116b08453f928c5edd6",
+      "size": 107272
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/powercap/intel_rapl_msr.ko": {
+      "sha256": "223f14089a6a649e349f5df155c286aa0527d50e6f0b5a91bd8a59d601303203",
+      "size": 20728
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/input/input-leds.ko": {
+      "sha256": "a95b9c30e561e744fc0701df6d15e20ea08123b58a052ddf1dd131fc90f1d006",
+      "size": 14840
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/input/joydev.ko": {
+      "sha256": "cf1a62ea124086c86184275ed641ecde96c6e019601006a3d365ccc327132c7f",
+      "size": 50688
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/virt/vmgenid.ko": {
+      "sha256": "bb972fb1f8d9e38f5829d437e6121389166c6d4168f046bb89ad809a7a2c9b6c",
+      "size": 13616
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/platform/x86/mxm-wmi.ko": {
+      "sha256": "2d836cbcb6399a45ab6816bafec696f07cd85bc77ef8452dc9000c7c8c806038",
+      "size": 10416
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/platform/wmi/wmi.ko": {
+      "sha256": "7625290235b93c3254942ad37ee2d430047cd0e3d41f03486bd92af61918efed",
+      "size": 63776
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/input/serio/serio_raw.ko": {
+      "sha256": "1102c68f3afa1d504eb7e4050a454367dea4de59ce0a32e6eb426752d82447db",
+      "size": 27352
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/input/mouse/psmouse.ko": {
+      "sha256": "0a5a8bca7f31e8a5ad57be4cd07dd3df91512b3d4b64ecbad02875643b0b7237",
+      "size": 431704
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/media/rc/rc-core.ko": {
+      "sha256": "34aebfd7edb87299ac15e1a03b7382344b7e1d885c7d6ccf9233adab94967a99",
+      "size": 143688
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/firmware/efi/efi-pstore.ko": {
+      "sha256": "a7e8fe8ac3c3cc781eca9ebc123e4632f0cbd497713425ec3bcb7e8634497a08",
+      "size": 19784
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/i2c/algos/i2c-algo-bit.ko": {
+      "sha256": "253e94d38e1943632b8d36b138756bd053714c14b4f33f2a9aaa1e4852bcedf1",
+      "size": 23224
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/i2c/busses/i2c-piix4.ko": {
+      "sha256": "ecba2fa2fb3ad505fd06b4d1e362814f482a494a1717aa7c445cdddfcb89b67d",
+      "size": 62768
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/gpu/drm/drm_exec.ko": {
+      "sha256": "ade39271867081519e0a6380af019001addaf49afa8e2bbbe0f1ca9688411522",
+      "size": 15280
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/gpu/drm/drm_gpuvm.ko": {
+      "sha256": "86b7198eb3c79830803faf0453edc553830fc84709efec9e9c31bf66c3c73fb4",
+      "size": 78928
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/gpu/drm/drm_vram_helper.ko": {
+      "sha256": "844816fb510021269ab24f576f577be9db0e35fcda76207ca6833adbec3afe8c",
+      "size": 35848
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/gpu/drm/drm_ttm_helper.ko": {
+      "sha256": "e2dd93979494ca757a4af6a2a83a5a49820cf8e84a3c366e3685c94b949021f6",
+      "size": 26112
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/gpu/drm/vboxvideo/vboxvideo.ko": {
+      "sha256": "adafee15b8777209607d2c73196303edce8f095cd40f6b2cb80d5b0524173285",
+      "size": 72584
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/gpu/drm/nouveau/nouveau.ko": {
+      "sha256": "2eb62a0caf76ce72a9d4c6d434651ff0f034938ff82f2dcac7be203d32bc6188",
+      "size": 5786080
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/gpu/drm/display/drm_display_helper.ko": {
+      "sha256": "ecaec561f84008eeef542518871e9ffe115afc9ccaaae222d296deac26fc3e63",
+      "size": 383032
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/gpu/drm/ttm/ttm.ko": {
+      "sha256": "ecd56e16bfff03c4500078ccbd4a63ff4dc2427f5ad2caea92421150f76cc79e",
+      "size": 245520
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/gpu/drm/tiny/bochs.ko": {
+      "sha256": "1c7b75da5b0db696bbec4ce1ac0614a9540de19f88a23d7f9fd19c8664a1ed52",
+      "size": 40584
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/gpu/drm/scheduler/gpu-sched.ko": {
+      "sha256": "1fb3032f835031dc1d26e0d02297c6551b35d935f4e273cc4bc105343fc05b0d",
+      "size": 119880
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/net/vxlan/vxlan.ko": {
+      "sha256": "9cd33dfcfd8a9ea2f5ee7f3806d283f09b94d6c0a7741bb93915d0e0195b31b2",
+      "size": 255536
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/hid/usbhid/usbhid.ko": {
+      "sha256": "77058a3cc3888d5161a55895660977accaf3093cd034ded1ddef484b41098598",
+      "size": 165432
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/drivers/crypto/ccp/ccp.ko": {
+      "sha256": "4b64b6a0463b32a3c48df510b5d21abc8eeeef48bde269031f01b2ecb011baba",
+      "size": 374656
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/xt_nat.ko": {
+      "sha256": "01723ce502e65709154bfa104cac9aef57232dd732e110f0fbb79ce32a048601",
+      "size": 15544
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/nft_nat.ko": {
+      "sha256": "40a2dcd6f6a83371f61140fb4dd4b90bd971de73b0a5a845009fdfdcd1c64233",
+      "size": 18384
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/nft_masq.ko": {
+      "sha256": "d21978e3ef623ec0d98f8937c31bca59e3afdbdfd7e1eccca85bfd5cbf9de498",
+      "size": 16360
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/xt_mark.ko": {
+      "sha256": "cc860c06ef99e19110b189464f61b0dba413b3b76573ec54734f4b67d0232fb2",
+      "size": 9136
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/nfnetlink.ko": {
+      "sha256": "ea36f3b2dbbd422703bbe749ea5d48ade3b7155da4cf9cef007b485433297c67",
+      "size": 40976
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/xt_MASQUERADE.ko": {
+      "sha256": "da002ef57561d0241db170f5967774bd4aa115c5664a65f21c58b568b01e9e4a",
+      "size": 12904
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/nf_conntrack.ko": {
+      "sha256": "788c64d349fa8941cf3e7ea60967b5509689c886ad0c25b353700c37e6968d0d",
+      "size": 310896
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/nft_chain_nat.ko": {
+      "sha256": "6c6992c2ac073ab1991c0af0e8666e193338d08d62ac20c8310c4c4f2337ba12",
+      "size": 11072
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/nf_tables.ko": {
+      "sha256": "988503ae10cec16e79afe9df2d72b93898baf1593bd1c70484f1ec6044fad2e5",
+      "size": 702040
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/xt_connmark.ko": {
+      "sha256": "52994ab51f1b4b033ca12dd9ac6a166d45649c4637826330bef00e32c7983fa2",
+      "size": 15936
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/xt_conntrack.ko": {
+      "sha256": "54db4a74ed870ac9300ef5db62a75e3653ba2da8a30290793243dd7f5fb2b1be",
+      "size": 12640
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/xt_addrtype.ko": {
+      "sha256": "37461f36a687f6cc7573840da276e70019987932c28d523c6865f3cef0c7a6b6",
+      "size": 11480
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/xt_tcpudp.ko": {
+      "sha256": "fed8570cd2e28de78dc0cb32f56ecb3d6075feb033996dd9aa0cebd0949e13ef",
+      "size": 16616
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/nf_nat.ko": {
+      "sha256": "f89329e12de1fd89fda01bfedb27fdee43c6c24518e07b489279f5eed2024c9e",
+      "size": 92600
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/nft_compat.ko": {
+      "sha256": "46341bee1c6dcc4dd9c6a7619b0dc31aaddf2c4a739a70c6e92428e3e9681512",
+      "size": 36608
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/xt_set.ko": {
+      "sha256": "f96bf229805a5f27d680f57c9e9001d2c5364926f05f3cbd33b8ebbe728085c2",
+      "size": 31088
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/x_tables.ko": {
+      "sha256": "1b492f3f0e1478ad730e4f40ee379e6ebacc181ff446671efa7349282bde0a48",
+      "size": 101248
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/nf_conntrack_netlink.ko": {
+      "sha256": "83bcf5bfb713f77d56dd58e32cdfbb8347f2c77b748362d51819d8f7f6b711b5",
+      "size": 98080
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/sched/sch_fq_codel.ko": {
+      "sha256": "246c5de0f539dfea74dacb5b6cfcb358ec2ac68dfca6a80a9b322927f3aa71a4",
+      "size": 32168
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/wireless/cfg80211.ko": {
+      "sha256": "8704fb32584c03a72d21cfc47c1d6e7b8a3d2a8ad67287e55e2af38cdb2d1c5c",
+      "size": 2572024
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/tls/tls.ko": {
+      "sha256": "1ab1b5c2fe8d14234fb3a6ae051f86154d3a6c8b46e36a15a09e8790b7c06295",
+      "size": 260776
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/xfrm/xfrm_algo.ko": {
+      "sha256": "430249e6f4ea9baf26b35c480f0bddb2f573d699c33eda4dce27e984c79280c3",
+      "size": 25288
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/xfrm/xfrm_user.ko": {
+      "sha256": "bcc02d391a50887104469d348fdd06f6308bd54691b639cedc25e356f5bba203",
+      "size": 112064
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/802/psnap.ko": {
+      "sha256": "aed9469e77f8e356da36bd5bf38682257f0b425ad4296392619b9193b724bca6",
+      "size": 14624
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/802/stp.ko": {
+      "sha256": "ec60325d091ea5950e146dbceb3457f08ca6dc248241023464229aea262b5dd9",
+      "size": 10824
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/ipv6/ip6_udp_tunnel.ko": {
+      "sha256": "5588c3bf7b352c312e5cf29052f61f9bce12dbc62a8cf6f81b41e3e038878fbe",
+      "size": 16648
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/vmw_vsock/vmw_vsock_virtio_transport_common.ko": {
+      "sha256": "20f31fc89dd7e95339a02f2dca1d2748d843cbbff324e51f3b68af62a85f8fb5",
+      "size": 88656
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/ipv4/ip_tunnel.ko": {
+      "sha256": "c9c1cc84c45f641eff7e60860079ff857566a7be2a559bfb05c8e732d2ce7155",
+      "size": 60664
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/ipv4/udp_tunnel.ko": {
+      "sha256": "06c31be8c5f489767c6f8f9a005a7744cd32b9c38c8c65497a0f1899b702c867",
+      "size": 53632
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/bridge/bridge.ko": {
+      "sha256": "3540bb02c1306d85871b01731239cc048baf4a07c98ef8eab3fe7d485022303e",
+      "size": 631992
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/llc/llc.ko": {
+      "sha256": "e6abe3bf0044f84d7caea36354d589c118ef4dacbfe4fa9405d8fb4dae0d9975",
+      "size": 22048
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/ipv4/netfilter/nf_defrag_ipv4.ko": {
+      "sha256": "6e8ec2e3ea9aada37c0b3bfb5d7789ac5b22863828f0133a0a672a7f9637f368",
+      "size": 12504
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/ipv6/netfilter/nf_defrag_ipv6.ko": {
+      "sha256": "c0060710a2fe71537f14ef67c7e22dff0cbd148c0bd00c183b1cc88b3b1c684e",
+      "size": 39544
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/net/netfilter/ipset/ip_set.ko": {
+      "sha256": "737bab68a3db4b034c3205c506365415cda6950820bf663bb540964e57543d05",
+      "size": 112192
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/crypto/async_tx/async_raid6_recov.ko": {
+      "sha256": "de6a341e9307e2638b357f6e1852300ba03bd4838714d3199d808cdd788d10b8",
+      "size": 27032
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/crypto/async_tx/async_pq.ko": {
+      "sha256": "b449c6b3267568767dbf11be5a82c04ee67342c50de3b5cc8588f42869f2952a",
+      "size": 23792
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/crypto/async_tx/async_memcpy.ko": {
+      "sha256": "72f7cb598252133e49ec8aa2858715fde4a599281a3dce1fb40bc3b7c8a1ce9f",
+      "size": 11968
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/crypto/async_tx/async_tx.ko": {
+      "sha256": "6fc8d7ba4e61a058882dc5790fccbc402ffe1636a8f8a07c9e48381d5eee37b5",
+      "size": 14448
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/crypto/async_tx/async_xor.ko": {
+      "sha256": "bb1fd381c488d7804bb73f7ba3c1752859a273e706ee305eb9006cddab334ba4",
+      "size": 18968
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/lib/crypto/libblake2b.ko": {
+      "sha256": "63c6d50fd2dcf228f1a23f99ea8ecc70390552c7b7f4a15c5aa52a42d8096a07",
+      "size": 17568
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/lib/raid6/raid6_pq.ko": {
+      "sha256": "1c714662f9c30bb853392fb93a5e1ba94f6ec78ee2991267157a54b440d6fee7",
+      "size": 149592
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/fs/overlayfs/overlay.ko": {
+      "sha256": "75a43e2f218a4d7fa9790ff027a5f158ce022c5b6bde961d629fb96e95060aa5",
+      "size": 462040
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/fs/btrfs/btrfs.ko": {
+      "sha256": "1a0ad0015f164462d362e25c68900755f3f77794bd8a88750e2dd1a38e074435",
+      "size": 4387232
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/kernel/fs/autofs/autofs4.ko": {
+      "sha256": "6efb342c3d808183d4ca8c46629736c0842c77ee98836510525cb97df64887c6",
+      "size": 114432
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/updates/dkms/nvidia-drm.ko": {
+      "sha256": "eb753d17fce61fe805b94f0c64489c1da1dd7d8fa47cb388840cc8469edbaa8b",
+      "size": 284848
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/updates/dkms/nvidia-uvm.ko": {
+      "sha256": "1b20cf6357750994cc5dd611dd533d3ac66f3fb13a2d1bea740f69394255975d",
+      "size": 3794488
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/updates/dkms/nvidia-modeset.ko": {
+      "sha256": "7beca071dd4d342208fd2de59a0e1eea9b80891ff9aa264da0f70bfa0c4210c7",
+      "size": 2845184
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/updates/dkms/nvidia-peermem.ko": {
+      "sha256": "3c21c4b79d2e2dbf14a93087ef4abf002f7394025d5189f6b0ca4ae96d9f1cf8",
+      "size": 7776
+    },
+    "/lib/modules/7.0.0-mk2-shiba-mk1/updates/dkms/nvidia.ko": {
+      "sha256": "d3b0185b987eea58bc519b7a79bcc96c2e12a278dea5c81398dcdde39b7f1c3e",
+      "size": 21095320
+    },
+    "/home/shiba/multikernel-experiment/rpc-p40-root/lib/modules/7.0.0-mk2-shiba-mk1/nvidia-uvm.ko": {
+      "sha256": "b75b6a578ee0244b9ee76a682beebc732e95b2f9da162355b9b187b45678ca9a",
+      "size": 3925520
+    },
+    "/home/shiba/multikernel-experiment/rpc-p40-root/lib/modules/7.0.0-mk2-shiba-mk1/nvidia.ko": {
+      "sha256": "079d49cad8e0feb279e371629750929fd39f9d63be453247091313a2e058c6ca",
+      "size": 121955672
+    },
+    "/home/shiba/multikernel-experiment/lazy_cma/lazy_cma.ko": {
+      "sha256": "5abbd89916918096b4ad01f2f28dd094f8fbc16cac743372f8ad2abda6cbc0c9",
+      "size": 24200
+    },
+    "/home/shiba/multikernel-experiment/daxfs-v0.1.0/daxfs/daxfs.ko": {
+      "sha256": "dd092d2b5493195d811f1609570a5213d4f4a0cbdb3e30ed48ca3f1b0db32450",
+      "size": 109880
+    },
+    "/home/shiba/multikernel-experiment/artifacts/secondary-daxfs-bootstrap-initramfs.cpio.gz": {
+      "sha256": "902b144eab1dc7f19e6d296b055da5e96d6cf891b74262ad3ded4beef25f1c80",
+      "size": 1144071
+    }
+  }
+}

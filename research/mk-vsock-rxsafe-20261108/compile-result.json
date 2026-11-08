@@ -6,5 +6,9 @@
   "proposed_source_sha256": "35366aa310c20ac6f41d3729fb7d2ebd0215a2cb1922698e52060398a8278111",
   "compile_check_module_sha256": "3be039259325212760964cef70a119ac0443ee7969e682323f5ed7e6955f8384",
   "not_a_hot_swap_module": true,
-  "runtime_test": "not run; requires separate boot image and approval to lift no-kernel-change constraint"
+  "runtime_test": "pending user reboot into separately installed image",
+  "installed_field_scope": "external compile-check module only",
+  "candidate_boot_files_installed": true,
+  "candidate_booted": false,
+  "candidate_source_commit": "b435af1"
 }

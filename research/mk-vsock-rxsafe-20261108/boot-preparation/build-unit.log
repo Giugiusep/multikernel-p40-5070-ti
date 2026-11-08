@@ -1,0 +1,2 @@
+Nov 08 16:31:56 shiba2th systemd[1661]: Started mk-rxsafe-kernel-build-20261108.service - [systemd-run] /bin/bash -c "exec bash /home/shiba/multikernel-experiment/research/mk-vsock-rxsafe-20261108/boot-preparation/build-candidate.sh > /home/shiba/multikernel-experiment/research/mk-vsock-rxsafe-20261108/boot-preparation/build.log 2>&1".
+Nov 08 16:45:22 shiba2th systemd[1661]: mk-rxsafe-kernel-build-20261108.service: Consumed 26min 37.866s CPU time over 13min 26.203s wall clock time, 2.4G memory peak.

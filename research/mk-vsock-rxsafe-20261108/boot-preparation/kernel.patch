@@ -1,0 +1,56 @@
+From b435af155d1b36dba5d485880735c17ee1963362 Mon Sep 17 00:00:00 2001
+From: qualcunoeq <qualcunoeq@users.noreply.github.com>
+Date: Sun, 8 Nov 2026 16:30:41 +0000
+Subject: [PATCH] mk vsock: defer receive processing outside hard IPI context
+
+---
+ net/vmw_vsock/mk_transport.c | 24 +++++++++---------------
+ 1 file changed, 9 insertions(+), 15 deletions(-)
+
+diff --git a/net/vmw_vsock/mk_transport.c b/net/vmw_vsock/mk_transport.c
+index 8fb491c..13a9118 100644
+--- a/net/vmw_vsock/mk_transport.c
++++ b/net/vmw_vsock/mk_transport.c
+@@ -326,7 +326,6 @@ static void mk_vsock_ipi_handler(u32 msg_type, u32 subtype,
+ 				 void *payload, u32 payload_len, void *ctx)
+ {
+ 	struct sk_buff *skb;
+-	struct virtio_vsock_hdr *hdr;
+ 
+ 	if (msg_type != MK_MSG_NETWORK || subtype != MK_NET_VSOCK_PKT)
+ 		return;
+@@ -344,22 +343,17 @@ static void mk_vsock_ipi_handler(u32 msg_type, u32 subtype,
+ 
+ 	skb_put_data(skb, payload, payload_len);
+ 
+-	hdr = (struct virtio_vsock_hdr *)skb->data;
+ 	/*
+-	 * RW packets are already fully formed and their receive path only
+-	 * takes socket-table/queue spinlocks and wakes readers.  Dispatch them
+-	 * here, while the IPI interrupt is active, so the single deferred worker
+-	 * cannot accumulate an unbounded skb backlog during bulk RPC transfers.
+-	 * Every rx_lock user disables local IRQs: otherwise this handler can
+-	 * interrupt stream_has_data/dequeue while that same CPU holds rx_lock and
+-	 * deadlock trying to enqueue the packet.
+-	 * Connection-management packets remain deferred because they may create
+-	 * sockets and allocate with GFP_KERNEL.
++	 * Generic VSOCK socket-table helpers use spin_lock_bh(), so they
++	 * must not run in this hard-IRQ callback.  An IPI can interrupt a
++	 * local task holding that lock; running the lookup here can then
++	 * deadlock on the same CPU.  spin_unlock_bh() also warns in hardirq.
++	 *
++	 * Keep packet order by dispatching data and connection-management
++	 * packets through the same existing receive work item.  The existing
++	 * per-stream transmit-credit reservation remains the flow control.
+ 	 */
+-	if (le16_to_cpu(hdr->op) == VIRTIO_VSOCK_OP_RW)
+-		mk_vsock_rx_pkt(skb);
+-	else
+-		mk_queue_rx_pkt(skb);
++	mk_queue_rx_pkt(skb);
+ }
+ 
+ /*
+-- 
+2.53.0
+

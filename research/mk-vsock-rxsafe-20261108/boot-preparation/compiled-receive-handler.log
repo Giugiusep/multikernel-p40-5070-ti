@@ -1,0 +1,89 @@
+
+/home/shiba/multikernel-experiment/research/linux-rxsafe-build/vmlinux:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+ffffffff824e94b0 <mk_vsock_ipi_handler>:
+ffffffff824e94b0:	e8 eb 8c e4 fe       	call   ffffffff813321a0 <__fentry__>
+ffffffff824e94b5:	81 ff 00 50 00 00    	cmp    $0x5000,%edi
+ffffffff824e94bb:	0f 85 d0 00 00 00    	jne    ffffffff824e9591 <mk_vsock_ipi_handler+0xe1>
+ffffffff824e94c1:	81 fe 01 50 00 00    	cmp    $0x5001,%esi
+ffffffff824e94c7:	0f 85 c4 00 00 00    	jne    ffffffff824e9591 <mk_vsock_ipi_handler+0xe1>
+ffffffff824e94cd:	55                   	push   %rbp
+ffffffff824e94ce:	48 89 e5             	mov    %rsp,%rbp
+ffffffff824e94d1:	41 55                	push   %r13
+ffffffff824e94d3:	41 54                	push   %r12
+ffffffff824e94d5:	53                   	push   %rbx
+ffffffff824e94d6:	89 cb                	mov    %ecx,%ebx
+ffffffff824e94d8:	83 f9 2b             	cmp    $0x2b,%ecx
+ffffffff824e94db:	0f 86 8d 00 00 00    	jbe    ffffffff824e956e <mk_vsock_ipi_handler+0xbe>
+ffffffff824e94e1:	49 89 d4             	mov    %rdx,%r12
+ffffffff824e94e4:	b9 ff ff ff ff       	mov    $0xffffffff,%ecx
+ffffffff824e94e9:	31 d2                	xor    %edx,%edx
+ffffffff824e94eb:	be 20 08 00 00       	mov    $0x820,%esi
+ffffffff824e94f0:	89 df                	mov    %ebx,%edi
+ffffffff824e94f2:	e8 69 97 d9 ff       	call   ffffffff82282c60 <__alloc_skb>
+ffffffff824e94f7:	49 89 c5             	mov    %rax,%r13
+ffffffff824e94fa:	48 85 c0             	test   %rax,%rax
+ffffffff824e94fd:	0f 84 9d 00 00 00    	je     ffffffff824e95a0 <mk_vsock_ipi_handler+0xf0>
+ffffffff824e9503:	89 de                	mov    %ebx,%esi
+ffffffff824e9505:	48 89 c7             	mov    %rax,%rdi
+ffffffff824e9508:	e8 13 37 d9 ff       	call   ffffffff8227cc20 <skb_put>
+ffffffff824e950d:	4c 89 e6             	mov    %r12,%rsi
+ffffffff824e9510:	89 da                	mov    %ebx,%edx
+ffffffff824e9512:	48 89 c7             	mov    %rax,%rdi
+ffffffff824e9515:	e8 c6 a6 08 00       	call   ffffffff82573be0 <__memcpy>
+ffffffff824e951a:	48 c7 c7 20 39 c1 83 	mov    $0xffffffff83c13920,%rdi
+ffffffff824e9521:	e8 6a a9 09 00       	call   ffffffff82583e90 <_raw_spin_lock>
+ffffffff824e9526:	4c 89 ee             	mov    %r13,%rsi
+ffffffff824e9529:	48 c7 c7 e8 38 c1 83 	mov    $0xffffffff83c138e8,%rdi
+ffffffff824e9530:	e8 9b 32 d9 ff       	call   ffffffff8227c7d0 <skb_queue_tail>
+ffffffff824e9535:	48 c7 c7 20 39 c1 83 	mov    $0xffffffff83c13920,%rdi
+ffffffff824e953c:	e8 ff aa 09 00       	call   ffffffff82584040 <_raw_spin_unlock>
+ffffffff824e9541:	48 8b 35 98 a3 72 01 	mov    0x172a398(%rip),%rsi        # ffffffff83c138e0 <mk_vsock_dev>
+ffffffff824e9548:	bf 00 20 00 00       	mov    $0x2000,%edi
+ffffffff824e954d:	48 c7 c2 00 39 c1 83 	mov    $0xffffffff83c13900,%rdx
+ffffffff824e9554:	e8 17 d4 eb fe       	call   ffffffff813a6970 <queue_work_on>
+ffffffff824e9559:	5b                   	pop    %rbx
+ffffffff824e955a:	41 5c                	pop    %r12
+ffffffff824e955c:	41 5d                	pop    %r13
+ffffffff824e955e:	5d                   	pop    %rbp
+ffffffff824e955f:	31 c0                	xor    %eax,%eax
+ffffffff824e9561:	31 d2                	xor    %edx,%edx
+ffffffff824e9563:	31 c9                	xor    %ecx,%ecx
+ffffffff824e9565:	31 f6                	xor    %esi,%esi
+ffffffff824e9567:	31 ff                	xor    %edi,%edi
+ffffffff824e9569:	e9 42 ca 09 00       	jmp    ffffffff82585fb0 <__pi___x86_return_thunk>
+ffffffff824e956e:	89 ce                	mov    %ecx,%esi
+ffffffff824e9570:	48 c7 c7 b8 36 cf 82 	mov    $0xffffffff82cf36b8,%rdi
+ffffffff824e9577:	e8 44 a7 f4 fe       	call   ffffffff81433cc0 <_printk>
+ffffffff824e957c:	5b                   	pop    %rbx
+ffffffff824e957d:	41 5c                	pop    %r12
+ffffffff824e957f:	41 5d                	pop    %r13
+ffffffff824e9581:	5d                   	pop    %rbp
+ffffffff824e9582:	31 c0                	xor    %eax,%eax
+ffffffff824e9584:	31 d2                	xor    %edx,%edx
+ffffffff824e9586:	31 c9                	xor    %ecx,%ecx
+ffffffff824e9588:	31 f6                	xor    %esi,%esi
+ffffffff824e958a:	31 ff                	xor    %edi,%edi
+ffffffff824e958c:	e9 1f ca 09 00       	jmp    ffffffff82585fb0 <__pi___x86_return_thunk>
+ffffffff824e9591:	31 c0                	xor    %eax,%eax
+ffffffff824e9593:	31 d2                	xor    %edx,%edx
+ffffffff824e9595:	31 c9                	xor    %ecx,%ecx
+ffffffff824e9597:	31 f6                	xor    %esi,%esi
+ffffffff824e9599:	31 ff                	xor    %edi,%edi
+ffffffff824e959b:	e9 10 ca 09 00       	jmp    ffffffff82585fb0 <__pi___x86_return_thunk>
+ffffffff824e95a0:	48 c7 c7 e8 36 cf 82 	mov    $0xffffffff82cf36e8,%rdi
+ffffffff824e95a7:	e8 14 a7 f4 fe       	call   ffffffff81433cc0 <_printk>
+ffffffff824e95ac:	eb ab                	jmp    ffffffff824e9559 <mk_vsock_ipi_handler+0xa9>
+
+Disassembly of section .data:
+
+Disassembly of section .init.text:
+
+Disassembly of section .altinstr_aux:
+
+Disassembly of section .altinstr_replacement:
+
+Disassembly of section .exit.text:

@@ -1,0 +1,21 @@
+{
+  "base_commit": "99866a47a2b8a21b131aad162a584ee9da92f8f0",
+  "status": "EXPERIMENTAL; replacement failed; no API deployment",
+  "kernel_unchanged": "7.0.0-mk2-shiba-mk1",
+  "worker_contract": "deepseek-iq-q8k-v2",
+  "port": 6011,
+  "cache_limit_bytes": 1073741824,
+  "max_frame_bytes": 16777216,
+  "max_rows": 8,
+  "files": {
+    "worker-q8k.cu": "545ce06157b54da0a024f8a4debdcea9c853c2fecf0d4baced6f2a234ad923a2",
+    "worker-q8k": "05b62125ff7601f25cddccc369bd25887ccab7f034c003f3ba42a29dd85b4b8c",
+    "build-worker.sh": "58020c02b03e0a76dd6bdbd722a5f4ba133039c8d0bea9e83f99478d37138c97",
+    "validate-q8k.py": "89cda27159128b70aa3ea411d7cb6d3be5decf368fad32186e0977bf96a234f1",
+    "run.py": "a0c995f2cc5dfbc8d3967fd8fc570bcd96d02cc72ca073ce78c194f953d89458",
+    "test_entry.cpp": "6ffe724f5cf96efc2a7c3c187b3cfb8df78fe840fd7072818dd6c8c966febddd"
+  },
+  "source_commit": "6c125cfedcc15025497dc21da47d02d26c4af346",
+  "primary_executable_sha256": "cc2cb04f9a09f9c5e597af4b7d778131ecf0391cee3c4597a33d3100b0e081eb",
+  "limits": "CUDA sm120/sm61 builds only; HIP/Metal not built. Final slot-identity fix compile/host test passed, not GPU-retested because secondary unresponsive."
+}

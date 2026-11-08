@@ -1,0 +1,18 @@
+ds4: tensor parallel 2 -> 1: the experts' 256-value blocks split n_ff 2304 no other way (each GPU its own layers)
+ds4: experts per word: 6 (full quality)
+ds4: the experts VRAM leaves over (~150.8 GB) are read in place from the model's files (--mmap-experts off copies them into RAM) (43.5 GB of RAM free to keep them: the most-routed 0.0 GB read ahead; prompts in chunks of 4096)
+ds4: RAM store: up to 2812 slots of 11.4 MB (32.0 GB), policy 0, 8 reader threads, unbuffered reads
+ds4: RAM store: 2812 of the profile's hottest experts read in (25.7 GB) in 11.2 s
+ds4: prompt path: the chunked pass from 96 tokens, windows of 16 below
+ds4: CUDA0 layers [0, 42] + head: weights 6.58 GB, experts 5.86 GB (312 of 15744 in VRAM), caches 0.01 GB, 1028 MiB free
+ds4: 15432 routed experts on the CPU lane (150.8 GB, in place in the model's files), 8 threads
+prompt: 21 tokens in 5141 ms (4.08 tok/s, windows of 8192)
+prompt's Engram rows: 1008, 0.0% without a read (repeats and the row cache), 1008 read
+dspark: 9 rounds, 22 drafts offered, 22 accepted (3.56 tokens a round); drafting 47.82 ms a round, verifying 5668.7 ms in all (0 windows)
+dspark per position (kept / reached): 1: 7/7 100% 2: 6/6 100% 3: 5/5 100% 4: 2/2 100% 5: 2/2 100%
+token latency ms: p50 0 p95 989 p99 1519 max 1519 mean 214 (31 tokens)
+decode: 32 tokens in 6628 ms (4.68 tok/s); CPU lane: 7512 of 7800 experts; the cache moved 0 (0 in all)
+decode per token: layers 71.66 ms (of it: routing waits 0.00, CPU lane 204.47, the rest host launches), head wait 129.70, Engram reads 26.85
+Engram per token: 48 rows, 19.4% without a read (the row cache holds 2208 of 1016800), 38.7 read, the reads 38.01 ms from asking to the last one (left to wait: 26.85)
+decode reads from the disk: 483.6 MB a token
+store: 70.5% of the CPU lane's experts were in RAM (114.4 hits, 47.9 misses a token); read 462.2 MB a token (demand and guesses), the CPU lane waited 137.0 ms a token for them; 0 prefetched, 0 used, 0 given up unused; slots 2812 of 2812, 1486 evictions, 0 failed reads; the GPU computed 0.0 experts a token from the store (0 slots visible)

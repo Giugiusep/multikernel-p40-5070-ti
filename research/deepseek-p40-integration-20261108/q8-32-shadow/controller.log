@@ -1,0 +1,13 @@
+off-code-32 {'mode': 'off', 'prompt': 'code', 'n': 32, 'exit': 0, 'exact_agreement': True, 'wall_s': 31.704120338021312, 'loads': 0, 'shadow_count': 0, 'max_shadow_rel_l1': None, 'worker_failed': False, 'tps': 3.99}
+shadow-code-32 {'mode': 'shadow', 'prompt': 'code', 'n': 32, 'exit': 0, 'exact_agreement': True, 'wall_s': 36.96932844998082, 'loads': 117, 'shadow_count': 282, 'max_shadow_rel_l1': 0.0251479511, 'worker_failed': False, 'tps': 3.54}
+Traceback (most recent call last):
+  File "/home/shiba/multikernel-experiment/research/deepseek-p40-integration-20261108/run.py", line 37, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/shiba/multikernel-experiment/research/deepseek-p40-integration-20261108/run.py", line 35, in main
+    for mode in ['off','shadow','replace']:run(mode,prompt,32)
+                                           ~~~^^^^^^^^^^^^^^^^
+  File "/home/shiba/multikernel-experiment/research/deepseek-p40-integration-20261108/run.py", line 28, in run
+    if mode=='shadow' and (not errors or max(errors)>.02):raise RuntimeError('real CPU/P40 numerical gate failed')
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: real CPU/P40 numerical gate failed

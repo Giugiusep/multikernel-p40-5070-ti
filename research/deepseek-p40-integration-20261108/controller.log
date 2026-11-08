@@ -1,0 +1,14 @@
+off-code-32 {'mode': 'off', 'prompt': 'code', 'n': 32, 'exit': 0, 'exact_agreement': True, 'wall_s': 30.643677451007534, 'loads': 0, 'shadow_count': 0, 'max_shadow_rel_l1': None, 'worker_failed': False, 'tps': 4.68}
+shadow-code-32 {'mode': 'shadow', 'prompt': 'code', 'n': 32, 'exit': 0, 'exact_agreement': True, 'wall_s': 32.533134363999125, 'loads': 117, 'shadow_count': 274, 'max_shadow_rel_l1': 0.000178128796, 'worker_failed': False, 'tps': 4.82}
+replace-code-32 {'mode': 'replace', 'prompt': 'code', 'n': 32, 'exit': 0, 'exact_agreement': False, 'wall_s': 49.831469789962284, 'loads': 117, 'shadow_count': 0, 'max_shadow_rel_l1': None, 'worker_failed': True, 'tps': 4.17, 'first_mismatch': 1}
+Traceback (most recent call last):
+  File "/home/shiba/multikernel-experiment/research/deepseek-p40-integration-20261108/run.py", line 37, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/shiba/multikernel-experiment/research/deepseek-p40-integration-20261108/run.py", line 35, in main
+    for mode in ['off','shadow','replace']:run(mode,prompt,32)
+                                           ~~~^^^^^^^^^^^^^^^^
+  File "/home/shiba/multikernel-experiment/research/deepseek-p40-integration-20261108/run.py", line 27, in run
+    if p.returncode or not m or not row['exact_agreement'] or row['worker_failed']:raise RuntimeError('gate failed: '+tag)
+                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: gate failed: replace-code-32

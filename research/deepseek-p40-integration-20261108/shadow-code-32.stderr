@@ -1,0 +1,409 @@
+ds4: tensor parallel 2 -> 1: the experts' 256-value blocks split n_ff 2304 no other way (each GPU its own layers)
+ds4: experts per word: 6 (full quality)
+ds4: the experts VRAM leaves over (~150.8 GB) are read in place from the model's files (--mmap-experts off copies them into RAM) (43.3 GB of RAM free to keep them: the most-routed 0.0 GB read ahead; prompts in chunks of 4096)
+ds4: RAM store: up to 2812 slots of 11.4 MB (32.0 GB), policy 0, 8 reader threads, unbuffered reads
+ds4: RAM store: 2812 of the profile's hottest experts read in (25.7 GB) in 9.8 s
+ds4: prompt path: the chunked pass from 96 tokens, windows of 16 below
+ds4: CUDA0 layers [0, 42] + head: weights 6.58 GB, experts 5.86 GB (312 of 15744 in VRAM), caches 0.01 GB, 1028 MiB free
+ds4: 15432 routed experts on the CPU lane (150.8 GB, in place in the model's files), 8 threads
+mk expert load layer=0 expert=28 bytes=9123840 resident=9123840
+mk expert load layer=0 expert=29 bytes=9123840 resident=18247680
+mk expert load layer=0 expert=30 bytes=9123840 resident=27371520
+mk expert load layer=0 expert=48 bytes=9123840 resident=36495360
+mk expert load layer=0 expert=55 bytes=9123840 resident=45619200
+mk expert load layer=0 expert=69 bytes=9123840 resident=54743040
+mk expert load layer=0 expert=86 bytes=9123840 resident=63866880
+mk expert load layer=0 expert=112 bytes=9123840 resident=72990720
+mk expert load layer=0 expert=128 bytes=9123840 resident=82114560
+mk expert load layer=0 expert=162 bytes=9123840 resident=91238400
+mk expert load layer=0 expert=196 bytes=9123840 resident=100362240
+mk expert load layer=0 expert=197 bytes=9123840 resident=109486080
+mk expert load layer=0 expert=198 bytes=9123840 resident=118609920
+mk expert load layer=0 expert=203 bytes=9123840 resident=127733760
+mk expert load layer=0 expert=209 bytes=9123840 resident=136857600
+mk expert load layer=0 expert=237 bytes=9123840 resident=145981440
+mk expert load layer=0 expert=238 bytes=9123840 resident=155105280
+mk expert load layer=0 expert=250 bytes=9123840 resident=164229120
+mk expert load layer=0 expert=256 bytes=9123840 resident=173352960
+mk expert load layer=0 expert=260 bytes=9123840 resident=182476800
+mk expert load layer=0 expert=269 bytes=9123840 resident=191600640
+mk expert load layer=0 expert=274 bytes=9123840 resident=200724480
+mk expert load layer=0 expert=286 bytes=9123840 resident=209848320
+mk expert load layer=0 expert=296 bytes=9123840 resident=218972160
+mk expert load layer=0 expert=302 bytes=9123840 resident=228096000
+mk expert load layer=0 expert=304 bytes=9123840 resident=237219840
+mk expert load layer=0 expert=307 bytes=9123840 resident=246343680
+mk expert load layer=0 expert=338 bytes=9123840 resident=255467520
+mk expert load layer=0 expert=347 bytes=9123840 resident=264591360
+mk expert load layer=0 expert=368 bytes=9123840 resident=273715200
+mk expert load layer=0 expert=369 bytes=9123840 resident=282839040
+mk expert load layer=0 expert=379 bytes=9123840 resident=291962880
+mk expert shadow layer=0 expert=28 rows=1 rel_l1=1.2392874e-07 max_abs=1.49011612e-08
+mk expert shadow layer=0 expert=29 rows=2 rel_l1=1.52073496e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=30 rows=1 rel_l1=2.11635558e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=48 rows=1 rel_l1=1.73882767e-07 max_abs=8.94069672e-08
+mk expert shadow layer=0 expert=55 rows=1 rel_l1=1.1295341e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=69 rows=2 rel_l1=1.32269746e-07 max_abs=8.94069672e-08
+mk expert shadow layer=0 expert=86 rows=1 rel_l1=1.59076754e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=112 rows=3 rel_l1=1.18138791e-07 max_abs=4.47034836e-08
+mk expert shadow layer=0 expert=128 rows=1 rel_l1=2.06531675e-07 max_abs=5.21540642e-08
+mk expert shadow layer=0 expert=162 rows=2 rel_l1=1.18606743e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=196 rows=1 rel_l1=1.87121734e-07 max_abs=3.16649675e-08
+mk expert shadow layer=0 expert=197 rows=3 rel_l1=1.39350618e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=198 rows=1 rel_l1=1.17918361e-07 max_abs=1.1920929e-07
+mk expert shadow layer=0 expert=203 rows=1 rel_l1=1.28784737e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=209 rows=2 rel_l1=1.36315103e-07 max_abs=4.47034836e-08
+mk expert shadow layer=0 expert=237 rows=1 rel_l1=1.60870797e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=238 rows=5 rel_l1=1.46552542e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=250 rows=4 rel_l1=1.16642781e-07 max_abs=2.38418579e-06
+mk expert shadow layer=0 expert=256 rows=2 rel_l1=1.40071498e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=260 rows=1 rel_l1=1.89154362e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=269 rows=2 rel_l1=1.52060471e-07 max_abs=1.1920929e-07
+mk expert shadow layer=0 expert=274 rows=1 rel_l1=1.75412178e-07 max_abs=6.61239028e-08
+mk expert shadow layer=0 expert=286 rows=1 rel_l1=2.14370329e-07 max_abs=6.70552254e-08
+mk expert shadow layer=0 expert=296 rows=2 rel_l1=1.55509446e-07 max_abs=4.47034836e-08
+mk expert shadow layer=0 expert=302 rows=1 rel_l1=1.78027864e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=304 rows=1 rel_l1=1.56907679e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=307 rows=1 rel_l1=1.43772674e-07 max_abs=4.84287739e-08
+mk expert shadow layer=0 expert=338 rows=1 rel_l1=1.36816506e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=347 rows=2 rel_l1=1.20434508e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=368 rows=2 rel_l1=1.05320465e-07 max_abs=8.94069672e-08
+mk expert shadow layer=0 expert=369 rows=1 rel_l1=1.90291841e-07 max_abs=3.0733645e-08
+mk expert shadow layer=0 expert=379 rows=1 rel_l1=1.20439264e-07 max_abs=2.98023224e-08
+mk expert load layer=0 expert=10 bytes=9123840 resident=301086720
+mk expert shadow layer=0 expert=10 rows=1 rel_l1=1.12741485e-07 max_abs=5.96046448e-08
+mk expert load layer=0 expert=65 bytes=9123840 resident=310210560
+mk expert shadow layer=0 expert=65 rows=1 rel_l1=1.31210388e-07 max_abs=1.49011612e-08
+mk expert load layer=0 expert=84 bytes=9123840 resident=319334400
+mk expert shadow layer=0 expert=84 rows=1 rel_l1=1.32668325e-07 max_abs=5.96046448e-08
+mk expert load layer=0 expert=94 bytes=9123840 resident=328458240
+mk expert shadow layer=0 expert=94 rows=1 rel_l1=1.24345986e-07 max_abs=4.47034836e-08
+mk expert load layer=0 expert=95 bytes=9123840 resident=337582080
+mk expert shadow layer=0 expert=95 rows=1 rel_l1=2.05542856e-07 max_abs=7.4505806e-08
+mk expert load layer=0 expert=104 bytes=9123840 resident=346705920
+mk expert shadow layer=0 expert=104 rows=1 rel_l1=1.53133289e-07 max_abs=5.96046448e-08
+mk expert load layer=0 expert=114 bytes=9123840 resident=355829760
+mk expert shadow layer=0 expert=114 rows=1 rel_l1=1.33168693e-07 max_abs=2.98023224e-08
+mk expert load layer=0 expert=131 bytes=9123840 resident=364953600
+mk expert shadow layer=0 expert=131 rows=1 rel_l1=1.30374368e-07 max_abs=4.47034836e-08
+mk expert load layer=0 expert=144 bytes=9123840 resident=374077440
+mk expert shadow layer=0 expert=144 rows=2 rel_l1=1.32054414e-07 max_abs=6.70552254e-08
+mk expert load layer=0 expert=152 bytes=9123840 resident=383201280
+mk expert shadow layer=0 expert=152 rows=1 rel_l1=9.92933291e-08 max_abs=1.1920929e-07
+mk expert load layer=0 expert=161 bytes=9123840 resident=392325120
+mk expert shadow layer=0 expert=161 rows=1 rel_l1=1.45735914e-07 max_abs=1.86264515e-08
+mk expert load layer=0 expert=200 bytes=9123840 resident=401448960
+mk expert shadow layer=0 expert=200 rows=1 rel_l1=1.23921559e-07 max_abs=2.60770321e-08
+mk expert load layer=0 expert=204 bytes=9123840 resident=410572800
+mk expert shadow layer=0 expert=204 rows=1 rel_l1=1.77588238e-07 max_abs=2.98023224e-08
+mk expert load layer=0 expert=207 bytes=9123840 resident=419696640
+mk expert shadow layer=0 expert=207 rows=2 rel_l1=1.28453921e-07 max_abs=8.94069672e-08
+mk expert load layer=0 expert=215 bytes=9123840 resident=428820480
+mk expert shadow layer=0 expert=215 rows=1 rel_l1=1.29886596e-07 max_abs=2.98023224e-08
+mk expert load layer=0 expert=218 bytes=9123840 resident=437944320
+mk expert shadow layer=0 expert=218 rows=1 rel_l1=1.46617268e-07 max_abs=5.96046448e-08
+mk expert load layer=0 expert=222 bytes=9123840 resident=447068160
+mk expert shadow layer=0 expert=222 rows=1 rel_l1=1.67069964e-07 max_abs=2.98023224e-08
+mk expert load layer=0 expert=224 bytes=9123840 resident=456192000
+mk expert shadow layer=0 expert=224 rows=1 rel_l1=1.41983392e-07 max_abs=2.98023224e-08
+mk expert load layer=0 expert=235 bytes=9123840 resident=465315840
+mk expert shadow layer=0 expert=235 rows=1 rel_l1=1.23324766e-07 max_abs=1.86264515e-08
+mk expert load layer=0 expert=236 bytes=9123840 resident=474439680
+mk expert shadow layer=0 expert=236 rows=1 rel_l1=1.54122461e-07 max_abs=2.98023224e-08
+mk expert load layer=0 expert=255 bytes=9123840 resident=483563520
+mk expert shadow layer=0 expert=255 rows=1 rel_l1=1.17180513e-07 max_abs=2.23517418e-08
+mk expert load layer=0 expert=275 bytes=9123840 resident=492687360
+mk expert shadow layer=0 expert=275 rows=1 rel_l1=1.18373786e-07 max_abs=1.49011612e-08
+mk expert load layer=0 expert=312 bytes=9123840 resident=501811200
+mk expert shadow layer=0 expert=312 rows=1 rel_l1=1.28162601e-07 max_abs=5.96046448e-08
+mk expert load layer=0 expert=340 bytes=9123840 resident=510935040
+mk expert shadow layer=0 expert=340 rows=2 rel_l1=1.99725569e-07 max_abs=4.84287739e-08
+mk expert load layer=0 expert=363 bytes=9123840 resident=520058880
+mk expert shadow layer=0 expert=363 rows=1 rel_l1=9.75679686e-08 max_abs=1.1920929e-07
+mk expert load layer=0 expert=373 bytes=9123840 resident=529182720
+mk expert shadow layer=0 expert=373 rows=6 rel_l1=1.37197917e-07 max_abs=7.4505806e-08
+mk expert load layer=1 expert=5 bytes=9123840 resident=538306560
+mk expert load layer=1 expert=16 bytes=9123840 resident=547430400
+mk expert load layer=1 expert=22 bytes=9123840 resident=556554240
+mk expert load layer=1 expert=24 bytes=9123840 resident=565678080
+mk expert load layer=1 expert=30 bytes=9123840 resident=574801920
+mk expert load layer=1 expert=67 bytes=9123840 resident=583925760
+mk expert load layer=1 expert=68 bytes=9123840 resident=593049600
+mk expert load layer=1 expert=85 bytes=9123840 resident=602173440
+mk expert load layer=1 expert=101 bytes=9123840 resident=611297280
+mk expert load layer=1 expert=114 bytes=9123840 resident=620421120
+mk expert load layer=1 expert=120 bytes=9123840 resident=629544960
+mk expert load layer=1 expert=164 bytes=9123840 resident=638668800
+mk expert load layer=1 expert=168 bytes=9123840 resident=647792640
+mk expert load layer=1 expert=184 bytes=9123840 resident=656916480
+mk expert load layer=1 expert=217 bytes=9123840 resident=666040320
+mk expert load layer=1 expert=218 bytes=9123840 resident=675164160
+mk expert load layer=1 expert=227 bytes=9123840 resident=684288000
+mk expert load layer=1 expert=254 bytes=9123840 resident=693411840
+mk expert load layer=1 expert=300 bytes=9123840 resident=702535680
+mk expert load layer=1 expert=308 bytes=9123840 resident=711659520
+mk expert load layer=1 expert=319 bytes=9123840 resident=720783360
+mk expert load layer=1 expert=329 bytes=9123840 resident=729907200
+mk expert load layer=1 expert=349 bytes=9123840 resident=739031040
+mk expert load layer=1 expert=372 bytes=9123840 resident=748154880
+mk expert load layer=1 expert=379 bytes=9123840 resident=757278720
+mk expert load layer=1 expert=381 bytes=9123840 resident=766402560
+mk expert shadow layer=1 expert=5 rows=2 rel_l1=1.1657662e-07 max_abs=5.96046448e-08
+mk expert shadow layer=1 expert=16 rows=8 rel_l1=5.33747365e-05 max_abs=0.000153943896
+mk expert shadow layer=1 expert=22 rows=2 rel_l1=1.38426058e-07 max_abs=4.47034836e-08
+mk expert shadow layer=1 expert=24 rows=1 rel_l1=2.18190665e-07 max_abs=2.42143869e-08
+mk expert shadow layer=1 expert=30 rows=1 rel_l1=1.61589599e-07 max_abs=1.49011612e-08
+mk expert shadow layer=1 expert=67 rows=1 rel_l1=9.58232444e-08 max_abs=8.19563866e-08
+mk expert shadow layer=1 expert=68 rows=1 rel_l1=1.30113781e-07 max_abs=2.98023224e-08
+mk expert shadow layer=1 expert=85 rows=2 rel_l1=1.93021053e-07 max_abs=4.47034836e-08
+mk expert shadow layer=1 expert=101 rows=2 rel_l1=1.32343165e-07 max_abs=4.47034836e-08
+mk expert shadow layer=1 expert=114 rows=1 rel_l1=1.64702238e-07 max_abs=3.7252903e-08
+mk expert shadow layer=1 expert=120 rows=2 rel_l1=1.3515035e-07 max_abs=5.96046448e-08
+mk expert shadow layer=1 expert=164 rows=1 rel_l1=1.39159336e-07 max_abs=4.47034836e-08
+mk expert shadow layer=1 expert=168 rows=1 rel_l1=1.21705264e-07 max_abs=1.86264515e-08
+mk expert shadow layer=1 expert=184 rows=1 rel_l1=1.21857671e-07 max_abs=2.23517418e-08
+mk expert shadow layer=1 expert=217 rows=3 rel_l1=1.2596705e-07 max_abs=3.7252903e-08
+mk expert shadow layer=1 expert=218 rows=1 rel_l1=1.20100554e-07 max_abs=2.98023224e-08
+mk expert shadow layer=1 expert=227 rows=1 rel_l1=1.49625089e-07 max_abs=2.98023224e-08
+mk expert shadow layer=1 expert=254 rows=1 rel_l1=1.36303195e-07 max_abs=2.98023224e-08
+mk expert shadow layer=1 expert=300 rows=1 rel_l1=1.63720417e-07 max_abs=5.96046448e-08
+mk expert shadow layer=1 expert=308 rows=6 rel_l1=0.000178128796 max_abs=0.000267315656
+mk expert shadow layer=1 expert=319 rows=1 rel_l1=1.50208424e-07 max_abs=2.23517418e-08
+mk expert shadow layer=1 expert=329 rows=1 rel_l1=1.07767104e-07 max_abs=2.23517418e-08
+mk expert shadow layer=1 expert=349 rows=1 rel_l1=1.58162275e-07 max_abs=1.49011612e-08
+mk expert shadow layer=1 expert=372 rows=1 rel_l1=1.45723455e-07 max_abs=1.49011612e-08
+mk expert shadow layer=1 expert=379 rows=1 rel_l1=2.11077034e-07 max_abs=5.96046448e-08
+mk expert shadow layer=1 expert=381 rows=3 rel_l1=1.53012789e-07 max_abs=7.4505806e-08
+mk expert load layer=1 expert=48 bytes=9123840 resident=775526400
+mk expert shadow layer=1 expert=48 rows=1 rel_l1=1.23159361e-07 max_abs=1.49011612e-08
+mk expert load layer=1 expert=49 bytes=9123840 resident=784650240
+mk expert shadow layer=1 expert=49 rows=1 rel_l1=1.6281204e-07 max_abs=1.49011612e-08
+mk expert load layer=1 expert=78 bytes=9123840 resident=793774080
+mk expert shadow layer=1 expert=78 rows=1 rel_l1=1.170275e-07 max_abs=3.7252903e-08
+mk expert load layer=1 expert=86 bytes=9123840 resident=802897920
+mk expert shadow layer=1 expert=86 rows=2 rel_l1=1.65805884e-07 max_abs=3.7252903e-08
+mk expert load layer=1 expert=125 bytes=9123840 resident=812021760
+mk expert shadow layer=1 expert=125 rows=1 rel_l1=1.37202773e-07 max_abs=1.49011612e-08
+mk expert load layer=1 expert=126 bytes=9123840 resident=821145600
+mk expert shadow layer=1 expert=126 rows=1 rel_l1=1.55695676e-07 max_abs=1.49011612e-08
+mk expert load layer=1 expert=135 bytes=9123840 resident=830269440
+mk expert shadow layer=1 expert=135 rows=2 rel_l1=1.47253868e-07 max_abs=2.98023224e-08
+mk expert load layer=1 expert=249 bytes=9123840 resident=839393280
+mk expert shadow layer=1 expert=249 rows=2 rel_l1=1.87762413e-07 max_abs=5.96046448e-08
+mk expert load layer=1 expert=250 bytes=9123840 resident=848517120
+mk expert shadow layer=1 expert=250 rows=1 rel_l1=1.38808717e-07 max_abs=7.4505806e-08
+mk expert load layer=1 expert=270 bytes=9123840 resident=857640960
+mk expert shadow layer=1 expert=270 rows=1 rel_l1=1.09344306e-07 max_abs=5.96046448e-08
+mk expert load layer=1 expert=279 bytes=9123840 resident=866764800
+mk expert shadow layer=1 expert=279 rows=2 rel_l1=1.50255287e-07 max_abs=2.98023224e-08
+mk expert load layer=1 expert=289 bytes=9123840 resident=875888640
+mk expert shadow layer=1 expert=289 rows=1 rel_l1=1.61840709e-07 max_abs=4.47034836e-08
+mk expert load layer=1 expert=317 bytes=9123840 resident=885012480
+mk expert shadow layer=1 expert=317 rows=1 rel_l1=1.34663277e-07 max_abs=3.7252903e-08
+mk expert load layer=1 expert=348 bytes=9123840 resident=894136320
+mk expert shadow layer=1 expert=348 rows=1 rel_l1=1.31798369e-07 max_abs=3.35276127e-08
+mk expert load layer=1 expert=357 bytes=9123840 resident=903260160
+mk expert shadow layer=1 expert=357 rows=1 rel_l1=1.45574463e-07 max_abs=1.49011612e-08
+mk expert load layer=1 expert=382 bytes=9123840 resident=912384000
+mk expert shadow layer=1 expert=382 rows=8 rel_l1=1.02562059e-07 max_abs=2.86102295e-06
+mk expert load layer=2 expert=11 bytes=9123840 resident=921507840
+mk expert load layer=2 expert=53 bytes=9123840 resident=930631680
+mk expert load layer=2 expert=131 bytes=9123840 resident=939755520
+mk expert load layer=2 expert=170 bytes=9123840 resident=948879360
+mk expert load layer=2 expert=174 bytes=9123840 resident=958003200
+mk expert load layer=2 expert=214 bytes=9123840 resident=967127040
+mk expert load layer=2 expert=217 bytes=9123840 resident=976250880
+mk expert load layer=2 expert=228 bytes=9123840 resident=985374720
+mk expert load layer=2 expert=246 bytes=9123840 resident=994498560
+mk expert load layer=2 expert=249 bytes=9123840 resident=1003622400
+mk expert load layer=2 expert=250 bytes=9123840 resident=1012746240
+mk expert load layer=2 expert=285 bytes=9123840 resident=1021870080
+mk expert load layer=2 expert=293 bytes=9123840 resident=1030993920
+mk expert load layer=2 expert=296 bytes=9123840 resident=1040117760
+mk expert load layer=2 expert=304 bytes=9123840 resident=1049241600
+mk expert load layer=2 expert=305 bytes=9123840 resident=1058365440
+mk expert load layer=2 expert=316 bytes=9123840 resident=1067489280
+mk expert shadow layer=2 expert=11 rows=6 rel_l1=1.78570064e-07 max_abs=8.94069672e-08
+mk expert shadow layer=2 expert=53 rows=5 rel_l1=1.60711121e-07 max_abs=8.19563866e-08
+mk expert shadow layer=2 expert=131 rows=2 rel_l1=1.68836242e-07 max_abs=4.47034836e-08
+mk expert shadow layer=2 expert=170 rows=2 rel_l1=1.29114004e-07 max_abs=8.94069672e-08
+mk expert shadow layer=2 expert=174 rows=2 rel_l1=1.44793647e-07 max_abs=8.94069672e-08
+mk expert shadow layer=2 expert=214 rows=3 rel_l1=1.71637592e-07 max_abs=5.96046448e-08
+mk expert shadow layer=2 expert=217 rows=1 rel_l1=1.81341869e-07 max_abs=3.35276127e-08
+mk expert shadow layer=2 expert=228 rows=1 rel_l1=1.78506826e-07 max_abs=5.96046448e-08
+mk expert shadow layer=2 expert=246 rows=1 rel_l1=1.04794244e-07 max_abs=2.98023224e-08
+mk expert shadow layer=2 expert=249 rows=5 rel_l1=1.66859182e-07 max_abs=4.47034836e-08
+mk expert shadow layer=2 expert=250 rows=1 rel_l1=2.13539709e-07 max_abs=4.47034836e-08
+mk expert shadow layer=2 expert=285 rows=1 rel_l1=1.20272437e-07 max_abs=2.23517418e-08
+mk expert shadow layer=2 expert=293 rows=3 rel_l1=1.41426394e-07 max_abs=5.96046448e-08
+mk expert shadow layer=2 expert=296 rows=1 rel_l1=1.3199624e-07 max_abs=3.7252903e-08
+mk expert shadow layer=2 expert=304 rows=1 rel_l1=1.48094966e-07 max_abs=2.98023224e-08
+mk expert shadow layer=2 expert=305 rows=1 rel_l1=1.1651732e-07 max_abs=4.09781933e-08
+mk expert shadow layer=2 expert=316 rows=1 rel_l1=1.45766019e-07 max_abs=3.16649675e-08
+mk expert shadow layer=0 expert=10 rows=2 rel_l1=1.26864076e-07 max_abs=7.4505806e-08
+mk expert shadow layer=0 expert=69 rows=1 rel_l1=1.51706532e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=86 rows=1 rel_l1=1.0414781e-07 max_abs=2.23517418e-08
+mk expert shadow layer=0 expert=94 rows=1 rel_l1=1.18701933e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=152 rows=1 rel_l1=1.28934e-07 max_abs=1.1920929e-07
+mk expert shadow layer=0 expert=197 rows=1 rel_l1=1.47087418e-07 max_abs=4.47034836e-08
+mk expert shadow layer=0 expert=198 rows=1 rel_l1=1.26742504e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=235 rows=1 rel_l1=1.32292104e-07 max_abs=1.49011612e-08
+mk expert shadow layer=0 expert=238 rows=3 rel_l1=1.3122172e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=250 rows=1 rel_l1=1.6907285e-07 max_abs=3.7252903e-08
+mk expert shadow layer=0 expert=269 rows=1 rel_l1=1.52443118e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=338 rows=1 rel_l1=1.59022423e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=340 rows=1 rel_l1=1.39590311e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=369 rows=1 rel_l1=1.32083611e-07 max_abs=3.35276127e-08
+mk expert shadow layer=0 expert=373 rows=4 rel_l1=1.35480567e-07 max_abs=8.94069672e-08
+mk expert shadow layer=1 expert=16 rows=2 rel_l1=1.65322346e-07 max_abs=3.7252903e-08
+mk expert shadow layer=1 expert=86 rows=1 rel_l1=1.8421724e-07 max_abs=3.7252903e-08
+mk expert shadow layer=1 expert=120 rows=3 rel_l1=1.36354668e-07 max_abs=5.96046448e-08
+mk expert shadow layer=1 expert=270 rows=1 rel_l1=1.09042995e-07 max_abs=5.96046448e-08
+mk expert shadow layer=1 expert=300 rows=1 rel_l1=1.31368032e-07 max_abs=2.98023224e-08
+mk expert shadow layer=1 expert=308 rows=3 rel_l1=1.05774217e-07 max_abs=2.98023224e-08
+mk expert shadow layer=1 expert=317 rows=2 rel_l1=1.65345684e-07 max_abs=4.47034836e-08
+mk expert shadow layer=1 expert=381 rows=1 rel_l1=1.19090816e-07 max_abs=2.98023224e-08
+mk expert shadow layer=2 expert=53 rows=4 rel_l1=1.27825845e-07 max_abs=7.4505806e-08
+mk expert shadow layer=2 expert=249 rows=2 rel_l1=1.71008345e-07 max_abs=4.47034836e-08
+mk expert shadow layer=2 expert=305 rows=1 rel_l1=1.05045914e-07 max_abs=2.98023224e-08
+prompt: 21 tokens in 11518 ms (1.82 tok/s, windows of 8192)
+prompt's Engram rows: 1008, 0.0% without a read (repeats and the row cache), 1008 read
+mk expert shadow layer=0 expert=236 rows=1 rel_l1=1.44684643e-07 max_abs=5.96046448e-08
+mk expert shadow layer=1 expert=317 rows=1 rel_l1=1.42820251e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=95 rows=1 rel_l1=1.1962111e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=209 rows=1 rel_l1=1.40168579e-07 max_abs=2.60770321e-08
+mk expert shadow layer=0 expert=286 rows=1 rel_l1=1.66706917e-07 max_abs=3.25962901e-08
+mk expert shadow layer=0 expert=338 rows=1 rel_l1=1.50584364e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=373 rows=1 rel_l1=1.27961903e-07 max_abs=4.47034836e-08
+mk expert shadow layer=1 expert=114 rows=1 rel_l1=1.64264102e-07 max_abs=5.96046448e-08
+mk expert shadow layer=1 expert=381 rows=1 rel_l1=1.742643e-07 max_abs=2.98023224e-08
+mk expert shadow layer=2 expert=305 rows=1 rel_l1=1.62044291e-07 max_abs=5.58793545e-08
+mk expert shadow layer=0 expert=28 rows=1 rel_l1=1.16903326e-07 max_abs=2.23517418e-08
+mk expert shadow layer=0 expert=84 rows=1 rel_l1=9.47288128e-08 max_abs=5.21540642e-08
+mk expert shadow layer=0 expert=197 rows=2 rel_l1=1.52798436e-07 max_abs=4.47034836e-08
+mk expert shadow layer=0 expert=207 rows=1 rel_l1=1.02313496e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=222 rows=1 rel_l1=1.22028604e-07 max_abs=1.67638063e-08
+mk expert shadow layer=0 expert=238 rows=3 rel_l1=1.34729855e-07 max_abs=3.7252903e-08
+mk expert shadow layer=0 expert=340 rows=1 rel_l1=1.12157535e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=373 rows=3 rel_l1=1.67589885e-07 max_abs=5.21540642e-08
+mk expert shadow layer=1 expert=5 rows=2 rel_l1=1.04001748e-07 max_abs=5.96046448e-08
+mk expert shadow layer=1 expert=67 rows=1 rel_l1=1.66335955e-07 max_abs=8.94069672e-08
+mk expert shadow layer=1 expert=217 rows=1 rel_l1=1.27458241e-07 max_abs=2.98023224e-08
+mk expert shadow layer=1 expert=218 rows=2 rel_l1=1.48891713e-07 max_abs=2.98023224e-08
+mk expert shadow layer=1 expert=249 rows=2 rel_l1=1.45902825e-07 max_abs=5.96046448e-08
+mk expert shadow layer=1 expert=289 rows=1 rel_l1=1.7472347e-07 max_abs=5.96046448e-08
+mk expert shadow layer=1 expert=381 rows=1 rel_l1=1.44458585e-07 max_abs=2.60770321e-08
+mk expert shadow layer=2 expert=131 rows=2 rel_l1=1.32754986e-07 max_abs=4.47034836e-08
+mk expert shadow layer=2 expert=214 rows=2 rel_l1=1.3520955e-07 max_abs=5.96046448e-08
+mk expert shadow layer=2 expert=285 rows=1 rel_l1=1.63635928e-07 max_abs=2.98023224e-08
+mk expert shadow layer=2 expert=304 rows=1 rel_l1=1.92281729e-07 max_abs=3.16649675e-08
+mk expert shadow layer=0 expert=30 rows=2 rel_l1=1.39134729e-07 max_abs=1.49011612e-07
+mk expert shadow layer=0 expert=104 rows=1 rel_l1=1.31859708e-07 max_abs=4.47034836e-08
+mk expert shadow layer=0 expert=373 rows=1 rel_l1=1.20275259e-07 max_abs=3.7252903e-08
+mk expert shadow layer=1 expert=85 rows=4 rel_l1=1.6748878e-07 max_abs=8.94069672e-08
+mk expert shadow layer=1 expert=86 rows=1 rel_l1=1.80582643e-07 max_abs=3.7252903e-08
+mk expert shadow layer=1 expert=101 rows=1 rel_l1=1.31890652e-07 max_abs=2.98023224e-08
+mk expert shadow layer=1 expert=126 rows=1 rel_l1=1.88029971e-07 max_abs=2.98023224e-08
+mk expert shadow layer=1 expert=217 rows=1 rel_l1=2.59308149e-07 max_abs=1.1920929e-07
+mk expert shadow layer=1 expert=317 rows=1 rel_l1=1.36659245e-07 max_abs=2.98023224e-08
+mk expert shadow layer=1 expert=319 rows=1 rel_l1=1.51405536e-07 max_abs=3.7252903e-08
+mk expert shadow layer=2 expert=217 rows=1 rel_l1=1.55404843e-07 max_abs=4.47034836e-08
+mk expert shadow layer=2 expert=305 rows=2 rel_l1=1.41638274e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=30 rows=2 rel_l1=1.21417447e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=209 rows=1 rel_l1=1.22734852e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=250 rows=1 rel_l1=1.4244117e-07 max_abs=8.94069672e-08
+mk expert shadow layer=0 expert=286 rows=1 rel_l1=1.94449294e-07 max_abs=4.56348062e-08
+mk expert shadow layer=0 expert=338 rows=1 rel_l1=1.01084241e-07 max_abs=2.98023224e-08
+mk expert shadow layer=1 expert=101 rows=1 rel_l1=1.4133626e-07 max_abs=5.96046448e-08
+mk expert shadow layer=1 expert=217 rows=1 rel_l1=1.60562167e-07 max_abs=7.4505806e-08
+mk expert shadow layer=1 expert=319 rows=1 rel_l1=1.27266338e-07 max_abs=2.98023224e-08
+mk expert shadow layer=1 expert=382 rows=1 rel_l1=1.73703371e-07 max_abs=6.70552254e-08
+mk expert shadow layer=2 expert=214 rows=1 rel_l1=1.34814674e-07 max_abs=5.96046448e-08
+mk expert shadow layer=2 expert=304 rows=1 rel_l1=1.54634843e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=29 rows=1 rel_l1=1.20562894e-07 max_abs=2.23517418e-08
+mk expert shadow layer=0 expert=197 rows=2 rel_l1=1.54013754e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=207 rows=2 rel_l1=1.38652774e-07 max_abs=2.23517418e-08
+mk expert shadow layer=0 expert=275 rows=1 rel_l1=1.09134942e-07 max_abs=1.1920929e-07
+mk expert shadow layer=1 expert=5 rows=2 rel_l1=1.29656011e-07 max_abs=2.98023224e-08
+mk expert shadow layer=1 expert=16 rows=1 rel_l1=2.09559927e-07 max_abs=4.47034836e-08
+mk expert shadow layer=1 expert=135 rows=2 rel_l1=1.36767384e-07 max_abs=1.86264515e-08
+mk expert shadow layer=2 expert=11 rows=3 rel_l1=1.51506378e-07 max_abs=5.96046448e-08
+mk expert shadow layer=2 expert=131 rows=4 rel_l1=1.33562058e-07 max_abs=4.47034836e-08
+mk expert shadow layer=2 expert=214 rows=5 rel_l1=1.6243103e-07 max_abs=5.96046448e-08
+mk expert shadow layer=2 expert=250 rows=2 rel_l1=1.61968557e-07 max_abs=3.7252903e-08
+mk expert shadow layer=0 expert=69 rows=1 rel_l1=1.54405166e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=197 rows=1 rel_l1=1.37245632e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=112 rows=1 rel_l1=1.47368132e-07 max_abs=3.35276127e-08
+mk expert shadow layer=0 expert=131 rows=1 rel_l1=1.07731322e-07 max_abs=5.96046448e-08
+mk expert shadow layer=1 expert=114 rows=1 rel_l1=1.35936165e-07 max_abs=5.96046448e-08
+mk expert shadow layer=1 expert=319 rows=4 rel_l1=1.14159735e-07 max_abs=1.49011612e-07
+mk expert shadow layer=1 expert=381 rows=2 rel_l1=1.38077092e-07 max_abs=1.49011612e-07
+mk expert shadow layer=2 expert=250 rows=2 rel_l1=1.51915394e-07 max_abs=2.98023224e-08
+mk expert shadow layer=2 expert=305 rows=2 rel_l1=1.52305609e-07 max_abs=4.84287739e-08
+mk expert shadow layer=0 expert=29 rows=2 rel_l1=1.21781983e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=95 rows=1 rel_l1=1.47604391e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=131 rows=1 rel_l1=1.13983188e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=197 rows=1 rel_l1=1.94461438e-07 max_abs=1.1920929e-07
+mk expert shadow layer=0 expert=207 rows=1 rel_l1=1.22347544e-07 max_abs=8.94069672e-08
+mk expert shadow layer=0 expert=209 rows=1 rel_l1=1.1778587e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=235 rows=1 rel_l1=1.71113993e-07 max_abs=1.86264515e-08
+mk expert shadow layer=0 expert=238 rows=3 rel_l1=1.65589503e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=286 rows=1 rel_l1=1.24897913e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=338 rows=1 rel_l1=1.17216817e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=128 rows=1 rel_l1=1.28135804e-07 max_abs=1.1920929e-07
+mk expert shadow layer=0 expert=161 rows=1 rel_l1=1.3444499e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=162 rows=1 rel_l1=1.63020989e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=196 rows=1 rel_l1=1.37916333e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=237 rows=1 rel_l1=1.23057497e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=274 rows=1 rel_l1=1.5728963e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=304 rows=1 rel_l1=1.02362959e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=347 rows=1 rel_l1=1.43005876e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=368 rows=1 rel_l1=1.44117527e-07 max_abs=8.94069672e-08
+mk expert shadow layer=0 expert=379 rows=1 rel_l1=1.28416718e-07 max_abs=1.1920929e-07
+mk expert shadow layer=1 expert=5 rows=2 rel_l1=1.26409434e-07 max_abs=3.35276127e-08
+mk expert shadow layer=1 expert=16 rows=2 rel_l1=1.16973783e-07 max_abs=4.84287739e-08
+mk expert shadow layer=1 expert=67 rows=1 rel_l1=9.74032912e-08 max_abs=1.1920929e-07
+mk expert shadow layer=1 expert=114 rows=1 rel_l1=1.3774396e-07 max_abs=3.7252903e-08
+mk expert shadow layer=1 expert=120 rows=2 rel_l1=1.84663986e-07 max_abs=7.4505806e-08
+mk expert shadow layer=1 expert=308 rows=1 rel_l1=1.21538072e-07 max_abs=4.47034836e-08
+mk expert shadow layer=1 expert=381 rows=6 rel_l1=1.6863762e-07 max_abs=5.96046448e-08
+mk expert shadow layer=1 expert=22 rows=1 rel_l1=1.55125115e-07 max_abs=3.7252903e-08
+mk expert shadow layer=1 expert=279 rows=2 rel_l1=1.7577611e-07 max_abs=2.98023224e-08
+mk expert shadow layer=2 expert=11 rows=1 rel_l1=1.58438182e-07 max_abs=5.96046448e-08
+mk expert shadow layer=2 expert=53 rows=1 rel_l1=1.24092776e-07 max_abs=4.47034836e-08
+mk expert shadow layer=2 expert=131 rows=1 rel_l1=1.16512002e-07 max_abs=2.98023224e-08
+mk expert shadow layer=2 expert=214 rows=1 rel_l1=1.62072666e-07 max_abs=7.4505806e-08
+mk expert shadow layer=2 expert=250 rows=2 rel_l1=1.58146821e-07 max_abs=3.53902578e-08
+mk expert shadow layer=2 expert=304 rows=6 rel_l1=1.52603709e-07 max_abs=2.98023224e-08
+mk expert shadow layer=2 expert=170 rows=1 rel_l1=1.48037015e-07 max_abs=5.96046448e-08
+mk expert shadow layer=2 expert=246 rows=1 rel_l1=1.72501076e-07 max_abs=6.70552254e-08
+mk expert shadow layer=2 expert=296 rows=1 rel_l1=2.26119407e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=28 rows=1 rel_l1=1.30268069e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=196 rows=1 rel_l1=1.42154901e-07 max_abs=2.23517418e-08
+mk expert shadow layer=0 expert=197 rows=2 rel_l1=2.05700259e-07 max_abs=7.4505806e-08
+mk expert shadow layer=0 expert=207 rows=1 rel_l1=1.15201713e-07 max_abs=1.49011612e-08
+mk expert shadow layer=0 expert=238 rows=2 rel_l1=1.62590629e-07 max_abs=5.96046448e-08
+mk expert shadow layer=0 expert=340 rows=1 rel_l1=1.38564278e-07 max_abs=2.98023224e-08
+mk expert shadow layer=0 expert=55 rows=1 rel_l1=1.0943733e-07 max_abs=7.4505806e-08
+mk expert shadow layer=1 expert=5 rows=2 rel_l1=1.46643741e-07 max_abs=5.96046448e-08
+mk expert shadow layer=1 expert=16 rows=2 rel_l1=1.56718244e-07 max_abs=5.96046448e-08
+mk expert shadow layer=1 expert=85 rows=2 rel_l1=1.453193e-07 max_abs=5.96046448e-08
+mk expert shadow layer=1 expert=218 rows=1 rel_l1=1.3228706e-07 max_abs=2.98023224e-08
+mk expert shadow layer=1 expert=249 rows=1 rel_l1=1.69152757e-07 max_abs=3.63215804e-08
+mk expert shadow layer=1 expert=270 rows=1 rel_l1=1.28979851e-07 max_abs=7.07805157e-08
+mk expert shadow layer=1 expert=289 rows=1 rel_l1=1.16532205e-07 max_abs=2.98023224e-08
+mk expert shadow layer=1 expert=308 rows=1 rel_l1=1.65550247e-07 max_abs=5.21540642e-08
+mk expert shadow layer=1 expert=381 rows=3 rel_l1=1.73638697e-07 max_abs=8.94069672e-08
+mk expert shadow layer=1 expert=379 rows=1 rel_l1=1.39946614e-07 max_abs=5.96046448e-08
+mk expert shadow layer=2 expert=131 rows=2 rel_l1=1.49656378e-07 max_abs=5.96046448e-08
+mk expert shadow layer=2 expert=214 rows=1 rel_l1=1.31495144e-07 max_abs=5.96046448e-08
+mk expert shadow layer=2 expert=250 rows=2 rel_l1=1.6700063e-07 max_abs=4.47034836e-08
+mk expert shadow layer=2 expert=305 rows=2 rel_l1=1.29967427e-07 max_abs=4.47034836e-08
+dspark: 9 rounds, 22 drafts offered, 22 accepted (3.56 tokens a round); drafting 10.58 ms a round, verifying 5773.7 ms in all (0 windows)
+dspark per position (kept / reached): 1: 7/7 100% 2: 6/6 100% 3: 5/5 100% 4: 2/2 100% 5: 2/2 100%
+token latency ms: p50 0 p95 971 p99 1446 max 1446 mean 207 (31 tokens)
+decode: 32 tokens in 6430 ms (4.82 tok/s); CPU lane: 7512 of 7800 experts; the cache moved 0 (0 in all)
+decode per token: layers 66.67 ms (of it: routing waits 0.00, CPU lane 199.62, the rest host launches), head wait 137.92, Engram reads 0.07
+Engram per token: 48 rows, 19.4% without a read (the row cache holds 2208 of 1016800), 38.7 read, the reads 0.17 ms from asking to the last one (left to wait: 0.07)
+decode reads from the disk: 462.8 MB a token
+store: 70.5% of the CPU lane's experts were in RAM (114.4 hits, 47.9 misses a token); read 462.2 MB a token (demand and guesses), the CPU lane waited 139.4 ms a token for them; 0 prefetched, 0 used, 0 given up unused; slots 2812 of 2812, 1486 evictions, 0 failed reads; the GPU computed 0.0 experts a token from the store (0 slots visible)

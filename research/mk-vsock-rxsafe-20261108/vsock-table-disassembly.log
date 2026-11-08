@@ -1,0 +1,148 @@
+
+/home/shiba/multikernel-experiment/build/vmlinux:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+ffffffff824e45d0 <vsock_find_connected_socket_net>:
+ffffffff824e45d0:	e8 cb db e4 fe       	call   ffffffff813321a0 <__fentry__>
+ffffffff824e45d5:	55                   	push   %rbp
+ffffffff824e45d6:	48 89 e5             	mov    %rsp,%rbp
+ffffffff824e45d9:	41 57                	push   %r15
+ffffffff824e45db:	41 56                	push   %r14
+ffffffff824e45dd:	41 55                	push   %r13
+ffffffff824e45df:	49 89 f5             	mov    %rsi,%r13
+ffffffff824e45e2:	41 54                	push   %r12
+ffffffff824e45e4:	49 89 fc             	mov    %rdi,%r12
+ffffffff824e45e7:	48 c7 c7 20 17 c1 83 	mov    $0xffffffff83c11720,%rdi
+ffffffff824e45ee:	53                   	push   %rbx
+ffffffff824e45ef:	48 83 ec 10          	sub    $0x10,%rsp
+ffffffff824e45f3:	48 89 55 d0          	mov    %rdx,-0x30(%rbp)
+ffffffff824e45f7:	e8 04 09 0a 00       	call   ffffffff82584f00 <_raw_spin_lock_bh>
+ffffffff824e45fc:	41 8b 5c 24 08       	mov    0x8(%r12),%ebx
+ffffffff824e4601:	41 33 5d 04          	xor    0x4(%r13),%ebx
+ffffffff824e4605:	ba bf bf 8c 82       	mov    $0x828cbfbf,%edx
+ffffffff824e460a:	89 d8                	mov    %ebx,%eax
+ffffffff824e460c:	48 0f af c2          	imul   %rdx,%rax
+ffffffff824e4610:	48 c1 e8 27          	shr    $0x27,%rax
+ffffffff824e4614:	69 c0 fb 00 00 00    	imul   $0xfb,%eax,%eax
+ffffffff824e461a:	29 c3                	sub    %eax,%ebx
+ffffffff824e461c:	48 81 fb fb 00 00 00 	cmp    $0xfb,%rbx
+ffffffff824e4623:	0f 83 9b 01 00 00    	jae    ffffffff824e47c4 <vsock_find_connected_socket_net+0x1f4>
+ffffffff824e4629:	48 89 d8             	mov    %rbx,%rax
+ffffffff824e462c:	48 c1 e0 04          	shl    $0x4,%rax
+ffffffff824e4630:	48 8b 80 40 17 c1 83 	mov    -0x7c3ee8c0(%rax),%rax
+ffffffff824e4637:	4c 8d b8 a8 fc ff ff 	lea    -0x358(%rax),%r15
+ffffffff824e463e:	48 81 fb fc 00 00 00 	cmp    $0xfc,%rbx
+ffffffff824e4645:	0f 83 5d 01 00 00    	jae    ffffffff824e47a8 <vsock_find_connected_socket_net+0x1d8>
+ffffffff824e464b:	48 c1 e3 04          	shl    $0x4,%rbx
+ffffffff824e464f:	41 be bf bf 8c 82    	mov    $0x828cbfbf,%r14d
+ffffffff824e4655:	48 81 c3 40 17 c1 83 	add    $0xffffffff83c11740,%rbx
+ffffffff824e465c:	48 39 c3             	cmp    %rax,%rbx
+ffffffff824e465f:	75 4b                	jne    ffffffff824e46ac <vsock_find_connected_socket_net+0xdc>
+ffffffff824e4661:	e9 f7 00 00 00       	jmp    ffffffff824e475d <vsock_find_connected_socket_net+0x18d>
+ffffffff824e4666:	41 33 5c 24 08       	xor    0x8(%r12),%ebx
+ffffffff824e466b:	49 8b 8f 58 03 00 00 	mov    0x358(%r15),%rcx
+ffffffff824e4672:	89 d8                	mov    %ebx,%eax
+ffffffff824e4674:	49 0f af c6          	imul   %r14,%rax
+ffffffff824e4678:	4c 8d b9 a8 fc ff ff 	lea    -0x358(%rcx),%r15
+ffffffff824e467f:	48 c1 e8 27          	shr    $0x27,%rax
+ffffffff824e4683:	69 c0 fb 00 00 00    	imul   $0xfb,%eax,%eax
+ffffffff824e4689:	29 c3                	sub    %eax,%ebx
+ffffffff824e468b:	48 81 fb fc 00 00 00 	cmp    $0xfc,%rbx
+ffffffff824e4692:	0f 83 f4 00 00 00    	jae    ffffffff824e478c <vsock_find_connected_socket_net+0x1bc>
+ffffffff824e4698:	48 c1 e3 04          	shl    $0x4,%rbx
+ffffffff824e469c:	48 81 c3 40 17 c1 83 	add    $0xffffffff83c11740,%rbx
+ffffffff824e46a3:	48 39 cb             	cmp    %rcx,%rbx
+ffffffff824e46a6:	0f 84 b1 00 00 00    	je     ffffffff824e475d <vsock_find_connected_socket_net+0x18d>
+ffffffff824e46ac:	49 8d b7 38 03 00 00 	lea    0x338(%r15),%rsi
+ffffffff824e46b3:	4c 89 e7             	mov    %r12,%rdi
+ffffffff824e46b6:	e8 f5 36 00 00       	call   ffffffff824e7db0 <vsock_addr_equals_addr>
+ffffffff824e46bb:	41 8b 5d 04          	mov    0x4(%r13),%ebx
+ffffffff824e46bf:	84 c0                	test   %al,%al
+ffffffff824e46c1:	74 a3                	je     ffffffff824e4666 <vsock_find_connected_socket_net+0x96>
+ffffffff824e46c3:	41 3b 9f 2c 03 00 00 	cmp    0x32c(%r15),%ebx
+ffffffff824e46ca:	75 9a                	jne    ffffffff824e4666 <vsock_find_connected_socket_net+0x96>
+ffffffff824e46cc:	49 8b 4f 30          	mov    0x30(%r15),%rcx
+ffffffff824e46d0:	48 39 4d d0          	cmp    %rcx,-0x30(%rbp)
+ffffffff824e46d4:	74 35                	je     ffffffff824e470b <vsock_find_connected_socket_net+0x13b>
+ffffffff824e46d6:	48 85 c9             	test   %rcx,%rcx
+ffffffff824e46d9:	0f 84 82 00 00 00    	je     ffffffff824e4761 <vsock_find_connected_socket_net+0x191>
+ffffffff824e46df:	8b 89 04 16 00 00    	mov    0x1604(%rcx),%ecx
+ffffffff824e46e5:	85 c9                	test   %ecx,%ecx
+ffffffff824e46e7:	0f 94 c0             	sete   %al
+ffffffff824e46ea:	48 83 7d d0 00       	cmpq   $0x0,-0x30(%rbp)
+ffffffff824e46ef:	74 79                	je     ffffffff824e476a <vsock_find_connected_socket_net+0x19a>
+ffffffff824e46f1:	48 8b 55 d0          	mov    -0x30(%rbp),%rdx
+ffffffff824e46f5:	8b b2 04 16 00 00    	mov    0x1604(%rdx),%esi
+ffffffff824e46fb:	39 ce                	cmp    %ecx,%esi
+ffffffff824e46fd:	0f 85 63 ff ff ff    	jne    ffffffff824e4666 <vsock_find_connected_socket_net+0x96>
+ffffffff824e4703:	84 c0                	test   %al,%al
+ffffffff824e4705:	0f 84 5b ff ff ff    	je     ffffffff824e4666 <vsock_find_connected_socket_net+0x96>
+ffffffff824e470b:	4c 89 fb             	mov    %r15,%rbx
+ffffffff824e470e:	4d 85 ff             	test   %r15,%r15
+ffffffff824e4711:	74 4a                	je     ffffffff824e475d <vsock_find_connected_socket_net+0x18d>
+ffffffff824e4713:	49 8d bf 80 00 00 00 	lea    0x80(%r15),%rdi
+ffffffff824e471a:	b8 01 00 00 00       	mov    $0x1,%eax
+ffffffff824e471f:	f0 41 0f c1 87 80 00 	lock xadd %eax,0x80(%r15)
+ffffffff824e4726:	00 00 
+ffffffff824e4728:	85 c0                	test   %eax,%eax
+ffffffff824e472a:	74 48                	je     ffffffff824e4774 <vsock_find_connected_socket_net+0x1a4>
+ffffffff824e472c:	8d 50 01             	lea    0x1(%rax),%edx
+ffffffff824e472f:	09 c2                	or     %eax,%edx
+ffffffff824e4731:	78 4d                	js     ffffffff824e4780 <vsock_find_connected_socket_net+0x1b0>
+ffffffff824e4733:	48 c7 c7 20 17 c1 83 	mov    $0xffffffff83c11720,%rdi
+ffffffff824e473a:	e8 c1 08 0a 00       	call   ffffffff82585000 <_raw_spin_unlock_bh>
+ffffffff824e473f:	48 89 d8             	mov    %rbx,%rax
+ffffffff824e4742:	48 83 c4 10          	add    $0x10,%rsp
+ffffffff824e4746:	5b                   	pop    %rbx
+ffffffff824e4747:	41 5c                	pop    %r12
+ffffffff824e4749:	41 5d                	pop    %r13
+ffffffff824e474b:	41 5e                	pop    %r14
+ffffffff824e474d:	41 5f                	pop    %r15
+ffffffff824e474f:	5d                   	pop    %rbp
+ffffffff824e4750:	31 d2                	xor    %edx,%edx
+ffffffff824e4752:	31 c9                	xor    %ecx,%ecx
+ffffffff824e4754:	31 f6                	xor    %esi,%esi
+ffffffff824e4756:	31 ff                	xor    %edi,%edi
+ffffffff824e4758:	e9 53 28 0a 00       	jmp    ffffffff82586fb0 <__pi___x86_return_thunk>
+ffffffff824e475d:	31 db                	xor    %ebx,%ebx
+ffffffff824e475f:	eb d2                	jmp    ffffffff824e4733 <vsock_find_connected_socket_net+0x163>
+ffffffff824e4761:	48 83 7d d0 00       	cmpq   $0x0,-0x30(%rbp)
+ffffffff824e4766:	75 89                	jne    ffffffff824e46f1 <vsock_find_connected_socket_net+0x121>
+ffffffff824e4768:	eb a1                	jmp    ffffffff824e470b <vsock_find_connected_socket_net+0x13b>
+ffffffff824e476a:	85 c9                	test   %ecx,%ecx
+ffffffff824e476c:	0f 85 f4 fe ff ff    	jne    ffffffff824e4666 <vsock_find_connected_socket_net+0x96>
+ffffffff824e4772:	eb 97                	jmp    ffffffff824e470b <vsock_find_connected_socket_net+0x13b>
+ffffffff824e4774:	be 02 00 00 00       	mov    $0x2,%esi
+ffffffff824e4779:	e8 12 c8 6a ff       	call   ffffffff81b90f90 <refcount_warn_saturate>
+ffffffff824e477e:	eb b3                	jmp    ffffffff824e4733 <vsock_find_connected_socket_net+0x163>
+ffffffff824e4780:	be 01 00 00 00       	mov    $0x1,%esi
+ffffffff824e4785:	e8 06 c8 6a ff       	call   ffffffff81b90f90 <refcount_warn_saturate>
+ffffffff824e478a:	eb a7                	jmp    ffffffff824e4733 <vsock_find_connected_socket_net+0x163>
+ffffffff824e478c:	48 89 de             	mov    %rbx,%rsi
+ffffffff824e478f:	48 c7 c7 e0 dc 40 83 	mov    $0xffffffff8340dce0,%rdi
+ffffffff824e4796:	48 89 4d c8          	mov    %rcx,-0x38(%rbp)
+ffffffff824e479a:	e8 71 d0 78 ff       	call   ffffffff81c71810 <__ubsan_handle_out_of_bounds>
+ffffffff824e479f:	48 8b 4d c8          	mov    -0x38(%rbp),%rcx
+ffffffff824e47a3:	e9 f0 fe ff ff       	jmp    ffffffff824e4698 <vsock_find_connected_socket_net+0xc8>
+ffffffff824e47a8:	48 89 de             	mov    %rbx,%rsi
+ffffffff824e47ab:	48 c7 c7 00 dd 40 83 	mov    $0xffffffff8340dd00,%rdi
+ffffffff824e47b2:	48 89 45 c8          	mov    %rax,-0x38(%rbp)
+ffffffff824e47b6:	e8 55 d0 78 ff       	call   ffffffff81c71810 <__ubsan_handle_out_of_bounds>
+ffffffff824e47bb:	48 8b 45 c8          	mov    -0x38(%rbp),%rax
+ffffffff824e47bf:	e9 87 fe ff ff       	jmp    ffffffff824e464b <vsock_find_connected_socket_net+0x7b>
+ffffffff824e47c4:	48 89 de             	mov    %rbx,%rsi
+ffffffff824e47c7:	48 c7 c7 20 dd 40 83 	mov    $0xffffffff8340dd20,%rdi
+ffffffff824e47ce:	e8 3d d0 78 ff       	call   ffffffff81c71810 <__ubsan_handle_out_of_bounds>
+ffffffff824e47d3:	e9 51 fe ff ff       	jmp    ffffffff824e4629 <vsock_find_connected_socket_net+0x59>
+
+Disassembly of section .data:
+
+Disassembly of section .init.text:
+
+Disassembly of section .altinstr_aux:
+
+Disassembly of section .altinstr_replacement:
+
+Disassembly of section .exit.text:

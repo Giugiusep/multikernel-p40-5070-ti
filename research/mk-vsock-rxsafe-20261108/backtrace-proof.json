@@ -1,0 +1,12 @@
+{
+  "cpu": 0,
+  "interrupted_task": "kworker/u16:1 / mk_vsock_rx_work",
+  "irq_path": "mk_vsock_ipi_handler -> mk_vsock_rx_pkt -> vsock_find_connected_socket_net -> _raw_spin_lock_bh -> paravirtual spin wait",
+  "lock_call_offset": "0x27",
+  "blocked_return_offset": "0x2c",
+  "interrupted_offset": "0x67",
+  "unlock_call_offset": "0x16a",
+  "lock_address": "ffffffff83c11720",
+  "same_cpu_reentrant_socket_table_lock_confirmed": true,
+  "not_proof_patched_kernel_boots": true
+}

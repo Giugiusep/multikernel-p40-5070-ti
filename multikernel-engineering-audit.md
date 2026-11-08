@@ -1423,3 +1423,9 @@ Compile-check passed CC/MODPOST/LD against the existing kernel build, producing 
 
 Runtime testing is pending approval to lift the user's earlier no-kernel-change constraint for this focused transport fix. No reboot requested or performed in this step. Once approved, preserve the current kernel, build a separate candidate, prepare boot configuration and stop before reboot. After boot: verify both GPUs and original services, socket/connect lifecycle stress, exact512KiB/1MiB/16MiB traffic, then compact cache correctness/fallback and inference. Workqueue latency or throughput regression is possible; do not promote based on compile success.
 
+
+### 2026-11-08 — NMI backtrace resolves the secondary stall
+
+Automatic RCU output at secondary uptime18152.397s captured CPU0 in the existing mk_vsock_wq worker. Interrupted task RIP is vsock_find_connected_socket_net+0x67; IRQ stack re-enters that helper through mk_vsock_ipi_handler/mk_vsock_rx_pkt and blocks in _raw_spin_lock_bh at caller+0x2c, then kvm_wait. Current-build disassembly confirms lock call+0x27 (return+0x2c), unlock+0x16a, and the same lock address ffffffff83c11720 in trace/registers. Thus the task holds vsock_table_lock when the IPI interrupts it and tries to reacquire the same lock on CPU0. This confirms hardirq re-entrancy as the cause of this stall, superseding the earlier uncertainty. It does not indicate a P40/NVIDIA failure or establish outer-KVM PCI reset/DMA failure; kvm_wait is the spin-wait implementation.
+
+Complete live-rcu-stall-3.log, vsock-table-disassembly.log and deterministic backtrace-proof.json saved alongside the already compile-checked queue-all-receive proposal. The proposal is still NOT installed, no kernel/driver changes or reboot occurred. Approval to lift the earlier no-kernel-change constraint is required before preparing/installing a separate boot-test image; preserve current boot entry and both working NVIDIA stacks.

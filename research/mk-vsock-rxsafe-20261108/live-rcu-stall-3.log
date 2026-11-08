@@ -1,0 +1,62 @@
+[18152.397298] rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
+[18152.397308] rcu: 	0-...0: (483 ticks this GP) idle=50dc/1/0x4000000000000000 softirq=720/722 fqs=94258
+[18152.397315] rcu: 	         hardirqs   softirqs   csw/system
+[18152.397319] rcu: 	 number:        5          0            0
+[18152.397323] rcu: 	cputime:        0          0            0   ==> 929944(ms)
+[18152.397328] rcu: 	(detected by 2, t=960027 jiffies, g=197, q=3 ncpus=4)
+[18152.397333] Sending NMI from CPU 2 to CPUs 0:
+[18152.397361] NMI backtrace for cpu 0
+[18152.397365] CPU: 0 UID: 0 PID: 47 Comm: kworker/u16:1 Tainted: P        W  OE       7.0.0-mk2-shiba-mk1 #9 PREEMPT(lazy) 
+[18152.397369] Tainted: [P]=PROPRIETARY_MODULE, [W]=WARN, [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
+[18152.397370] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+[18152.397372] Workqueue: mk_vsock_wq mk_vsock_rx_work
+[18152.397378] RIP: 0010:native_halt+0xa/0x10
+[18152.397383] Code: c0 45 31 c9 c3 cc cc cc cc 0f 1f 80 00 00 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 eb 07 0f 00 2d f9 d8 2c 01 f4 <c3> cc cc cc cc 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90
+[18152.397385] RSP: 0018:ffffc90000003e18 EFLAGS: 00000046
+[18152.397387] RAX: 0000000000000003 RBX: ffffffff83c11720 RCX: 0000000000000000
+[18152.397388] RDX: 0000000000000000 RSI: 0000000000000003 RDI: ffffffff83c11720
+[18152.397389] RBP: ffffc90000003e20 R08: 0000000000000003 R09: ffffffff83c11720
+[18152.397390] R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000040000
+[18152.397391] R13: 0000000000000001 R14: 0000000000000100 R15: ffff888cad634200
+[18152.397395] FS:  0000000000000000(0000) GS:ffff888d29c60000(0000) knlGS:0000000000000000
+[18152.397399] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[18152.397402] CR2: 00000000004474b0 CR3: 0000000c44fc6000 CR4: 0000000000f50ef0
+[18152.397407] PKRU: 55555554
+[18152.397409] Call Trace:
+[18152.397410]  <IRQ>
+[18152.397411]  ? kvm_wait+0x66/0xc0
+[18152.397415]  __pv_queued_spin_lock_slowpath+0x1bb/0x3c0
+[18152.397418]  _raw_spin_lock_bh+0x43/0x60
+[18152.397420]  vsock_find_connected_socket_net+0x2c/0x210
+[18152.397422]  vsock_find_connected_socket+0x10/0x20
+[18152.397424]  mk_vsock_rx_pkt+0x80/0x650
+[18152.397425]  mk_vsock_ipi_handler+0x10a/0x130
+[18152.397427]  mk_message_type_ipi_callback+0x84/0x170
+[18152.397429]  ? __pfx_mk_message_type_ipi_callback+0x10/0x10
+[18152.397430]  generic_multikernel_interrupt+0x13f/0x1d0
+[18152.397432]  __sysvec_multikernel+0x1a/0x20
+[18152.397434]  sysvec_multikernel+0x9b/0xc0
+[18152.397436]  </IRQ>
+[18152.397436]  <TASK>
+[18152.397437]  asm_sysvec_multikernel+0x1b/0x20
+[18152.397438] RIP: 0010:vsock_find_connected_socket_net+0x67/0x210
+[18152.397441] Code: 0f af c2 48 c1 e8 27 69 c0 fb 00 00 00 29 c3 48 81 fb fb 00 00 00 0f 83 9b 01 00 00 48 89 d8 48 c1 e0 04 48 8b 80 40 17 c1 83 <4c> 8d b8 a8 fc ff ff 48 81 fb fc 00 00 00 0f 83 5d 01 00 00 48 c1
+[18152.397441] RSP: 0018:ffffc90000227d40 EFLAGS: 00000212
+[18152.397443] RAX: ffff888c5cd2ab58 RBX: 00000000000000ee RCX: 0000000000000000
+[18152.397444] RDX: 00000000828cbfbf RSI: 0000000000000000 RDI: 0000000000000000
+[18152.397444] RBP: ffffc90000227d78 R08: 0000000000000000 R09: 0000000000000000
+[18152.397444] R10: 0000000000000000 R11: 0000000000000000 R12: ffffc90000227da0
+[18152.397445] R13: ffffc90000227db0 R14: ffff888c4390a9c0 R15: 0000000000000000
+[18152.397446]  vsock_find_connected_socket+0x10/0x20
+[18152.397448]  mk_vsock_rx_pkt+0x80/0x650
+[18152.397450]  mk_vsock_rx_work+0xd2/0x110
+[18152.397451]  process_one_work+0x19c/0x420
+[18152.397453]  worker_thread+0x1a8/0x330
+[18152.397455]  ? __pfx_worker_thread+0x10/0x10
+[18152.397456]  kthread+0xfb/0x140
+[18152.397458]  ? __pfx_kthread+0x10/0x10
+[18152.397460]  ret_from_fork+0x2ba/0x380
+[18152.397461]  ? __pfx_kthread+0x10/0x10
+[18152.397463]  ret_from_fork_asm+0x1a/0x30
+[18152.397465]  </TASK>
+

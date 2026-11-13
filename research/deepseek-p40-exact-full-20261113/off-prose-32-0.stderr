@@ -1,0 +1,24 @@
+ds4: tensor parallel 2 -> 1: the experts' 256-value blocks split n_ff 2304 no other way (each GPU its own layers)
+ds4: experts per word: 6 (full quality)
+ds4: the experts VRAM leaves over (~150.8 GB) are read in place from the model's files (--mmap-experts off copies them into RAM) (44.5 GB of RAM free to keep them: the most-routed 0.0 GB read ahead; prompts in chunks of 4096)
+ds4: RAM store: up to 2812 slots of 11.4 MB (32.0 GB), policy 0, 8 reader threads, unbuffered reads
+ds4: RAM store: 2812 of the profile's hottest experts read in (25.7 GB) in 10.7 s
+ds4: prompt path: the chunked pass from 96 tokens, windows of 16 below
+ds4: CUDA0 layers [0, 42] + head: weights 6.58 GB, experts 5.86 GB (312 of 15744 in VRAM), caches 0.01 GB, 1028 MiB free
+ds4: 15432 routed experts on the CPU lane (150.8 GB, in place in the model's files), 8 threads
+prompt: 14 tokens in 5188 ms (2.70 tok/s, windows of 8192)
+mk checkpoint requests=0 down_requests=0 protocol_bytes=0 rpc_ms=0.000000 down_rpc_ms=0.000000 load_rpc_ms=0.000000 gpu_ms=0.000000 prepare_ms=0.000000
+mk store down_deferred_bytes=0 down_refill_bytes=0 total_reads=38645176320
+prompt's Engram rows: 672, 0.0% without a read (repeats and the row cache), 672 read
+mk checkpoint requests=0 down_requests=0 protocol_bytes=0 rpc_ms=0.000000 down_rpc_ms=0.000000 load_rpc_ms=0.000000 gpu_ms=0.000000 prepare_ms=0.000000
+mk store down_deferred_bytes=0 down_refill_bytes=0 total_reads=53755729920
+dspark: 21 rounds, 13 drafts offered, 10 accepted (1.52 tokens a round); drafting 15.78 ms a round, verifying 5604.2 ms in all (0 windows)
+dspark per position (kept / reached): 1: 7/9 78% 2: 3/3 100%
+token latency ms: p50 197 p95 783 p99 852 max 852 mean 280 (31 tokens)
+mk checkpoint requests=0 down_requests=0 protocol_bytes=0 rpc_ms=0.000000 down_rpc_ms=0.000000 load_rpc_ms=0.000000 gpu_ms=0.000000 prepare_ms=0.000000
+mk store down_deferred_bytes=0 down_refill_bytes=0 total_reads=53755729920
+decode: 32 tokens in 8676 ms (3.57 tok/s); CPU lane: 8252 of 8835 experts; the cache moved 0 (0 in all)
+decode per token: layers 91.63 ms (of it: routing waits 0.00, CPU lane 239.63, the rest host launches), head wait 156.36, Engram reads 19.47
+Engram per token: 48 rows, 3.9% without a read (the row cache holds 2240 of 1016800), 46.1 read, the reads 30.14 ms from asking to the last one (left to wait: 19.47)
+decode reads from the disk: 449.6 MB a token
+store: 77.6% of the CPU lane's experts were in RAM (159.4 hits, 46.0 misses a token); read 444.4 MB a token (demand and guesses), the CPU lane waited 171.8 ms a token for them; 0 prefetched, 0 used, 0 given up unused; slots 2812 of 2812, 1564 evictions, 0 failed reads; the GPU computed 0.0 experts a token from the store (0 slots visible)

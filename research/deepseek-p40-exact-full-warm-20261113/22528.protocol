@@ -1,0 +1,228 @@
+INFO context=8192 kv=fp4 kv_resident=8192 expert_slots=-72 engine_kind=ds4 cpu_experts=15432 ram_experts=0 engine=ds4-0.1
+INFO engram_layers=2 engram_lookups=48
+READY 8192 stop
+PP 21 21 125541.7 0.2 0
+T 5
+T 5978
+T 313
+T 26509
+T 16639
+T 271
+T 9854
+T 36490
+STAT tok_s=0.33 ms_tok=3026.21 vram_hit=0.0475 cpu=242.889 ram=0.000 promo=0.000 engram_ms=0.335 disk_mb=449.603 drafts=1.000
+T 201
+T 3465
+T 1257
+T 5980
+T 5598
+T 686
+T 18020
+T 3913
+STAT tok_s=0.60 ms_tok=1676.05 vram_hit=0.0411 cpu=242.824 ram=0.000 promo=0.000 engram_ms=0.281 disk_mb=519.943 drafts=1.000
+T 3395
+T 361
+T 16786
+T 361
+T 20870
+T 260
+T 2310
+T 294
+STAT tok_s=0.81 ms_tok=1232.32 vram_hit=0.0369 cpu=242.370 ram=0.000 promo=0.000 engram_ms=0.201 disk_mb=482.686 drafts=1.000
+T 270
+T 1257
+T 313
+T 26509
+T 3737
+T 603
+T 5191
+T 361
+STAT tok_s=1.03 ms_tok=971.35 vram_hit=0.0348 cpu=242.182 ram=0.000 promo=0.000 engram_ms=0.171 disk_mb=457.746 drafts=0.958
+T 93634
+T 1137
+T 528
+T 313
+T 343
+T 650
+T 2605
+T 4620
+STAT tok_s=1.21 ms_tok=828.97 vram_hit=0.0354 cpu=242.098 ram=0.000 promo=0.000 engram_ms=0.165 disk_mb=446.676 drafts=0.933
+T 294
+T 26509
+T 3737
+T 304
+T 1354
+T 603
+T 5191
+T 361
+STAT tok_s=1.34 ms_tok=743.68 vram_hit=0.0369 cpu=242.196 ram=0.000 promo=0.000 engram_ms=0.213 disk_mb=431.127 drafts=0.946
+T 27669
+T 1137
+T 528
+T 2310
+T 28
+T 455
+T 1257
+T 313
+STAT tok_s=1.46 ms_tok=683.96 vram_hit=0.0386 cpu=242.267 ram=0.000 promo=0.000 engram_ms=0.246 disk_mb=392.857 drafts=0.952
+T 26509
+T 3737
+T 603
+T 361
+T 16786
+T 361
+T 855
+T 313
+STAT tok_s=1.62 ms_tok=618.41 vram_hit=0.0378 cpu=242.246 ram=0.000 promo=0.000 engram_ms=0.230 disk_mb=394.700 drafts=0.957
+STAT tok_s=1.62 ms_tok=618.41 vram_hit=0.0378 cpu=242.246 ram=0.000 promo=0.000 engram_ms=0.230 disk_mb=394.700 drafts=0.957
+DONE 64 21 125542.4 39578.0 length 44 46 0 0 0
+PP 21 21 6245.3 3.4 0
+T 5
+T 5978
+T 313
+T 26509
+T 16639
+T 271
+T 9854
+T 36490
+STAT tok_s=2.92 ms_tok=342.54 vram_hit=0.0475 cpu=242.889 ram=0.000 promo=0.000 engram_ms=0.009 disk_mb=430.304 drafts=1.000
+T 201
+T 3465
+T 1257
+T 5980
+T 5598
+T 686
+T 18020
+T 3913
+STAT tok_s=2.82 ms_tok=354.39 vram_hit=0.0411 cpu=242.824 ram=0.000 promo=0.000 engram_ms=0.008 disk_mb=510.734 drafts=1.000
+T 3395
+T 361
+T 16786
+T 361
+T 20870
+T 260
+T 2310
+T 294
+STAT tok_s=2.64 ms_tok=378.26 vram_hit=0.0369 cpu=242.370 ram=0.000 promo=0.000 engram_ms=0.007 disk_mb=476.888 drafts=1.000
+T 270
+T 1257
+T 313
+T 26509
+T 3737
+T 603
+T 5191
+T 361
+STAT tok_s=2.85 ms_tok=350.65 vram_hit=0.0348 cpu=242.182 ram=0.000 promo=0.000 engram_ms=0.007 disk_mb=453.002 drafts=0.958
+T 93634
+T 1137
+T 528
+T 313
+T 343
+T 650
+T 2605
+T 4620
+STAT tok_s=2.89 ms_tok=345.86 vram_hit=0.0354 cpu=242.098 ram=0.000 promo=0.000 engram_ms=0.007 disk_mb=442.858 drafts=0.933
+T 294
+T 26509
+T 3737
+T 304
+T 1354
+T 603
+T 5191
+T 361
+STAT tok_s=2.92 ms_tok=342.74 vram_hit=0.0369 cpu=242.196 ram=0.000 promo=0.000 engram_ms=0.007 disk_mb=428.058 drafts=0.946
+T 27669
+T 1137
+T 528
+T 2310
+T 28
+T 455
+T 1257
+T 313
+STAT tok_s=2.95 ms_tok=339.04 vram_hit=0.0386 cpu=242.267 ram=0.000 promo=0.000 engram_ms=0.007 disk_mb=390.247 drafts=0.952
+T 26509
+T 3737
+T 603
+T 361
+T 16786
+T 361
+T 855
+T 313
+STAT tok_s=3.11 ms_tok=321.11 vram_hit=0.0378 cpu=242.246 ram=0.000 promo=0.000 engram_ms=0.007 disk_mb=392.292 drafts=0.957
+STAT tok_s=3.11 ms_tok=321.11 vram_hit=0.0378 cpu=242.246 ram=0.000 promo=0.000 engram_ms=0.007 disk_mb=392.292 drafts=0.957
+DONE 64 21 6245.9 20550.9 length 44 46 0 0 0
+PP 21 21 6228.5 3.4 0
+T 5
+T 5978
+T 313
+T 26509
+T 16639
+T 271
+T 9854
+T 36490
+STAT tok_s=2.96 ms_tok=337.76 vram_hit=0.0475 cpu=242.889 ram=0.000 promo=0.000 engram_ms=0.009 disk_mb=430.304 drafts=1.000
+T 201
+T 3465
+T 1257
+T 5980
+T 5598
+T 686
+T 18020
+T 3913
+STAT tok_s=2.80 ms_tok=356.83 vram_hit=0.0411 cpu=242.824 ram=0.000 promo=0.000 engram_ms=0.008 disk_mb=510.734 drafts=1.000
+T 3395
+T 361
+T 16786
+T 361
+T 20870
+T 260
+T 2310
+T 294
+STAT tok_s=2.80 ms_tok=357.63 vram_hit=0.0369 cpu=242.370 ram=0.000 promo=0.000 engram_ms=0.008 disk_mb=476.888 drafts=1.000
+T 270
+T 1257
+T 313
+T 26509
+T 3737
+T 603
+T 5191
+T 361
+STAT tok_s=3.13 ms_tok=319.51 vram_hit=0.0348 cpu=242.182 ram=0.000 promo=0.000 engram_ms=0.008 disk_mb=453.002 drafts=0.958
+T 93634
+T 1137
+T 528
+T 313
+T 343
+T 650
+T 2605
+T 4620
+STAT tok_s=3.29 ms_tok=304.10 vram_hit=0.0354 cpu=242.098 ram=0.000 promo=0.000 engram_ms=0.007 disk_mb=442.858 drafts=0.933
+T 294
+T 26509
+T 3737
+T 304
+T 1354
+T 603
+T 5191
+T 361
+STAT tok_s=3.26 ms_tok=306.75 vram_hit=0.0369 cpu=242.196 ram=0.000 promo=0.000 engram_ms=0.007 disk_mb=428.058 drafts=0.946
+T 27669
+T 1137
+T 528
+T 2310
+T 28
+T 455
+T 1257
+T 313
+STAT tok_s=3.31 ms_tok=301.95 vram_hit=0.0386 cpu=242.267 ram=0.000 promo=0.000 engram_ms=0.007 disk_mb=390.247 drafts=0.952
+T 26509
+T 3737
+T 603
+T 361
+T 16786
+T 361
+T 855
+T 313
+STAT tok_s=3.53 ms_tok=283.60 vram_hit=0.0378 cpu=242.246 ram=0.000 promo=0.000 engram_ms=0.007 disk_mb=392.292 drafts=0.957
+STAT tok_s=3.53 ms_tok=283.60 vram_hit=0.0378 cpu=242.246 ram=0.000 promo=0.000 engram_ms=0.007 disk_mb=392.292 drafts=0.957
+DONE 64 21 6229.0 18150.4 length 44 46 0 0 0

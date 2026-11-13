@@ -1,0 +1,14 @@
+{
+  "iq2xxs_grid": {
+    "max_byte": 43,
+    "max_int_dot_bound": 43338496
+  },
+  "iq2xs_grid": {
+    "max_byte": 43,
+    "max_int_dot_bound": 43338496
+  },
+  "iq2s_grid": {
+    "max_byte": 43,
+    "max_int_dot_bound": 43338496
+  }
+}

@@ -1,0 +1,14 @@
+diff --git a/src/dsv41/ds4_mk_expert.hpp b/src/dsv41/ds4_mk_expert.hpp
+index a843dcb..72b6bca 100644
+--- a/src/dsv41/ds4_mk_expert.hpp
++++ b/src/dsv41/ds4_mk_expert.hpp
+@@ -76,7 +76,8 @@ struct Client {
+                 for(int b=0;b<dim/256;b++){float sc;memcpy(&sc,packed.data()+b*292,4);memcpy(q.data()+r*dim+b*256,packed.data()+b*292+4,256);for(int j=0;j<8;j++)d[r*(dim/32)+b*8+j]=sc;}
+             }
+             unsigned meta[4]={(unsigned)l,(unsigned)e,(unsigned)rows,0};std::vector<unsigned char>b;append(b,meta,16);append(b,q.data(),q.size());append(b,d.data(),d.size()*4);if(profile())prepare_ms+=clock_ms()-prep_start;std::vector<unsigned char> reply;
+-            if(exact_full){
++            if(exact_full&&getenv("DS4_MK_FUSED")){reply=call(7,b);}
++            else if(exact_full){
+                 auto gu=call(6,b);if(gu.size()!=28+size_t(rows)*2304*8)throw std::runtime_error("exact gate/up reply size");unsigned gh[4];memcpy(gh,gu.data(),16);if(gh[0]!=(unsigned)rows||gh[1]||gh[2]!=5120||gh[3]!=2304)throw std::runtime_error("exact gate/up metadata");
+                 if(profile()){float us[3];memcpy(us,gu.data()+16,12);gpu_ms+=(us[0]+us[1]+us[2])/1000.0;}
+                 std::vector<float> hidden(rows*2304);for(size_t i=0;i<hidden.size();i++){float g,u;memcpy(&g,gu.data()+28+i*4,4);memcpy(&u,gu.data()+28+(hidden.size()+i)*4,4);g=std::fmin(g,10.f);u=std::fmin(std::fmax(u,-10.f),10.f);hidden[i]=(g/(1.f+std::exp(-g)))*u;}

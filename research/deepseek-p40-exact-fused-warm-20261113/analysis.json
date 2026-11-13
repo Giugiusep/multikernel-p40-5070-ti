@@ -1,0 +1,85 @@
+{
+  "variants": {
+    "0": {
+      "warm_tok_s": [
+        4.405717642451537,
+        4.045047705880087
+      ],
+      "mean_tok_s": 4.225382674165813,
+      "actual_weight_bytes": 0,
+      "whole_request_cumulative_end_checkpoints": [
+        {
+          "requests": 0.0,
+          "down_requests": 0.0,
+          "protocol_bytes": 0.0,
+          "rpc_ms": 0.0,
+          "down_rpc_ms": 0.0,
+          "load_rpc_ms": 0.0,
+          "gpu_ms": 0.0,
+          "prepare_ms": 0.0
+        },
+        {
+          "requests": 0.0,
+          "down_requests": 0.0,
+          "protocol_bytes": 0.0,
+          "rpc_ms": 0.0,
+          "down_rpc_ms": 0.0,
+          "load_rpc_ms": 0.0,
+          "gpu_ms": 0.0,
+          "prepare_ms": 0.0
+        },
+        {
+          "requests": 0.0,
+          "down_requests": 0.0,
+          "protocol_bytes": 0.0,
+          "rpc_ms": 0.0,
+          "down_rpc_ms": 0.0,
+          "load_rpc_ms": 0.0,
+          "gpu_ms": 0.0,
+          "prepare_ms": 0.0
+        }
+      ]
+    },
+    "22528": {
+      "warm_tok_s": [
+        3.885842580199473,
+        3.478164853972285
+      ],
+      "mean_tok_s": 3.682003717085879,
+      "actual_weight_bytes": 23613972480,
+      "whole_request_cumulative_end_checkpoints": [
+        {
+          "requests": 11519.0,
+          "down_requests": 0.0,
+          "protocol_bytes": 23996821044.0,
+          "rpc_ms": 155030.201722,
+          "down_rpc_ms": 0.0,
+          "load_rpc_ms": 139334.326915,
+          "gpu_ms": 9808.730332,
+          "prepare_ms": 105.536809
+        },
+        {
+          "requests": 20586.0,
+          "down_requests": 0.0,
+          "protocol_bytes": 24379473448.0,
+          "rpc_ms": 169699.728037,
+          "down_rpc_ms": 0.0,
+          "load_rpc_ms": 139334.326915,
+          "gpu_ms": 18951.090396,
+          "prepare_ms": 199.088535
+        },
+        {
+          "requests": 29653.0,
+          "down_requests": 0.0,
+          "protocol_bytes": 24762125852.0,
+          "rpc_ms": 184611.132682,
+          "down_rpc_ms": 0.0,
+          "load_rpc_ms": 139334.326915,
+          "gpu_ms": 28097.315995,
+          "prepare_ms": 295.382419
+        }
+      ]
+    }
+  },
+  "scope": "Two warm samples per variant, exact64 tokens, zero prompt reuse. Checkpoint differences include prompt+decode, GPU nested in RPC. op7 full-expert calls count as requests, not down_requests."
+}

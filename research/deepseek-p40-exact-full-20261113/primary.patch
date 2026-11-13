@@ -1,0 +1,69 @@
+diff --git a/src/dsv41/ds4_mk_expert.hpp b/src/dsv41/ds4_mk_expert.hpp
+index 3e27470..a843dcb 100644
+--- a/src/dsv41/ds4_mk_expert.hpp
++++ b/src/dsv41/ds4_mk_expert.hpp
+@@ -35,7 +35,7 @@ struct Client {
+     static bool profile(){return getenv("DS4_MK_PROFILE")!=nullptr;}
+     void checkpoint(){if(!profile())return;std::lock_guard<std::mutex> lock(mu);fprintf(stderr,"mk checkpoint requests=%zu down_requests=%zu protocol_bytes=%zu rpc_ms=%.6f down_rpc_ms=%.6f load_rpc_ms=%.6f gpu_ms=%.6f prepare_ms=%.6f\n",requests,down_requests,protocol_bytes,rpc_ms,down_rpc_ms,load_rpc_ms,gpu_ms,prepare_ms);}
+     ~Client(){if(requests)fprintf(stderr,"mk summary completed_requests=%zu down_requests=%zu protocol_bytes=%zu resident=%zu failed=%d\n",requests,down_requests,protocol_bytes,resident,int(failed));if(fd>=0)close(fd);}
+-    static int mode(){if(suspended)return 0;const char*p=getenv("DS4_MK_EXPERT");return p&&strcmp(p,"shadow")==0?1:p&&strcmp(p,"replace")==0?2:p&&strcmp(p,"checked-replace")==0?3:p&&strcmp(p,"down")==0?4:p&&strcmp(p,"down-shadow")==0?5:p&&strcmp(p,"down-compact")==0?7:p&&strcmp(p,"down-compact-shadow")==0?8:0;}
++    static int mode(){if(suspended)return 0;const char*p=getenv("DS4_MK_EXPERT");return p&&strcmp(p,"full-exact-shadow")==0?9:p&&strcmp(p,"full-exact")==0?10:p&&strcmp(p,"shadow")==0?1:p&&strcmp(p,"replace")==0?2:p&&strcmp(p,"checked-replace")==0?3:p&&strcmp(p,"down")==0?4:p&&strcmp(p,"down-shadow")==0?5:p&&strcmp(p,"down-compact")==0?7:p&&strcmp(p,"down-compact-shadow")==0?8:0;}
+     static size_t limit(){const char*p=getenv("DS4_MK_CACHE_MIB");long v=p?std::strtol(p,nullptr,10):1024;if(v<16||v>22528)throw std::runtime_error("invalid DS4_MK_CACHE_MIB");return size_t(v)*1024*1024;}
+     static void append(std::vector<unsigned char>&b,const void*p,size_t n){const auto*q=(const unsigned char*)p;b.insert(b.end(),q,q+n);}
+     static void io(int fd,void*p,size_t n,bool tx){auto*q=(char*)p;unsigned retries=0;while(n){size_t want=std::min(n,size_t(32768));ssize_t k=tx?send(fd,q,want,MSG_NOSIGNAL):recv(fd,q,want,0);if(k<0&&errno==EINTR)continue;if(k<0&&tx&&(errno==ENOSPC||errno==EAGAIN)&&++retries<1000){usleep(100);continue;}if(k<=0)throw std::runtime_error(std::string("Multikernel expert socket I/O: ")+strerror(errno));q+=k;n-=k;retries=0;if(tx&&n)usleep(100);}}
+@@ -55,6 +55,7 @@ struct Client {
+     template<class Loader> bool run(int l,int e,int tg,int td,int rows,const float*x,size_t stride,Loader load,std::vector<float>&out,bool down_only=false){
+         std::lock_guard<std::mutex> lock(mu);if(failed||l<0||l>=40||e<0||e>=384||rows<1||rows>8||!(tg==16||tg==17||tg==22)||!(td==16||td==17||td==22||td==18))return false;
+         try{
++            const bool exact_full=!down_only&&(mode()==9||mode()==10);if(exact_full&&td==18)return false;
+             const auto key=std::make_pair(l,e);
+             const bool compact=down_only&&(mode()==7||mode()==8);
+             if(!cache.count(key)){
+@@ -74,8 +75,15 @@ struct Client {
+                 strata::ds4::gguf::iq_cpu_quant(15,x+r*stride,dim,packed.data());
+                 for(int b=0;b<dim/256;b++){float sc;memcpy(&sc,packed.data()+b*292,4);memcpy(q.data()+r*dim+b*256,packed.data()+b*292+4,256);for(int j=0;j<8;j++)d[r*(dim/32)+b*8+j]=sc;}
+             }
+-            unsigned meta[4]={(unsigned)l,(unsigned)e,(unsigned)rows,0};std::vector<unsigned char>b;append(b,meta,16);append(b,q.data(),q.size());append(b,d.data(),d.size()*4);if(profile())prepare_ms+=clock_ms()-prep_start;auto reply=call(down_only?4:2,b);
+-            if(profile()&&down_only&&reply.size()>=28){float us[3];memcpy(us,reply.data()+16,12);gpu_ms+=(us[0]+us[1]+us[2])/1000.0;}
++            unsigned meta[4]={(unsigned)l,(unsigned)e,(unsigned)rows,0};std::vector<unsigned char>b;append(b,meta,16);append(b,q.data(),q.size());append(b,d.data(),d.size()*4);if(profile())prepare_ms+=clock_ms()-prep_start;std::vector<unsigned char> reply;
++            if(exact_full){
++                auto gu=call(6,b);if(gu.size()!=28+size_t(rows)*2304*8)throw std::runtime_error("exact gate/up reply size");unsigned gh[4];memcpy(gh,gu.data(),16);if(gh[0]!=(unsigned)rows||gh[1]||gh[2]!=5120||gh[3]!=2304)throw std::runtime_error("exact gate/up metadata");
++                if(profile()){float us[3];memcpy(us,gu.data()+16,12);gpu_ms+=(us[0]+us[1]+us[2])/1000.0;}
++                std::vector<float> hidden(rows*2304);for(size_t i=0;i<hidden.size();i++){float g,u;memcpy(&g,gu.data()+28+i*4,4);memcpy(&u,gu.data()+28+(hidden.size()+i)*4,4);g=std::fmin(g,10.f);u=std::fmin(std::fmax(u,-10.f),10.f);hidden[i]=(g/(1.f+std::exp(-g)))*u;}
++                q.resize(rows*2304);d.resize(rows*72);packed.resize(9*292);for(int r=0;r<rows;r++){strata::ds4::gguf::iq_cpu_quant(15,hidden.data()+r*2304,2304,packed.data());for(int k=0;k<9;k++){float sc;memcpy(&sc,packed.data()+k*292,4);memcpy(q.data()+r*2304+k*256,packed.data()+k*292+4,256);for(int j=0;j<8;j++)d[r*72+k*8+j]=sc;}}
++                b.clear();append(b,meta,16);append(b,q.data(),q.size());append(b,d.data(),d.size()*4);reply=call(4,b);
++            }else reply=call(down_only?4:2,b);
++            if(profile()&&(down_only||exact_full)&&reply.size()>=28){float us[3];memcpy(us,reply.data()+16,12);gpu_ms+=(us[0]+us[1]+us[2])/1000.0;}
+             unsigned hdr[4];if(reply.size()!=28+size_t(rows)*5120*4)throw std::runtime_error("RUN reply size");memcpy(hdr,reply.data(),16);if(hdr[0]!=(unsigned)rows||hdr[1]||hdr[2]!=5120||hdr[3]!=2304)throw std::runtime_error("RUN metadata");out.resize(rows*5120);memcpy(out.data(),reply.data()+28,out.size()*4);for(float v:out)if(!std::isfinite(v))throw std::runtime_error("nonfinite output");return true;
+         }catch(const std::exception&e){fprintf(stderr,"mk expert disabled: %s (CPU fallback)\n",e.what());failed=true;failed_visible.store(true,std::memory_order_release);if(fd>=0){close(fd);fd=-1;}return false;}
+     }
+diff --git a/src/dsv41/ds4_model.cu b/src/dsv41/ds4_model.cu
+index 457a414..ca4f370 100644
+--- a/src/dsv41/ds4_model.cu
++++ b/src/dsv41/ds4_model.cu
+@@ -6633,7 +6633,7 @@ struct Model::Impl {
+         // Shadow compares real CPU-lane contributions without changing them.
+         std::vector<std::pair<Ent,std::vector<float>>> mk_results;
+         const int mk_mode = strata_mk::Client::mode();
+-        if (mk_mode >= 1 && mk_mode <= 3 && NH == 1 && g.dim == 5120 && g.ff == 2304 && g.lim == 10.f) {
++        if (((mk_mode >= 1 && mk_mode <= 3)||mk_mode==9||mk_mode==10) && NH == 1 && g.dim == 5120 && g.ff == 2304 && g.lim == 10.f) {
+             for (const Ent& en : ents) {
+                 std::vector<float> input((size_t)en.n * g.dim), output;
+                 for (int i=0;i<en.n;i++) std::memcpy(input.data()+(size_t)i*g.dim,x+(size_t)en.tok[i]*ldx,g.dim*4);
+@@ -6645,7 +6645,7 @@ struct Model::Impl {
+                 if(strata_mk::client().run(l.il,en.e,gg::expert_type(l.lay,0),gg::expert_type(l.lay,2),en.n,input.data(),g.dim,loader,output))
+                     mk_results.push_back({en,std::move(output)});
+             }
+-            if(mk_mode==2 && !mk_results.empty()) {
++            if((mk_mode==2||mk_mode==10) && !mk_results.empty()) {
+                 std::vector<Ent> remaining;
+                 for(const Ent& en:ents) {
+                     auto it=std::find_if(mk_results.begin(),mk_results.end(),[&](const auto& v){return strata_mk::same_entry(v.first,en);});
+@@ -6665,6 +6665,7 @@ struct Model::Impl {
+             const float* cpu=c_yd.data()+(size_t)en.slot0*g.dim;
+             for(size_t j=0;j<item.second.size();j++){double d=std::abs(double(cpu[j])-item.second[j]);err+=d;ref+=std::abs(cpu[j]);mx=std::max(mx,d);}
+             std::fprintf(stderr,"mk expert shadow layer=%d expert=%d rows=%d rel_l1=%.9g max_abs=%.9g\n",l.il,en.e,en.n,err/std::max(ref,1e-30),mx);
++            if(mk_mode==9 && std::memcmp(cpu,item.second.data(),item.second.size()*4)!=0)throw std::runtime_error("exact full-expert shadow mismatch");
+             if(mk_mode==3) {
+                 if(err/std::max(ref,1e-30)>.001)throw std::runtime_error("checked replacement numerical gate failed");
+                 std::memcpy(c_yd.data()+(size_t)en.slot0*g.dim,item.second.data(),item.second.size()*4);

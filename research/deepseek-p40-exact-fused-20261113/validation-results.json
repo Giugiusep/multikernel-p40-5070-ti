@@ -1,0 +1,221 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "gate_type": "IQ2_XXS",
+      "down_type": "IQ2_XXS",
+      "M": 1,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_XXS",
+      "down_type": "IQ2_XXS",
+      "M": 2,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_XXS",
+      "down_type": "IQ2_XXS",
+      "M": 3,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_XXS",
+      "down_type": "IQ2_XXS",
+      "M": 4,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_XXS",
+      "down_type": "IQ2_XXS",
+      "M": 5,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_XXS",
+      "down_type": "IQ2_XXS",
+      "M": 6,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_XXS",
+      "down_type": "IQ2_XXS",
+      "M": 7,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_XXS",
+      "down_type": "IQ2_XXS",
+      "M": 8,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_XS",
+      "down_type": "IQ2_XS",
+      "M": 1,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_XS",
+      "down_type": "IQ2_XS",
+      "M": 2,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_XS",
+      "down_type": "IQ2_XS",
+      "M": 3,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_XS",
+      "down_type": "IQ2_XS",
+      "M": 4,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_XS",
+      "down_type": "IQ2_XS",
+      "M": 5,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_XS",
+      "down_type": "IQ2_XS",
+      "M": 6,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_XS",
+      "down_type": "IQ2_XS",
+      "M": 7,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_XS",
+      "down_type": "IQ2_XS",
+      "M": 8,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_S",
+      "down_type": "IQ2_XS",
+      "M": 1,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_S",
+      "down_type": "IQ2_XS",
+      "M": 2,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_S",
+      "down_type": "IQ2_XS",
+      "M": 3,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_S",
+      "down_type": "IQ2_XS",
+      "M": 4,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_S",
+      "down_type": "IQ2_XS",
+      "M": 5,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_S",
+      "down_type": "IQ2_XS",
+      "M": 6,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_S",
+      "down_type": "IQ2_XS",
+      "M": 7,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    },
+    {
+      "gate_type": "IQ2_S",
+      "down_type": "IQ2_XS",
+      "M": 8,
+      "gate_exact": true,
+      "up_exact": true,
+      "down_exact": true,
+      "fused_exact": true
+    }
+  ]
+}

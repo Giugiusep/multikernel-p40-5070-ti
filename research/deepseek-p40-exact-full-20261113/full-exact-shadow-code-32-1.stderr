@@ -1,0 +1,75 @@
+ds4: tensor parallel 2 -> 1: the experts' 256-value blocks split n_ff 2304 no other way (each GPU its own layers)
+ds4: experts per word: 6 (full quality)
+ds4: the experts VRAM leaves over (~150.8 GB) are read in place from the model's files (--mmap-experts off copies them into RAM) (44.9 GB of RAM free to keep them: the most-routed 0.0 GB read ahead; prompts in chunks of 4096)
+ds4: RAM store: up to 2812 slots of 11.4 MB (32.0 GB), policy 0, 8 reader threads, unbuffered reads
+ds4: RAM store: 2812 of the profile's hottest experts read in (25.7 GB) in 10.7 s
+ds4: prompt path: the chunked pass from 96 tokens, windows of 16 below
+ds4: CUDA0 layers [0, 42] + head: weights 6.58 GB, experts 5.86 GB (312 of 15744 in VRAM), caches 0.01 GB, 1028 MiB free
+ds4: 15432 routed experts on the CPU lane (150.8 GB, in place in the model's files), 8 threads
+mk expert load layer=0 expert=28 bytes=9123840 resident=9123840
+mk expert load layer=0 expert=29 bytes=9123840 resident=18247680
+mk expert load layer=0 expert=30 bytes=9123840 resident=27371520
+mk expert load layer=0 expert=48 bytes=9123840 resident=36495360
+mk expert load layer=0 expert=55 bytes=9123840 resident=45619200
+mk expert load layer=0 expert=69 bytes=9123840 resident=54743040
+mk expert load layer=0 expert=86 bytes=9123840 resident=63866880
+mk expert load layer=0 expert=112 bytes=9123840 resident=72990720
+mk expert load layer=0 expert=128 bytes=9123840 resident=82114560
+mk expert load layer=0 expert=162 bytes=9123840 resident=91238400
+mk expert load layer=0 expert=196 bytes=9123840 resident=100362240
+mk expert load layer=0 expert=197 bytes=9123840 resident=109486080
+mk expert load layer=0 expert=198 bytes=9123840 resident=118609920
+mk expert load layer=0 expert=203 bytes=9123840 resident=127733760
+mk expert shadow layer=0 expert=28 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=29 rows=2 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=30 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=48 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=55 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=69 rows=2 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=86 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=112 rows=3 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=128 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=162 rows=2 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=196 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=197 rows=3 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=198 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=203 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=69 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=86 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=197 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=198 rows=1 rel_l1=0 max_abs=0
+prompt: 21 tokens in 6231 ms (3.37 tok/s, windows of 8192)
+mk checkpoint requests=50 down_requests=18 protocol_bytes=128919792 rpc_ms=799.371958 down_rpc_ms=11.218102 load_rpc_ms=766.725086 gpu_ms=16.039904 prepare_ms=0.231091
+mk store down_deferred_bytes=0 down_refill_bytes=0 total_reads=39991818240
+prompt's Engram rows: 1008, 0.0% without a read (repeats and the row cache), 1008 read
+mk expert shadow layer=0 expert=28 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=197 rows=2 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=30 rows=2 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=30 rows=2 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=29 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=197 rows=2 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=69 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=197 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=112 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=29 rows=2 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=197 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=128 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=162 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=196 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=28 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=196 rows=1 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=197 rows=2 rel_l1=0 max_abs=0
+mk expert shadow layer=0 expert=55 rows=1 rel_l1=0 max_abs=0
+mk checkpoint requests=86 down_requests=36 protocol_bytes=130057440 rpc_ms=835.500263 down_rpc_ms=24.052435 load_rpc_ms=766.725086 gpu_ms=31.694848 prepare_ms=0.447652
+mk store down_deferred_bytes=0 down_refill_bytes=0 total_reads=54321039360
+dspark: 9 rounds, 22 drafts offered, 22 accepted (3.56 tokens a round); drafting 10.66 ms a round, verifying 8272.9 ms in all (0 windows)
+dspark per position (kept / reached): 1: 7/7 100% 2: 6/6 100% 3: 5/5 100% 4: 2/2 100% 5: 2/2 100%
+token latency ms: p50 0 p95 1652 p99 1835 max 1835 mean 290 (31 tokens)
+mk checkpoint requests=86 down_requests=36 protocol_bytes=130057440 rpc_ms=835.500263 down_rpc_ms=24.052435 load_rpc_ms=766.725086 gpu_ms=31.694848 prepare_ms=0.447652
+mk store down_deferred_bytes=0 down_refill_bytes=0 total_reads=54321039360
+decode: 32 tokens in 8986 ms (3.45 tok/s); CPU lane: 7512 of 7800 experts; the cache moved 0 (0 in all)
+decode per token: layers 98.96 ms (of it: routing waits 0.00, CPU lane 279.34, the rest host launches), head wait 188.08, Engram reads 0.24
+Engram per token: 48 rows, 19.4% without a read (the row cache holds 2208 of 1016800), 38.7 read, the reads 0.26 ms from asking to the last one (left to wait: 0.24)
+decode reads from the disk: 462.8 MB a token
+store: 70.5% of the CPU lane's experts were in RAM (114.4 hits, 47.9 misses a token); read 462.2 MB a token (demand and guesses), the CPU lane waited 138.7 ms a token for them; 0 prefetched, 0 used, 0 given up unused; slots 2812 of 2812, 1486 evictions, 0 failed reads; the GPU computed 0.0 experts a token from the store (0 slots visible)
+mk summary completed_requests=86 down_requests=36 protocol_bytes=130057440 resident=127733760 failed=0

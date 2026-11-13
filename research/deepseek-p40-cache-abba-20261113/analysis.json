@@ -1,0 +1,117 @@
+{
+  "rows": [
+    {
+      "cache_mib": 512,
+      "tok_s": 4.83,
+      "exact": true,
+      "loaded_experts": 176,
+      "decode_delta": {
+        "requests": 373.0,
+        "down_requests": 373.0,
+        "protocol_bytes": 13185356.0,
+        "rpc_ms": 268.289311,
+        "down_rpc_ms": 268.289311,
+        "load_rpc_ms": 0.0,
+        "gpu_ms": 127.00467200000001,
+        "prepare_ms": 2.420722
+      },
+      "decode_per_interval": {
+        "requests": 5.920634920634921,
+        "down_requests": 5.920634920634921,
+        "protocol_bytes": 209291.3650793651,
+        "rpc_ms": 4.258560492063492,
+        "down_rpc_ms": 4.258560492063492,
+        "load_rpc_ms": 0.0,
+        "gpu_ms": 2.0159471746031747,
+        "prepare_ms": 0.03842415873015873
+      },
+      "disk_wait_ms_per_token": 100.3
+    },
+    {
+      "cache_mib": 1024,
+      "tok_s": 3.19,
+      "exact": true,
+      "loaded_experts": 351,
+      "decode_delta": {
+        "requests": 841.0,
+        "down_requests": 841.0,
+        "protocol_bytes": 33139548.0,
+        "rpc_ms": 1085.0878999999995,
+        "down_rpc_ms": 1085.0879,
+        "load_rpc_ms": 0.0,
+        "gpu_ms": 314.58678199999997,
+        "prepare_ms": 5.336525000000001
+      },
+      "decode_per_interval": {
+        "requests": 13.34920634920635,
+        "down_requests": 13.34920634920635,
+        "protocol_bytes": 526024.5714285715,
+        "rpc_ms": 17.223617460317453,
+        "down_rpc_ms": 17.22361746031746,
+        "load_rpc_ms": 0.0,
+        "gpu_ms": 4.993440984126984,
+        "prepare_ms": 0.08470674603174605
+      },
+      "disk_wait_ms_per_token": 160.8
+    },
+    {
+      "cache_mib": 1024,
+      "tok_s": 4.82,
+      "exact": true,
+      "loaded_experts": 351,
+      "decode_delta": {
+        "requests": 841.0,
+        "down_requests": 841.0,
+        "protocol_bytes": 33139548.0,
+        "rpc_ms": 848.7161849999993,
+        "down_rpc_ms": 848.7161840000001,
+        "load_rpc_ms": 0.0,
+        "gpu_ms": 314.394686,
+        "prepare_ms": 5.704518
+      },
+      "decode_per_interval": {
+        "requests": 13.34920634920635,
+        "down_requests": 13.34920634920635,
+        "protocol_bytes": 526024.5714285715,
+        "rpc_ms": 13.471685476190466,
+        "down_rpc_ms": 13.471685460317461,
+        "load_rpc_ms": 0.0,
+        "gpu_ms": 4.990391841269841,
+        "prepare_ms": 0.09054790476190476
+      },
+      "disk_wait_ms_per_token": 102.5
+    },
+    {
+      "cache_mib": 512,
+      "tok_s": 4.47,
+      "exact": true,
+      "loaded_experts": 176,
+      "decode_delta": {
+        "requests": 373.0,
+        "down_requests": 373.0,
+        "protocol_bytes": 13185356.0,
+        "rpc_ms": 411.9213,
+        "down_rpc_ms": 411.9213,
+        "load_rpc_ms": 0.0,
+        "gpu_ms": 127.81081599999999,
+        "prepare_ms": 2.412887
+      },
+      "decode_per_interval": {
+        "requests": 5.920634920634921,
+        "down_requests": 5.920634920634921,
+        "protocol_bytes": 209291.3650793651,
+        "rpc_ms": 6.538433333333333,
+        "down_rpc_ms": 6.538433333333333,
+        "load_rpc_ms": 0.0,
+        "gpu_ms": 2.028743111111111,
+        "prepare_ms": 0.038299793650793654
+      },
+      "disk_wait_ms_per_token": 99.1
+    }
+  ],
+  "mean_tok_s": {
+    "512": 4.65,
+    "1024": 4.005
+  },
+  "interpretation": "No reliable 1GiB gain in these short storage-confounded ABBA runs; do not promote. RPC counters are cumulative difference after prefill, divided by 63 generated intervals. GPU time is included in RPC, do not add. Disk wait counters overlap CPU/layer wall time."
+}

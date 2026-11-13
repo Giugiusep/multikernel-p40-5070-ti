@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "exact_tokens": 64,
+  "deferred_bytes": 100362240,
+  "lazy_refill_bytes": 36495360,
+  "worker_failed_expected": true,
+  "failure_after_at_least_tokens": 48
+}

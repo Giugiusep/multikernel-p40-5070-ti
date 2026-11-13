@@ -1,0 +1,449 @@
+
+/home/shiba/multikernel-experiment/research/linux-rxsafe-build/vmlinux:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+ffffffff824e9700 <mk_vsock_rx_work>:
+ffffffff824e9700:	e8 9b 8a e4 fe       	call   ffffffff813321a0 <__fentry__>
+ffffffff824e9705:	55                   	push   %rbp
+ffffffff824e9706:	48 89 e5             	mov    %rsp,%rbp
+ffffffff824e9709:	41 57                	push   %r15
+ffffffff824e970b:	41 56                	push   %r14
+ffffffff824e970d:	41 55                	push   %r13
+ffffffff824e970f:	41 54                	push   %r12
+ffffffff824e9711:	4c 8d 67 20          	lea    0x20(%rdi),%r12
+ffffffff824e9715:	53                   	push   %rbx
+ffffffff824e9716:	48 89 fb             	mov    %rdi,%rbx
+ffffffff824e9719:	4c 89 e7             	mov    %r12,%rdi
+ffffffff824e971c:	48 83 e4 f0          	and    $0xfffffffffffffff0,%rsp
+ffffffff824e9720:	48 83 ec 50          	sub    $0x50,%rsp
+ffffffff824e9724:	65 48 8b 05 dc e8 4c 	mov    %gs:0x14ce8dc(%rip),%rax        # ffffffff839b8008 <__stack_chk_guard>
+ffffffff824e972b:	01 
+ffffffff824e972c:	48 89 44 24 48       	mov    %rax,0x48(%rsp)
+ffffffff824e9731:	31 c0                	xor    %eax,%eax
+ffffffff824e9733:	4c 8d 6c 24 10       	lea    0x10(%rsp),%r13
+ffffffff824e9738:	48 c7 44 24 20 00 00 	movq   $0x0,0x20(%rsp)
+ffffffff824e973f:	00 00 
+ffffffff824e9741:	4c 89 6c 24 10       	mov    %r13,0x10(%rsp)
+ffffffff824e9746:	4c 89 6c 24 18       	mov    %r13,0x18(%rsp)
+ffffffff824e974b:	e8 90 9e 09 00       	call   ffffffff825835e0 <_raw_spin_lock_irqsave>
+ffffffff824e9750:	48 8b 53 e8          	mov    -0x18(%rbx),%rdx
+ffffffff824e9754:	48 89 c6             	mov    %rax,%rsi
+ffffffff824e9757:	48 8d 43 e8          	lea    -0x18(%rbx),%rax
+ffffffff824e975b:	48 39 d0             	cmp    %rdx,%rax
+ffffffff824e975e:	74 2f                	je     ffffffff824e978f <mk_vsock_rx_work+0x8f>
+ffffffff824e9760:	48 8b 7b f0          	mov    -0x10(%rbx),%rdi
+ffffffff824e9764:	48 8b 4c 24 10       	mov    0x10(%rsp),%rcx
+ffffffff824e9769:	4c 89 6a 08          	mov    %r13,0x8(%rdx)
+ffffffff824e976d:	48 89 54 24 10       	mov    %rdx,0x10(%rsp)
+ffffffff824e9772:	48 89 0f             	mov    %rcx,(%rdi)
+ffffffff824e9775:	48 89 79 08          	mov    %rdi,0x8(%rcx)
+ffffffff824e9779:	8b 53 f8             	mov    -0x8(%rbx),%edx
+ffffffff824e977c:	01 54 24 20          	add    %edx,0x20(%rsp)
+ffffffff824e9780:	48 89 43 e8          	mov    %rax,-0x18(%rbx)
+ffffffff824e9784:	48 89 43 f0          	mov    %rax,-0x10(%rbx)
+ffffffff824e9788:	c7 43 f8 00 00 00 00 	movl   $0x0,-0x8(%rbx)
+ffffffff824e978f:	4c 89 e7             	mov    %r12,%rdi
+ffffffff824e9792:	e8 49 9f 09 00       	call   ffffffff825836e0 <_raw_spin_unlock_irqrestore>
+ffffffff824e9797:	4c 8b 64 24 10       	mov    0x10(%rsp),%r12
+ffffffff824e979c:	4d 85 e4             	test   %r12,%r12
+ffffffff824e979f:	0f 84 d4 02 00 00    	je     ffffffff824e9a79 <mk_vsock_rx_work+0x379>
+ffffffff824e97a5:	4d 39 ec             	cmp    %r13,%r12
+ffffffff824e97a8:	0f 84 cb 02 00 00    	je     ffffffff824e9a79 <mk_vsock_rx_work+0x379>
+ffffffff824e97ae:	8b 44 24 20          	mov    0x20(%rsp),%eax
+ffffffff824e97b2:	48 8d 7c 24 28       	lea    0x28(%rsp),%rdi
+ffffffff824e97b7:	83 e8 01             	sub    $0x1,%eax
+ffffffff824e97ba:	89 44 24 20          	mov    %eax,0x20(%rsp)
+ffffffff824e97be:	49 8b 44 24 08       	mov    0x8(%r12),%rax
+ffffffff824e97c3:	49 c7 44 24 08 00 00 	movq   $0x0,0x8(%r12)
+ffffffff824e97ca:	00 00 
+ffffffff824e97cc:	49 8b 14 24          	mov    (%r12),%rdx
+ffffffff824e97d0:	49 c7 04 24 00 00 00 	movq   $0x0,(%r12)
+ffffffff824e97d7:	00 
+ffffffff824e97d8:	48 89 42 08          	mov    %rax,0x8(%rdx)
+ffffffff824e97dc:	48 89 10             	mov    %rdx,(%rax)
+ffffffff824e97df:	4d 8b b4 24 d0 00 00 	mov    0xd0(%r12),%r14
+ffffffff824e97e6:	00 
+ffffffff824e97e7:	48 c7 44 24 30 00 00 	movq   $0x0,0x30(%rsp)
+ffffffff824e97ee:	00 00 
+ffffffff824e97f0:	48 c7 44 24 40 00 00 	movq   $0x0,0x40(%rsp)
+ffffffff824e97f7:	00 00 
+ffffffff824e97f9:	41 8b 56 10          	mov    0x10(%r14),%edx
+ffffffff824e97fd:	48 c7 44 24 28 00 00 	movq   $0x0,0x28(%rsp)
+ffffffff824e9804:	00 00 
+ffffffff824e9806:	48 c7 44 24 38 00 00 	movq   $0x0,0x38(%rsp)
+ffffffff824e980d:	00 00 
+ffffffff824e980f:	41 8b 36             	mov    (%r14),%esi
+ffffffff824e9812:	e8 29 e8 ff ff       	call   ffffffff824e8040 <vsock_addr_init>
+ffffffff824e9817:	41 8b 56 14          	mov    0x14(%r14),%edx
+ffffffff824e981b:	41 8b 76 08          	mov    0x8(%r14),%esi
+ffffffff824e981f:	48 8d 7c 24 38       	lea    0x38(%rsp),%rdi
+ffffffff824e9824:	e8 17 e8 ff ff       	call   ffffffff824e8040 <vsock_addr_init>
+ffffffff824e9829:	48 8d 74 24 38       	lea    0x38(%rsp),%rsi
+ffffffff824e982e:	48 8d 7c 24 28       	lea    0x28(%rsp),%rdi
+ffffffff824e9833:	e8 88 b1 ff ff       	call   ffffffff824e49c0 <vsock_find_connected_socket>
+ffffffff824e9838:	48 89 c3             	mov    %rax,%rbx
+ffffffff824e983b:	48 85 c0             	test   %rax,%rax
+ffffffff824e983e:	0f 84 ff 03 00 00    	je     ffffffff824e9c43 <mk_vsock_rx_work+0x543>
+ffffffff824e9844:	41 0f b7 46 1e       	movzwl 0x1e(%r14),%eax
+ffffffff824e9849:	66 83 f8 04          	cmp    $0x4,%ax
+ffffffff824e984d:	0f 84 15 04 00 00    	je     ffffffff824e9c68 <mk_vsock_rx_work+0x568>
+ffffffff824e9853:	0f 87 ee 02 00 00    	ja     ffffffff824e9b47 <mk_vsock_rx_work+0x447>
+ffffffff824e9859:	66 83 f8 02          	cmp    $0x2,%ax
+ffffffff824e985d:	0f 84 45 04 00 00    	je     ffffffff824e9ca8 <mk_vsock_rx_work+0x5a8>
+ffffffff824e9863:	66 83 f8 03          	cmp    $0x3,%ax
+ffffffff824e9867:	0f 84 19 04 00 00    	je     ffffffff824e9c86 <mk_vsock_rx_work+0x586>
+ffffffff824e986d:	66 83 f8 01          	cmp    $0x1,%ax
+ffffffff824e9871:	0f 85 bb 01 00 00    	jne    ffffffff824e9a32 <mk_vsock_rx_work+0x332>
+ffffffff824e9877:	0f b6 43 12          	movzbl 0x12(%rbx),%eax
+ffffffff824e987b:	3c 0a                	cmp    $0xa,%al
+ffffffff824e987d:	0f 85 35 02 00 00    	jne    ffffffff824e9ab8 <mk_vsock_rx_work+0x3b8>
+ffffffff824e9883:	8b 83 68 02 00 00    	mov    0x268(%rbx),%eax
+ffffffff824e9889:	8b 93 6c 02 00 00    	mov    0x26c(%rbx),%edx
+ffffffff824e988f:	39 c2                	cmp    %eax,%edx
+ffffffff824e9891:	0f 82 21 02 00 00    	jb     ffffffff824e9ab8 <mk_vsock_rx_work+0x3b8>
+ffffffff824e9897:	80 bb 4f 02 00 00 03 	cmpb   $0x3,0x24f(%rbx)
+ffffffff824e989e:	0f 84 14 02 00 00    	je     ffffffff824e9ab8 <mk_vsock_rx_work+0x3b8>
+ffffffff824e98a4:	48 89 df             	mov    %rbx,%rdi
+ffffffff824e98a7:	e8 c4 a5 ff ff       	call   ffffffff824e3e70 <vsock_create_connected>
+ffffffff824e98ac:	49 89 c7             	mov    %rax,%r15
+ffffffff824e98af:	48 85 c0             	test   %rax,%rax
+ffffffff824e98b2:	0f 84 f4 01 00 00    	je     ffffffff824e9aac <mk_vsock_rx_work+0x3ac>
+ffffffff824e98b8:	8b 83 68 02 00 00    	mov    0x268(%rbx),%eax
+ffffffff824e98be:	be 01 00 00 00       	mov    $0x1,%esi
+ffffffff824e98c3:	4c 89 ff             	mov    %r15,%rdi
+ffffffff824e98c6:	83 c0 01             	add    $0x1,%eax
+ffffffff824e98c9:	89 83 68 02 00 00    	mov    %eax,0x268(%rbx)
+ffffffff824e98cf:	e8 dc e2 d8 ff       	call   ffffffff82277bb0 <lock_sock_nested>
+ffffffff824e98d4:	41 c6 47 12 01       	movb   $0x1,0x12(%r15)
+ffffffff824e98d9:	41 8b 56 14          	mov    0x14(%r14),%edx
+ffffffff824e98dd:	49 8d bf 28 03 00 00 	lea    0x328(%r15),%rdi
+ffffffff824e98e4:	41 8b 76 08          	mov    0x8(%r14),%esi
+ffffffff824e98e8:	e8 53 e7 ff ff       	call   ffffffff824e8040 <vsock_addr_init>
+ffffffff824e98ed:	41 8b 56 10          	mov    0x10(%r14),%edx
+ffffffff824e98f1:	41 8b 36             	mov    (%r14),%esi
+ffffffff824e98f4:	49 8d bf 38 03 00 00 	lea    0x338(%r15),%rdi
+ffffffff824e98fb:	e8 40 e7 ff ff       	call   ffffffff824e8040 <vsock_addr_init>
+ffffffff824e9900:	48 8b 3d 99 49 f2 00 	mov    0xf24999(%rip),%rdi        # ffffffff8340e2a0 <mk_transport>
+ffffffff824e9907:	49 c7 87 20 03 00 00 	movq   $0xffffffff8340e2a0,0x320(%r15)
+ffffffff824e990e:	a0 e2 40 83 
+ffffffff824e9912:	e8 c9 52 f9 fe       	call   ffffffff8147ebe0 <try_module_get>
+ffffffff824e9917:	84 c0                	test   %al,%al
+ffffffff824e9919:	0f 84 ac 04 00 00    	je     ffffffff824e9dcb <mk_vsock_rx_work+0x6cb>
+ffffffff824e991f:	48 8b 05 82 49 f2 00 	mov    0xf24982(%rip),%rax        # ffffffff8340e2a8 <mk_transport+0x8>
+ffffffff824e9926:	48 85 c0             	test   %rax,%rax
+ffffffff824e9929:	74 13                	je     ffffffff824e993e <mk_vsock_rx_work+0x23e>
+ffffffff824e992b:	48 89 de             	mov    %rbx,%rsi
+ffffffff824e992e:	4c 89 ff             	mov    %r15,%rdi
+ffffffff824e9931:	e8 4a ba 09 00       	call   ffffffff82585380 <__x86_indirect_thunk_array>
+ffffffff824e9936:	85 c0                	test   %eax,%eax
+ffffffff824e9938:	0f 85 d2 04 00 00    	jne    ffffffff824e9e10 <mk_vsock_rx_work+0x710>
+ffffffff824e993e:	49 8b 97 e8 04 00 00 	mov    0x4e8(%r15),%rdx
+ffffffff824e9945:	48 8d 7a 24          	lea    0x24(%rdx),%rdi
+ffffffff824e9949:	48 89 14 24          	mov    %rdx,(%rsp)
+ffffffff824e994d:	48 89 7c 24 08       	mov    %rdi,0x8(%rsp)
+ffffffff824e9952:	e8 89 9c 09 00       	call   ffffffff825835e0 <_raw_spin_lock_irqsave>
+ffffffff824e9957:	48 8b 14 24          	mov    (%rsp),%rdx
+ffffffff824e995b:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+ffffffff824e9960:	48 89 c6             	mov    %rax,%rsi
+ffffffff824e9963:	41 8b 46 24          	mov    0x24(%r14),%eax
+ffffffff824e9967:	89 42 30             	mov    %eax,0x30(%rdx)
+ffffffff824e996a:	41 8b 46 28          	mov    0x28(%r14),%eax
+ffffffff824e996e:	89 42 34             	mov    %eax,0x34(%rdx)
+ffffffff824e9971:	e8 6a 9d 09 00       	call   ffffffff825836e0 <_raw_spin_unlock_irqrestore>
+ffffffff824e9976:	4c 89 ff             	mov    %r15,%rdi
+ffffffff824e9979:	e8 12 aa ff ff       	call   ffffffff824e4390 <vsock_insert_connected>
+ffffffff824e997e:	4c 89 fe             	mov    %r15,%rsi
+ffffffff824e9981:	48 89 df             	mov    %rbx,%rdi
+ffffffff824e9984:	e8 17 ab ff ff       	call   ffffffff824e44a0 <vsock_enqueue_accept>
+ffffffff824e9989:	31 d2                	xor    %edx,%edx
+ffffffff824e998b:	b9 ff ff ff ff       	mov    $0xffffffff,%ecx
+ffffffff824e9990:	be c0 0c 00 00       	mov    $0xcc0,%esi
+ffffffff824e9995:	bf 2c 00 00 00       	mov    $0x2c,%edi
+ffffffff824e999a:	e8 c1 92 d9 ff       	call   ffffffff82282c60 <__alloc_skb>
+ffffffff824e999f:	48 85 c0             	test   %rax,%rax
+ffffffff824e99a2:	74 77                	je     ffffffff824e9a1b <mk_vsock_rx_work+0x31b>
+ffffffff824e99a4:	be 2c 00 00 00       	mov    $0x2c,%esi
+ffffffff824e99a9:	48 89 c7             	mov    %rax,%rdi
+ffffffff824e99ac:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+ffffffff824e99b1:	e8 6a 32 d9 ff       	call   ffffffff8227cc20 <skb_put>
+ffffffff824e99b6:	be 02 00 00 00       	mov    $0x2,%esi
+ffffffff824e99bb:	bf 01 00 00 00       	mov    $0x1,%edi
+ffffffff824e99c0:	48 b9 00 00 00 00 00 	movabs $0x1000000000000,%rcx
+ffffffff824e99c7:	00 01 00 
+ffffffff824e99ca:	66 89 70 1e          	mov    %si,0x1e(%rax)
+ffffffff824e99ce:	49 8b 56 08          	mov    0x8(%r14),%rdx
+ffffffff824e99d2:	48 89 10             	mov    %rdx,(%rax)
+ffffffff824e99d5:	49 8b 16             	mov    (%r14),%rdx
+ffffffff824e99d8:	48 89 50 08          	mov    %rdx,0x8(%rax)
+ffffffff824e99dc:	41 8b 56 14          	mov    0x14(%r14),%edx
+ffffffff824e99e0:	89 50 10             	mov    %edx,0x10(%rax)
+ffffffff824e99e3:	41 8b 56 10          	mov    0x10(%r14),%edx
+ffffffff824e99e7:	66 89 78 1c          	mov    %di,0x1c(%rax)
+ffffffff824e99eb:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+ffffffff824e99f0:	89 50 14             	mov    %edx,0x14(%rax)
+ffffffff824e99f3:	c7 40 18 00 00 00 00 	movl   $0x0,0x18(%rax)
+ffffffff824e99fa:	48 89 48 20          	mov    %rcx,0x20(%rax)
+ffffffff824e99fe:	c7 40 28 00 00 00 00 	movl   $0x0,0x28(%rax)
+ffffffff824e9a05:	e8 66 ef ff ff       	call   ffffffff824e8970 <mk_send_pkt>
+ffffffff824e9a0a:	48 8b 74 24 08       	mov    0x8(%rsp),%rsi
+ffffffff824e9a0f:	ba 02 00 00 00       	mov    $0x2,%edx
+ffffffff824e9a14:	31 ff                	xor    %edi,%edi
+ffffffff824e9a16:	e8 55 d8 d9 ff       	call   ffffffff82287270 <sk_skb_reason_drop>
+ffffffff824e9a1b:	4c 89 ff             	mov    %r15,%rdi
+ffffffff824e9a1e:	e8 9d e4 d8 ff       	call   ffffffff82277ec0 <release_sock>
+ffffffff824e9a23:	48 8b 83 08 01 00 00 	mov    0x108(%rbx),%rax
+ffffffff824e9a2a:	48 89 df             	mov    %rbx,%rdi
+ffffffff824e9a2d:	e8 4e b9 09 00       	call   ffffffff82585380 <__x86_indirect_thunk_array>
+ffffffff824e9a32:	48 8d bb 80 00 00 00 	lea    0x80(%rbx),%rdi
+ffffffff824e9a39:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+ffffffff824e9a3e:	f0 0f c1 83 80 00 00 	lock xadd %eax,0x80(%rbx)
+ffffffff824e9a45:	00 
+ffffffff824e9a46:	83 f8 01             	cmp    $0x1,%eax
+ffffffff824e9a49:	0f 84 e7 01 00 00    	je     ffffffff824e9c36 <mk_vsock_rx_work+0x536>
+ffffffff824e9a4f:	85 c0                	test   %eax,%eax
+ffffffff824e9a51:	0f 8e 3f 03 00 00    	jle    ffffffff824e9d96 <mk_vsock_rx_work+0x696>
+ffffffff824e9a57:	ba 02 00 00 00       	mov    $0x2,%edx
+ffffffff824e9a5c:	4c 89 e6             	mov    %r12,%rsi
+ffffffff824e9a5f:	31 ff                	xor    %edi,%edi
+ffffffff824e9a61:	e8 0a d8 d9 ff       	call   ffffffff82287270 <sk_skb_reason_drop>
+ffffffff824e9a66:	4c 8b 64 24 10       	mov    0x10(%rsp),%r12
+ffffffff824e9a6b:	4d 39 ec             	cmp    %r13,%r12
+ffffffff824e9a6e:	74 09                	je     ffffffff824e9a79 <mk_vsock_rx_work+0x379>
+ffffffff824e9a70:	4d 85 e4             	test   %r12,%r12
+ffffffff824e9a73:	0f 85 35 fd ff ff    	jne    ffffffff824e97ae <mk_vsock_rx_work+0xae>
+ffffffff824e9a79:	48 8b 44 24 48       	mov    0x48(%rsp),%rax
+ffffffff824e9a7e:	65 48 2b 05 82 e5 4c 	sub    %gs:0x14ce582(%rip),%rax        # ffffffff839b8008 <__stack_chk_guard>
+ffffffff824e9a85:	01 
+ffffffff824e9a86:	0f 85 b8 03 00 00    	jne    ffffffff824e9e44 <mk_vsock_rx_work+0x744>
+ffffffff824e9a8c:	48 8d 65 d8          	lea    -0x28(%rbp),%rsp
+ffffffff824e9a90:	5b                   	pop    %rbx
+ffffffff824e9a91:	41 5c                	pop    %r12
+ffffffff824e9a93:	41 5d                	pop    %r13
+ffffffff824e9a95:	41 5e                	pop    %r14
+ffffffff824e9a97:	41 5f                	pop    %r15
+ffffffff824e9a99:	5d                   	pop    %rbp
+ffffffff824e9a9a:	31 c0                	xor    %eax,%eax
+ffffffff824e9a9c:	31 d2                	xor    %edx,%edx
+ffffffff824e9a9e:	31 c9                	xor    %ecx,%ecx
+ffffffff824e9aa0:	31 f6                	xor    %esi,%esi
+ffffffff824e9aa2:	31 ff                	xor    %edi,%edi
+ffffffff824e9aa4:	45 31 c0             	xor    %r8d,%r8d
+ffffffff824e9aa7:	e9 04 c5 09 00       	jmp    ffffffff82585fb0 <__pi___x86_return_thunk>
+ffffffff824e9aac:	48 c7 c7 10 37 cf 82 	mov    $0xffffffff82cf3710,%rdi
+ffffffff824e9ab3:	e8 08 a2 f4 fe       	call   ffffffff81433cc0 <_printk>
+ffffffff824e9ab8:	b9 ff ff ff ff       	mov    $0xffffffff,%ecx
+ffffffff824e9abd:	31 d2                	xor    %edx,%edx
+ffffffff824e9abf:	be c0 0c 00 00       	mov    $0xcc0,%esi
+ffffffff824e9ac4:	bf 2c 00 00 00       	mov    $0x2c,%edi
+ffffffff824e9ac9:	e8 92 91 d9 ff       	call   ffffffff82282c60 <__alloc_skb>
+ffffffff824e9ace:	49 89 c7             	mov    %rax,%r15
+ffffffff824e9ad1:	48 85 c0             	test   %rax,%rax
+ffffffff824e9ad4:	0f 84 58 ff ff ff    	je     ffffffff824e9a32 <mk_vsock_rx_work+0x332>
+ffffffff824e9ada:	be 2c 00 00 00       	mov    $0x2c,%esi
+ffffffff824e9adf:	48 89 c7             	mov    %rax,%rdi
+ffffffff824e9ae2:	e8 39 31 d9 ff       	call   ffffffff8227cc20 <skb_put>
+ffffffff824e9ae7:	ba 03 00 00 00       	mov    $0x3,%edx
+ffffffff824e9aec:	b9 01 00 00 00       	mov    $0x1,%ecx
+ffffffff824e9af1:	4c 89 ff             	mov    %r15,%rdi
+ffffffff824e9af4:	66 89 50 1e          	mov    %dx,0x1e(%rax)
+ffffffff824e9af8:	49 8b 56 08          	mov    0x8(%r14),%rdx
+ffffffff824e9afc:	48 89 10             	mov    %rdx,(%rax)
+ffffffff824e9aff:	49 8b 16             	mov    (%r14),%rdx
+ffffffff824e9b02:	48 89 50 08          	mov    %rdx,0x8(%rax)
+ffffffff824e9b06:	41 8b 56 14          	mov    0x14(%r14),%edx
+ffffffff824e9b0a:	89 50 10             	mov    %edx,0x10(%rax)
+ffffffff824e9b0d:	41 8b 56 10          	mov    0x10(%r14),%edx
+ffffffff824e9b11:	66 89 48 1c          	mov    %cx,0x1c(%rax)
+ffffffff824e9b15:	89 50 14             	mov    %edx,0x14(%rax)
+ffffffff824e9b18:	c7 40 18 00 00 00 00 	movl   $0x0,0x18(%rax)
+ffffffff824e9b1f:	48 c7 40 20 00 00 00 	movq   $0x0,0x20(%rax)
+ffffffff824e9b26:	00 
+ffffffff824e9b27:	c7 40 28 00 00 00 00 	movl   $0x0,0x28(%rax)
+ffffffff824e9b2e:	e8 3d ee ff ff       	call   ffffffff824e8970 <mk_send_pkt>
+ffffffff824e9b33:	ba 02 00 00 00       	mov    $0x2,%edx
+ffffffff824e9b38:	4c 89 fe             	mov    %r15,%rsi
+ffffffff824e9b3b:	31 ff                	xor    %edi,%edi
+ffffffff824e9b3d:	e8 2e d7 d9 ff       	call   ffffffff82287270 <sk_skb_reason_drop>
+ffffffff824e9b42:	e9 eb fe ff ff       	jmp    ffffffff824e9a32 <mk_vsock_rx_work+0x332>
+ffffffff824e9b47:	66 83 f8 06          	cmp    $0x6,%ax
+ffffffff824e9b4b:	0f 84 e5 01 00 00    	je     ffffffff824e9d36 <mk_vsock_rx_work+0x636>
+ffffffff824e9b51:	66 83 f8 07          	cmp    $0x7,%ax
+ffffffff824e9b55:	0f 84 97 01 00 00    	je     ffffffff824e9cf2 <mk_vsock_rx_work+0x5f2>
+ffffffff824e9b5b:	66 83 f8 05          	cmp    $0x5,%ax
+ffffffff824e9b5f:	0f 85 cd fe ff ff    	jne    ffffffff824e9a32 <mk_vsock_rx_work+0x332>
+ffffffff824e9b65:	48 8b 93 e8 04 00 00 	mov    0x4e8(%rbx),%rdx
+ffffffff824e9b6c:	48 8d 7a 24          	lea    0x24(%rdx),%rdi
+ffffffff824e9b70:	48 89 54 24 08       	mov    %rdx,0x8(%rsp)
+ffffffff824e9b75:	48 89 3c 24          	mov    %rdi,(%rsp)
+ffffffff824e9b79:	e8 62 9a 09 00       	call   ffffffff825835e0 <_raw_spin_lock_irqsave>
+ffffffff824e9b7e:	45 8b 7e 24          	mov    0x24(%r14),%r15d
+ffffffff824e9b82:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
+ffffffff824e9b87:	48 89 c6             	mov    %rax,%rsi
+ffffffff824e9b8a:	48 8b 3c 24          	mov    (%rsp),%rdi
+ffffffff824e9b8e:	44 89 7a 30          	mov    %r15d,0x30(%rdx)
+ffffffff824e9b92:	41 8b 4e 28          	mov    0x28(%r14),%ecx
+ffffffff824e9b96:	8b 42 3c             	mov    0x3c(%rdx),%eax
+ffffffff824e9b99:	89 4a 34             	mov    %ecx,0x34(%rdx)
+ffffffff824e9b9c:	29 c8                	sub    %ecx,%eax
+ffffffff824e9b9e:	49 29 c7             	sub    %rax,%r15
+ffffffff824e9ba1:	e8 3a 9b 09 00       	call   ffffffff825836e0 <_raw_spin_unlock_irqrestore>
+ffffffff824e9ba6:	4d 85 ff             	test   %r15,%r15
+ffffffff824e9ba9:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
+ffffffff824e9bae:	0f 8f f1 01 00 00    	jg     ffffffff824e9da5 <mk_vsock_rx_work+0x6a5>
+ffffffff824e9bb4:	41 c7 44 24 2c 00 00 	movl   $0x0,0x2c(%r12)
+ffffffff824e9bbb:	00 00 
+ffffffff824e9bbd:	4c 8d 7a 20          	lea    0x20(%rdx),%r15
+ffffffff824e9bc1:	4c 89 ff             	mov    %r15,%rdi
+ffffffff824e9bc4:	48 89 14 24          	mov    %rdx,(%rsp)
+ffffffff824e9bc8:	e8 13 9a 09 00       	call   ffffffff825835e0 <_raw_spin_lock_irqsave>
+ffffffff824e9bcd:	48 8b 14 24          	mov    (%rsp),%rdx
+ffffffff824e9bd1:	4c 89 e6             	mov    %r12,%rsi
+ffffffff824e9bd4:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
+ffffffff824e9bd9:	48 8d 7a 08          	lea    0x8(%rdx),%rdi
+ffffffff824e9bdd:	e8 ee 2b d9 ff       	call   ffffffff8227c7d0 <skb_queue_tail>
+ffffffff824e9be2:	48 8b 14 24          	mov    (%rsp),%rdx
+ffffffff824e9be6:	41 8b 46 18          	mov    0x18(%r14),%eax
+ffffffff824e9bea:	4c 89 ff             	mov    %r15,%rdi
+ffffffff824e9bed:	48 8b 74 24 08       	mov    0x8(%rsp),%rsi
+ffffffff824e9bf2:	01 42 38             	add    %eax,0x38(%rdx)
+ffffffff824e9bf5:	e8 e6 9a 09 00       	call   ffffffff825836e0 <_raw_spin_unlock_irqrestore>
+ffffffff824e9bfa:	48 89 df             	mov    %rbx,%rdi
+ffffffff824e9bfd:	e8 6e b1 ff ff       	call   ffffffff824e4d70 <vsock_data_ready>
+ffffffff824e9c02:	48 8d bb 80 00 00 00 	lea    0x80(%rbx),%rdi
+ffffffff824e9c09:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+ffffffff824e9c0e:	f0 0f c1 83 80 00 00 	lock xadd %eax,0x80(%rbx)
+ffffffff824e9c15:	00 
+ffffffff824e9c16:	83 f8 01             	cmp    $0x1,%eax
+ffffffff824e9c19:	0f 84 9f 01 00 00    	je     ffffffff824e9dbe <mk_vsock_rx_work+0x6be>
+ffffffff824e9c1f:	85 c0                	test   %eax,%eax
+ffffffff824e9c21:	0f 8f 3f fe ff ff    	jg     ffffffff824e9a66 <mk_vsock_rx_work+0x366>
+ffffffff824e9c27:	be 03 00 00 00       	mov    $0x3,%esi
+ffffffff824e9c2c:	e8 1f 73 6a ff       	call   ffffffff81b90f50 <refcount_warn_saturate>
+ffffffff824e9c31:	e9 30 fe ff ff       	jmp    ffffffff824e9a66 <mk_vsock_rx_work+0x366>
+ffffffff824e9c36:	48 89 df             	mov    %rbx,%rdi
+ffffffff824e9c39:	e8 d2 cf d8 ff       	call   ffffffff82276c10 <sk_free>
+ffffffff824e9c3e:	e9 14 fe ff ff       	jmp    ffffffff824e9a57 <mk_vsock_rx_work+0x357>
+ffffffff824e9c43:	48 8d 7c 24 38       	lea    0x38(%rsp),%rdi
+ffffffff824e9c48:	e8 b3 aa ff ff       	call   ffffffff824e4700 <vsock_find_bound_socket>
+ffffffff824e9c4d:	48 89 c3             	mov    %rax,%rbx
+ffffffff824e9c50:	48 85 c0             	test   %rax,%rax
+ffffffff824e9c53:	0f 84 fe fd ff ff    	je     ffffffff824e9a57 <mk_vsock_rx_work+0x357>
+ffffffff824e9c59:	41 0f b7 46 1e       	movzwl 0x1e(%r14),%eax
+ffffffff824e9c5e:	66 83 f8 04          	cmp    $0x4,%ax
+ffffffff824e9c62:	0f 85 eb fb ff ff    	jne    ffffffff824e9853 <mk_vsock_rx_work+0x153>
+ffffffff824e9c68:	c7 83 c4 04 00 00 03 	movl   $0x3,0x4c4(%rbx)
+ffffffff824e9c6f:	00 00 00 
+ffffffff824e9c72:	48 8b 83 c0 02 00 00 	mov    0x2c0(%rbx),%rax
+ffffffff824e9c79:	48 89 df             	mov    %rbx,%rdi
+ffffffff824e9c7c:	e8 ff b6 09 00       	call   ffffffff82585380 <__x86_indirect_thunk_array>
+ffffffff824e9c81:	e9 ac fd ff ff       	jmp    ffffffff824e9a32 <mk_vsock_rx_work+0x332>
+ffffffff824e9c86:	c6 43 12 07          	movb   $0x7,0x12(%rbx)
+ffffffff824e9c8a:	48 8b 83 d0 02 00 00 	mov    0x2d0(%rbx),%rax
+ffffffff824e9c91:	48 89 df             	mov    %rbx,%rdi
+ffffffff824e9c94:	c7 83 1c 01 00 00 68 	movl   $0x68,0x11c(%rbx)
+ffffffff824e9c9b:	00 00 00 
+ffffffff824e9c9e:	e8 dd b6 09 00       	call   ffffffff82585380 <__x86_indirect_thunk_array>
+ffffffff824e9ca3:	e9 8a fd ff ff       	jmp    ffffffff824e9a32 <mk_vsock_rx_work+0x332>
+ffffffff824e9ca8:	4c 8b bb e8 04 00 00 	mov    0x4e8(%rbx),%r15
+ffffffff824e9caf:	49 8d 7f 24          	lea    0x24(%r15),%rdi
+ffffffff824e9cb3:	48 89 7c 24 08       	mov    %rdi,0x8(%rsp)
+ffffffff824e9cb8:	e8 23 99 09 00       	call   ffffffff825835e0 <_raw_spin_lock_irqsave>
+ffffffff824e9cbd:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+ffffffff824e9cc2:	48 89 c6             	mov    %rax,%rsi
+ffffffff824e9cc5:	41 8b 46 24          	mov    0x24(%r14),%eax
+ffffffff824e9cc9:	41 89 47 30          	mov    %eax,0x30(%r15)
+ffffffff824e9ccd:	41 8b 46 28          	mov    0x28(%r14),%eax
+ffffffff824e9cd1:	41 89 47 34          	mov    %eax,0x34(%r15)
+ffffffff824e9cd5:	e8 06 9a 09 00       	call   ffffffff825836e0 <_raw_spin_unlock_irqrestore>
+ffffffff824e9cda:	c6 43 12 01          	movb   $0x1,0x12(%rbx)
+ffffffff824e9cde:	48 8b 83 c0 02 00 00 	mov    0x2c0(%rbx),%rax
+ffffffff824e9ce5:	48 89 df             	mov    %rbx,%rdi
+ffffffff824e9ce8:	e8 93 b6 09 00       	call   ffffffff82585380 <__x86_indirect_thunk_array>
+ffffffff824e9ced:	e9 40 fd ff ff       	jmp    ffffffff824e9a32 <mk_vsock_rx_work+0x332>
+ffffffff824e9cf2:	4c 8b bb e8 04 00 00 	mov    0x4e8(%rbx),%r15
+ffffffff824e9cf9:	49 8d 7f 24          	lea    0x24(%r15),%rdi
+ffffffff824e9cfd:	48 89 7c 24 08       	mov    %rdi,0x8(%rsp)
+ffffffff824e9d02:	e8 d9 98 09 00       	call   ffffffff825835e0 <_raw_spin_lock_irqsave>
+ffffffff824e9d07:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+ffffffff824e9d0c:	48 89 c6             	mov    %rax,%rsi
+ffffffff824e9d0f:	41 8b 46 24          	mov    0x24(%r14),%eax
+ffffffff824e9d13:	41 89 47 30          	mov    %eax,0x30(%r15)
+ffffffff824e9d17:	41 8b 46 28          	mov    0x28(%r14),%eax
+ffffffff824e9d1b:	41 89 47 34          	mov    %eax,0x34(%r15)
+ffffffff824e9d1f:	e8 bc 99 09 00       	call   ffffffff825836e0 <_raw_spin_unlock_irqrestore>
+ffffffff824e9d24:	be 06 00 00 00       	mov    $0x6,%esi
+ffffffff824e9d29:	48 89 df             	mov    %rbx,%rdi
+ffffffff824e9d2c:	e8 cf f3 ff ff       	call   ffffffff824e9100 <mk_send_credit_pkt.isra.0>
+ffffffff824e9d31:	e9 fc fc ff ff       	jmp    ffffffff824e9a32 <mk_vsock_rx_work+0x332>
+ffffffff824e9d36:	48 8b 8b e8 04 00 00 	mov    0x4e8(%rbx),%rcx
+ffffffff824e9d3d:	48 8d 79 24          	lea    0x24(%rcx),%rdi
+ffffffff824e9d41:	48 89 0c 24          	mov    %rcx,(%rsp)
+ffffffff824e9d45:	48 89 7c 24 08       	mov    %rdi,0x8(%rsp)
+ffffffff824e9d4a:	e8 91 98 09 00       	call   ffffffff825835e0 <_raw_spin_lock_irqsave>
+ffffffff824e9d4f:	45 8b 7e 24          	mov    0x24(%r14),%r15d
+ffffffff824e9d53:	48 8b 0c 24          	mov    (%rsp),%rcx
+ffffffff824e9d57:	48 89 c6             	mov    %rax,%rsi
+ffffffff824e9d5a:	48 8b 7c 24 08       	mov    0x8(%rsp),%rdi
+ffffffff824e9d5f:	44 89 79 30          	mov    %r15d,0x30(%rcx)
+ffffffff824e9d63:	45 8b 46 28          	mov    0x28(%r14),%r8d
+ffffffff824e9d67:	8b 41 3c             	mov    0x3c(%rcx),%eax
+ffffffff824e9d6a:	44 89 41 34          	mov    %r8d,0x34(%rcx)
+ffffffff824e9d6e:	44 29 c0             	sub    %r8d,%eax
+ffffffff824e9d71:	49 29 c7             	sub    %rax,%r15
+ffffffff824e9d74:	e8 67 99 09 00       	call   ffffffff825836e0 <_raw_spin_unlock_irqrestore>
+ffffffff824e9d79:	4d 85 ff             	test   %r15,%r15
+ffffffff824e9d7c:	0f 8e b0 fc ff ff    	jle    ffffffff824e9a32 <mk_vsock_rx_work+0x332>
+ffffffff824e9d82:	48 8b 83 c8 02 00 00 	mov    0x2c8(%rbx),%rax
+ffffffff824e9d89:	48 89 df             	mov    %rbx,%rdi
+ffffffff824e9d8c:	e8 ef b5 09 00       	call   ffffffff82585380 <__x86_indirect_thunk_array>
+ffffffff824e9d91:	e9 9c fc ff ff       	jmp    ffffffff824e9a32 <mk_vsock_rx_work+0x332>
+ffffffff824e9d96:	be 03 00 00 00       	mov    $0x3,%esi
+ffffffff824e9d9b:	e8 b0 71 6a ff       	call   ffffffff81b90f50 <refcount_warn_saturate>
+ffffffff824e9da0:	e9 b2 fc ff ff       	jmp    ffffffff824e9a57 <mk_vsock_rx_work+0x357>
+ffffffff824e9da5:	48 8b 83 c8 02 00 00 	mov    0x2c8(%rbx),%rax
+ffffffff824e9dac:	48 89 df             	mov    %rbx,%rdi
+ffffffff824e9daf:	e8 cc b5 09 00       	call   ffffffff82585380 <__x86_indirect_thunk_array>
+ffffffff824e9db4:	48 8b 54 24 08       	mov    0x8(%rsp),%rdx
+ffffffff824e9db9:	e9 f6 fd ff ff       	jmp    ffffffff824e9bb4 <mk_vsock_rx_work+0x4b4>
+ffffffff824e9dbe:	48 89 df             	mov    %rbx,%rdi
+ffffffff824e9dc1:	e8 4a ce d8 ff       	call   ffffffff82276c10 <sk_free>
+ffffffff824e9dc6:	e9 9b fc ff ff       	jmp    ffffffff824e9a66 <mk_vsock_rx_work+0x366>
+ffffffff824e9dcb:	48 c7 c7 40 37 cf 82 	mov    $0xffffffff82cf3740,%rdi
+ffffffff824e9dd2:	e8 e9 9e f4 fe       	call   ffffffff81433cc0 <_printk>
+ffffffff824e9dd7:	4c 89 ff             	mov    %r15,%rdi
+ffffffff824e9dda:	e8 e1 e0 d8 ff       	call   ffffffff82277ec0 <release_sock>
+ffffffff824e9ddf:	49 8d bf 80 00 00 00 	lea    0x80(%r15),%rdi
+ffffffff824e9de6:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+ffffffff824e9deb:	f0 41 0f c1 87 80 00 	lock xadd %eax,0x80(%r15)
+ffffffff824e9df2:	00 00 
+ffffffff824e9df4:	83 f8 01             	cmp    $0x1,%eax
+ffffffff824e9df7:	74 3e                	je     ffffffff824e9e37 <mk_vsock_rx_work+0x737>
+ffffffff824e9df9:	85 c0                	test   %eax,%eax
+ffffffff824e9dfb:	0f 8f b7 fc ff ff    	jg     ffffffff824e9ab8 <mk_vsock_rx_work+0x3b8>
+ffffffff824e9e01:	be 03 00 00 00       	mov    $0x3,%esi
+ffffffff824e9e06:	e8 45 71 6a ff       	call   ffffffff81b90f50 <refcount_warn_saturate>
+ffffffff824e9e0b:	e9 a8 fc ff ff       	jmp    ffffffff824e9ab8 <mk_vsock_rx_work+0x3b8>
+ffffffff824e9e10:	89 c6                	mov    %eax,%esi
+ffffffff824e9e12:	48 c7 c7 70 37 cf 82 	mov    $0xffffffff82cf3770,%rdi
+ffffffff824e9e19:	e8 a2 9e f4 fe       	call   ffffffff81433cc0 <_printk>
+ffffffff824e9e1e:	48 8b 3d 7b 44 f2 00 	mov    0xf2447b(%rip),%rdi        # ffffffff8340e2a0 <mk_transport>
+ffffffff824e9e25:	e8 a6 4e f9 fe       	call   ffffffff8147ecd0 <module_put>
+ffffffff824e9e2a:	49 c7 87 20 03 00 00 	movq   $0x0,0x320(%r15)
+ffffffff824e9e31:	00 00 00 00 
+ffffffff824e9e35:	eb a0                	jmp    ffffffff824e9dd7 <mk_vsock_rx_work+0x6d7>
+ffffffff824e9e37:	4c 89 ff             	mov    %r15,%rdi
+ffffffff824e9e3a:	e8 d1 cd d8 ff       	call   ffffffff82276c10 <sk_free>
+ffffffff824e9e3f:	e9 74 fc ff ff       	jmp    ffffffff824e9ab8 <mk_vsock_rx_work+0x3b8>
+ffffffff824e9e44:	e8 e7 83 08 00       	call   ffffffff82572230 <__stack_chk_fail>
+
+Disassembly of section .data:
+
+Disassembly of section .init.text:
+
+Disassembly of section .altinstr_aux:
+
+Disassembly of section .altinstr_replacement:
+
+Disassembly of section .exit.text:

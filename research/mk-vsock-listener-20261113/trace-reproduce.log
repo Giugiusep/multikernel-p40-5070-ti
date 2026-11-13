@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/home/shiba/multikernel-experiment/research/mk-vsock-listener-20261113/stress-monitor.py", line 35, in <module>
+    r['stress']={'connections':sum(f.result() for f in fs),'seconds':time.monotonic()-t,'errors':0}
+                               ~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shiba/multikernel-experiment/research/mk-vsock-listener-20261113/stress-monitor.py", line 35, in <genexpr>
+    r['stress']={'connections':sum(f.result() for f in fs),'seconds':time.monotonic()-t,'errors':0}
+                                   ~~~~~~~~^^
+  File "/usr/lib/python3.14/concurrent/futures/_base.py", line 443, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.14/concurrent/futures/_base.py", line 395, in __get_result
+    raise self._exception
+  File "/usr/lib/python3.14/concurrent/futures/thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "/usr/lib/python3.14/concurrent/futures/thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "/home/shiba/multikernel-experiment/research/mk-vsock-listener-20261113/stress-monitor.py", line 26, in lane
+    for i in range(500):echo([1,7,1024,8192,32768,65536,131071][i%7],i+j)
+                        ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shiba/multikernel-experiment/research/mk-vsock-listener-20261113/stress-monitor.py", line 20, in echo
+    with conn(6004) as s:
+         ~~~~^^^^^^
+  File "/home/shiba/multikernel-experiment/research/mk-vsock-listener-20261113/stress-monitor.py", line 5, in conn
+    s=socket.socket(socket.AF_VSOCK,socket.SOCK_STREAM);s.setsockopt(socket.AF_VSOCK,9,1);s.settimeout(15);s.connect((1,port));return s
+                                                                                                           ~~~~~~~~~^^^^^^^^^^
+ConnectionResetError: [Errno 104] Connection reset by peer

@@ -1,0 +1,12 @@
+Exact running #12-rxsafe1 vmlinux: mk_vsock_rx_work+0x177
+Probe: p:mk_listener_req mk_vsock_rx_work+0x177 sk=%bx state=+0x12(%bx):u8 ack=+0x268(%bx):u32 max=+0x26c(%bx):u32 shutdown=+0x24f(%bx):u8
+
+kworker/u16:2-49 [000] 431913.142902: mk_listener_req: sk=0xffff888848aeee00 state=10 ack=9 max=8 shutdown=0
+kworker/u16:2-49 [000] 431913.142937: mk_listener_req: sk=0xffff888848aeee00 state=10 ack=9 max=8 shutdown=0
+
+Disassembly verifies state comparison at +0x17b (TCP_LISTEN=10), queue
+loads at +0x183 and +0x189, compare at +0x18f, and branch at +0x191
+to reset at +0x3b8 when max < ack. This is the exact observed reset condition.
+Later requests in the same capture showed ack=0, max=8, state=10.
+Both tested listeners answered fresh requests without recreation afterward.
+Probe was disabled and removed; kprobe_events was empty afterward.

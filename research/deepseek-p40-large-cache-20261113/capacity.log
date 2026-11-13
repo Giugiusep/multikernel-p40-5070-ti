@@ -1,0 +1,16 @@
+{'allocations': 512, 'resident_bytes': 1745879040, 'elapsed_s': 10.509880549972877}
+{'allocations': 1024, 'resident_bytes': 3491758080, 'elapsed_s': 21.011772563972045}
+{'allocations': 1536, 'resident_bytes': 5237637120, 'elapsed_s': 31.493527330982033}
+{'allocations': 2048, 'resident_bytes': 6983516160, 'elapsed_s': 41.98872769897571}
+{'allocations': 2560, 'resident_bytes': 8729395200, 'elapsed_s': 52.48409121099394}
+{'allocations': 3072, 'resident_bytes': 10475274240, 'elapsed_s': 63.012926348950714}
+{'allocations': 3584, 'resident_bytes': 12221153280, 'elapsed_s': 73.51997668197146}
+{'allocations': 4096, 'resident_bytes': 13967032320, 'elapsed_s': 84.0225892989547}
+{'allocations': 4608, 'resident_bytes': 15712911360, 'elapsed_s': 94.52430555497995}
+{'allocations': 5120, 'resident_bytes': 17458790400, 'elapsed_s': 105.04831015499076}
+{'allocations': 5632, 'resident_bytes': 19204669440, 'elapsed_s': 115.58907951699803}
+{'allocations': 6144, 'resident_bytes': 20950548480, 'elapsed_s': 126.13007709395606}
+{'allocations': 6656, 'resident_bytes': 22696427520, 'elapsed_s': 136.66879247897305}
+{'allocations': 6927, 'resident_bytes': 23620515840, 'elapsed_s': 142.2567604179494}
+CAPACITY_VERIFIED_WAITING_FOR_OBSERVATION
+CAPACITY_FREED

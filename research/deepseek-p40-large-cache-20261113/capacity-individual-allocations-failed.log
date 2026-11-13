@@ -1,0 +1,22 @@
+{'allocations': 512, 'resident_bytes': 1745879040, 'elapsed_s': 10.5697716770228}
+{'allocations': 1024, 'resident_bytes': 3491758080, 'elapsed_s': 21.180106135027017}
+{'allocations': 1536, 'resident_bytes': 5237637120, 'elapsed_s': 31.70867206400726}
+{'allocations': 2048, 'resident_bytes': 6983516160, 'elapsed_s': 42.26228210597765}
+{'allocations': 2560, 'resident_bytes': 8729395200, 'elapsed_s': 52.81953481800156}
+{'allocations': 3072, 'resident_bytes': 10475274240, 'elapsed_s': 63.41856769903097}
+{'allocations': 3584, 'resident_bytes': 12221153280, 'elapsed_s': 74.01690750097623}
+{'allocations': 4096, 'resident_bytes': 13967032320, 'elapsed_s': 84.63736194802914}
+{'allocations': 4608, 'resident_bytes': 15712911360, 'elapsed_s': 95.27980547299376}
+{'allocations': 5120, 'resident_bytes': 17458790400, 'elapsed_s': 105.83545287902234}
+{'allocations': 5632, 'resident_bytes': 19204669440, 'elapsed_s': 116.38655926502543}
+Traceback (most recent call last):
+  File "/home/shiba/multikernel-experiment/research/deepseek-p40-large-cache-20261113/capacity.py", line 22, in <module>
+    l,e=divmod(i,384);c.request(5,struct.pack('<8I',l,e,ty,ty,5120,2304,0,len(dn))+dn)
+                      ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shiba/multikernel-experiment/research/deepseek-p40-integration-20261108/validate-q8k.py", line 42, in request
+    m,v,o,status,seq,n=FRAME.unpack(self.recv(24));assert (m,v,o,seq)==(MAGIC,2,op,self.seq) and n<=16*1024*1024
+                                    ~~~~~~~~~^^^^
+  File "/home/shiba/multikernel-experiment/research/deepseek-p40-integration-20261108/validate-q8k.py", line 37, in recv
+    if not k:raise RuntimeError('closed receive')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: closed receive

@@ -1,0 +1,153 @@
+{
+  "capacity": {
+    "passed": true,
+    "synthetic_capacity_only": true,
+    "fixture_type": "IQ2_XS",
+    "fixture_bytes": 3409920,
+    "planned_allocations": 6927,
+    "payload_bytes": 23620515840,
+    "checkpoints": [
+      {
+        "allocations": 512,
+        "resident_bytes": 1745879040,
+        "elapsed_s": 10.509880549972877
+      },
+      {
+        "allocations": 1024,
+        "resident_bytes": 3491758080,
+        "elapsed_s": 21.011772563972045
+      },
+      {
+        "allocations": 1536,
+        "resident_bytes": 5237637120,
+        "elapsed_s": 31.493527330982033
+      },
+      {
+        "allocations": 2048,
+        "resident_bytes": 6983516160,
+        "elapsed_s": 41.98872769897571
+      },
+      {
+        "allocations": 2560,
+        "resident_bytes": 8729395200,
+        "elapsed_s": 52.48409121099394
+      },
+      {
+        "allocations": 3072,
+        "resident_bytes": 10475274240,
+        "elapsed_s": 63.012926348950714
+      },
+      {
+        "allocations": 3584,
+        "resident_bytes": 12221153280,
+        "elapsed_s": 73.51997668197146
+      },
+      {
+        "allocations": 4096,
+        "resident_bytes": 13967032320,
+        "elapsed_s": 84.0225892989547
+      },
+      {
+        "allocations": 4608,
+        "resident_bytes": 15712911360,
+        "elapsed_s": 94.52430555497995
+      },
+      {
+        "allocations": 5120,
+        "resident_bytes": 17458790400,
+        "elapsed_s": 105.04831015499076
+      },
+      {
+        "allocations": 5632,
+        "resident_bytes": 19204669440,
+        "elapsed_s": 115.58907951699803
+      },
+      {
+        "allocations": 6144,
+        "resident_bytes": 20950548480,
+        "elapsed_s": 126.13007709395606
+      },
+      {
+        "allocations": 6656,
+        "resident_bytes": 22696427520,
+        "elapsed_s": 136.66879247897305
+      },
+      {
+        "allocations": 6927,
+        "resident_bytes": 23620515840,
+        "elapsed_s": 142.2567604179494
+      }
+    ],
+    "correctness_checks": 3,
+    "elapsed_s": 142.2592105389922
+  },
+  "cold": [
+    {
+      "budget_mib": 512,
+      "actual_weight_bytes": 535265280,
+      "tok_s": 4.73,
+      "exact": true,
+      "decode_delta": {
+        "requests": 373.0,
+        "down_requests": 373.0,
+        "protocol_bytes": 13185356.0,
+        "rpc_ms": 283.325914,
+        "down_rpc_ms": 283.325915,
+        "load_rpc_ms": 0.0,
+        "gpu_ms": 142.597055,
+        "prepare_ms": 2.265289
+      }
+    },
+    {
+      "budget_mib": 8192,
+      "actual_weight_bytes": 8588851200,
+      "tok_s": 1.98,
+      "exact": true,
+      "decode_delta": {
+        "requests": 7345.0,
+        "down_requests": 6834.0,
+        "protocol_bytes": 1939440328.0,
+        "rpc_ms": 25324.5394,
+        "down_rpc_ms": 8801.152354,
+        "load_rpc_ms": 16523.387045999996,
+        "gpu_ms": 3316.1067430000003,
+        "prepare_ms": 43.109089
+      }
+    },
+    {
+      "budget_mib": 22528,
+      "actual_weight_bytes": 14538700800,
+      "tok_s": 0.66,
+      "exact": true,
+      "decode_delta": {
+        "requests": 12737.0,
+        "down_requests": 10426.0,
+        "protocol_bytes": 7990888968.0,
+        "rpc_ms": 89567.420694,
+        "down_rpc_ms": 12502.440689,
+        "load_rpc_ms": 77064.980006,
+        "gpu_ms": 4756.290827999999,
+        "prepare_ms": 58.978787999999994
+      }
+    }
+  ],
+  "warm": {
+    "512": {
+      "tok_s": [
+        4.704511850889377,
+        5.045004644607451
+      ],
+      "mean_tok_s": 4.874758247748414,
+      "exact": true
+    },
+    "22528": {
+      "tok_s": [
+        4.405686832590893,
+        4.491466214193033
+      ],
+      "mean_tok_s": 4.448576523391964,
+      "exact": true
+    }
+  },
+  "note": "Warm requests are identical prompt replay in persistent process with prompt reuse disabled; 63 intervals/decode time, exact64 CPU-reference tokens. Two warm samples per budget; not a broad benchmark."
+}

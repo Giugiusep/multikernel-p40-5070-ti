@@ -1,0 +1,12 @@
+{
+  "source": "secondary nvidia-smi and free after 6927 allocation fill",
+  "gpu_total_mib": 24576,
+  "gpu_used_mib": 23133,
+  "gpu_free_mib": 1307,
+  "secondary_ram_total_mib": 1718,
+  "secondary_ram_used_mib": 930,
+  "secondary_ram_available_mib": 628,
+  "weight_payload_bytes": 23620515840,
+  "synthetic_capacity_only": true,
+  "new_secondary_kernel_errors_observed": false
+}
